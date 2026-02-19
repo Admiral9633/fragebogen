@@ -6,22 +6,18 @@ const nextConfig = {
   async rewrites() {
     const backendUrl = process.env.BACKEND_URL || 'http://backend:8000'
     return [
-      {
-        source: '/api/session/:path*',
-        destination: backendUrl + '/api/session/:path*',
-      },
-      {
-        source: '/api/submit/:path*',
-        destination: backendUrl + '/api/submit/:path*',
-      },
-      {
-        source: '/api/pdf/:path*',
-        destination: backendUrl + '/api/pdf/:path*',
-      },
-      {
-        source: '/api/answers/:path*',
-        destination: backendUrl + '/api/answers/:path*',
-      },
+      // session
+      { source: '/api/session/:token', destination: `${backendUrl}/api/session/:token/` },
+      { source: '/api/session/:token/', destination: `${backendUrl}/api/session/:token/` },
+      // submit
+      { source: '/api/submit/:token', destination: `${backendUrl}/api/submit/:token/` },
+      { source: '/api/submit/:token/', destination: `${backendUrl}/api/submit/:token/` },
+      // pdf (klassisch)
+      { source: '/api/pdf/:token', destination: `${backendUrl}/api/pdf/:token/` },
+      { source: '/api/pdf/:token/', destination: `${backendUrl}/api/pdf/:token/` },
+      // answers (für Puppeteer print-page)
+      { source: '/api/answers/:token', destination: `${backendUrl}/api/answers/:token/` },
+      { source: '/api/answers/:token/', destination: `${backendUrl}/api/answers/:token/` },
     ]
   },
 }
