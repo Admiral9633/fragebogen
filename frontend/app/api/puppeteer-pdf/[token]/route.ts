@@ -1,12 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import type puppeteerType from "puppeteer-core";
-
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const puppeteer: typeof puppeteerType = (() => {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const m = require("puppeteer-core");
-  return m.default ?? m;
-})();
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -20,6 +12,10 @@ export async function GET(
   // Internal app URL: Puppeteer runs inside the same container
   const appUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
   const printUrl = `${appUrl}/print/${token}`;
+
+  // webpackIgnore verhindert dass webpack diesen Import analysiert/bundelt
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const puppeteer = (await import(/* webpackIgnore: true */ "puppeteer-core")).default;
 
   let browser;
   try {
