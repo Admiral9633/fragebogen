@@ -140,122 +140,336 @@ class GeneratePDFView(APIView):
             return HttpResponse(html_content, content_type='text/html')
     
     def _generate_html(self, session, answer_set):
-        """Generiere HTML für PDF Export"""
-        answers = answer_set.answers_json
-        
-        html = f"""
-        <!DOCTYPE html>
-        <html lang="de">
-        <head>
-            <meta charset="UTF-8">
-            <title>Verkehrsmedizinischer Fragebogen</title>
-            <style>
-                body {{
-                    font-family: Arial, sans-serif;
-                    margin: 40px;
-                    line-height: 1.6;
-                }}
-                h1 {{
-                    color: #2c3e50;
-                    border-bottom: 3px solid #3498db;
-                    padding-bottom: 10px;
-                }}
-                h2 {{
-                    color: #34495e;
-                    margin-top: 30px;
-                }}
-                .info-box {{
-                    background: #f8f9fa;
-                    padding: 15px;
-                    border-left: 4px solid #3498db;
-                    margin: 20px 0;
-                }}
-                .ess-result {{
-                    background: #e8f4f8;
-                    padding: 20px;
-                    border-radius: 5px;
-                    margin: 20px 0;
-                }}
-                .ess-score {{
-                    font-size: 24px;
-                    font-weight: bold;
-                    color: #2980b9;
-                }}
-                table {{
-                    width: 100%;
-                    border-collapse: collapse;
-                    margin: 20px 0;
-                }}
-                th, td {{
-                    border: 1px solid #ddd;
-                    padding: 12px;
-                    text-align: left;
-                }}
-                th {{
-                    background: #3498db;
-                    color: white;
-                }}
-                tr:nth-child(even) {{
-                    background: #f2f2f2;
-                }}
-                .footer {{
-                    margin-top: 50px;
-                    font-size: 12px;
-                    color: #7f8c8d;
-                    border-top: 1px solid #ddd;
-                    padding-top: 20px;
-                }}
-            </style>
-        </head>
-        <body>
-            <h1>Verkehrsmedizinischer Fragebogen</h1>
-            
-            <div class="info-box">
-                <strong>Session-ID:</strong> {session.token}<br>
-                <strong>Ausgefüllt am:</strong> {session.completed_at.strftime('%d.%m.%Y %H:%M') if session.completed_at else 'N/A'}<br>
-                <strong>Template:</strong> {session.template.slug} (Version {session.template.version})
-            </div>
-            
-            <div class="ess-result">
-                <h2>Epworth Sleepiness Scale (ESS) - Ergebnis</h2>
-                <p class="ess-score">Gesamtscore: {answer_set.ess_total} / 24</p>
-                <p><strong>Bewertung:</strong> {answer_set.ess_band.upper()}</p>
-                
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Situation</th>
-                            <th>Wert</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>ESS 1 - Sitzend beim Lesen</td><td>{answers.get('ess_1', 0)}</td></tr>
-                        <tr><td>ESS 2 - Beim Fernsehen</td><td>{answers.get('ess_2', 0)}</td></tr>
-                        <tr><td>ESS 3 - Passiv in öffentlichen Räumen</td><td>{answers.get('ess_3', 0)}</td></tr>
-                        <tr><td>ESS 4 - Als Beifahrer im Auto (1 Std.)</td><td>{answers.get('ess_4', 0)}</td></tr>
-                        <tr><td>ESS 5 - Nachmittags beim Hinlegen</td><td>{answers.get('ess_5', 0)}</td></tr>
-                        <tr><td>ESS 6 - Sitzend im Gespräch</td><td>{answers.get('ess_6', 0)}</td></tr>
-                        <tr><td>ESS 7 - Nach dem Mittagessen</td><td>{answers.get('ess_7', 0)}</td></tr>
-                        <tr><td>ESS 8 - Im Auto bei Verkehrsstau</td><td>{answers.get('ess_8', 0)}</td></tr>
-                    </tbody>
-                </table>
-                
-                <p><em>Bewertung: 0 = würde nie einnicken, 1 = geringe Wahrscheinlichkeit, 
-                2 = mittlere Wahrscheinlichkeit, 3 = hohe Wahrscheinlichkeit</em></p>
-            </div>
-            
-            <h2>Interpretation</h2>
-            <ul>
-                <li><strong>Normal (0-9):</strong> Keine erhöhte Tagesschläfrigkeit</li>
-                <li><strong>Erhöht (10-15):</strong> Erhöhte Tagesschläfrigkeit, weitere Abklärung empfohlen</li>
-                <li><strong>Ausgeprägt (≥16):</strong> Stark erhöhte Tagesschläfrigkeit, ärztliche Abklärung erforderlich</li>
-            </ul>
-            
-            <div class="footer">
-                <p>Dokument erstellt am: {timezone.now().strftime('%d.%m.%Y %H:%M')}</p>
-                <p>Rechtsgrundlage: FeV Anlage 4, BASt Begutachtungsleitlinien</p>
-            </div>
-        </body>
-        </html>
-        """
+        """Generiere HTML für PDF Export – zweiseitiger Patientenfragebogen"""
+        a = answer_set.answers_json
+
+        def cb(val, target="yes"):
+            """Gibt ☑ oder ☐ zurück"""
+            return "&#9745;" if str(val) == str(target) else "&#9744;"
+
+        def ess_cb(val, n):
+            """Checkbox für ESS-Wert"""
+            return "&#9745;" if str(val) == str(n) else "&#9744;"
+
+        def yn(val):
+            return ("ja" if val == "yes" else "nein") if val else "—"
+
+        ess_labels = [
+            "Wenn Sie sitzen und lesen",
+            "Beim Fernsehen",
+            "Als Zuh&#246;rer bei einem Vortrag, im Kino oder Theater",
+            "Als Beifahrer im Auto (Fahrtzeit eine Stunde, keine Pause)",
+            "Beim Hinlegen Nachmittags zum Ausruhen",
+            "Wenn Sie sich sitzend mit jemandem unterhalten",
+            "Im Sitzen nach dem Mittagessen (kein Alkohol getrunken)",
+            "Sie m&#252;ssen als Autofahrer vor einer roten Ampel halten",
+        ]
+        ess_keys = [f"ess_{i}" for i in range(1, 9)]
+        ess_total = answer_set.ess_total or 0
+
+        license_arr = a.get("license_classes_arr", [])
+        if isinstance(license_arr, str):
+            license_arr = [x.strip() for x in license_arr.split(",") if x.strip()]
+
+        def lic_cb(cls):
+            return "&#9745;" if cls in license_arr else "&#9744;"
+
+        completed_str = session.completed_at.strftime('%d.%m.%Y') if session.completed_at else ""
+
+        # ── ESS-Tabellenzeilen ──────────────────────────────────────────────
+        ess_rows = ""
+        for i, (key, label) in enumerate(zip(ess_keys, ess_labels)):
+            val = a.get(key, "")
+            bg = "#f5f5f5" if i % 2 == 0 else "#ffffff"
+            ess_rows += f"""
+            <tr style="background:{bg}">
+                <td style="border:1px solid #ccc;padding:3px 6px;font-size:9pt">{label}</td>
+                <td style="border:1px solid #ccc;padding:3px 6px;text-align:center;font-size:11pt">{ess_cb(val,0)}</td>
+                <td style="border:1px solid #ccc;padding:3px 6px;text-align:center;font-size:11pt">{ess_cb(val,1)}</td>
+                <td style="border:1px solid #ccc;padding:3px 6px;text-align:center;font-size:11pt">{ess_cb(val,2)}</td>
+                <td style="border:1px solid #ccc;padding:3px 6px;text-align:center;font-size:11pt">{ess_cb(val,3)}</td>
+            </tr>"""
+
+        # ── Ja/Nein-Tabelle Eigenanamnese ──────────────────────────────────
+        def yn_row(label, key, bg):
+            val = a.get(key, "")
+            return f"""<tr style="background:{bg}">
+                <td style="border:1px solid #bbb;padding:3px 6px;font-size:9pt">{label}</td>
+                <td style="border:1px solid #bbb;padding:3px;text-align:center;font-size:11pt;width:30px">{cb(val,"yes")}</td>
+                <td style="border:1px solid #bbb;padding:3px;text-align:center;font-size:11pt;width:30px">{cb(val,"no")}</td>
+            </tr>"""
+
+        anamnese_items = [
+            ("Augenkrankheiten / Sehst&#246;rungen",                  "vision_problems"),
+            ("Ohrenkrankheiten / H&#246;rst&#246;rungen",             "hearing_aid"),
+            ("Herzinfarkt / Koronare Herzerkrankung",                  "heart_attack"),
+            ("Herzrhythmusst&#246;rungen / Schrittmacher / ICD",       "arrhythmia"),
+            ("Herzinsuffizienz",                                        "heart_failure"),
+            ("Epilepsie / Krampfanf&#228;lle",                        "epilepsy"),
+            ("Parkinson",                                               "parkinson"),
+            ("Multiple Sklerose (MS)",                                  "ms"),
+            ("Migr&#228;ne mit Aura",                                  "migraine_aura"),
+            ("Gleichgewichtsst&#246;rungen / Schwindel",               "dizziness"),
+            ("Ohnmacht / Bewusstlosigkeit",                             "syncope"),
+            ("Neurologische Ausf&#228;lle (L&#228;hmung, Sprachst.)", "neuro_deficit"),
+            ("Diabetes mellitus",                                       "diabetes_type"),
+            ("Unterzuckerung mit Fremdhilfe",                           "hypoglycemia"),
+            ("Tagessschl&#228;frigkeit / Sekundenschlaf",              "daytime_sleepiness"),
+            ("Schlafapnoe / Schnarchen mit Atemaussetzern",            "snoring"),
+            ("Psychiatrische Erkrankung",                               "psychiatric"),
+            ("Konzentrations- / Ged&#228;chtnisst&#246;rungen",       "concentration"),
+            ("Alkohol (regelm&#228;&#223;iger Konsum)",                "alcohol"),
+            ("Drogen- / Substanzkonsum",                                "drugs"),
+            ("Sedierende Medikamente",                                  "sedating_meds"),
+        ]
+        anamnese_rows = ""
+        for i, (label, key) in enumerate(anamnese_items):
+            bg = "#f5f5f5" if i % 2 == 0 else "#ffffff"
+            # Diabetes: 'none' = nein, sonst ja
+            if key == "diabetes_type":
+                val = a.get(key, "")
+                effective = "no" if val in ("none", "", None) else "yes"
+                bg_local = "#f5f5f5" if i % 2 == 0 else "#ffffff"
+                anamnese_rows += f"""<tr style="background:{bg_local}">
+                    <td style="border:1px solid #bbb;padding:3px 6px;font-size:9pt">{label}</td>
+                    <td style="border:1px solid #bbb;padding:3px;text-align:center;font-size:11pt;width:30px">{cb(effective,"yes")}</td>
+                    <td style="border:1px solid #bbb;padding:3px;text-align:center;font-size:11pt;width:30px">{cb(effective,"no")}</td>
+                </tr>"""
+            else:
+                anamnese_rows += yn_row(label, key, bg)
+
+        driving_hours = a.get("driving_hours", "")
+        accidents_desc = a.get("accidents_desc", "")
+        vision_desc    = a.get("vision_desc", "")
+        meds_desc      = a.get("meds_desc", "")
+
+        html = f"""<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"/>
+<title>Patientenfragebogen</title>
+<style>
+  @page {{ size: A4; margin: 18mm 15mm 15mm 15mm; }}
+  body {{ font-family: Arial, Helvetica, sans-serif; font-size: 9pt; color: #111; margin: 0; }}
+  h1 {{ font-size: 18pt; font-weight: bold; margin: 0 0 12px 0; }}
+  h2 {{ font-size: 10pt; font-weight: bold; margin: 10px 0 4px 0; }}
+  .section-box {{ background: #e8e8e8; padding: 8px 10px 6px 10px; margin-bottom: 6px; }}
+  table {{ width: 100%; border-collapse: collapse; }}
+  .page-break {{ page-break-before: always; }}
+  .sig-line {{ border-bottom: 1px solid #555; height: 25px; margin-top: 4px; }}
+  .label-small {{ font-size: 7.5pt; color: #444; margin-top: 2px; }}
+  .italic-box {{ background: #e8e8e8; padding: 8px 10px; font-style: italic; font-size: 8.5pt; margin-bottom: 6px; }}
+  .warning-box {{ border: 2px solid #333; padding: 8px 12px; font-style: italic; font-size: 9.5pt; font-weight: bold; margin-top: 8px; }}
+  .info-right {{ font-size: 8.5pt; line-height: 1.5; }}
+  td.field-cell {{ border-bottom: 1px solid #888; padding: 1px 4px; font-size: 9pt; }}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════ SEITE 1 ═══════════════════════════ -->
+<h1>Patientenfragebogen</h1>
+
+<!-- Patientendaten-Box (Seite 1 oben) -->
+<div class="section-box">
+<table>
+  <tr>
+    <td style="width:55%;vertical-align:top">
+      <table style="width:100%">
+        <tr><td style="padding:2px 4px;font-size:9pt">Name:</td><td class="field-cell">&nbsp;</td></tr>
+        <tr><td style="padding:2px 4px;font-size:9pt">Vorname:</td><td class="field-cell">&nbsp;</td></tr>
+        <tr><td style="padding:2px 4px;font-size:9pt">Geburtsdatum:</td><td class="field-cell">&nbsp;</td></tr>
+        <tr>
+          <td colspan="2" style="padding:3px 4px;font-size:9pt">
+            F&#252;hrerschein:&nbsp;
+            {lic_cb('B')} PKW &nbsp;&nbsp;&nbsp;
+            {lic_cb('C')} LKW &nbsp;&nbsp;
+            {lic_cb('D')} Bus &nbsp;&nbsp;
+            Sonstige: {a.get('license_classes','')}
+          </td>
+        </tr>
+        <tr><td style="padding:2px 4px;font-size:9pt">Ausgef&#252;llt am:</td><td class="field-cell">{completed_str}</td></tr>
+      </table>
+    </td>
+    <td style="width:45%;vertical-align:top;padding-left:16px" class="info-right">
+      <strong>Dr. med. Bj&#246;rn Micka</strong><br/>
+      Betriebsmedizin, Notfallmedizin<br/>
+      Christoph-Dassler-Str. 22<br/>
+      91074 Herzogenaurach
+    </td>
+  </tr>
+</table>
+</div>
+
+<!-- Plötzliches Ausfallrisiko / Warnsymptome -->
+<div class="section-box" style="margin-top:8px">
+<table>
+  <tr>
+    <th style="text-align:left;font-size:9pt;padding:2px 4px;width:75%"><strong>Bestehen bei Ihnen folgende Erkrankungen (bitte ankreuzen):</strong></th>
+    <th style="width:40px;text-align:center;font-size:9pt">ja</th>
+    <th style="width:40px;text-align:center;font-size:9pt">nein</th>
+  </tr>
+</table>
+</div>
+<table>
+  <tr>
+    <th style="text-align:left;padding:3px 6px;font-size:8.5pt;background:#e8e8e8;border:1px solid #bbb">Beschwerde / Erkrankung</th>
+    <th style="width:40px;text-align:center;background:#e8e8e8;border:1px solid #bbb;font-size:8.5pt">ja</th>
+    <th style="width:40px;text-align:center;background:#e8e8e8;border:1px solid #bbb;font-size:8.5pt">nein</th>
+  </tr>
+  {yn_row("Bewusstseins- oder Gleichgewichtsst&#246;rungen, Schwindel, sowie Anfallsleiden jeglicher Ursache",
+           "syncope", "#f5f5f5")}
+  {yn_row("Unbehandelte schlafbezogene Atemst&#246;rungen (Schlaf-Apnoe)",
+           "snoring", "#ffffff")}
+  {yn_row("Zuckerkrankheit (Diabetes mellitus) mit erheblichen Schwankungen der Blutzucker-Werte insbesondere mit Neigung zum Unterzucker (Hypoglyk&#228;mie)",
+           "hypoglycemia", "#f5f5f5")}
+  {yn_row("Chronischer Alkoholmissbrauch oder Drogenabh&#228;ngigkeit oder andere Suchtformen",
+           "drugs", "#ffffff")}
+  {yn_row("Dauerbehandlung mit Medikamenten, die die Fahrt&#252;chtigkeit einschr&#228;nken",
+           "sedating_meds", "#f5f5f5")}
+  {yn_row("Erkrankungen oder Ver&#228;nderungen des Herzens oder des Kreislaufs mit erheblichen Einschr&#228;nkungen der Leistungs- oder Regulationsf&#228;higkeit, Blutdruckver&#228;nderungen st&#228;rkeren Grades",
+           "heart_failure", "#ffffff")}
+</table>
+
+<!-- ESS-Abschnitt -->
+<h2 style="margin-top:10px">Fragebogen zur Tagesschl&#228;frigkeit (Epworth Sleepiness Scale)</h2>
+<div class="italic-box">
+Wie leicht f&#228;llt es Ihnen, in folgenden Situationen einzuschlafen?<br/><br/>
+Damit ist nicht nur das Gef&#252;hl m&#252;de zu sein gemeint, sondern das tats&#228;chliche Einschlafen. Die Fragen beziehen sich
+auf das &#252;bliche t&#228;gliche Leben der vergangenen Wochen. Auch wenn Sie einige der beschriebenen T&#228;tigkeiten in letzter
+Zeit nicht ausgef&#252;hrt haben, so versuchen Sie sich vorzustellen, welche Wirkung diese auf Sie gehabt h&#228;tten.<br/><br/>
+Kreuzen Sie in der folgenden Tabelle die am besten zutreffende Zahl an:
+</div>
+
+<table>
+  <tr style="background:#d0d0d0">
+    <td style="border:1px solid #ccc;padding:3px 6px;font-size:9pt;width:55%">&nbsp;</td>
+    <td style="border:1px solid #ccc;padding:3px;text-align:center;font-size:8pt;width:80px">Niemals<br/>0</td>
+    <td style="border:1px solid #ccc;padding:3px;text-align:center;font-size:8pt;width:80px">Gering<br/>1</td>
+    <td style="border:1px solid #ccc;padding:3px;text-align:center;font-size:8pt;width:80px">Mittel<br/>2</td>
+    <td style="border:1px solid #ccc;padding:3px;text-align:center;font-size:8pt;width:80px">Hoch<br/>3</td>
+  </tr>
+  {ess_rows}
+  <tr style="background:#d0d0d0">
+    <td style="border:1px solid #ccc;padding:3px 6px;font-size:9pt;font-weight:bold">Gesamtpunktzahl</td>
+    <td colspan="4" style="border:1px solid #ccc;padding:3px 6px;font-weight:bold;font-size:10pt">{ess_total} / 24
+      &nbsp;&#8594;&nbsp;
+      {"Normal (0&#8211;9)" if ess_total <= 9 else ("Erh&#246;ht (10&#8211;15)" if ess_total <= 15 else "Ausgepr&#228;gt (&#8805;16)")}
+    </td>
+  </tr>
+</table>
+
+<!-- Datenschutzerklärung -->
+<h2 style="margin-top:10px">Datenschutzerkl&#228;rung</h2>
+<div class="italic-box">
+Entsprechend DGSVO (Datenschutz-Grundverordnung) unterliegen alle erhobenen Fragen der medizinischen Schweigepflicht<br/>
+- sie werden nicht auf Datentr&#228;ger gespeichert. Weitergabe nur mit ihrer schriftlichen Erlaubnis! Die Personalien werden nur intern f&#252;r den Ausdruck der Bescheinigungen / Gutachten benutzt!<br/>
+- Durch Ihre Unterschrift erkl&#228;ren Sie sich hiermit einverstanden.<br/>
+- Durch das vorherige Ausf&#252;llen erleichtern Sie dem Arzt die Beurteilung und tragen mit zu einem z&#252;gigen Untersuchungsablauf bei!
+</div>
+
+<div class="warning-box">
+Zur wahrheitsgem&#228;&#223;en Beantwortung&nbsp;&nbsp;<u>a l l e r</u>&nbsp;&nbsp;Fragen sind Sie verpflichtet.<br/>
+Das Verschweigen von Vorerkrankungen stellt einen Versto&#223; gegen &#167;&nbsp;11 FeV<br/>
+dar und kann rechtliche Konsequenzen haben!
+</div>
+
+<!-- Unterschrift -->
+<table style="margin-top:20px">
+  <tr>
+    <td style="width:48%;padding-right:10px">
+      <div class="sig-line">&nbsp;</div>
+      <div class="label-small">Ort / Datum</div>
+    </td>
+    <td style="width:4%">&nbsp;</td>
+    <td style="width:48%">
+      <div class="sig-line">&nbsp;</div>
+      <div class="label-small">Unterschrift Patient</div>
+    </td>
+  </tr>
+</table>
+
+
+<!-- ═══════════════════════════ SEITE 2 ═══════════════════════════ -->
+<div class="page-break"></div>
+<h1>Patientenfragebogen</h1>
+
+<!-- Stammdaten -->
+<div class="section-box">
+<table style="width:100%">
+  <tr>
+    <td style="width:55%;vertical-align:top">
+      <table style="width:100%">
+        <tr><td style="padding:2px 4px;font-size:9pt;width:90px">Name:</td><td class="field-cell">&nbsp;</td></tr>
+        <tr><td style="padding:2px 4px;font-size:9pt">Vorname:</td><td class="field-cell">&nbsp;</td></tr>
+        <tr><td style="padding:2px 4px;font-size:9pt">Geburtsdatum:</td><td class="field-cell">&nbsp;</td></tr>
+        <tr>
+          <td colspan="2" style="padding:3px 4px;font-size:9pt">
+            F&#252;hrerschein:&nbsp;
+            {lic_cb('B')} PKW &nbsp;&nbsp;&nbsp;
+            {lic_cb('C')} LKW &nbsp;&nbsp;
+            Fremdfirma: ________________
+          </td>
+        </tr>
+        <tr><td style="padding:2px 4px;font-size:9pt">derzeitige T&#228;tigkeit:</td><td class="field-cell">{a.get('job_title','')}</td></tr>
+      </table>
+    </td>
+    <td style="width:45%;vertical-align:top;padding-left:16px" class="info-right">
+      <strong>Dr. med. Bj&#246;rn Micka</strong><br/>
+      Betriebsmedizin, Notfallmedizin<br/>
+      Christoph-Dassler-Str. 22<br/>
+      91074 Herzogenaurach
+    </td>
+  </tr>
+</table>
+</div>
+
+<!-- Eigenanamnese -->
+<h2>Eigenanamnese</h2>
+<div class="section-box">
+<table style="width:100%">
+  <tr>
+    <td style="font-size:9pt;padding:2px 4px;width:30%">Gr&#246;&#223;e: {a.get('height','')} cm</td>
+    <td style="font-size:9pt;padding:2px 4px;width:30%">Gewicht: {a.get('weight','')} kg</td>
+    <td style="font-size:9pt;padding:2px 4px">GdB (Grad der Behinderung): {a.get('disability_grade','')}</td>
+  </tr>
+</table>
+</div>
+
+<table>
+  <tr>
+    <th style="text-align:left;padding:3px 6px;font-size:8.5pt;background:#d0d0d0;border:1px solid #bbb">Gesundheitliche St&#246;rungen</th>
+    <th style="width:40px;text-align:center;background:#d0d0d0;border:1px solid #bbb;font-size:8.5pt">ja</th>
+    <th style="width:40px;text-align:center;background:#d0d0d0;border:1px solid #bbb;font-size:8.5pt">nein</th>
+  </tr>
+  {anamnese_rows}
+</table>
+
+<!-- Freitext-Felder -->
+<table style="margin-top:6px">
+  <tr>
+    <td style="padding:2px 0;font-size:9pt;width:90px">Medikamente:</td>
+    <td class="field-cell">{meds_desc}</td>
+  </tr>
+  <tr>
+    <td style="padding:2px 0;font-size:9pt">Operationen:</td>
+    <td class="field-cell">&nbsp;</td>
+  </tr>
+  <tr>
+    <td style="padding:2px 0;font-size:9pt">Schwere Unf&#228;lle:</td>
+    <td class="field-cell">{accidents_desc}</td>
+  </tr>
+</table>
+
+<div style="margin-top:12px">
+  <p style="font-size:8pt;font-style:italic">Fahrprofil: {a.get('driving_hours','')} h/Tag &nbsp;|&nbsp;
+  Nachtfahrten: {yn(a.get('night_driving'))} &nbsp;|&nbsp;
+  Ausgef&#252;llt: {completed_str}</p>
+</div>
+
+<div style="position:fixed;bottom:10mm;right:15mm;font-size:7.5pt;font-style:italic">
+  bitte beachten Sie die R&#252;ckseite &#x21b5;
+</div>
+
+</body>
+</html>"""
         return html
