@@ -33,7 +33,7 @@ services:
       - POSTGRES_HOST=db
       - POSTGRES_PORT=5432
       - ALLOWED_HOSTS=localhost,127.0.0.1,backend,192.168.178.24
-      - CORS_ALLOWED_ORIGINS=http://localhost:3000,http://127.0.0.1:3000,http://frontend:3000,http://192.168.178.24:3000
+      - CORS_ALLOWED_ORIGINS=http://localhost:3000,http://127.0.0.1:3000,http://frontend:3000,http://192.168.178.24:3000,http://192.168.178.84:3000
     depends_on:
       db:
         condition: service_healthy

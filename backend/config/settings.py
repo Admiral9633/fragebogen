@@ -152,3 +152,9 @@ CORS_ALLOWED_ORIGINS = os.environ.get(
 ).split(',')
 
 CORS_ALLOW_CREDENTIALS = True
+
+# CSRF – alle CORS-Origins auch als trusted eintragen
+CSRF_TRUSTED_ORIGINS = os.environ.get(
+    'CSRF_TRUSTED_ORIGINS',
+    ','.join(CORS_ALLOWED_ORIGINS)
+).split(',')
