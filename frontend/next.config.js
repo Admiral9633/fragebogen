@@ -7,12 +7,20 @@ const nextConfig = {
     const backendUrl = process.env.BACKEND_URL || 'http://backend:8000'
     return [
       {
-        source: '/api/:path*/',
-        destination: backendUrl + '/api/:path*/',
+        source: '/api/session/:path*',
+        destination: backendUrl + '/api/session/:path*',
       },
       {
-        source: '/api/:path*',
-        destination: backendUrl + '/api/:path*/',
+        source: '/api/submit/:path*',
+        destination: backendUrl + '/api/submit/:path*',
+      },
+      {
+        source: '/api/pdf/:path*',
+        destination: backendUrl + '/api/pdf/:path*',
+      },
+      {
+        source: '/api/answers/:path*',
+        destination: backendUrl + '/api/answers/:path*',
       },
     ]
   },
