@@ -2,7 +2,7 @@
 const nextConfig = {
   trailingSlash: false,
   // puppeteer runs server-side in API routes – don't bundle it
-  serverExternalPackages: ['puppeteer'],
+  serverExternalPackages: ['puppeteer-core'],
   async rewrites() {
     const backendUrl = process.env.BACKEND_URL || 'http://backend:8000'
     return [
