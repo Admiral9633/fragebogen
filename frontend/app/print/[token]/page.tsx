@@ -1,6 +1,18 @@
 import { notFound } from "next/navigation";
+import fs from "fs";
+import path from "path";
 
 const BACKEND_URL = process.env.BACKEND_URL || "http://backend:8000";
+
+function getLogoDataUrl(): string {
+  try {
+    const logoPath = path.join(process.cwd(), "public", "logo.svg");
+    const svg = fs.readFileSync(logoPath, "utf-8");
+    return `data:image/svg+xml;base64,${Buffer.from(svg).toString("base64")}`;
+  } catch {
+    return "";
+  }
+}
 
 interface AnswerData {
   answers: Record<string, unknown>;
@@ -247,6 +259,8 @@ export default async function PrintPage({
   const data = await getAnswerData(token);
   if (!data) notFound();
 
+  const logoDataUrl = getLogoDataUrl();
+
   const a = data.answers;
   const s = (key: string) => String(a[key] ?? "");
   const ft = (key: string) => {
@@ -309,7 +323,7 @@ export default async function PrintPage({
         </div>
         <div style={{ textAlign: "right" as const, fontSize: 7.5, lineHeight: 1.7, color: "#333", display: "flex", flexDirection: "column" as const, alignItems: "flex-end", gap: 4 }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo.svg" alt="Logo" style={{ height: 48, width: "auto" }} />
+          {logoDataUrl && <img src={logoDataUrl} alt="Logo" style={{ height: 48, width: "auto" }} />}
           <div>
             <div style={{ fontWeight: 700, fontSize: 8.5, color: "#1f3864" }}>Dr. med. Björn Micka</div>
             Betriebsmedizin · Notfallmedizin<br />
