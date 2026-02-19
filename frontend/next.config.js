@@ -1,8 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   trailingSlash: false,
-  // puppeteer runs server-side in API routes – don't bundle it
   serverExternalPackages: ['puppeteer-core'],
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      config.externals = [
+        ...(Array.isArray(config.externals) ? config.externals : [config.externals].filter(Boolean)),
+        { 'puppeteer-core': 'commonjs puppeteer-core' },
+      ];
+    }
+    return config;
+  },
   async rewrites() {
     const backendUrl = process.env.BACKEND_URL || 'http://backend:8000'
     return [
