@@ -94,12 +94,14 @@ function YNRow({
   ft,
   ftLabel,
   stripe,
+  target = "yes",
 }: {
   label: string;
   val: unknown;
   ft?: string;
   ftLabel?: string;
   stripe?: boolean;
+  target?: string;
 }) {
   return (
     <>
@@ -131,7 +133,7 @@ function YNRow({
               fontSize: 7.5,
             }}
           >
-            <Cb val={val} target="yes" /> Ja
+            <Cb val={val} target={target} /> Ja
           </span>
           <span
             style={{
