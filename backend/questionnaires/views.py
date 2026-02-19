@@ -146,7 +146,7 @@ class GeneratePDFView(APIView):
         def x(val, target="yes"):
             """Angekreuzte oder leere Box"""
             if str(val) == str(target):
-                return '<span class="cb-x">X</span>'
+                return '<span class="cb-x">&#10003;</span>'
             return '<span class="cb-o">&nbsp;</span>'
 
         def yn(val):
@@ -158,15 +158,16 @@ class GeneratePDFView(APIView):
             r = str(a.get(key, "") or "").strip()
             return r if r else fallback
 
-        def row(label, key, subtext=None, bg="#fff"):
+        def row(label, key, subtext=None, bg="#ffffff", cls=""):
             val = a.get(key, "")
             sub = f'<div class="sub">{subtext}</div>' if subtext else ""
-            return (f'<tr style="background:{bg}">'
+            row_cls = cls if cls else ""
+            return (f'<tr style="background:{bg}" class="{row_cls}">'
                     f'<td class="q">{label}{sub}</td>'
                     f'<td class="c">{x(val,"yes")}</td>'
                     f'<td class="c">{x(val,"no")}</td></tr>')
 
-        def row_ft(label, key, ft_key, ft_label="Beschreibung", bg="#fff"):
+        def row_ft(label, key, ft_key, ft_label="Beschreibung", bg="#ffffff"):
             """Ja/Nein Zeile mit Freitext direkt darunter wenn ausgefüllt"""
             val = a.get(key, "")
             ft  = str(a.get(ft_key, "") or "").strip()
@@ -232,28 +233,36 @@ class GeneratePDFView(APIView):
 <style>
   @page {{ size: A4; margin: 14mm 13mm 12mm 13mm; }}
   * {{ box-sizing: border-box; }}
-  body {{ font-family: Arial, Helvetica, sans-serif; font-size: 8pt; color: #111; margin:0; line-height:1.3; }}
-  h1 {{ font-size:15pt; font-weight:bold; margin:0 0 6px 0; }}
-  h2 {{ font-size:8.5pt; font-weight:bold; margin:7px 0 2px 0; border-bottom:1px solid #999; padding-bottom:1px; }}
+  body {{ font-family: Helvetica, Arial, sans-serif; font-size: 8pt; color: #1a1a1a; margin:0; line-height:1.35; }}
+  h1 {{ font-size:13pt; font-weight:bold; color:#1f3864; margin:0 0 6px 0; letter-spacing:0.3pt; }}
+  h2 {{ font-size:7.5pt; font-weight:bold; color:#ffffff; background:#1f3864;
+        margin:7px 0 0 0; padding:2px 6px; border:none; }}
   table {{ width:100%; border-collapse:collapse; margin-bottom:3px; }}
-  .c {{ border:1px solid #bbb; width:28px; text-align:center; padding:2px; }}
-  .q {{ border:1px solid #bbb; padding:2px 5px; }}
-  .cb-x {{ display:inline-block; width:11px; height:11px; border:1.2px solid #000;
-           text-align:center; font-size:7.5pt; font-weight:bold; line-height:11px; background:#fff; }}
-  .cb-o {{ display:inline-block; width:11px; height:11px; border:1.2px solid #000; background:#fff; }}
-  .th  {{ background:#d0d0d0; border:1px solid #bbb; padding:2px 4px; font-size:8pt; text-align:center; font-weight:bold; }}
-  .thl {{ background:#d0d0d0; border:1px solid #bbb; padding:2px 5px; font-size:8pt; font-weight:bold; }}
-  .hdr {{ background:#e8e8e8; padding:5px 8px; margin-bottom:6px; }}
-  .italic-box {{ background:#e8e8e8; padding:5px 8px; font-style:italic; font-size:7.5pt; margin-bottom:3px; }}
-  .warn {{ border:2px solid #333; padding:5px 8px; font-style:italic; font-size:8pt; font-weight:bold; margin:5px 0; }}
-  .sig  {{ border-bottom:1px solid #666; height:22px; margin-top:3px; }}
+  .c {{ border:1px solid #aab; width:26px; text-align:center; padding:1px; vertical-align:middle; }}
+  .q {{ border:1px solid #ccd; padding:2px 6px; vertical-align:middle; }}
+  .cb-x {{ display:inline-block; width:12px; height:12px;
+           background:#1f3864; color:#ffffff;
+           text-align:center; font-size:9pt; font-weight:bold; line-height:12px;
+           border:1px solid #1f3864; }}
+  .cb-o {{ display:inline-block; width:12px; height:12px;
+           background:#ffffff; border:1.5px solid #8899aa; }}
+  .th  {{ background:#1f3864; color:#ffffff; border:1px solid #1f3864;
+          padding:2px 4px; font-size:7.5pt; text-align:center; font-weight:bold; }}
+  .thl {{ background:#1f3864; color:#ffffff; border:1px solid #1f3864;
+          padding:2px 6px; font-size:7.5pt; font-weight:bold; }}
+  .hdr {{ background:#eef1f7; border:1px solid #c8d0e0; padding:5px 8px; margin-bottom:5px; }}
+  .italic-box {{ background:#f0f4fb; border:1px solid #c8d0e0; padding:4px 8px;
+                 font-style:italic; font-size:7.5pt; margin-bottom:2px; }}
+  .warn {{ border:2px solid #1f3864; background:#f7f0f0; padding:5px 8px;
+           font-style:italic; font-size:8pt; font-weight:bold; margin:5px 0; color:#1a1a1a; }}
+  .sig  {{ border-bottom:1px solid #555; height:22px; margin-top:3px; }}
   .xs   {{ font-size:7pt; color:#555; margin-top:1px; }}
   .sub  {{ font-size:7pt; color:#666; font-style:italic; margin-top:1px; }}
   .ft   {{ font-size:7.5pt; color:#333; font-style:italic; margin-top:1px; padding-left:8px;
-           border-left:2px solid #aaa; }}
+           border-left:2px solid #1f3864; }}
   .val  {{ font-weight:bold; }}
   .page-break {{ page-break-before:always; }}
-  .r1 {{ background:#f5f5f5; }}
+  .r1 {{ background:#f3f5fa; }}
   .r2 {{ background:#ffffff; }}
 </style></head><body>
 
@@ -371,9 +380,9 @@ class GeneratePDFView(APIView):
     <td class="th">0</td><td class="th">1</td><td class="th">2</td><td class="th">3</td>
   </tr>
   {ess_rows}
-  <tr style="background:#d0d0d0">
-    <td class="q" style="font-weight:bold">Gesamtpunktzahl</td>
-    <td colspan="4" class="q" style="font-weight:bold">{ess_band}</td>
+  <tr style="background:#1f3864">
+    <td class="q" style="font-weight:bold;color:#ffffff;border:1px solid #1f3864">Gesamtpunktzahl</td>
+    <td colspan="4" class="q" style="font-weight:bold;color:#ffffff;border:1px solid #1f3864">{ess_band}</td>
   </tr>
 </table>
 
