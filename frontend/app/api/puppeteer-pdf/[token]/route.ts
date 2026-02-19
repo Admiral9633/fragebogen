@@ -55,7 +55,13 @@ export async function GET(
       },
     });
 
-    return new NextResponse(pdf, {
+    // Buffer → ArrayBuffer für NextResponse TypeScript-Kompatibilität
+    const arrayBuffer = pdf.buffer.slice(
+      pdf.byteOffset,
+      pdf.byteOffset + pdf.byteLength
+    ) as ArrayBuffer;
+
+    return new NextResponse(arrayBuffer, {
       headers: {
         "Content-Type": "application/pdf",
         "Content-Disposition": `attachment; filename="fragebogen_design_${token}.pdf"`,
