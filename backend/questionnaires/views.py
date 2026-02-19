@@ -140,12 +140,348 @@ class GeneratePDFView(APIView):
             return HttpResponse(html_content, content_type='text/html')
     
     def _generate_html(self, session, answer_set):
-        """Generiere HTML für PDF Export – zweiseitiger Patientenfragebogen"""
+        """Generiere HTML für PDF Export – Patientenfragebogen zweiseitig"""
         a = answer_set.answers_json
 
-        def cb(val, target="yes"):
-            """Gibt ☑ oder ☐ zurück"""
-            return "&#9745;" if str(val) == str(target) else "&#9744;"
+        def box(val, target="yes"):
+            """CSS-Checkbox: gefüllt oder leer"""
+            if str(val) == str(target):
+                return '<span class="cb-checked">X</span>'
+            return '<span class="cb-empty">&nbsp;</span>'
+
+        def ess_box(val, n):
+            if str(val) == str(n):
+                return '<span class="cb-checked">X</span>'
+            return '<span class="cb-empty">&nbsp;</span>'
+
+        def yn_label(val):
+            if val == "yes": return "Ja"
+            if val == "no":  return "Nein"
+            return "—"
+
+        def txt(val, fallback="—"):
+            v = a.get(val, "")
+            return str(v).strip() if str(v).strip() else fallback
+
+        ess_labels = [
+            "Wenn Sie sitzen und lesen",
+            "Beim Fernsehen",
+            "Als Zuhoerer bei einem Vortrag, im Kino oder Theater",
+            "Als Beifahrer im Auto (Fahrtzeit eine Stunde, keine Pause)",
+            "Beim Hinlegen Nachmittags zum Ausruhen",
+            "Wenn Sie sich sitzend mit jemandem unterhalten",
+            "Im Sitzen nach dem Mittagessen (kein Alkohol getrunken)",
+            "Sie muessen als Autofahrer vor einer roten Ampel halten",
+        ]
+        ess_keys = [f"ess_{i}" for i in range(1, 9)]
+        ess_total = answer_set.ess_total or 0
+        if ess_total <= 9:
+            ess_band = "Normal (0-9) – keine erhöhte Tagesschläfrigkeit"
+        elif ess_total <= 15:
+            ess_band = "Erhöht (10-15) – weitere Abklärung empfohlen"
+        else:
+            ess_band = "Ausgeprägt (≥16) – ärztliche Abklärung erforderlich"
+
+        license_arr = a.get("license_classes_arr", [])
+        if isinstance(license_arr, str):
+            license_arr = [x.strip() for x in license_arr.split(",") if x.strip()]
+
+        def lic_box(cls):
+            return box("yes" if cls in license_arr else "no", "yes")
+
+        completed_str = session.completed_at.strftime('%d.%m.%Y') if session.completed_at else ""
+
+        # ── ESS-Tabellenzeilen ──────────────────────────────────────────────
+        ess_rows = ""
+        for i, (key, label) in enumerate(zip(ess_keys, ess_labels)):
+            val = str(a.get(key, ""))
+            bg = "#f2f2f2" if i % 2 == 0 else "#ffffff"
+            ess_rows += f"""<tr style="background:{bg}">
+                <td class="td-label">{label}</td>
+                <td class="td-cb">{ess_box(val,"0")}</td>
+                <td class="td-cb">{ess_box(val,"1")}</td>
+                <td class="td-cb">{ess_box(val,"2")}</td>
+                <td class="td-cb">{ess_box(val,"3")}</td>
+            </tr>"""
+
+        # ── Ja/Nein Zeile ───────────────────────────────────────────────────
+        def yn_row(label, key, bg):
+            val = a.get(key, "")
+            return f"""<tr style="background:{bg}">
+                <td class="td-label">{label}</td>
+                <td class="td-cb">{box(val,"yes")}</td>
+                <td class="td-cb">{box(val,"no")}</td>
+            </tr>"""
+
+        # ── Seite-1-Tabelle: 6 Pflichtfragen Ausfallrisiko ──────────────────
+        ausfallrisiko = [
+            ("Bewusstseins- oder Gleichgewichtsstoerungen, Schwindel, Anfallsleiden jeglicher Ursache", "syncope"),
+            ("Unbehandelte schlafbezogene Atemstörungen (Schlaf-Apnoe)", "snoring"),
+            ("Zuckerkrankheit (Diabetes) mit Neigung zur Hypoglykämie", "hypoglycemia"),
+            ("Chronischer Alkoholmissbrauch oder Drogenabhängigkeit", "drugs"),
+            ("Dauerbehandlung mit Medikamenten, die die Fahrtüchtigkeit einschränken", "sedating_meds"),
+            ("Erkrankungen des Herzens / Kreislaufs mit erheblicher Leistungseinschränkung", "heart_failure"),
+        ]
+        ausfallrisiko_rows = ""
+        for i, (label, key) in enumerate(ausfallrisiko):
+            bg = "#f2f2f2" if i % 2 == 0 else "#ffffff"
+            ausfallrisiko_rows += yn_row(label, key, bg)
+
+        # ── Seite-2-Tabelle: Eigenanamnese ──────────────────────────────────
+        anamnese_items = [
+            ("Augenkrankheiten / Sehstörungen",                  "vision_problems"),
+            ("Ohrenkrankheiten / Hörstörungen",                  "hearing_aid"),
+            ("Herzinfarkt / Koronare Herzerkrankung",             "heart_attack"),
+            ("Herzrhythmusstörungen / Schrittmacher / ICD",      "arrhythmia"),
+            ("Herzinsuffizienz",                                  "heart_failure"),
+            ("Epilepsie / Krampfanfälle",                        "epilepsy"),
+            ("Parkinson",                                         "parkinson"),
+            ("Multiple Sklerose (MS)",                            "ms"),
+            ("Migräne mit Aura",                                  "migraine_aura"),
+            ("Gleichgewichtsstörungen / Schwindel",               "dizziness"),
+            ("Ohnmacht / Bewusstlosigkeit",                       "syncope"),
+            ("Neurologische Ausfälle (Lähmung, Sprachstörung)",  "neuro_deficit"),
+            ("Diabetes mellitus",                                  "diabetes_type"),
+            ("Unterzuckerung mit Fremdhilfe",                     "hypoglycemia"),
+            ("Tagesschläfrigkeit / Sekundenschlaf",               "daytime_sleepiness"),
+            ("Schlafapnoe / Schnarchen mit Atemaussetzern",       "snoring"),
+            ("Psychiatrische Erkrankung",                         "psychiatric"),
+            ("Konzentrations- / Gedächtnisstörungen",             "concentration"),
+            ("Alkohol (regelmäßiger Konsum)",                     "alcohol"),
+            ("Drogen- / Substanzkonsum",                          "drugs"),
+            ("Sedierende Medikamente",                            "sedating_meds"),
+        ]
+        anamnese_rows = ""
+        for i, (label, key) in enumerate(anamnese_items):
+            bg = "#f2f2f2" if i % 2 == 0 else "#ffffff"
+            if key == "diabetes_type":
+                raw = a.get(key, "")
+                effective = "no" if raw in ("none", "", None) else "yes"
+                anamnese_rows += f"""<tr style="background:{bg}">
+                    <td class="td-label">{label}</td>
+                    <td class="td-cb">{box(effective,"yes")}</td>
+                    <td class="td-cb">{box(effective,"no")}</td>
+                </tr>"""
+            else:
+                anamnese_rows += yn_row(label, key, bg)
+
+        # ── Freitexte ──────────────────────────────────────────────────────
+        def freitext_row(label, val, bg):
+            v = str(val).strip() if str(val).strip() else "—"
+            return f"""<tr style="background:{bg}">
+                <td class="td-label" style="width:180px;font-weight:bold">{label}</td>
+                <td class="td-label" style="border-bottom:1px solid #ccc">{v}</td>
+            </tr>"""
+
+        freitexte = [
+            ("Unfälle / Beinahe-Unfälle",   a.get("accidents_desc","")),
+            ("Sehprobleme (Beschreibung)",   a.get("vision_desc","")),
+            ("Diabetes-Typ",                 a.get("diabetes_type","")),
+            ("Letzte Hypoglykämie",          a.get("last_hypo","")),
+            ("Atemtherapie (CPAP etc.)",     a.get("cpap_therapy","")),
+            ("Psychiatrisches Leiden",       a.get("psychiatric_desc","")),
+            ("Medikamente mit Beschreibung", a.get("meds_desc","")),
+            ("Schlafmittel / Sedativa",      a.get("sleeping_pills_desc","")),
+            ("Anmerkungen / Sonstiges",      a.get("remarks","")),
+        ]
+        freitext_rows = ""
+        for i, (label, val) in enumerate(freitexte):
+            v = str(val).strip()
+            if v and v not in ("none", "no", "yes"):
+                bg = "#f2f2f2" if i % 2 == 0 else "#ffffff"
+                freitext_rows += freitext_row(label, v, bg)
+
+        if not freitext_rows:
+            freitext_rows = '<tr><td colspan="2" class="td-label">Keine Freitext-Angaben</td></tr>'
+
+        html = f"""<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"/>
+<title>Patientenfragebogen</title>
+<style>
+  @page {{ size: A4; margin: 18mm 15mm 15mm 15mm; }}
+  body {{ font-family: Arial, Helvetica, sans-serif; font-size: 9pt; color: #111; margin: 0; }}
+  h1 {{ font-size: 17pt; font-weight: bold; margin: 0 0 10px 0; }}
+  h2 {{ font-size: 10pt; font-weight: bold; margin: 10px 0 3px 0; border-bottom: 1px solid #999; padding-bottom: 2px; }}
+  table {{ width: 100%; border-collapse: collapse; margin-bottom: 4px; }}
+  .td-label {{ border: 1px solid #bbb; padding: 3px 6px; font-size: 8.5pt; }}
+  .td-cb {{ border: 1px solid #bbb; padding: 3px; text-align: center; width: 34px; }}
+  .cb-checked {{
+    display: inline-block; width: 12px; height: 12px;
+    border: 1.5px solid #000; text-align: center;
+    font-size: 8pt; font-weight: bold; line-height: 12px;
+    background: #ffffff;
+  }}
+  .cb-empty {{
+    display: inline-block; width: 12px; height: 12px;
+    border: 1.5px solid #000; background: #ffffff;
+  }}
+  .header-box {{ background: #e5e5e5; padding: 7px 10px; margin-bottom: 8px; }}
+  .italic-box {{ background: #e5e5e5; padding: 7px 10px; font-style: italic; font-size: 8.5pt; margin-bottom: 5px; }}
+  .warning-box {{ border: 2px solid #333; padding: 7px 10px; font-style: italic; font-size: 9pt; font-weight: bold; margin-top: 8px; margin-bottom:8px; }}
+  .sig-line {{ border-bottom: 1px solid #555; height: 28px; }}
+  .label-xs {{ font-size: 7.5pt; color: #444; margin-top: 2px; }}
+  .page-break {{ page-break-before: always; }}
+  .th-gray {{ background: #d0d0d0; border: 1px solid #bbb; padding: 3px 6px; font-size: 8.5pt; text-align: center; }}
+  .info-right {{ font-size: 8.5pt; line-height: 1.6; }}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════ SEITE 1 ══════════════════ -->
+<h1>Patientenfragebogen</h1>
+
+<div class="header-box">
+<table>
+  <tr>
+    <td style="width:52%;vertical-align:top">
+      <table style="width:100%">
+        <tr><td style="padding:2px 4px;font-size:9pt;width:100px">Name:</td>
+            <td style="border-bottom:1px solid #888;padding:1px 4px">&nbsp;</td></tr>
+        <tr><td style="padding:2px 4px;font-size:9pt">Vorname:</td>
+            <td style="border-bottom:1px solid #888;padding:1px 4px">&nbsp;</td></tr>
+        <tr><td style="padding:2px 4px;font-size:9pt">Geburtsdatum:</td>
+            <td style="border-bottom:1px solid #888;padding:1px 4px">&nbsp;</td></tr>
+        <tr><td style="padding:2px 4px;font-size:9pt">Führerschein:</td>
+            <td style="padding:2px 4px;font-size:9pt">
+              {lic_box('B')} PKW &nbsp;&nbsp;
+              {lic_box('C')} LKW &nbsp;&nbsp;
+              {lic_box('D')} Bus
+            </td></tr>
+        <tr><td style="padding:2px 4px;font-size:9pt">Ausgefüllt am:</td>
+            <td style="padding:2px 4px;font-size:9pt">{completed_str}</td></tr>
+        <tr><td style="padding:2px 4px;font-size:9pt">Fahrzeit/Tag:</td>
+            <td style="padding:2px 4px;font-size:9pt">{txt('driving_hours')} h
+              &nbsp;|&nbsp; Nachtfahrten: {yn_label(a.get('night_driving'))}</td></tr>
+      </table>
+    </td>
+    <td style="width:48%;vertical-align:top;padding-left:14px" class="info-right">
+      <strong>Dr. med. Björn Micka</strong><br/>
+      Betriebsmedizin, Notfallmedizin<br/>
+      Christoph-Dassler-Str. 22<br/>
+      91074 Herzogenaurach
+    </td>
+  </tr>
+</table>
+</div>
+
+<!-- Ausfallrisiko-Tabelle -->
+<h2>Bestehen bei Ihnen folgende Erkrankungen? (bitte ankreuzen)</h2>
+<table>
+  <tr>
+    <th class="th-gray" style="text-align:left">Beschwerde / Erkrankung</th>
+    <th class="th-gray" style="width:34px">ja</th>
+    <th class="th-gray" style="width:34px">nein</th>
+  </tr>
+  {ausfallrisiko_rows}
+</table>
+
+<!-- ESS -->
+<h2>Fragebogen zur Tagesschläfrigkeit (Epworth Sleepiness Scale)</h2>
+<div class="italic-box">
+Wie leicht fällt es Ihnen, in folgenden Situationen einzuschlafen?
+Kreuzen Sie die am besten zutreffende Zahl an:
+0 = würde nie einschlafen &nbsp;|&nbsp; 1 = geringe &nbsp;|&nbsp; 2 = mittlere &nbsp;|&nbsp; 3 = hohe Wahrscheinlichkeit
+</div>
+<table>
+  <tr>
+    <th class="th-gray" style="text-align:left">Situation</th>
+    <th class="th-gray">0<br/>Niemals</th>
+    <th class="th-gray">1<br/>Gering</th>
+    <th class="th-gray">2<br/>Mittel</th>
+    <th class="th-gray">3<br/>Hoch</th>
+  </tr>
+  {ess_rows}
+  <tr style="background:#d0d0d0">
+    <td class="td-label" style="font-weight:bold">Gesamtpunktzahl</td>
+    <td colspan="4" class="td-label" style="font-weight:bold;font-size:10pt">
+      {ess_total} / 24 &nbsp;–&nbsp; {ess_band}
+    </td>
+  </tr>
+</table>
+
+<!-- Datenschutz -->
+<h2>Datenschutzerklärung</h2>
+<div class="italic-box">
+Entsprechend DGSVO unterliegen alle erhobenen Fragen der medizinischen Schweigepflicht.
+Sie werden nicht auf Datenträgern gespeichert. Weitergabe nur mit schriftlicher Erlaubnis.
+Durch Ihre Unterschrift erklären Sie sich einverstanden.
+</div>
+
+<div class="warning-box">
+Zur wahrheitsgemäßen Beantwortung <u>a l l e r</u> Fragen sind Sie verpflichtet.
+Das Verschweigen von Vorerkrankungen stellt einen Verstoß gegen § 11 FeV dar
+und kann rechtliche Konsequenzen haben!
+</div>
+
+<table style="margin-top:16px">
+  <tr>
+    <td style="width:46%;padding-right:8px">
+      <div class="sig-line">&nbsp;</div>
+      <div class="label-xs">Ort / Datum</div>
+    </td>
+    <td style="width:8%">&nbsp;</td>
+    <td style="width:46%">
+      <div class="sig-line">&nbsp;</div>
+      <div class="label-xs">Unterschrift Patient</div>
+    </td>
+  </tr>
+</table>
+
+
+<!-- ══════════════════ SEITE 2 ══════════════════ -->
+<div class="page-break"></div>
+<h1>Patientenfragebogen – Eigenanamnese</h1>
+
+<div class="header-box">
+<table style="width:100%">
+  <tr>
+    <td style="font-size:9pt;padding:2px 6px;width:33%">Größe: {txt('height')} cm</td>
+    <td style="font-size:9pt;padding:2px 6px;width:33%">Gewicht: {txt('weight')} kg</td>
+    <td style="font-size:9pt;padding:2px 6px">GdB: {txt('disability_grade', 'k.A.')}</td>
+  </tr>
+</table>
+</div>
+
+<h2>Gesundheitliche Störungen</h2>
+<table>
+  <tr>
+    <th class="th-gray" style="text-align:left">Erkrankung</th>
+    <th class="th-gray" style="width:34px">ja</th>
+    <th class="th-gray" style="width:34px">nein</th>
+  </tr>
+  {anamnese_rows}
+</table>
+
+<h2>Freitextangaben aus dem Fragebogen</h2>
+<table>
+  {freitext_rows}
+</table>
+
+<h2>Detaillierte Angaben</h2>
+<table>
+  {yn_row("Brille oder Kontaktlinsen", "glasses", "#f2f2f2")}
+  {yn_row("Regelmäßige Nachtfahrten", "night_driving", "#ffffff")}
+  {yn_row("Unfälle / Beinahe-Unfälle (letzte 24 Monate)", "accidents", "#f2f2f2")}
+  {yn_row("Synkopenabklärung bereits erfolgt", "syncope_workup", "#ffffff")}
+  {yn_row("Insulintherapie", "insulin_therapy", "#f2f2f2")}
+  {yn_row("Regelmäßige Blutzuckerselbstkontrolle", "glucose_monitoring", "#ffffff")}
+  {yn_row("CPAP / Schlaftherapie", "cpap_therapy", "#f2f2f2")}
+  {yn_row("Psychotherapie oder psychiatrische Behandlung", "psychiatric_treatment", "#ffffff")}
+  {yn_row("Alkohol täglich", "alcohol_daily", "#f2f2f2")}
+  {yn_row("Schlaf- oder Beruhigungsmittel", "sleeping_pills", "#ffffff")}
+  {yn_row("Einwilligung Wahrheitspflicht bestätigt", "consent_truth", "#f2f2f2")}
+  {yn_row("Datenschutzerklärung akzeptiert", "consent_privacy", "#ffffff")}
+</table>
+
+<p style="font-size:7.5pt;font-style:italic;margin-top:10px;color:#555">
+  Alle Führerscheinklassen: {txt('license_classes')} &nbsp;|&nbsp; Ausgefüllt am: {completed_str}
+</p>
+
+</body>
+</html>"""
+        return html
 
         def ess_cb(val, n):
             """Checkbox für ESS-Wert"""
