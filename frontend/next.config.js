@@ -1,7 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
   trailingSlash: false,
+  // puppeteer runs server-side in API routes – don't bundle it
+  serverExternalPackages: ['puppeteer'],
   async rewrites() {
     const backendUrl = process.env.BACKEND_URL || 'http://backend:8000'
     return [

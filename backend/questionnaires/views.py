@@ -93,6 +93,30 @@ class SubmitQuestionnaireView(APIView):
         }, status=status.HTTP_201_CREATED)
 
 
+class AnswersView(APIView):
+    """
+    GET: Gibt Antworten als JSON zurück (für Puppeteer-Print-Page)
+    """
+    def get(self, request, token):
+        session = get_object_or_404(QuestionnaireSession, token=token)
+        if not session.completed:
+            return Response(
+                {'error': 'Session noch nicht abgeschlossen.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        try:
+            answer_set = session.answers
+        except AnswerSet.DoesNotExist:
+            return Response({'error': 'Keine Antworten gefunden.'}, status=status.HTTP_404_NOT_FOUND)
+        return Response({
+            'answers': answer_set.answers_json,
+            'ess_total': answer_set.ess_total,
+            'ess_band': answer_set.ess_band,
+            'completed_at': session.completed_at.strftime('%d.%m.%Y') if session.completed_at else None,
+            'token': str(token),
+        })
+
+
 class GeneratePDFView(APIView):
     """
     GET: Generiere PDF für eine abgeschlossene Session

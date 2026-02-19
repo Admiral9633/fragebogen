@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { VerkehrsmedizinForm, FormData } from "@/components/verkehrsmedizin-form";
-import { CheckCircle2, AlertCircle, Download, Car } from "lucide-react";
+import { CheckCircle2, AlertCircle, Download, FileText, Car } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -132,13 +132,23 @@ export default function QuestionnairePage() {
             </p>
           </div>
 
-          <Button
-            className="w-full h-14 text-base gap-2"
-            onClick={() => window.open(`${API_URL}/api/pdf/${token}/`, "_blank")}
-          >
-            <Download className="w-5 h-5" />
-            PDF-Ausdruck herunterladen
-          </Button>
+          <div className="flex gap-3">
+            <Button
+              variant="outline"
+              className="flex-1 h-12 gap-2 text-sm"
+              onClick={() => window.open(`${API_URL}/api/pdf/${token}/`, "_blank")}
+            >
+              <FileText className="w-4 h-4" />
+              PDF (klassisch)
+            </Button>
+            <Button
+              className="flex-1 h-12 gap-2 text-sm"
+              onClick={() => window.open(`/api/puppeteer-pdf/${token}/`, "_blank")}
+            >
+              <Download className="w-4 h-4" />
+              PDF (Design)
+            </Button>
+          </div>
 
           <p className="text-center text-xs text-muted-foreground">Sie können dieses Fenster nun schließen.</p>
         </div>
