@@ -307,11 +307,15 @@ export default async function PrintPage({
             </tbody>
           </table>
         </div>
-        <div style={{ textAlign: "right" as const, fontSize: 7.5, lineHeight: 1.7, color: "#333" }}>
-          <div style={{ fontWeight: 700, fontSize: 8.5, color: "#1f3864" }}>Dr. med. Björn Micka</div>
-          Betriebsmedizin · Notfallmedizin<br />
-          Christoph-Dassler-Str. 22<br />
-          91074 Herzogenaurach
+        <div style={{ textAlign: "right" as const, fontSize: 7.5, lineHeight: 1.7, color: "#333", display: "flex", flexDirection: "column" as const, alignItems: "flex-end", gap: 4 }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/logo.svg" alt="Logo" style={{ height: 48, width: "auto" }} />
+          <div>
+            <div style={{ fontWeight: 700, fontSize: 8.5, color: "#1f3864" }}>Dr. med. Björn Micka</div>
+            Betriebsmedizin · Notfallmedizin<br />
+            Christoph-Dassler-Str. 22<br />
+            91074 Herzogenaurach
+          </div>
         </div>
       </div>
 
