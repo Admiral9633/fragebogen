@@ -112,6 +112,7 @@ def parse_gdt(path: Path) -> dict:
         "patient_last_name":  first("3102"),
         "patient_first_name": first("3101"),
         "patient_birth_date": birth_date_iso,
+        "patient_email":      first("3121"),   # E-Mail (GDT-Erweiterungsfeld)
         "gdt_request_id":     first("8315"),
         "record_type":        first("8000"),  # 6310 = Anforderung
     }
@@ -267,6 +268,7 @@ class GdtBridge:
                     "patient_last_name":  patient["patient_last_name"],
                     "patient_first_name": patient["patient_first_name"],
                     "patient_birth_date": patient["patient_birth_date"],
+                    "patient_email":      patient.get("patient_email", ""),
                     "gdt_patient_id":     patient["gdt_patient_id"],
                     "gdt_request_id":     patient["gdt_request_id"],
                 }
