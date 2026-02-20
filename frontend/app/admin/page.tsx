@@ -473,11 +473,14 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
                             {s.completed && (
                               <Tooltip>
                                 <TooltipTrigger asChild>
-                                  <Button variant="ghost" size="icon" asChild>
-                                    <a href={`/api/puppeteer-pdf/${s.token}`} target="_blank" rel="noopener noreferrer">
-                                      <FileText className="h-4 w-4" />
-                                    </a>
-                                  </Button>
+                                  <a
+                                    href={`/api/puppeteer-pdf/${s.token}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center justify-center h-9 w-9 rounded-md text-sm hover:bg-accent hover:text-accent-foreground"
+                                  >
+                                    <FileText className="h-4 w-4" />
+                                  </a>
                                 </TooltipTrigger>
                                 <TooltipContent>PDF öffnen</TooltipContent>
                               </Tooltip>
