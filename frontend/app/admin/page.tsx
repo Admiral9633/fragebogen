@@ -1,8 +1,25 @@
-"use client";
+﻿"use client";
 
 export const dynamic = "force-dynamic";
 
 import { useState, useEffect, useCallback } from "react";
+import {
+  Link2, Mail, Pencil, Trash2, RefreshCw, LogOut,
+  FileText, Plus, CheckCircle2, Clock, Loader2,
+} from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Separator } from "@/components/ui/separator";
+import { Skeleton } from "@/components/ui/skeleton";
+
+// ─── Types ────────────────────────────────────────────────────────────────────
 
 const STORAGE_KEY = "admin_api_key";
 
@@ -18,6 +35,36 @@ interface Session {
   expires_at: string;
   invitation_sent_at: string | null;
   gdt_patient_id: string;
+}
+
+// ─── Toast ───────────────────────────────────────────────────────────────────
+
+function useToast() {
+  const [toasts, setToasts] = useState<{ id: number; text: string; ok: boolean }[]>([]);
+  const show = (text: string, ok = true) => {
+    const id = Date.now();
+    setToasts((t) => [...t, { id, text, ok }]);
+    setTimeout(() => setToasts((t) => t.filter((x) => x.id !== id)), 3000);
+  };
+  return { toasts, show };
+}
+
+function ToastContainer({ toasts }: { toasts: { id: number; text: string; ok: boolean }[] }) {
+  if (!toasts.length) return null;
+  return (
+    <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-2">
+      {toasts.map((t) => (
+        <div
+          key={t.id}
+          className={`rounded-lg border px-4 py-2.5 text-sm shadow-lg ${
+            t.ok ? "bg-white border-emerald-200 text-emerald-800" : "bg-white border-red-200 text-red-700"
+          }`}
+        >
+          {t.text}
+        </div>
+      ))}
+    </div>
+  );
 }
 
 // ─── Login ────────────────────────────────────────────────────────────────────
@@ -51,34 +98,119 @@ function LoginForm({ onLogin }: { onLogin: (key: string) => void }) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-      <div className="bg-white rounded-xl shadow-md p-8 w-full max-w-sm">
-        <h1 className="text-2xl font-bold text-[#1f3864] mb-6">Admin-Bereich</h1>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Admin-Passwort
-            </label>
-            <input
-              type="password"
-              value={key}
-              onChange={(e) => setKey(e.target.value)}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#1f3864]"
-              autoFocus
-              required
-            />
-          </div>
-          {error && <p className="text-red-600 text-sm">{error}</p>}
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-[#1f3864] text-white rounded-lg px-4 py-2 text-sm font-semibold hover:bg-[#162b4d] disabled:opacity-50"
-          >
-            {loading ? "Bitte warten…" : "Anmelden"}
-          </button>
-        </form>
-      </div>
+    <div className="min-h-screen bg-muted/40 flex items-center justify-center p-4">
+      <Card className="w-full max-w-sm">
+        <CardHeader>
+          <CardTitle className="text-xl">Admin-Bereich</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="space-y-1.5">
+              <Label htmlFor="apikey">Passwort</Label>
+              <Input id="apikey" type="password" value={key} onChange={(e) => setKey(e.target.value)} autoFocus required />
+            </div>
+            {error && <p className="text-sm text-destructive">{error}</p>}
+            <Button type="submit" className="w-full" disabled={loading}>
+              {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              Anmelden
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
     </div>
+  );
+}
+
+// ─── Edit Dialog ──────────────────────────────────────────────────────────────
+
+interface EditDialogProps {
+  session: Session | null;
+  onClose: () => void;
+  onSaved: () => void;
+  headers: Record<string, string>;
+  toast: (text: string, ok?: boolean) => void;
+}
+
+function EditDialog({ session, onClose, onSaved, headers, toast }: EditDialogProps) {
+  const [lastName, setLastName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [email, setEmail] = useState("");
+  const [birthDate, setBirthDate] = useState("");
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    if (!session) return;
+    setLastName(session.patient_last_name || "");
+    setFirstName(session.patient_first_name || "");
+    setEmail(session.patient_email || "");
+    if (session.patient_birth_date) {
+      const p = session.patient_birth_date.split(".");
+      setBirthDate(p.length === 3 ? `${p[2]}-${p[1]}-${p[0]}` : session.patient_birth_date);
+    } else setBirthDate("");
+  }, [session]);
+
+  async function handleSave() {
+    if (!session) return;
+    setSaving(true);
+    try {
+      const res = await fetch(`/api/admin/sessions/${session.token}/update/`, {
+        method: "PATCH",
+        headers,
+        body: JSON.stringify({
+          patient_last_name: lastName,
+          patient_first_name: firstName,
+          patient_email: email,
+          patient_birth_date: birthDate || "",
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        toast(data.error || "Fehler beim Speichern.", false);
+      } else {
+        toast("Patientendaten gespeichert.");
+        onSaved();
+        onClose();
+      }
+    } catch {
+      toast("Netzwerkfehler.", false);
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  return (
+    <Dialog open={!!session} onOpenChange={(open) => !open && onClose()}>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle>Patient bearbeiten</DialogTitle>
+        </DialogHeader>
+        <div className="grid grid-cols-2 gap-3 py-2">
+          <div className="space-y-1.5">
+            <Label>Nachname</Label>
+            <Input value={lastName} onChange={(e) => setLastName(e.target.value)} />
+          </div>
+          <div className="space-y-1.5">
+            <Label>Vorname</Label>
+            <Input value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+          </div>
+          <div className="col-span-2 space-y-1.5">
+            <Label>E-Mail <span className="text-muted-foreground text-xs">(optional)</span></Label>
+            <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="—" />
+          </div>
+          <div className="col-span-2 space-y-1.5">
+            <Label>Geburtsdatum</Label>
+            <Input type="date" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} />
+          </div>
+        </div>
+        <DialogFooter>
+          <Button variant="outline" onClick={onClose}>Abbrechen</Button>
+          <Button onClick={handleSave} disabled={saving}>
+            {saving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            Speichern
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }
 
@@ -86,33 +218,25 @@ function LoginForm({ onLogin }: { onLogin: (key: string) => void }) {
 
 function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void }) {
   const [sessions, setSessions] = useState<Session[]>([]);
-  const [loadingList, setLoadingList] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [listError, setListError] = useState("");
 
-  // Formular
   const [lastName, setLastName] = useState("");
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [creating, setCreating] = useState(false);
-  const [createMsg, setCreateMsg] = useState<{ text: string; ok: boolean } | null>(null);
 
-  // Action-Feedback
-  const [actionMsg, setActionMsg] = useState<{ token: string; text: string; ok: boolean } | null>(null);
-
-  // Bearbeitungs-State
   const [editSession, setEditSession] = useState<Session | null>(null);
-  const [editLastName, setEditLastName] = useState("");
-  const [editFirstName, setEditFirstName] = useState("");
-  const [editEmail, setEditEmail] = useState("");
-  const [editBirthDate, setEditBirthDate] = useState("");
-  const [editSaving, setEditSaving] = useState(false);
-  const [editMsg, setEditMsg] = useState<{ text: string; ok: boolean } | null>(null);
+  const { toasts, show: toast } = useToast();
 
-  const headers = { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` };
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${apiKey}`,
+  };
 
   const loadSessions = useCallback(async () => {
-    setLoadingList(true);
+    setLoading(true);
     setListError("");
     try {
       const res = await fetch("/api/admin/sessions/", { headers });
@@ -121,9 +245,9 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
     } catch (e) {
       setListError(String(e));
     } finally {
-      setLoadingList(false);
+      setLoading(false);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [apiKey]);
 
   useEffect(() => { loadSessions(); }, [loadSessions]);
@@ -131,7 +255,6 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
   async function handleCreate(e: React.FormEvent) {
     e.preventDefault();
     setCreating(true);
-    setCreateMsg(null);
     try {
       const res = await fetch("/api/admin/sessions/", {
         method: "POST",
@@ -145,364 +268,279 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
       });
       const data = await res.json();
       if (!res.ok) {
-        setCreateMsg({ text: data.error || "Fehler beim Anlegen.", ok: false });
+        toast(data.error || "Fehler beim Anlegen.", false);
       } else {
-        const emailStatus = !email
-          ? "Keine E-Mail angegeben, kein Versand."
+        const msg = !email
+          ? "Session angelegt (keine E-Mail)."
           : data.email_sent
-          ? "E-Mail wurde versendet."
-          : `E-Mail konnte nicht gesendet werden: ${data.email_error}`;
-        setCreateMsg({ text: `Session angelegt. ${emailStatus}`, ok: true });
+          ? "Session angelegt, E-Mail versendet."
+          : `Session angelegt. E-Mail-Fehler: ${data.email_error}`;
+        toast(msg, !email || data.email_sent);
         setLastName(""); setFirstName(""); setEmail(""); setBirthDate("");
         loadSessions();
       }
     } catch {
-      setCreateMsg({ text: "Netzwerkfehler.", ok: false });
+      toast("Netzwerkfehler.", false);
     } finally {
       setCreating(false);
     }
   }
 
-  function handleOpenEdit(s: Session) {
-    setEditSession(s);
-    setEditLastName(s.patient_last_name || "");
-    setEditFirstName(s.patient_first_name || "");
-    setEditEmail(s.patient_email || "");
-    // DD.MM.YYYY → YYYY-MM-DD für date-Input
-    if (s.patient_birth_date) {
-      const p = s.patient_birth_date.split(".");
-      setEditBirthDate(p.length === 3 ? `${p[2]}-${p[1]}-${p[0]}` : s.patient_birth_date);
+  function copyLink(token: string) {
+    const url = `${window.location.origin}/q/${token}`;
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(url).then(() => toast("Link kopiert!"));
     } else {
-      setEditBirthDate("");
-    }
-    setEditMsg(null);
-  }
-
-  async function handleSaveEdit() {
-    if (!editSession) return;
-    setEditSaving(true);
-    setEditMsg(null);
-    try {
-      const res = await fetch(`/api/admin/sessions/${editSession.token}/update/`, {
-        method: "PATCH",
-        headers,
-        body: JSON.stringify({
-          patient_last_name: editLastName,
-          patient_first_name: editFirstName,
-          patient_email: editEmail,
-          patient_birth_date: editBirthDate || "",
-        }),
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        setEditMsg({ text: data.error || "Fehler beim Speichern.", ok: false });
-      } else {
-        setEditMsg({ text: "Gespeichert.", ok: true });
-        loadSessions();
-        setTimeout(() => setEditSession(null), 800);
-      }
-    } catch {
-      setEditMsg({ text: "Netzwerkfehler.", ok: false });
-    } finally {
-      setEditSaving(false);
+      const ta = document.createElement("textarea");
+      ta.value = url;
+      ta.style.cssText = "position:fixed;opacity:0";
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      document.body.removeChild(ta);
+      toast("Link kopiert!");
     }
   }
 
   async function handleResend(token: string) {
-    setActionMsg(null);
     try {
       const res = await fetch(`/api/admin/sessions/${token}/resend/`, { method: "POST", headers });
       const data = await res.json();
-      setActionMsg({ token, text: res.ok ? "E-Mail erneut versendet." : (data.error || "Fehler"), ok: res.ok });
-      loadSessions();
+      toast(res.ok ? "Einladung erneut versendet." : (data.error || "Fehler"), res.ok);
     } catch {
-      setActionMsg({ token, text: "Netzwerkfehler.", ok: false });
+      toast("Netzwerkfehler.", false);
     }
   }
 
   async function handleDelete(token: string, name: string) {
     if (!confirm(`Session von ${name} wirklich löschen?`)) return;
-    setActionMsg(null);
     try {
       const res = await fetch(`/api/admin/sessions/${token}/delete/`, { method: "DELETE", headers });
-      setActionMsg({ token, text: res.ok ? "Session gelöscht." : "Fehler beim Löschen.", ok: res.ok });
-      loadSessions();
+      toast(res.ok ? "Session gelöscht." : "Fehler beim Löschen.", res.ok);
+      if (res.ok) loadSessions();
     } catch {
-      setActionMsg({ token, text: "Netzwerkfehler.", ok: false });
+      toast("Netzwerkfehler.", false);
     }
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Topbar */}
-      <div className="bg-[#1f3864] text-white px-6 py-3 flex items-center justify-between">
-        <span className="font-bold text-lg">Fragebogen-Admin</span>
-        <button
-          onClick={onLogout}
-          className="text-sm text-blue-200 hover:text-white"
-        >
-          Abmelden
-        </button>
-      </div>
+    <TooltipProvider delayDuration={300}>
+      <div className="min-h-screen bg-muted/40">
+        {/* Topbar */}
+        <header className="sticky top-0 z-40 border-b bg-background">
+          <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
+            <span className="font-semibold text-base">Fragebogen-Admin</span>
+            <Button variant="ghost" size="sm" onClick={onLogout}>
+              <LogOut className="mr-1.5 h-4 w-4" />
+              Abmelden
+            </Button>
+          </div>
+        </header>
 
-      <div className="max-w-5xl mx-auto px-4 py-6 space-y-8">
-        {/* ── Neue Einladung ─────────────────────────────────────────── */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-          <h2 className="text-lg font-bold text-[#1f3864] mb-4">Neue Einladung versenden</h2>
-          <form onSubmit={handleCreate} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Nachname *</label>
-              <input
-                type="text" value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                required
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#1f3864]"
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Vorname *</label>
-              <input
-                type="text" value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                required
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#1f3864]"
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">E-Mail</label>
-              <input
-                type="email" value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#1f3864]"
-                placeholder="optional"
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Geburtsdatum</label>
-              <input
-                type="date" value={birthDate}
-                onChange={(e) => setBirthDate(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#1f3864]"
-              />
-            </div>
-            <div className="sm:col-span-2 flex items-center gap-4">
-              <button
-                type="submit"
-                disabled={creating}
-                className="bg-[#1f3864] text-white rounded-lg px-6 py-2 text-sm font-semibold hover:bg-[#162b4d] disabled:opacity-50"
-              >
-                {creating ? "Wird angelegt…" : "Einladung senden"}
-              </button>
-              {createMsg && (
-                <span className={`text-sm ${createMsg.ok ? "text-green-700" : "text-red-600"}`}>
-                  {createMsg.text}
-                </span>
+        <main className="mx-auto max-w-6xl px-4 py-6 space-y-6">
+          {/* Neue Einladung */}
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-base flex items-center gap-2">
+                <Plus className="h-4 w-4" />
+                Neue Einladung
+              </CardTitle>
+            </CardHeader>
+            <Separator />
+            <CardContent className="pt-4">
+              <form onSubmit={handleCreate} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 items-end">
+                <div className="space-y-1.5">
+                  <Label htmlFor="c-ln">Nachname <span className="text-destructive">*</span></Label>
+                  <Input id="c-ln" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
+                </div>
+                <div className="space-y-1.5">
+                  <Label htmlFor="c-fn">Vorname <span className="text-destructive">*</span></Label>
+                  <Input id="c-fn" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
+                </div>
+                <div className="space-y-1.5">
+                  <Label htmlFor="c-em">
+                    E-Mail <span className="text-muted-foreground text-xs">(optional)</span>
+                  </Label>
+                  <Input id="c-em" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="—" />
+                </div>
+                <div className="space-y-1.5">
+                  <Label htmlFor="c-bd">Geburtsdatum</Label>
+                  <Input id="c-bd" type="date" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} />
+                </div>
+                <div className="sm:col-span-2 lg:col-span-4">
+                  <Button type="submit" disabled={creating}>
+                    {creating
+                      ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Wird angelegt…</>
+                      : <><Mail className="mr-2 h-4 w-4" />Einladung senden</>
+                    }
+                  </Button>
+                </div>
+              </form>
+            </CardContent>
+          </Card>
+
+          {/* Session-Liste */}
+          <Card>
+            <CardHeader className="pb-3">
+              <div className="flex items-center justify-between">
+                <CardTitle className="text-base">
+                  Alle Sessions
+                  {sessions.length > 0 && (
+                    <Badge variant="secondary" className="ml-2 font-normal">{sessions.length}</Badge>
+                  )}
+                </CardTitle>
+                <Button variant="ghost" size="icon" onClick={loadSessions}>
+                  <RefreshCw className="h-4 w-4" />
+                </Button>
+              </div>
+            </CardHeader>
+            <Separator />
+            <CardContent className="p-0">
+              {listError && <p className="text-sm text-destructive p-4">{listError}</p>}
+              {loading ? (
+                <div className="space-y-2 p-4">
+                  {[...Array(3)].map((_, i) => <Skeleton key={i} className="h-10 w-full" />)}
+                </div>
+              ) : sessions.length === 0 ? (
+                <p className="text-sm text-muted-foreground p-4 text-center">Keine Sessions vorhanden.</p>
+              ) : (
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Patient</TableHead>
+                      <TableHead>GDT</TableHead>
+                      <TableHead>E-Mail</TableHead>
+                      <TableHead>Geburtsdatum</TableHead>
+                      <TableHead>Status</TableHead>
+                      <TableHead>Erstellt</TableHead>
+                      <TableHead className="text-right">Aktionen</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {sessions.map((s) => (
+                      <TableRow key={s.token}>
+                        <TableCell className="font-medium">
+                          {s.patient_last_name || "—"}
+                          {s.patient_first_name ? `, ${s.patient_first_name}` : ""}
+                        </TableCell>
+
+                        <TableCell>
+                          {s.gdt_patient_id ? (
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Badge variant="secondary" className="cursor-default font-mono text-[10px]">
+                                  GDT
+                                </Badge>
+                              </TooltipTrigger>
+                              <TooltipContent>GDT-ID: {s.gdt_patient_id}</TooltipContent>
+                            </Tooltip>
+                          ) : (
+                            <span className="text-muted-foreground">—</span>
+                          )}
+                        </TableCell>
+
+                        <TableCell className="text-muted-foreground text-xs">{s.patient_email || "—"}</TableCell>
+
+                        <TableCell className="text-muted-foreground text-xs">{s.patient_birth_date || "—"}</TableCell>
+
+                        <TableCell>
+                          {s.completed ? (
+                            <Badge variant="success" className="gap-1">
+                              <CheckCircle2 className="h-3 w-3" />
+                              {s.completed_at ?? "Ausgefüllt"}
+                            </Badge>
+                          ) : (
+                            <Badge variant="warning" className="gap-1">
+                              <Clock className="h-3 w-3" />
+                              Offen bis {s.expires_at}
+                            </Badge>
+                          )}
+                        </TableCell>
+
+                        <TableCell className="text-muted-foreground text-xs whitespace-nowrap">{s.created_at}</TableCell>
+
+                        <TableCell>
+                          <div className="flex items-center justify-end gap-1">
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Button variant="ghost" size="icon" onClick={() => copyLink(s.token)}>
+                                  <Link2 className="h-4 w-4" />
+                                </Button>
+                              </TooltipTrigger>
+                              <TooltipContent>Link kopieren</TooltipContent>
+                            </Tooltip>
+
+                            {s.completed && (
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <Button variant="ghost" size="icon" asChild>
+                                    <a href={`/api/puppeteer-pdf/${s.token}`} target="_blank" rel="noopener noreferrer">
+                                      <FileText className="h-4 w-4" />
+                                    </a>
+                                  </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>PDF öffnen</TooltipContent>
+                              </Tooltip>
+                            )}
+
+                            {!s.completed && s.patient_email && (
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <Button variant="ghost" size="icon" onClick={() => handleResend(s.token)}>
+                                    <Mail className="h-4 w-4" />
+                                  </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>Einladung erneut senden</TooltipContent>
+                              </Tooltip>
+                            )}
+
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Button variant="ghost" size="icon" onClick={() => setEditSession(s)}>
+                                  <Pencil className="h-4 w-4" />
+                                </Button>
+                              </TooltipTrigger>
+                              <TooltipContent>Bearbeiten</TooltipContent>
+                            </Tooltip>
+
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  className="text-destructive hover:text-destructive"
+                                  onClick={() => handleDelete(
+                                    s.token,
+                                    `${s.patient_last_name} ${s.patient_first_name}`.trim() || s.token
+                                  )}
+                                >
+                                  <Trash2 className="h-4 w-4" />
+                                </Button>
+                              </TooltipTrigger>
+                              <TooltipContent>Session löschen</TooltipContent>
+                            </Tooltip>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
               )}
-            </div>
-          </form>
-        </div>
+            </CardContent>
+          </Card>
+        </main>
 
-        {/* ── Session-Übersicht ──────────────────────────────────────── */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-bold text-[#1f3864]">Alle Sessions ({sessions.length})</h2>
-            <button
-              onClick={loadSessions}
-              className="text-sm text-[#1f3864] hover:underline"
-            >
-              ↻ Aktualisieren
-            </button>
-          </div>
+        <EditDialog
+          session={editSession}
+          onClose={() => setEditSession(null)}
+          onSaved={loadSessions}
+          headers={headers}
+          toast={toast}
+        />
 
-          {listError && <p className="text-red-600 text-sm mb-3">{listError}</p>}
-          {loadingList ? (
-            <p className="text-gray-400 text-sm">Lade…</p>
-          ) : sessions.length === 0 ? (
-            <p className="text-gray-400 text-sm">Noch keine Sessions vorhanden.</p>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm border-collapse">
-                <thead>
-                  <tr className="text-left text-xs text-gray-500 border-b border-gray-200">
-                    <th className="pb-2 pr-4 font-medium">Patient</th>
-                    <th className="pb-2 pr-4 font-medium">E-Mail</th>
-                    <th className="pb-2 pr-4 font-medium">Geburtsdatum</th>
-                    <th className="pb-2 pr-4 font-medium">Status</th>
-                    <th className="pb-2 pr-4 font-medium">Erstellt</th>
-                    <th className="pb-2 font-medium">Aktionen</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {sessions.map((s) => (
-                    <tr key={s.token} className="border-b border-gray-100 hover:bg-gray-50">
-                      <td className="py-2 pr-4 font-medium">
-                        <div className="flex items-center gap-1.5 flex-wrap">
-                          <span>{s.patient_last_name || "—"}{s.patient_first_name ? `, ${s.patient_first_name}` : ""}</span>
-                          {s.gdt_patient_id && (
-                            <span
-                              title={`GDT-Patienten-ID: ${s.gdt_patient_id}`}
-                              className="inline-block bg-blue-100 text-blue-700 text-[10px] font-semibold px-1.5 py-0.5 rounded uppercase tracking-wide"
-                            >
-                              GDT
-                            </span>
-                          )}
-                        </div>
-                      </td>
-                      <td className="py-2 pr-4 text-gray-600">{s.patient_email || "—"}</td>
-                      <td className="py-2 pr-4 text-gray-600">{s.patient_birth_date || "—"}</td>
-                      <td className="py-2 pr-4">
-                        {s.completed ? (
-                          <span className="inline-block bg-green-100 text-green-800 text-xs px-2 py-0.5 rounded-full">
-                            ✓ Ausgefüllt {s.completed_at ? `(${s.completed_at})` : ""}
-                          </span>
-                        ) : (
-                          <span className="inline-block bg-orange-100 text-orange-700 text-xs px-2 py-0.5 rounded-full">
-                            Offen (bis {s.expires_at})
-                          </span>
-                        )}
-                      </td>
-                      <td className="py-2 pr-4 text-gray-500 text-xs">{s.created_at}</td>
-                      <td className="py-2">
-                        <div className="flex items-center gap-2 flex-wrap">
-                          {/* Fragebogen-Link kopieren */}
-                          <button
-                            onClick={() => {
-                              const url = `${window.location.origin}/q/${s.token}`;
-                              if (navigator.clipboard && window.isSecureContext) {
-                                navigator.clipboard.writeText(url);
-                              } else {
-                                const ta = document.createElement("textarea");
-                                ta.value = url;
-                                ta.style.position = "fixed";
-                                ta.style.opacity = "0";
-                                document.body.appendChild(ta);
-                                ta.select();
-                                document.execCommand("copy");
-                                document.body.removeChild(ta);
-                              }
-                              setActionMsg({ token: s.token, text: "Link kopiert!", ok: true });
-                            }}
-                            className="text-xs text-blue-600 hover:underline"
-                            title="Fragebogen-Link kopieren"
-                          >
-                            Link
-                          </button>
-                          {/* PDF (Design) */}
-                          {s.completed && (
-                            <a
-                              href={`/api/puppeteer-pdf/${s.token}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-xs text-[#1f3864] hover:underline"
-                            >
-                              PDF
-                            </a>
-                          )}
-                          {/* E-Mail erneut senden */}
-                          {!s.completed && s.patient_email && (
-                            <button
-                              onClick={() => handleResend(s.token)}
-                              className="text-xs text-amber-600 hover:underline"
-                            >
-                              Einladung
-                            </button>
-                          )}
-                          {/* Bearbeiten */}
-                          <button
-                            onClick={() => handleOpenEdit(s)}
-                            className="text-xs text-gray-500 hover:underline"
-                          >
-                            Bearbeiten
-                          </button>
-                          {/* Löschen */}
-                          <button
-                            onClick={() => handleDelete(s.token, `${s.patient_last_name} ${s.patient_first_name}`.trim() || s.token)}
-                            className="text-xs text-red-500 hover:underline"
-                          >
-                            Löschen
-                          </button>
-                        </div>
-                        {actionMsg?.token === s.token && (
-                          <p className={`text-xs mt-1 ${actionMsg.ok ? "text-green-600" : "text-red-500"}`}>
-                            {actionMsg.text}
-                          </p>
-                        )}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </div>
+        <ToastContainer toasts={toasts} />
       </div>
-
-      {/* ── Edit-Modal ────────────────────────────────────── */}
-      {editSession && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl shadow-xl p-6 w-full max-w-md mx-4">
-            <h3 className="text-lg font-bold text-[#1f3864] mb-4">Patient bearbeiten</h3>
-            <div className="space-y-3">
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-xs font-medium text-gray-600 mb-1">Nachname</label>
-                  <input
-                    type="text" value={editLastName}
-                    onChange={(e) => setEditLastName(e.target.value)}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#1f3864]"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-medium text-gray-600 mb-1">Vorname</label>
-                  <input
-                    type="text" value={editFirstName}
-                    onChange={(e) => setEditFirstName(e.target.value)}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#1f3864]"
-                  />
-                </div>
-              </div>
-              <div>
-                <label className="block text-xs font-medium text-gray-600 mb-1">E-Mail</label>
-                <input
-                  type="email" value={editEmail}
-                  onChange={(e) => setEditEmail(e.target.value)}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#1f3864]"
-                  placeholder="optional"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-medium text-gray-600 mb-1">Geburtsdatum</label>
-                <input
-                  type="date" value={editBirthDate}
-                  onChange={(e) => setEditBirthDate(e.target.value)}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#1f3864]"
-                />
-              </div>
-            </div>
-            {editMsg && (
-              <p className={`text-sm mt-3 ${editMsg.ok ? "text-green-700" : "text-red-600"}`}>
-                {editMsg.text}
-              </p>
-            )}
-            <div className="flex gap-3 mt-5">
-              <button
-                onClick={handleSaveEdit}
-                disabled={editSaving}
-                className="flex-1 bg-[#1f3864] text-white rounded-lg px-4 py-2 text-sm font-semibold hover:bg-[#162b4d] disabled:opacity-50"
-              >
-                {editSaving ? "Speichern…" : "Speichern"}
-              </button>
-              <button
-                onClick={() => setEditSession(null)}
-                className="flex-1 border border-gray-300 text-gray-700 rounded-lg px-4 py-2 text-sm hover:bg-gray-50"
-              >
-                Abbrechen
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
+    </TooltipProvider>
   );
 }
 
@@ -513,25 +551,11 @@ export default function AdminPage() {
   const [checked, setChecked] = useState(false);
 
   useEffect(() => {
-    const stored = sessionStorage.getItem(STORAGE_KEY);
-    setApiKey(stored);
+    setApiKey(sessionStorage.getItem(STORAGE_KEY));
     setChecked(true);
   }, []);
 
-  function handleLogin(key: string) {
-    setApiKey(key);
-  }
-
-  function handleLogout() {
-    sessionStorage.removeItem(STORAGE_KEY);
-    setApiKey(null);
-  }
-
   if (!checked) return null;
-
-  if (!apiKey) {
-    return <LoginForm onLogin={handleLogin} />;
-  }
-
-  return <Dashboard apiKey={apiKey} onLogout={handleLogout} />;
+  if (!apiKey) return <LoginForm onLogin={(k) => { sessionStorage.setItem(STORAGE_KEY, k); setApiKey(k); }} />;
+  return <Dashboard apiKey={apiKey} onLogout={() => { sessionStorage.removeItem(STORAGE_KEY); setApiKey(null); }} />;
 }
