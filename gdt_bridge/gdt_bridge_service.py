@@ -298,8 +298,12 @@ class GdtBridge:
                 })
                 save_pending(pending)
 
-                # Datei verschieben
-                gdt_file.rename(self.processed / gdt_file.name)
+                # Datei verschieben (Timestamp-Suffix bei Namenskollision)
+                dest = self.processed / gdt_file.name
+                if dest.exists():
+                    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+                    dest = self.processed / f"{gdt_file.stem}_{ts}{gdt_file.suffix}"
+                gdt_file.rename(dest)
 
             except requests.HTTPError as exc:
                 log.error("HTTP-Fehler beim Erstellen der Session: %s – %s", exc, exc.response.text if exc.response else "")
