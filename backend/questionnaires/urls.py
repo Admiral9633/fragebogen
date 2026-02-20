@@ -7,6 +7,8 @@ from .views import (
     AdminSessionListView,
     AdminResendEmailView,
     AdminDeleteSessionView,
+    GdtSessionCreateView,
+    GdtResultView,
 )
 
 urlpatterns = [
@@ -18,4 +20,7 @@ urlpatterns = [
     path('admin/sessions/', AdminSessionListView.as_view(), name='admin-sessions'),
     path('admin/sessions/<uuid:token>/resend/', AdminResendEmailView.as_view(), name='admin-resend'),
     path('admin/sessions/<uuid:token>/delete/', AdminDeleteSessionView.as_view(), name='admin-delete'),
+    # GDT-Schnittstelle
+    path('gdt/session/', GdtSessionCreateView.as_view(), name='gdt-session-create'),
+    path('gdt/result/<uuid:token>/', GdtResultView.as_view(), name='gdt-result'),
 ]

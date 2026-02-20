@@ -17,6 +17,7 @@ interface Session {
   created_at: string;
   expires_at: string;
   invitation_sent_at: string | null;
+  gdt_patient_id: string;
 }
 
 // ─── Login ────────────────────────────────────────────────────────────────────
@@ -279,7 +280,17 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
                   {sessions.map((s) => (
                     <tr key={s.token} className="border-b border-gray-100 hover:bg-gray-50">
                       <td className="py-2 pr-4 font-medium">
-                        {s.patient_last_name || "—"}{s.patient_first_name ? `, ${s.patient_first_name}` : ""}
+                        <div className="flex items-center gap-1.5 flex-wrap">
+                          <span>{s.patient_last_name || "—"}{s.patient_first_name ? `, ${s.patient_first_name}` : ""}</span>
+                          {s.gdt_patient_id && (
+                            <span
+                              title={`GDT-Patienten-ID: ${s.gdt_patient_id}`}
+                              className="inline-block bg-blue-100 text-blue-700 text-[10px] font-semibold px-1.5 py-0.5 rounded uppercase tracking-wide"
+                            >
+                              GDT
+                            </span>
+                          )}
+                        </div>
                       </td>
                       <td className="py-2 pr-4 text-gray-600">{s.patient_email || "—"}</td>
                       <td className="py-2 pr-4 text-gray-600">{s.patient_birth_date || "—"}</td>

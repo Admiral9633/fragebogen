@@ -58,6 +58,18 @@ class QuestionnaireSession(models.Model):
         blank=True,
         help_text="Anonymisierte Patienten-ID"
     )
+
+    # GDT-Schnittstelle
+    gdt_patient_id = models.CharField(
+        max_length=100,
+        blank=True,
+        help_text="GDT Feld 3000 – interne SAMAS Patienten-ID"
+    )
+    gdt_request_id = models.CharField(
+        max_length=100,
+        blank=True,
+        help_text="GDT Feld 8315 – Anforderungskennung für Rückantwort"
+    )
     
     class Meta:
         ordering = ['-created_at']

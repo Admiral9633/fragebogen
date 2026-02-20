@@ -547,6 +547,7 @@ class AdminSessionListView(APIView):
                 'created_at': s.created_at.strftime('%d.%m.%Y %H:%M'),
                 'expires_at': s.expires_at.strftime('%d.%m.%Y'),
                 'invitation_sent_at': s.invitation_sent_at.strftime('%d.%m.%Y %H:%M') if s.invitation_sent_at else None,
+                'gdt_patient_id': s.gdt_patient_id,
             })
         return Response(data)
 
@@ -635,3 +636,159 @@ class AdminDeleteSessionView(APIView):
         session = get_object_or_404(QuestionnaireSession, token=token)
         session.delete()
         return Response({'success': True})
+
+
+class GdtSessionCreateView(APIView):
+    """
+    POST /api/gdt/session/
+    Wird vom GDT-Bridge Windows Service aufgerufen.
+    Erstellt eine neue Fragebogen-Session aus GDT-Patientendaten
+    und gibt Token + URL zurück. Keine E-Mail-Pflicht.
+
+    Body (JSON):
+    {
+        "patient_last_name":  "Mustermann",
+        "patient_first_name": "Max",
+        "patient_birth_date": "1975-03-21",   // YYYY-MM-DD
+        "gdt_patient_id":     "12345",         // GDT Feld 3000
+        "gdt_request_id":     "REQ-001",       // GDT Feld 8315 (optional)
+        "template_slug":      "ess-fragebogen" // optional, Default: erster aktiver Template
+    }
+
+    Response (201):
+    {
+        "token": "<uuid>",
+        "url":   "https://app.example.com/q/<uuid>"
+    }
+    """
+    permission_classes = [AdminApiKeyPermission]
+
+    def post(self, request):
+        d = request.data
+        last_name  = d.get('patient_last_name',  '').strip()
+        first_name = d.get('patient_first_name', '').strip()
+
+        if not last_name or not first_name:
+            return Response(
+                {'error': 'patient_last_name und patient_first_name sind erforderlich.'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        # Geburtsdatum parsen (YYYY-MM-DD oder TT.MM.YYYY)
+        birth_date = None
+        birth_date_str = d.get('patient_birth_date', '').strip()
+        if birth_date_str:
+            from datetime import datetime as _dt
+            for fmt in ('%Y-%m-%d', '%d.%m.%Y'):
+                try:
+                    birth_date = _dt.strptime(birth_date_str, fmt).date()
+                    break
+                except ValueError:
+                    continue
+            if birth_date is None:
+                return Response(
+                    {'error': f'Ungültiges Datumsformat: {birth_date_str}. Erwartet YYYY-MM-DD.'},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+        # Template holen
+        template_slug = d.get('template_slug', '').strip()
+        if template_slug:
+            template = QuestionnaireTemplate.objects.filter(
+                slug=template_slug, is_active=True
+            ).order_by('-version').first()
+            if not template:
+                return Response(
+                    {'error': f'Template "{template_slug}" nicht gefunden.'},
+                    status=status.HTTP_404_NOT_FOUND,
+                )
+        else:
+            template = QuestionnaireTemplate.objects.filter(
+                is_active=True
+            ).order_by('-version').first()
+            if not template:
+                return Response(
+                    {'error': 'Kein aktiver Fragebogen-Template vorhanden.'},
+                    status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                )
+
+        from datetime import timedelta
+        session = QuestionnaireSession.objects.create(
+            template           = template,
+            patient_last_name  = last_name,
+            patient_first_name = first_name,
+            patient_birth_date = birth_date,
+            gdt_patient_id     = d.get('gdt_patient_id',  '').strip(),
+            gdt_request_id     = d.get('gdt_request_id',  '').strip(),
+            expires_at         = timezone.now() + timedelta(days=14),
+        )
+
+        app_url = os.environ.get('APP_URL', 'http://localhost:3000')
+        questionnaire_url = f"{app_url}/q/{session.token}"
+
+        return Response(
+            {
+                'token': str(session.token),
+                'url':   questionnaire_url,
+            },
+            status=status.HTTP_201_CREATED,
+        )
+
+
+class GdtResultView(APIView):
+    """
+    GET /api/gdt/result/<token>/
+    Wird vom GDT-Bridge Windows Service nach Abschluss des Fragebogens abgefragt.
+    Gibt Ergebnisdaten im GDT-freundlichen Format zurück.
+
+    Response (200, wenn abgeschlossen):
+    {
+        "completed":         true,
+        "completed_at":      "21.03.2026",
+        "gdt_patient_id":    "12345",
+        "gdt_request_id":    "REQ-001",
+        "patient_last_name": "Mustermann",
+        "patient_first_name":"Max",
+        "patient_birth_date":"21.03.1975",
+        "ess_total":         8,
+        "ess_band":          "normal",
+        "ess_band_text":     "Normal (0–9)"
+    }
+
+    Response (202, noch nicht abgeschlossen):
+    { "completed": false }
+    """
+    permission_classes = [AdminApiKeyPermission]
+
+    def get(self, request, token):
+        session = get_object_or_404(QuestionnaireSession, token=token)
+
+        if not session.completed:
+            return Response({'completed': False}, status=status.HTTP_202_ACCEPTED)
+
+        try:
+            answer_set = session.answers
+        except Exception:
+            return Response(
+                {'error': 'Antworten nicht gefunden.'},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        band_map = {
+            'normal':      'Normal (0–9)',
+            'erhöht':      'Erhöht (10–15)',
+            'ausgeprägt':  'Ausgeprägt (≥16) – ärztliche Abklärung erforderlich',
+        }
+
+        return Response({
+            'completed':          True,
+            'completed_at':       session.completed_at.strftime('%d.%m.%Y') if session.completed_at else '',
+            'gdt_patient_id':     session.gdt_patient_id,
+            'gdt_request_id':     session.gdt_request_id,
+            'patient_last_name':  session.patient_last_name,
+            'patient_first_name': session.patient_first_name,
+            'patient_birth_date': session.patient_birth_date.strftime('%d.%m.%Y') if session.patient_birth_date else '',
+            'ess_total':          answer_set.ess_total,
+            'ess_band':           answer_set.ess_band,
+            'ess_band_text':      band_map.get(answer_set.ess_band or '', answer_set.ess_band or ''),
+        })

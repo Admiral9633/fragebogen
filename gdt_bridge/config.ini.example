@@ -1,0 +1,30 @@
+# GDT Bridge – Konfigurationsdatei
+# Kopiere diese Datei zu config.ini und passe die Werte an.
+# Kommentare beginnen mit #
+
+[bridge]
+
+# ── GDT-Ordner (lokal auf diesem Rechner) ──────────────────────────────────
+# SAMAS schreibt Anforderungs-GDT hierher
+gdt_inbox  = C:\GDT\inbox
+
+# Ergebnis-GDT-Dateien werden hierher geschrieben (SAMAS liest sie)
+gdt_outbox = C:\GDT\outbox
+
+# ── Django Server ───────────────────────────────────────────────────────────
+# Basis-URL des API (ohne abschließenden Slash)
+api_url = https://dein-server.de/api
+
+# Admin API Key (ADMIN_API_KEY in der .env des Servers)
+api_key = DEIN-GEHEIMER-API-KEY
+
+# Welcher Fragebogen-Template soll verwendet werden?
+# Leer lassen = neuester aktiver Template wird automatisch gewählt
+template_slug = ess-fragebogen
+
+# ── Polling-Intervalle ──────────────────────────────────────────────────────
+# Wie oft (Sekunden) wird der Eingangsordner auf neue .gdt-Dateien geprüft?
+poll_inbox_seconds = 5
+
+# Wie oft (Sekunden) wird geprüft ob ein Fragebogen ausgefüllt wurde?
+poll_result_seconds = 30
