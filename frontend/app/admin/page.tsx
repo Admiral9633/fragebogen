@@ -18,6 +18,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
+import { DatePicker } from "@/components/ui/date-picker";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -199,7 +200,7 @@ function EditDialog({ session, onClose, onSaved, headers, toast }: EditDialogPro
           </div>
           <div className="col-span-2 space-y-1.5">
             <Label>Geburtsdatum</Label>
-            <Input type="date" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} />
+            <DatePicker value={birthDate} onChange={(v) => setBirthDate(v)} />
           </div>
         </div>
         <DialogFooter>
@@ -365,7 +366,7 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="c-bd">Geburtsdatum</Label>
-                  <Input id="c-bd" type="date" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} />
+                  <DatePicker value={birthDate} onChange={(v) => setBirthDate(v)} />
                 </div>
                 <div className="sm:col-span-2 lg:col-span-4">
                   <Button type="submit" disabled={creating}>
