@@ -6,16 +6,23 @@ import { Circle } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
+type RadioGroupProps = React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root> & {
+  error?: string
+}
+
 const RadioGroup = React.forwardRef<
   React.ElementRef<typeof RadioGroupPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root>
->(({ className, ...props }, ref) => {
+  RadioGroupProps
+>(({ className, error, ...props }, ref) => {
   return (
-    <RadioGroupPrimitive.Root
-      className={cn("grid gap-2", className)}
-      {...props}
-      ref={ref}
-    />
+    <div className="grid gap-2">
+      <RadioGroupPrimitive.Root
+        className={cn("flex flex-wrap gap-2", className)}
+        {...props}
+        ref={ref}
+      />
+      {error && <p className="text-sm text-destructive">{error}</p>}
+    </div>
   )
 })
 RadioGroup.displayName = RadioGroupPrimitive.Root.displayName
