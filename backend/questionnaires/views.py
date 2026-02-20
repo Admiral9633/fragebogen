@@ -1,16 +1,30 @@
+import os
 from django.utils import timezone
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.permissions import BasePermission
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 
 from .models import QuestionnaireSession, AnswerSet, QuestionnaireTemplate
 from .serializers import (
-    SubmitSerializer, 
+    SubmitSerializer,
     QuestionnaireSessionSerializer,
     AnswerSetSerializer
 )
+
+
+class AdminApiKeyPermission(BasePermission):
+    """Einfacher API-Key-Schutz für Admin-Endpunkte."""
+    def has_permission(self, request, view):
+        admin_key = os.environ.get('ADMIN_API_KEY', '')
+        if not admin_key:
+            return False
+        auth = request.META.get('HTTP_AUTHORIZATION', '')
+        return auth == f'Bearer {admin_key}'
 
 
 class QuestionnaireSessionView(APIView):
@@ -469,3 +483,152 @@ class GeneratePDFView(APIView):
 </body></html>"""
         return html
 
+
+def _send_invitation_email(session, app_url):
+    """Sendet die Einladungs-E-Mail an den Patienten."""
+    url = f"{app_url}/q/{session.token}"
+    patient_name = f"{session.patient_first_name} {session.patient_last_name}".strip()
+    subject = "Ihr verkehrsmedizinischer Fragebogen"
+    text_body = (
+        f"Sehr geehrte/r {patient_name},\n\n"
+        "bitte füllen Sie vor Ihrem Termin den beigefügten Fragebogen aus:\n\n"
+        f"{url}\n\n"
+        "Der Link ist 14 Tage gültig.\n\n"
+        "Mit freundlichen Grüßen\n"
+        "Dr. med. Björn Micka\n"
+        "Betriebsmedizin · Notfallmedizin\n"
+        "Christoph-Dassler-Str. 22, 91074 Herzogenaurach"
+    )
+    html_body = (
+        f"<p>Sehr geehrte/r {patient_name},</p>"
+        "<p>bitte füllen Sie vor Ihrem Termin den folgenden Fragebogen aus:</p>"
+        f'<p><a href="{url}" style="font-size:16px;font-weight:bold;">Fragebogen öffnen</a></p>'
+        f'<p style="color:#666;font-size:12px;">Direktlink: {url}</p>'
+        "<p>Der Link ist 14 Tage gültig.</p>"
+        "<hr><p style='font-size:12px;color:#666;'>"
+        "Dr. med. Björn Micka · Betriebsmedizin · Notfallmedizin<br>"
+        "Christoph-Dassler-Str. 22, 91074 Herzogenaurach</p>"
+    )
+    from_email = os.environ.get('EMAIL_FROM', 'noreply@example.com')
+    send_mail(
+        subject=subject,
+        message=text_body,
+        from_email=from_email,
+        recipient_list=[session.patient_email],
+        html_message=html_body,
+        fail_silently=False,
+    )
+    session.invitation_sent_at = timezone.now()
+    session.save(update_fields=['invitation_sent_at'])
+
+
+class AdminSessionListView(APIView):
+    """
+    GET  /api/admin/sessions/  – alle Sessions auflisten
+    POST /api/admin/sessions/  – neue Session anlegen + E-Mail senden
+    """
+    permission_classes = [AdminApiKeyPermission]
+
+    def get(self, request):
+        sessions = QuestionnaireSession.objects.all().order_by('-created_at')
+        data = []
+        for s in sessions:
+            data.append({
+                'token': str(s.token),
+                'patient_last_name': s.patient_last_name,
+                'patient_first_name': s.patient_first_name,
+                'patient_email': s.patient_email,
+                'patient_birth_date': s.patient_birth_date.strftime('%d.%m.%Y') if s.patient_birth_date else '',
+                'completed': s.completed,
+                'completed_at': s.completed_at.strftime('%d.%m.%Y %H:%M') if s.completed_at else None,
+                'created_at': s.created_at.strftime('%d.%m.%Y %H:%M'),
+                'expires_at': s.expires_at.strftime('%d.%m.%Y'),
+                'invitation_sent_at': s.invitation_sent_at.strftime('%d.%m.%Y %H:%M') if s.invitation_sent_at else None,
+            })
+        return Response(data)
+
+    def post(self, request):
+        d = request.data
+        last_name = d.get('patient_last_name', '').strip()
+        first_name = d.get('patient_first_name', '').strip()
+        email = d.get('patient_email', '').strip()
+        birth_date_str = d.get('patient_birth_date', '').strip()
+
+        if not last_name or not first_name or not email:
+            return Response({'error': 'Name, Vorname und E-Mail sind erforderlich.'}, status=400)
+
+        from django.core.validators import validate_email
+        from django.core.exceptions import ValidationError
+        try:
+            validate_email(email)
+        except ValidationError:
+            return Response({'error': 'Ungültige E-Mail-Adresse.'}, status=400)
+
+        birth_date = None
+        if birth_date_str:
+            from datetime import datetime as dt
+            for fmt in ('%Y-%m-%d', '%d.%m.%Y'):
+                try:
+                    birth_date = dt.strptime(birth_date_str, fmt).date()
+                    break
+                except ValueError:
+                    continue
+
+        template = QuestionnaireTemplate.objects.filter(is_active=True).order_by('-version').first()
+        if not template:
+            return Response({'error': 'Kein aktiver Fragebogen-Template gefunden.'}, status=500)
+
+        from datetime import timedelta
+        session = QuestionnaireSession.objects.create(
+            template=template,
+            patient_last_name=last_name,
+            patient_first_name=first_name,
+            patient_email=email,
+            patient_birth_date=birth_date,
+            expires_at=timezone.now() + timedelta(days=14),
+        )
+
+        app_url = os.environ.get('APP_URL', 'http://localhost:3000')
+        try:
+            _send_invitation_email(session, app_url)
+            sent = True
+            error_msg = None
+        except Exception as e:
+            sent = False
+            error_msg = str(e)
+
+        return Response({
+            'token': str(session.token),
+            'email_sent': sent,
+            'email_error': error_msg,
+        }, status=201)
+
+
+class AdminResendEmailView(APIView):
+    """
+    POST /api/admin/sessions/<token>/resend/  – Einladung erneut senden
+    """
+    permission_classes = [AdminApiKeyPermission]
+
+    def post(self, request, token):
+        session = get_object_or_404(QuestionnaireSession, token=token)
+        if not session.patient_email:
+            return Response({'error': 'Keine E-Mail-Adresse hinterlegt.'}, status=400)
+        app_url = os.environ.get('APP_URL', 'http://localhost:3000')
+        try:
+            _send_invitation_email(session, app_url)
+            return Response({'success': True})
+        except Exception as e:
+            return Response({'error': str(e)}, status=500)
+
+
+class AdminDeleteSessionView(APIView):
+    """
+    DELETE /api/admin/sessions/<token>/  – Session löschen
+    """
+    permission_classes = [AdminApiKeyPermission]
+
+    def delete(self, request, token):
+        session = get_object_or_404(QuestionnaireSession, token=token)
+        session.delete()
+        return Response({'success': True})

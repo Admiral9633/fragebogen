@@ -45,9 +45,16 @@ class QuestionnaireSession(models.Model):
     completed = models.BooleanField(default=False)
     completed_at = models.DateTimeField(null=True, blank=True)
     
-    # Optionale Patientendaten
+    # Patientendaten
+    patient_last_name = models.CharField(max_length=100, blank=True)
+    patient_first_name = models.CharField(max_length=100, blank=True)
+    patient_email = models.EmailField(blank=True)
+    patient_birth_date = models.DateField(null=True, blank=True)
+    invitation_sent_at = models.DateTimeField(null=True, blank=True)
+
+    # Legacy
     patient_identifier = models.CharField(
-        max_length=100, 
+        max_length=100,
         blank=True,
         help_text="Anonymisierte Patienten-ID"
     )

@@ -17,6 +17,13 @@ const nextConfig = {
       // answers (für Puppeteer print-page)
       { source: '/api/answers/:token', destination: `${backendUrl}/api/answers/:token/` },
       { source: '/api/answers/:token/', destination: `${backendUrl}/api/answers/:token/` },
+      // admin
+      { source: '/api/admin/sessions', destination: `${backendUrl}/api/admin/sessions/` },
+      { source: '/api/admin/sessions/', destination: `${backendUrl}/api/admin/sessions/` },
+      { source: '/api/admin/sessions/:token/resend', destination: `${backendUrl}/api/admin/sessions/:token/resend/` },
+      { source: '/api/admin/sessions/:token/resend/', destination: `${backendUrl}/api/admin/sessions/:token/resend/` },
+      { source: '/api/admin/sessions/:token/delete', destination: `${backendUrl}/api/admin/sessions/:token/delete/` },
+      { source: '/api/admin/sessions/:token/delete/', destination: `${backendUrl}/api/admin/sessions/:token/delete/` },
     ]
   },
 }
