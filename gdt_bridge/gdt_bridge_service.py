@@ -342,8 +342,12 @@ class GdtBridge:
                     still_pending.append(entry)
 
             except requests.HTTPError as exc:
-                log.error("HTTP-Fehler beim Abfragen von %s: %s", token, exc)
-                still_pending.append(entry)
+                if exc.response is not None and exc.response.status_code == 404:
+                    log.warning("Session nicht gefunden (404), wird aus pending entfernt: %s", token)
+                    # Nicht in still_pending aufnehmen → verworfen
+                else:
+                    log.error("HTTP-Fehler beim Abfragen von %s: %s", token, exc)
+                    still_pending.append(entry)
             except Exception as exc:
                 log.error("Fehler beim Abfragen von %s: %s", token, exc)
                 still_pending.append(entry)
