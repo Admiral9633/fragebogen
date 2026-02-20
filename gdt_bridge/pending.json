@@ -1,0 +1,28 @@
+[
+  {
+    "token": "2f570801-12a4-493a-bde0-150dc3bfab69",
+    "patient": {
+      "gdt_patient_id": "12345",
+      "patient_last_name": "Mustermann",
+      "patient_first_name": "Max",
+      "patient_birth_date": "1975-06-01",
+      "gdt_request_id": "REQ-001",
+      "record_type": "6310"
+    },
+    "out_stem": "test_patient",
+    "created_at": "2026-02-20T17:14:11.597675"
+  },
+  {
+    "token": "c259cf27-9f4e-4c8e-8f5e-0e2e87df0103",
+    "patient": {
+      "gdt_patient_id": "12345",
+      "patient_last_name": "Mustermann",
+      "patient_first_name": "Max",
+      "patient_birth_date": "1975-06-01",
+      "gdt_request_id": "REQ-001",
+      "record_type": "6310"
+    },
+    "out_stem": "test_patient2",
+    "created_at": "2026-02-20T17:14:36.790959"
+  }
+]

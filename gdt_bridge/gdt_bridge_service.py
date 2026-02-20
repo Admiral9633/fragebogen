@@ -1,4 +1,4 @@
-"""
+r"""
 GDT Bridge – Windows Service
 =============================
 Überwacht einen lokalen GDT-Eingangsordner (aus SAMAS),

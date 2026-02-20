@@ -20,7 +20,7 @@ api_key = DEIN-GEHEIMER-API-KEY
 
 # Welcher Fragebogen-Template soll verwendet werden?
 # Leer lassen = neuester aktiver Template wird automatisch gewählt
-template_slug = ess-fragebogen
+template_slug =
 
 # ── Polling-Intervalle ──────────────────────────────────────────────────────
 # Wie oft (Sekunden) wird der Eingangsordner auf neue .gdt-Dateien geprüft?
