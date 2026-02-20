@@ -40,7 +40,7 @@ const navMain = [
   },
   {
     title: "PDF-Berichte",
-    url: "#reports",
+    url: "#sessions",
     icon: FileTextIcon,
   },
 ]

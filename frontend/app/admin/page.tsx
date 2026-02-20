@@ -334,8 +334,30 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
         <SiteHeader title="Fragebogen-Admin" />
         <TooltipProvider delayDuration={300}>
           <div className="flex flex-1 flex-col gap-6 p-4 md:p-6">
+          {/* Übersicht */}
+          <div id="overview" className="grid grid-cols-2 sm:grid-cols-3 gap-4 scroll-mt-16">
+            <Card>
+              <CardContent className="pt-6">
+                <p className="text-2xl font-bold">{sessions.length}</p>
+                <p className="text-sm text-muted-foreground">Sessions gesamt</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="pt-6">
+                <p className="text-2xl font-bold text-green-600">{sessions.filter(s => s.completed).length}</p>
+                <p className="text-sm text-muted-foreground">Abgeschlossen</p>
+              </CardContent>
+            </Card>
+            <Card className="col-span-2 sm:col-span-1">
+              <CardContent className="pt-6">
+                <p className="text-2xl font-bold text-amber-500">{sessions.filter(s => !s.completed).length}</p>
+                <p className="text-sm text-muted-foreground">Offen</p>
+              </CardContent>
+            </Card>
+          </div>
+
           {/* Neue Einladung */}
-          <Card>
+          <Card id="create" className="scroll-mt-16">
             <CardHeader className="pb-3">
               <CardTitle className="text-base flex items-center gap-2">
                 <Plus className="h-4 w-4" />
@@ -376,7 +398,7 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
           </Card>
 
           {/* Session-Liste */}
-          <Card>
+          <Card id="sessions" className="scroll-mt-16">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
                 <CardTitle className="text-base">
