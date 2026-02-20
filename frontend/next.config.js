@@ -24,6 +24,13 @@ const nextConfig = {
       { source: '/api/admin/sessions/:token/resend/', destination: `${backendUrl}/api/admin/sessions/:token/resend/` },
       { source: '/api/admin/sessions/:token/delete', destination: `${backendUrl}/api/admin/sessions/:token/delete/` },
       { source: '/api/admin/sessions/:token/delete/', destination: `${backendUrl}/api/admin/sessions/:token/delete/` },
+      { source: '/api/admin/sessions/:token/update', destination: `${backendUrl}/api/admin/sessions/:token/update/` },
+      { source: '/api/admin/sessions/:token/update/', destination: `${backendUrl}/api/admin/sessions/:token/update/` },
+      // gdt
+      { source: '/api/gdt/session', destination: `${backendUrl}/api/gdt/session/` },
+      { source: '/api/gdt/session/', destination: `${backendUrl}/api/gdt/session/` },
+      { source: '/api/gdt/result/:token', destination: `${backendUrl}/api/gdt/result/:token/` },
+      { source: '/api/gdt/result/:token/', destination: `${backendUrl}/api/gdt/result/:token/` },
     ]
   },
 }
