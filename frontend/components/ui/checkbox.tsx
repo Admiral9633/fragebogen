@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils"
 type CheckboxProps = Omit<React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>, "onChange" | "checked"> & {
   label?: React.ReactNode
   error?: string
-  checked?: boolean
+  checked?: boolean | "indeterminate"
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
