@@ -558,15 +558,16 @@ class AdminSessionListView(APIView):
         email = d.get('patient_email', '').strip()
         birth_date_str = d.get('patient_birth_date', '').strip()
 
-        if not last_name or not first_name or not email:
-            return Response({'error': 'Name, Vorname und E-Mail sind erforderlich.'}, status=400)
+        if not last_name or not first_name:
+            return Response({'error': 'Name und Vorname sind erforderlich.'}, status=400)
 
-        from django.core.validators import validate_email
-        from django.core.exceptions import ValidationError
-        try:
-            validate_email(email)
-        except ValidationError:
-            return Response({'error': 'Ungültige E-Mail-Adresse.'}, status=400)
+        if email:
+            from django.core.validators import validate_email
+            from django.core.exceptions import ValidationError
+            try:
+                validate_email(email)
+            except ValidationError:
+                return Response({'error': 'Ungültige E-Mail-Adresse.'}, status=400)
 
         birth_date = None
         if birth_date_str:
@@ -593,19 +594,65 @@ class AdminSessionListView(APIView):
         )
 
         app_url = os.environ.get('APP_URL', 'http://localhost:3000')
-        try:
-            _send_invitation_email(session, app_url)
-            sent = True
-            error_msg = None
-        except Exception as e:
-            sent = False
-            error_msg = str(e)
+        sent = False
+        error_msg = None
+        if email:
+            try:
+                _send_invitation_email(session, app_url)
+                sent = True
+            except Exception as e:
+                sent = False
+                error_msg = str(e)
 
         return Response({
             'token': str(session.token),
             'email_sent': sent,
             'email_error': error_msg,
         }, status=201)
+
+
+class AdminUpdateSessionView(APIView):
+    """
+    PATCH /api/admin/sessions/<token>/update/  – Patientendaten ändern
+    """
+    permission_classes = [AdminApiKeyPermission]
+
+    def patch(self, request, token):
+        session = get_object_or_404(QuestionnaireSession, token=token)
+        d = request.data
+
+        if 'patient_last_name' in d:
+            session.patient_last_name = d['patient_last_name'].strip()
+        if 'patient_first_name' in d:
+            session.patient_first_name = d['patient_first_name'].strip()
+        if 'patient_email' in d:
+            email = d['patient_email'].strip()
+            if email:
+                from django.core.validators import validate_email
+                from django.core.exceptions import ValidationError
+                try:
+                    validate_email(email)
+                except ValidationError:
+                    return Response({'error': 'Ungültige E-Mail-Adresse.'}, status=400)
+            session.patient_email = email
+        if 'patient_birth_date' in d:
+            birth_date_str = d['patient_birth_date'].strip()
+            if birth_date_str:
+                from datetime import datetime as _dt
+                bd = None
+                for fmt in ('%Y-%m-%d', '%d.%m.%Y'):
+                    try:
+                        bd = _dt.strptime(birth_date_str, fmt).date()
+                        break
+                    except ValueError:
+                        continue
+                if bd is None:
+                    return Response({'error': 'Ungültiges Datumsformat.'}, status=400)
+                session.patient_birth_date = bd
+            else:
+                session.patient_birth_date = None
+        session.save()
+        return Response({'success': True})
 
 
 class AdminResendEmailView(APIView):
@@ -713,11 +760,14 @@ class GdtSessionCreateView(APIView):
                 )
 
         from datetime import timedelta
+        patient_email = d.get('patient_email', '').strip()
+
         session = QuestionnaireSession.objects.create(
             template           = template,
             patient_last_name  = last_name,
             patient_first_name = first_name,
             patient_birth_date = birth_date,
+            patient_email      = patient_email,
             gdt_patient_id     = d.get('gdt_patient_id',  '').strip(),
             gdt_request_id     = d.get('gdt_request_id',  '').strip(),
             expires_at         = timezone.now() + timedelta(days=14),
@@ -725,6 +775,12 @@ class GdtSessionCreateView(APIView):
 
         app_url = os.environ.get('APP_URL', 'http://localhost:3000')
         questionnaire_url = f"{app_url}/q/{session.token}"
+
+        if patient_email:
+            try:
+                _send_invitation_email(session, app_url)
+            except Exception:
+                pass  # E-Mail-Fehler blockiert GDT-Session nicht
 
         return Response(
             {
