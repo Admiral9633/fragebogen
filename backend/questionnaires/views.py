@@ -128,6 +128,9 @@ class AnswersView(APIView):
             'ess_band': answer_set.ess_band,
             'completed_at': session.completed_at.strftime('%d.%m.%Y') if session.completed_at else None,
             'token': str(token),
+            'patient_last_name': session.patient_last_name,
+            'patient_first_name': session.patient_first_name,
+            'patient_birth_date': session.patient_birth_date.strftime('%d.%m.%Y') if session.patient_birth_date else '',
         })
 
 

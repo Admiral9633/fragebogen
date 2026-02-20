@@ -20,6 +20,9 @@ interface AnswerData {
   ess_band: string;
   completed_at: string | null;
   token: string;
+  patient_last_name: string;
+  patient_first_name: string;
+  patient_birth_date: string;
 }
 
 async function getAnswerData(token: string): Promise<AnswerData | null> {
@@ -306,12 +309,16 @@ export default async function PrintPage({
           </div>
           <table style={{ borderCollapse: "collapse" }}>
             <tbody>
-              {["Name:", "Vorname:", "Geburtsdatum:"].map((label) => (
+              {([
+                ["Name:", data.patient_last_name || "—"],
+                ["Vorname:", data.patient_first_name || "—"],
+                ["Geburtsdatum:", data.patient_birth_date || "—"],
+              ] as [string, string][]).map(([label, value]) => (
                 <tr key={label}>
                   <td style={{ fontSize: 7.5, paddingRight: 8, paddingBottom: 3, color: "#555", width: 80, whiteSpace: "nowrap" as const }}>
                     {label}
                   </td>
-                  <td style={{ borderBottom: "1px solid #888", paddingBottom: 2, minWidth: 130 }} />
+                  <td style={{ fontSize: 7.5, fontWeight: 600, paddingBottom: 3 }}>{value}</td>
                 </tr>
               ))}
               <tr>
