@@ -7,6 +7,7 @@ import { CheckCircle2, AlertCircle, Download, FileText, Car } from "lucide-react
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { badgeVariants } from "@/components/ui/badge";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 const API_URL = ""; // Requests go via Next.js proxy rewrites → backend:8000
@@ -95,10 +96,10 @@ export default function QuestionnairePage() {
   // ── Success ────────────────────────────────────────────────────────────────
   if (submitted && result) {
     const band = result.ess_band || "normal";
-    const bandMeta: Record<string, { bg: string; border: string; text: string; badge: string; label: string }> = {
-      normal:     { bg: "bg-green-50 dark:bg-green-950/30",   border: "border-green-200 dark:border-green-800",   text: "text-green-700 dark:text-green-400",   badge: "bg-green-500",  label: "Normal (0–9)" },
-      erhöht:     { bg: "bg-orange-50 dark:bg-orange-950/30", border: "border-orange-200 dark:border-orange-800", text: "text-orange-700 dark:text-orange-400", badge: "bg-orange-400", label: "Erhöht (10–15)" },
-      ausgeprägt: { bg: "bg-red-50 dark:bg-red-950/30",       border: "border-red-200 dark:border-red-800",       text: "text-red-700 dark:text-red-400",       badge: "bg-red-500",    label: "Ausgeprägt (≥16)" },
+    const bandMeta: Record<string, { bg: string; border: string; text: string; badgeVariant: "success" | "warning" | "destructive"; label: string }> = {
+      normal:     { bg: "bg-green-50 dark:bg-green-950/30",   border: "border-green-200 dark:border-green-800",   text: "text-green-700 dark:text-green-400",   badgeVariant: "success",     label: "Normal (0–9)" },
+      erhöht:     { bg: "bg-orange-50 dark:bg-orange-950/30", border: "border-orange-200 dark:border-orange-800", text: "text-orange-700 dark:text-orange-400", badgeVariant: "warning",     label: "Erhöht (10–15)" },
+      ausgeprägt: { bg: "bg-red-50 dark:bg-red-950/30",       border: "border-red-200 dark:border-red-800",       text: "text-red-700 dark:text-red-400",       badgeVariant: "destructive", label: "Ausgeprägt (≥16)" },
     };
     const m = bandMeta[band] ?? bandMeta["normal"];
 
@@ -123,7 +124,7 @@ export default function QuestionnairePage() {
                 <span className="text-lg text-muted-foreground ml-1">/ 24</span>
                 <p className={cn("text-sm font-semibold mt-1", m.text)}>{m.label}</p>
               </div>
-              <div className={cn("w-16 h-16 rounded-full flex items-center justify-center text-white text-2xl font-black", m.badge)}>
+              <div className={cn(badgeVariants({ variant: m.badgeVariant }), "w-16 h-16 rounded-full flex items-center justify-center text-2xl font-black border-0")}>
                 {result.ess_total}
               </div>
             </div>
