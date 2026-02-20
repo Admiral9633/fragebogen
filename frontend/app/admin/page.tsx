@@ -4,7 +4,7 @@ export const dynamic = "force-dynamic";
 
 import { useState, useEffect, useCallback } from "react";
 import {
-  Link2, Mail, Pencil, Trash2, RefreshCw, LogOut,
+  Link2, Mail, Pencil, Trash2, RefreshCw,
   FileText, Plus, CheckCircle2, Clock, Loader2,
 } from "lucide-react";
 
@@ -19,6 +19,9 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { DatePicker } from "@/components/ui/date-picker";
+import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/app-sidebar";
+import { SiteHeader } from "@/components/site-header";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -325,20 +328,12 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
   }
 
   return (
-    <TooltipProvider delayDuration={300}>
-      <div className="min-h-screen bg-muted/40">
-        {/* Topbar */}
-        <header className="sticky top-0 z-40 border-b bg-background">
-          <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
-            <span className="font-semibold text-base">Fragebogen-Admin</span>
-            <Button variant="ghost" size="sm" onClick={onLogout}>
-              <LogOut className="mr-1.5 h-4 w-4" />
-              Abmelden
-            </Button>
-          </div>
-        </header>
-
-        <main className="mx-auto max-w-6xl px-4 py-6 space-y-6">
+    <SidebarProvider>
+      <AppSidebar onLogout={onLogout} />
+      <SidebarInset>
+        <SiteHeader title="Fragebogen-Admin" />
+        <TooltipProvider delayDuration={300}>
+          <div className="flex flex-1 flex-col gap-6 p-4 md:p-6">
           {/* Neue Einladung */}
           <Card>
             <CardHeader className="pb-3">
@@ -532,19 +527,20 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
               )}
             </CardContent>
           </Card>
-        </main>
+          </div>
 
-        <EditDialog
-          session={editSession}
-          onClose={() => setEditSession(null)}
-          onSaved={loadSessions}
-          headers={headers}
-          toast={toast}
-        />
+          <EditDialog
+            session={editSession}
+            onClose={() => setEditSession(null)}
+            onSaved={loadSessions}
+            headers={headers}
+            toast={toast}
+          />
 
-        <ToastContainer toasts={toasts} />
-      </div>
-    </TooltipProvider>
+          <ToastContainer toasts={toasts} />
+        </TooltipProvider>
+      </SidebarInset>
+    </SidebarProvider>
   );
 }
 
