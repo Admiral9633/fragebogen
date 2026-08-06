@@ -14,8 +14,14 @@ s = cfg["bridge"]
 api_url = s["api_url"].rstrip("/")
 api_key = s["api_key"]
 
+# API-Key maskiert ausgeben (nie im Klartext anzeigen)
+if len(api_key) > 8:
+    api_key_masked = f"{api_key[:4]}…{api_key[-4:]}"
+else:
+    api_key_masked = "…"
+
 print(f"API-URL : {api_url}")
-print(f"API-Key : {api_key}")
+print(f"API-Key : {api_key_masked}")
 print(f"Ziel    : {api_url}/gdt/session/")
 print("-" * 60)
 
