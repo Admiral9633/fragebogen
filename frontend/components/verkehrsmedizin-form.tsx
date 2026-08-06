@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { calcESS, ESS_QUESTIONS } from "@/lib/ess";
 import { Progress } from "@/components/ui/progress";
@@ -10,6 +10,13 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export type FormData = Record<string, any>;
@@ -110,17 +117,17 @@ function QuestionBlock({
   label: string; hint?: string; required?: boolean; error?: string; children: React.ReactNode;
 }) {
   return (
-    <div className="space-y-3">
-      <div>
-        <p className="text-sm font-semibold text-foreground">
+    <fieldset className="space-y-3 border-0 m-0 p-0 min-w-0">
+      <legend className="p-0 mb-0">
+        <span className="text-sm font-semibold text-foreground">
           {label}
           {required && <span className="text-red-500 ml-0.5"> *</span>}
-        </p>
-        {hint && <p className="text-xs text-muted-foreground mt-0.5">{hint}</p>}
-      </div>
+        </span>
+        {hint && <span className="block text-xs text-muted-foreground mt-0.5">{hint}</span>}
+      </legend>
       <div>{children}</div>
-      {error && <p className="text-xs text-red-500">{error}</p>}
-    </div>
+      {error && <p role="alert" className="text-xs text-red-500">{error}</p>}
+    </fieldset>
   );
 }
 
@@ -143,6 +150,7 @@ export function VerkehrsmedizinForm({ onSubmit, isSubmitting }: VerkehrsmedizinF
   const [step, setStep] = useState(0);
   const [data, setData] = useState<FormData>({});
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const headingRef = useRef<HTMLHeadingElement>(null);
 
   const set = (key: string, value: any) => {
     setData((prev) => ({ ...prev, [key]: value }));
@@ -164,6 +172,7 @@ export function VerkehrsmedizinForm({ onSubmit, isSubmitting }: VerkehrsmedizinF
     } else {
       setStep((s) => s + 1);
       window.scrollTo({ top: 0, behavior: "smooth" });
+      headingRef.current?.focus();
     }
   };
 
@@ -171,6 +180,7 @@ export function VerkehrsmedizinForm({ onSubmit, isSubmitting }: VerkehrsmedizinF
     setErrors({});
     setStep((s) => s - 1);
     window.scrollTo({ top: 0, behavior: "smooth" });
+    headingRef.current?.focus();
   };
 
   const currentStep = STEPS[step];
@@ -189,13 +199,15 @@ export function VerkehrsmedizinForm({ onSubmit, isSubmitting }: VerkehrsmedizinF
 
       {/* Step header */}
       <div>
-        <h2 className="text-2xl font-bold text-foreground">{currentStep.title}</h2>
+        <h2 ref={headingRef} tabIndex={-1} className="text-2xl font-bold text-foreground outline-none">
+          {currentStep.title}
+        </h2>
         <p className="text-sm text-muted-foreground mt-1">{currentStep.subtitle}</p>
       </div>
 
       {/* Error summary */}
       {hasErrors && (
-        <div className="rounded-lg border border-red-200 bg-red-50 dark:border-red-800 dark:bg-red-900/20 px-4 py-3">
+        <div role="alert" className="rounded-lg border border-red-200 bg-red-50 dark:border-red-800 dark:bg-red-900/20 px-4 py-3">
           <p className="text-sm font-medium text-red-700 dark:text-red-400">
             {Object.keys(errors).length} Feld
             {Object.keys(errors).length !== 1 ? "er fehlen" : " fehlt"} noch.
@@ -278,6 +290,7 @@ function StepFahrprofil({ data, errors, set }: StepProps) {
             <button
               key={cls}
               type="button"
+              aria-pressed={(data.license_classes_arr || []).includes(cls)}
               onClick={() => {
                 const cur: string[] = data.license_classes_arr || [];
                 const next = cur.includes(cls)
@@ -493,17 +506,17 @@ function StepSchlaf({
   data, errors, set, essTotal, essBand, essBandLabel,
 }: StepProps & { essTotal: number; essBand: string; essBandLabel: string }) {
   const bandClass =
-    essBand === "ausgeprägt" ? "border-red-200 bg-red-50"
-    : essBand === "erhöht"   ? "border-orange-200 bg-orange-50"
-    :                           "border-green-200 bg-green-50";
+    essBand === "ausgeprägt" ? "border-red-200 bg-red-50 dark:border-red-800 dark:bg-red-950/30"
+    : essBand === "erhöht"   ? "border-orange-200 bg-orange-50 dark:border-orange-800 dark:bg-orange-950/30"
+    :                           "border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-950/30";
   const badgeClass =
     essBand === "ausgeprägt" ? "bg-red-500"
     : essBand === "erhöht"   ? "bg-orange-400"
     :                           "bg-green-500";
   const textClass =
-    essBand === "ausgeprägt" ? "text-red-700"
-    : essBand === "erhöht"   ? "text-orange-700"
-    :                           "text-green-700";
+    essBand === "ausgeprägt" ? "text-red-700 dark:text-red-400"
+    : essBand === "erhöht"   ? "text-orange-700 dark:text-orange-400"
+    :                           "text-green-700 dark:text-green-400";
 
   return (
     <div className="space-y-6">
@@ -664,6 +677,8 @@ function StepSubstanzen({ data, errors, set }: StepProps) {
 }
 
 function StepEinwilligung({ data, errors, set }: StepProps) {
+  const [showPrivacy, setShowPrivacy] = useState(false);
+
   return (
     <div className="space-y-4">
       <p className="text-sm text-muted-foreground">
@@ -685,8 +700,19 @@ function StepEinwilligung({ data, errors, set }: StepProps) {
         id="consent_privacy"
         label={
           <span>
-            Ich habe die <strong>Datenschutzhinweise</strong> gelesen und willige in die
-            Verarbeitung meiner Daten zu verkehrsmedizinischen Zwecken ein.
+            Ich habe die{" "}
+            <button
+              type="button"
+              className="font-semibold underline underline-offset-2 hover:text-primary"
+              onClick={(e) => {
+                e.preventDefault();
+                setShowPrivacy(true);
+              }}
+            >
+              Datenschutzhinweise
+            </button>{" "}
+            gelesen und willige in die Verarbeitung meiner Daten zu verkehrsmedizinischen
+            Zwecken ein.
           </span>
         }
         checked={!!data.consent_privacy}
@@ -694,8 +720,49 @@ function StepEinwilligung({ data, errors, set }: StepProps) {
         error={errors.consent_privacy}
       />
       <p className="text-xs text-muted-foreground/60 pt-2 text-center">
-        Ihre Daten werden verschlüsselt und DSGVO-konform übertragen.
+        Ihre Angaben unterliegen der ärztlichen Schweigepflicht.
       </p>
+
+      <Dialog open={showPrivacy} onOpenChange={setShowPrivacy}>
+        <DialogContent className="max-h-[85vh] overflow-y-auto sm:max-w-lg">
+          <DialogHeader>
+            <DialogTitle>Datenschutzhinweise</DialogTitle>
+            <DialogDescription>
+              Information zur Verarbeitung Ihrer Daten nach Art. 13 DSGVO
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-3 text-sm text-foreground/90">
+            <p>
+              <strong>Verantwortlicher:</strong> Dr. med. Björn Micka, Betriebsmedizin ·
+              Notfallmedizin, Christoph-Dassler-Str. 22, 91074 Herzogenaurach
+            </p>
+            <p>
+              <strong>Zweck der Verarbeitung:</strong> Ihre Angaben in diesem Fragebogen
+              (einschließlich Gesundheitsdaten) werden ausschließlich zur Vorbereitung und
+              Durchführung Ihrer verkehrsmedizinischen Untersuchung verwendet.
+            </p>
+            <p>
+              <strong>Rechtsgrundlage:</strong> Ihre Einwilligung (Art. 6 Abs. 1 lit. a,
+              Art. 9 Abs. 2 lit. a DSGVO). Sie können die Einwilligung jederzeit mit Wirkung
+              für die Zukunft widerrufen.
+            </p>
+            <p>
+              <strong>Speicherung:</strong> Das Ergebnis wird in Ihre Untersuchungsunterlagen
+              übernommen und unterliegt den ärztlichen Aufbewahrungsfristen. Der Online-Zugang
+              über Ihren persönlichen Link erlischt nach Ablauf der Gültigkeit; die Daten
+              dieses Online-Fragebogens werden anschließend routinemäßig gelöscht.
+            </p>
+            <p>
+              <strong>Ihre Rechte:</strong> Sie haben das Recht auf Auskunft, Berichtigung,
+              Löschung und Einschränkung der Verarbeitung sowie ein Beschwerderecht bei der
+              zuständigen Datenschutz-Aufsichtsbehörde.
+            </p>
+            <p>
+              Alle Angaben unterliegen der ärztlichen Schweigepflicht.
+            </p>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

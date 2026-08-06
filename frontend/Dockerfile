@@ -1,4 +1,4 @@
-FROM node:20-alpine AS base
+FROM node:22-alpine AS base
 
 # ─── Stage: deps ──────────────────────────────────────────────────────────────
 FROM base AS deps
@@ -8,8 +8,8 @@ WORKDIR /app
 # Skip bundled Chromium download – we install via apk in runner
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 
-COPY package.json package-lock.json* ./
-RUN npm install
+COPY package.json package-lock.json ./
+RUN npm ci
 
 # ─── Stage: builder ────────────────────────────────────────────────────────────
 FROM base AS builder
@@ -17,8 +17,6 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-ARG NEXT_PUBLIC_API_URL=http://localhost:8000
-ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 
 RUN npm run build

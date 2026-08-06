@@ -22,7 +22,7 @@ export interface ESSResult {
   bandColor: string;
 }
 
-export function calcESS(values: Record<string, any>): ESSResult {
+export function calcESS(values: Record<string, unknown>): ESSResult {
   const total = ESS_IDS.reduce((sum, id) => {
     return sum + Number(values[id] ?? 0);
   }, 0);

@@ -9,10 +9,10 @@ export default function Home() {
           Willkommen zum digitalen Fragebogen-System.
           Bitte verwenden Sie den Link, der Ihnen per E-Mail zugesandt wurde.
         </p>
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 text-left">
+        <div className="bg-blue-50 border border-blue-200 dark:bg-blue-950/30 dark:border-blue-900 rounded-lg p-6 text-left">
           <h2 className="font-semibold mb-2">Hinweise:</h2>
           <ul className="list-disc list-inside space-y-1 text-sm">
-            <li>Der Link ist 7 Tage gültig</li>
+            <li>Der Link ist 14 Tage gültig</li>
             <li>Der Fragebogen kann nur einmal ausgefüllt werden</li>
             <li>Alle Angaben werden vertraulich behandelt</li>
             <li>Nach dem Absenden erhalten Sie eine PDF-Zusammenfassung</li>

@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import fs from "fs";
 import path from "path";
+import { ESS_QUESTIONS } from "@/lib/ess";
 
 const BACKEND_URL = process.env.BACKEND_URL || "http://backend:8000";
 
@@ -240,16 +241,7 @@ function Section({
   );
 }
 
-const ESS_LABELS = [
-  "Beim Sitzen und Lesen",
-  "Beim Fernsehen",
-  "Wenn Sie passiv in der Öffentlichkeit sitzen (z.B. im Theater oder bei einer Besprechung)",
-  "Als Beifahrer im Auto während einer einstündigen Fahrt ohne Pause",
-  "Wenn Sie sich am Nachmittag hingelegt haben, um auszuruhen",
-  "Wenn Sie sitzen und sich mit jemandem unterhalten",
-  "Wenn Sie nach dem Mittagessen (ohne Alkohol) ruhig dasitzen",
-  "Wenn Sie als Fahrer eines Autos verkehrsbedingt einige Minuten halten müssen",
-];
+const ESS_LABELS = ESS_QUESTIONS.map((q) => q.text);
 
 // ─── Page Component ───────────────────────────────────────────────────────────
 

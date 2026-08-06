@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import { toast } from "sonner";
 import { VerkehrsmedizinForm, FormData } from "@/components/verkehrsmedizin-form";
 import { CheckCircle2, AlertCircle, Download, FileText, Car } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -11,6 +12,14 @@ import { badgeVariants } from "@/components/ui/badge";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 const API_URL = ""; // Requests go via Next.js proxy rewrites → backend:8000
+
+// DRF-Fehlerobjekte ({"feld": ["Meldung"]} oder {"error": "..."}) menschenlesbar machen
+function extractApiError(d: any): string {
+  if (!d || typeof d !== "object") return "Fehler beim Absenden. Bitte versuchen Sie es erneut.";
+  if (typeof d.error === "string") return d.error;
+  const first = Object.values(d).flat().find((v) => typeof v === "string");
+  return typeof first === "string" ? first : "Fehler beim Absenden. Bitte prüfen Sie Ihre Angaben.";
+}
 
 export default function QuestionnairePage() {
   const params = useParams();
@@ -51,15 +60,15 @@ export default function QuestionnairePage() {
         body: JSON.stringify(data),
       });
       if (!res.ok) {
-        const d = await res.json();
-        throw new Error(JSON.stringify(d));
+        const d = await res.json().catch(() => ({}));
+        throw new Error(extractApiError(d));
       }
       const json = await res.json();
       setResult(json);
       setSubmitted(true);
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (e: any) {
-      alert("Fehler beim Absenden: " + e.message);
+      toast.error(e.message || "Fehler beim Absenden. Bitte versuchen Sie es erneut.");
     } finally {
       setIsSubmitting(false);
     }

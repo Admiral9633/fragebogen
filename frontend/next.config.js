@@ -14,9 +14,8 @@ const nextConfig = {
       // pdf (klassisch)
       { source: '/api/pdf/:token', destination: `${backendUrl}/api/pdf/:token/` },
       { source: '/api/pdf/:token/', destination: `${backendUrl}/api/pdf/:token/` },
-      // answers (für Puppeteer print-page)
-      { source: '/api/answers/:token', destination: `${backendUrl}/api/answers/:token/` },
-      { source: '/api/answers/:token/', destination: `${backendUrl}/api/answers/:token/` },
+      // Hinweis: /api/answers/:token wird bewusst NICHT öffentlich durchgereicht —
+      // die Print-Page holt die Daten serverseitig direkt vom Backend.
       // admin
       { source: '/api/admin/sessions', destination: `${backendUrl}/api/admin/sessions/` },
       { source: '/api/admin/sessions/', destination: `${backendUrl}/api/admin/sessions/` },

@@ -1,8 +1,7 @@
 ﻿"use client";
 
-export const dynamic = "force-dynamic";
-
 import { useState, useEffect, useCallback } from "react";
+import { toast } from "sonner";
 import {
   Link2, Mail, Pencil, Trash2, RefreshCw,
   FileText, Plus, CheckCircle2, Clock, Loader2,
@@ -10,6 +9,16 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -39,36 +48,6 @@ interface Session {
   expires_at: string;
   invitation_sent_at: string | null;
   gdt_patient_id: string;
-}
-
-// ─── Toast ───────────────────────────────────────────────────────────────────
-
-function useToast() {
-  const [toasts, setToasts] = useState<{ id: number; text: string; ok: boolean }[]>([]);
-  const show = (text: string, ok = true) => {
-    const id = Date.now();
-    setToasts((t) => [...t, { id, text, ok }]);
-    setTimeout(() => setToasts((t) => t.filter((x) => x.id !== id)), 3000);
-  };
-  return { toasts, show };
-}
-
-function ToastContainer({ toasts }: { toasts: { id: number; text: string; ok: boolean }[] }) {
-  if (!toasts.length) return null;
-  return (
-    <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-2">
-      {toasts.map((t) => (
-        <div
-          key={t.id}
-          className={`rounded-lg border px-4 py-2.5 text-sm shadow-lg ${
-            t.ok ? "bg-white border-emerald-200 text-emerald-800" : "bg-white border-red-200 text-red-700"
-          }`}
-        >
-          {t.text}
-        </div>
-      ))}
-    </div>
-  );
 }
 
 // ─── Login ────────────────────────────────────────────────────────────────────
@@ -132,10 +111,9 @@ interface EditDialogProps {
   onClose: () => void;
   onSaved: () => void;
   headers: Record<string, string>;
-  toast: (text: string, ok?: boolean) => void;
 }
 
-function EditDialog({ session, onClose, onSaved, headers, toast }: EditDialogProps) {
+function EditDialog({ session, onClose, onSaved, headers }: EditDialogProps) {
   const [lastName, setLastName] = useState("");
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
@@ -169,14 +147,14 @@ function EditDialog({ session, onClose, onSaved, headers, toast }: EditDialogPro
       });
       const data = await res.json();
       if (!res.ok) {
-        toast(data.error || "Fehler beim Speichern.", false);
+        toast.error(data.error || "Fehler beim Speichern.");
       } else {
-        toast("Patientendaten gespeichert.");
+        toast.success("Patientendaten gespeichert.");
         onSaved();
         onClose();
       }
     } catch {
-      toast("Netzwerkfehler.", false);
+      toast.error("Netzwerkfehler.");
     } finally {
       setSaving(false);
     }
@@ -232,7 +210,7 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
   const [creating, setCreating] = useState(false);
 
   const [editSession, setEditSession] = useState<Session | null>(null);
-  const { toasts, show: toast } = useToast();
+  const [deleteSession, setDeleteSession] = useState<Session | null>(null);
 
   const headers = {
     "Content-Type": "application/json",
@@ -272,19 +250,20 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
       });
       const data = await res.json();
       if (!res.ok) {
-        toast(data.error || "Fehler beim Anlegen.", false);
+        toast.error(data.error || "Fehler beim Anlegen.");
       } else {
-        const msg = !email
-          ? "Session angelegt (keine E-Mail)."
-          : data.email_sent
-          ? "Session angelegt, E-Mail versendet."
-          : `Session angelegt. E-Mail-Fehler: ${data.email_error}`;
-        toast(msg, !email || data.email_sent);
+        if (!email) {
+          toast.success("Session angelegt (keine E-Mail).");
+        } else if (data.email_sent) {
+          toast.success("Session angelegt, E-Mail versendet.");
+        } else {
+          toast.warning(`Session angelegt. E-Mail-Fehler: ${data.email_error}`);
+        }
         setLastName(""); setFirstName(""); setEmail(""); setBirthDate("");
         loadSessions();
       }
     } catch {
-      toast("Netzwerkfehler.", false);
+      toast.error("Netzwerkfehler.");
     } finally {
       setCreating(false);
     }
@@ -293,7 +272,7 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
   function copyLink(token: string) {
     const url = `${window.location.origin}/q/${token}`;
     if (navigator.clipboard && window.isSecureContext) {
-      navigator.clipboard.writeText(url).then(() => toast("Link kopiert!"));
+      navigator.clipboard.writeText(url).then(() => toast.success("Link kopiert!"));
     } else {
       const ta = document.createElement("textarea");
       ta.value = url;
@@ -302,7 +281,7 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
       ta.select();
       document.execCommand("copy");
       document.body.removeChild(ta);
-      toast("Link kopiert!");
+      toast.success("Link kopiert!");
     }
   }
 
@@ -310,20 +289,27 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
     try {
       const res = await fetch(`/api/admin/sessions/${token}/resend/`, { method: "POST", headers });
       const data = await res.json();
-      toast(res.ok ? "Einladung erneut versendet." : (data.error || "Fehler"), res.ok);
+      if (res.ok) {
+        toast.success("Einladung erneut versendet.");
+      } else {
+        toast.error(data.error || "Fehler");
+      }
     } catch {
-      toast("Netzwerkfehler.", false);
+      toast.error("Netzwerkfehler.");
     }
   }
 
-  async function handleDelete(token: string, name: string) {
-    if (!confirm(`Session von ${name} wirklich löschen?`)) return;
+  async function handleDelete(token: string) {
     try {
       const res = await fetch(`/api/admin/sessions/${token}/delete/`, { method: "DELETE", headers });
-      toast(res.ok ? "Session gelöscht." : "Fehler beim Löschen.", res.ok);
-      if (res.ok) loadSessions();
+      if (res.ok) {
+        toast.success("Session gelöscht.");
+        loadSessions();
+      } else {
+        toast.error("Fehler beim Löschen.");
+      }
     } catch {
-      toast("Netzwerkfehler.", false);
+      toast.error("Netzwerkfehler.");
     }
   }
 
@@ -530,10 +516,7 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
                                   variant="ghost"
                                   size="icon"
                                   className="text-destructive hover:text-destructive"
-                                  onClick={() => handleDelete(
-                                    s.token,
-                                    `${s.patient_last_name} ${s.patient_first_name}`.trim() || s.token
-                                  )}
+                                  onClick={() => setDeleteSession(s)}
                                 >
                                   <Trash2 className="h-4 w-4" />
                                 </Button>
@@ -556,10 +539,38 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
             onClose={() => setEditSession(null)}
             onSaved={loadSessions}
             headers={headers}
-            toast={toast}
           />
 
-          <ToastContainer toasts={toasts} />
+          <AlertDialog open={!!deleteSession} onOpenChange={(open) => !open && setDeleteSession(null)}>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Session löschen?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Die Session
+                  {deleteSession && (
+                    <> von{" "}
+                      <span className="font-medium text-foreground">
+                        {`${deleteSession.patient_last_name} ${deleteSession.patient_first_name}`.trim() || deleteSession.token}
+                      </span>
+                    </>
+                  )}{" "}
+                  wird mitsamt allen Antworten unwiderruflich gelöscht.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Abbrechen</AlertDialogCancel>
+                <AlertDialogAction
+                  className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                  onClick={() => {
+                    if (deleteSession) handleDelete(deleteSession.token);
+                    setDeleteSession(null);
+                  }}
+                >
+                  Löschen
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </TooltipProvider>
       </SidebarInset>
     </SidebarProvider>
