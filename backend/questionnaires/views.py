@@ -1,7 +1,13 @@
+import logging
 import os
+import secrets
+from datetime import datetime, timedelta
+
+from django.conf import settings
+from django.db import IntegrityError, transaction
 from django.utils import timezone
+from django.utils.html import escape
 from django.core.mail import send_mail
-from django.template.loader import render_to_string
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -13,8 +19,22 @@ from .models import QuestionnaireSession, AnswerSet, QuestionnaireTemplate
 from .serializers import (
     SubmitSerializer,
     QuestionnaireSessionSerializer,
-    AnswerSetSerializer
 )
+
+logger = logging.getLogger(__name__)
+
+
+def parse_birth_date(value):
+    """'YYYY-MM-DD' oder 'TT.MM.YYYY' → date | None (None auch bei leerem String)."""
+    value = (value or '').strip()
+    if not value:
+        return None
+    for fmt in ('%Y-%m-%d', '%d.%m.%Y'):
+        try:
+            return datetime.strptime(value, fmt).date()
+        except ValueError:
+            continue
+    raise ValueError(f'Ungültiges Datumsformat: {value}')
 
 
 class AdminApiKeyPermission(BasePermission):
@@ -24,7 +44,7 @@ class AdminApiKeyPermission(BasePermission):
         if not admin_key:
             return False
         auth = request.META.get('HTTP_AUTHORIZATION', '')
-        return auth == f'Bearer {admin_key}'
+        return secrets.compare_digest(auth, f'Bearer {admin_key}')
 
 
 class QuestionnaireSessionView(APIView):
@@ -60,45 +80,50 @@ class SubmitQuestionnaireView(APIView):
     POST: Fragebogen einreichen
     """
     def post(self, request, token):
-        # Hole Session
-        session = get_object_or_404(QuestionnaireSession, token=token)
-        
-        # Validiere Session
-        if session.is_expired():
-            return Response(
-                {'error': 'Dieser Link ist abgelaufen.'},
-                status=status.HTTP_410_GONE
-            )
-        
-        if session.completed:
-            return Response(
-                {'error': 'Dieser Fragebogen wurde bereits ausgefüllt.'},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-        
-        # Validiere Eingabedaten
+        # Eingabedaten validieren (ohne DB-Lock)
         serializer = SubmitSerializer(data=request.data)
         if not serializer.is_valid():
             return Response(
                 serializer.errors,
                 status=status.HTTP_400_BAD_REQUEST
             )
-        
-        # Speichere Antworten
         validated_data = serializer.validated_data
-        
-        AnswerSet.objects.create(
-            session=session,
-            answers_json=validated_data,
-            ess_total=validated_data['ess_total'],
-            ess_band=validated_data['ess_band']
-        )
-        
-        # Markiere Session als abgeschlossen
-        session.completed = True
-        session.completed_at = timezone.now()
-        session.save()
-        
+
+        # Atomar: Doppel-Submit (Doppelklick, paralleler POST) sauber abfangen
+        try:
+            with transaction.atomic():
+                session = get_object_or_404(
+                    QuestionnaireSession.objects.select_for_update(), token=token
+                )
+
+                if session.is_expired():
+                    return Response(
+                        {'error': 'Dieser Link ist abgelaufen.'},
+                        status=status.HTTP_410_GONE
+                    )
+
+                if session.completed:
+                    return Response(
+                        {'error': 'Dieser Fragebogen wurde bereits ausgefüllt.'},
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
+
+                AnswerSet.objects.create(
+                    session=session,
+                    answers_json=validated_data,
+                    ess_total=validated_data['ess_total'],
+                    ess_band=validated_data['ess_band']
+                )
+
+                session.completed = True
+                session.completed_at = timezone.now()
+                session.save()
+        except IntegrityError:
+            return Response(
+                {'error': 'Dieser Fragebogen wurde bereits ausgefüllt.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
         return Response({
             'success': True,
             'ess_total': validated_data['ess_total'],
@@ -113,6 +138,12 @@ class AnswersView(APIView):
     """
     def get(self, request, token):
         session = get_object_or_404(QuestionnaireSession, token=token)
+        if session.is_expired():
+            # Zugriffsfenster: Nach Ablauf des Links auch keine Ergebnisse mehr ausliefern
+            return Response(
+                {'error': 'Dieser Link ist abgelaufen.'},
+                status=status.HTTP_410_GONE
+            )
         if not session.completed:
             return Response(
                 {'error': 'Session noch nicht abgeschlossen.'},
@@ -140,14 +171,21 @@ class GeneratePDFView(APIView):
     """
     def get(self, request, token):
         session = get_object_or_404(QuestionnaireSession, token=token)
-        
+
+        if session.is_expired():
+            # Zugriffsfenster: Nach Ablauf des Links auch kein PDF mehr ausliefern
+            return Response(
+                {'error': 'Dieser Link ist abgelaufen.'},
+                status=status.HTTP_410_GONE
+            )
+
         # Prüfe ob Session abgeschlossen
         if not session.completed:
             return Response(
                 {'error': 'Dieser Fragebogen ist noch nicht abgeschlossen.'},
                 status=status.HTTP_400_BAD_REQUEST
             )
-        
+
         try:
             answer_set = session.answers
         except AnswerSet.DoesNotExist:
@@ -155,30 +193,32 @@ class GeneratePDFView(APIView):
                 {'error': 'Keine Antworten gefunden.'},
                 status=status.HTTP_404_NOT_FOUND
             )
-        
+
         # Generiere HTML für PDF
         html_content = self._generate_html(session, answer_set)
-        
+
         # Verwende xhtml2pdf für PDF-Generierung
         try:
             from io import BytesIO
             from xhtml2pdf import pisa
-            
+
             pdf_buffer = BytesIO()
             pisa_status = pisa.CreatePDF(html_content, dest=pdf_buffer)
-            
+
             if pisa_status.err:
                 raise Exception(f'PDF-Generierung fehlgeschlagen: {pisa_status.err}')
-            
+
             pdf_bytes = pdf_buffer.getvalue()
             response = HttpResponse(pdf_bytes, content_type='application/pdf')
             response['Content-Disposition'] = f'attachment; filename="fragebogen_{token}.pdf"'
             return response
         except Exception as pdf_error:
-            import logging
-            logging.getLogger(__name__).error(f'PDF generation failed: {pdf_error}')
-            # Fallback: druckbares HTML
-            return HttpResponse(html_content, content_type='text/html')
+            logger.error('PDF generation failed: %s', pdf_error)
+            # Kein HTML-Fallback: ungefiltertes HTML auszuliefern wäre ein XSS-Vektor
+            return Response(
+                {'error': 'PDF-Generierung fehlgeschlagen.'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
     
     def _generate_html(self, session, answer_set):
         """Generiere HTML – exakter Wortlaut aus Online-Fragebogen, 2 Seiten"""
@@ -196,8 +236,9 @@ class GeneratePDFView(APIView):
             return "—"
 
         def v(key, fallback="—"):
+            # escape(): Patienten-Freitext darf nie als Markup interpretiert werden
             r = str(a.get(key, "") or "").strip()
-            return r if r else fallback
+            return escape(r) if r else fallback
 
         def row(label, key, subtext=None, bg="#ffffff", cls=""):
             val = a.get(key, "")
@@ -211,7 +252,7 @@ class GeneratePDFView(APIView):
         def row_ft(label, key, ft_key, ft_label="Beschreibung", bg="#ffffff"):
             """Ja/Nein Zeile mit Freitext direkt darunter wenn ausgefüllt"""
             val = a.get(key, "")
-            ft  = str(a.get(ft_key, "") or "").strip()
+            ft  = escape(str(a.get(ft_key, "") or "").strip())
             sub = f'<div class="ft">{ft_label}: {ft}</div>' if ft else ""
             return (f'<tr style="background:{bg}">'
                     f'<td class="q">{label}{sub}</td>'
@@ -219,9 +260,6 @@ class GeneratePDFView(APIView):
                     f'<td class="c">{x(val,"no")}</td></tr>')
 
         # ── Führerscheinklassen ────────────────────────────────────────────
-        lic_arr = a.get("license_classes_arr", [])
-        if isinstance(lic_arr, str):
-            lic_arr = [s.strip() for s in lic_arr.split(",") if s.strip()]
         lic_str = v("license_classes")
 
         # ── Alkohol-Antwort ────────────────────────────────────────────────
@@ -450,7 +488,8 @@ class GeneratePDFView(APIView):
 <h2>10. Einwilligung &amp; Datenschutz</h2>
 <div class="italic-box">
   Entsprechend DSGVO unterliegen alle Angaben der medizinischen Schweigepflicht.
-  Sie werden nicht dauerhaft auf Datenträgern gespeichert.
+  Das Ergebnis wird in die Untersuchungsunterlagen übernommen; die Daten des
+  Online-Fragebogens werden nach Ablauf des Zugangslinks routinemäßig gelöscht.
 </div>
 <table>
   <tr class="r1">
@@ -487,36 +526,36 @@ class GeneratePDFView(APIView):
         return html
 
 
-def _send_invitation_email(session, app_url):
+def _send_invitation_email(session):
     """Sendet die Einladungs-E-Mail an den Patienten."""
-    url = f"{app_url}/q/{session.token}"
+    url = f"{settings.APP_URL}/q/{session.token}"
     patient_name = f"{session.patient_first_name} {session.patient_last_name}".strip()
+    valid_until = timezone.localtime(session.expires_at).strftime('%d.%m.%Y')
     subject = "Ihr verkehrsmedizinischer Fragebogen"
     text_body = (
         f"Sehr geehrte/r {patient_name},\n\n"
         "bitte füllen Sie vor Ihrem Termin den beigefügten Fragebogen aus:\n\n"
         f"{url}\n\n"
-        "Der Link ist 14 Tage gültig.\n\n"
+        f"Der Link ist bis zum {valid_until} gültig.\n\n"
         "Mit freundlichen Grüßen\n"
         "Dr. med. Björn Micka\n"
         "Betriebsmedizin · Notfallmedizin\n"
         "Christoph-Dassler-Str. 22, 91074 Herzogenaurach"
     )
     html_body = (
-        f"<p>Sehr geehrte/r {patient_name},</p>"
+        f"<p>Sehr geehrte/r {escape(patient_name)},</p>"
         "<p>bitte füllen Sie vor Ihrem Termin den folgenden Fragebogen aus:</p>"
         f'<p><a href="{url}" style="font-size:16px;font-weight:bold;">Fragebogen öffnen</a></p>'
         f'<p style="color:#666;font-size:12px;">Direktlink: {url}</p>'
-        "<p>Der Link ist 14 Tage gültig.</p>"
+        f"<p>Der Link ist bis zum {valid_until} gültig.</p>"
         "<hr><p style='font-size:12px;color:#666;'>"
         "Dr. med. Björn Micka · Betriebsmedizin · Notfallmedizin<br>"
         "Christoph-Dassler-Str. 22, 91074 Herzogenaurach</p>"
     )
-    from_email = os.environ.get('EMAIL_FROM', 'noreply@example.com')
     send_mail(
         subject=subject,
         message=text_body,
-        from_email=from_email,
+        from_email=settings.EMAIL_FROM,
         recipient_list=[session.patient_email],
         html_message=html_body,
         fail_silently=False,
@@ -556,7 +595,6 @@ class AdminSessionListView(APIView):
         last_name = d.get('patient_last_name', '').strip()
         first_name = d.get('patient_first_name', '').strip()
         email = d.get('patient_email', '').strip()
-        birth_date_str = d.get('patient_birth_date', '').strip()
 
         if not last_name or not first_name:
             return Response({'error': 'Name und Vorname sind erforderlich.'}, status=400)
@@ -569,36 +607,29 @@ class AdminSessionListView(APIView):
             except ValidationError:
                 return Response({'error': 'Ungültige E-Mail-Adresse.'}, status=400)
 
-        birth_date = None
-        if birth_date_str:
-            from datetime import datetime as dt
-            for fmt in ('%Y-%m-%d', '%d.%m.%Y'):
-                try:
-                    birth_date = dt.strptime(birth_date_str, fmt).date()
-                    break
-                except ValueError:
-                    continue
+        try:
+            birth_date = parse_birth_date(d.get('patient_birth_date', ''))
+        except ValueError:
+            return Response({'error': 'Ungültiges Datumsformat.'}, status=400)
 
         template = QuestionnaireTemplate.objects.filter(is_active=True).order_by('-version').first()
         if not template:
             return Response({'error': 'Kein aktiver Fragebogen-Template gefunden.'}, status=500)
 
-        from datetime import timedelta
         session = QuestionnaireSession.objects.create(
             template=template,
             patient_last_name=last_name,
             patient_first_name=first_name,
             patient_email=email,
             patient_birth_date=birth_date,
-            expires_at=timezone.now() + timedelta(days=14),
+            expires_at=timezone.now() + timedelta(days=settings.SESSION_VALIDITY_DAYS),
         )
 
-        app_url = os.environ.get('APP_URL', 'http://localhost:3000')
         sent = False
         error_msg = None
         if email:
             try:
-                _send_invitation_email(session, app_url)
+                _send_invitation_email(session)
                 sent = True
             except Exception as e:
                 sent = False
@@ -636,21 +667,10 @@ class AdminUpdateSessionView(APIView):
                     return Response({'error': 'Ungültige E-Mail-Adresse.'}, status=400)
             session.patient_email = email
         if 'patient_birth_date' in d:
-            birth_date_str = d['patient_birth_date'].strip()
-            if birth_date_str:
-                from datetime import datetime as _dt
-                bd = None
-                for fmt in ('%Y-%m-%d', '%d.%m.%Y'):
-                    try:
-                        bd = _dt.strptime(birth_date_str, fmt).date()
-                        break
-                    except ValueError:
-                        continue
-                if bd is None:
-                    return Response({'error': 'Ungültiges Datumsformat.'}, status=400)
-                session.patient_birth_date = bd
-            else:
-                session.patient_birth_date = None
+            try:
+                session.patient_birth_date = parse_birth_date(d['patient_birth_date'])
+            except ValueError:
+                return Response({'error': 'Ungültiges Datumsformat.'}, status=400)
         session.save()
         return Response({'success': True})
 
@@ -663,11 +683,15 @@ class AdminResendEmailView(APIView):
 
     def post(self, request, token):
         session = get_object_or_404(QuestionnaireSession, token=token)
+        if session.completed:
+            return Response({'error': 'Dieser Fragebogen wurde bereits ausgefüllt.'}, status=400)
         if not session.patient_email:
             return Response({'error': 'Keine E-Mail-Adresse hinterlegt.'}, status=400)
-        app_url = os.environ.get('APP_URL', 'http://localhost:3000')
+        # Gültigkeit verlängern, damit die Angabe in der neuen Mail stimmt
+        session.expires_at = timezone.now() + timedelta(days=settings.SESSION_VALIDITY_DAYS)
+        session.save(update_fields=['expires_at'])
         try:
-            _send_invitation_email(session, app_url)
+            _send_invitation_email(session)
             return Response({'success': True})
         except Exception as e:
             return Response({'error': str(e)}, status=500)
@@ -722,21 +746,13 @@ class GdtSessionCreateView(APIView):
             )
 
         # Geburtsdatum parsen (YYYY-MM-DD oder TT.MM.YYYY)
-        birth_date = None
-        birth_date_str = d.get('patient_birth_date', '').strip()
-        if birth_date_str:
-            from datetime import datetime as _dt
-            for fmt in ('%Y-%m-%d', '%d.%m.%Y'):
-                try:
-                    birth_date = _dt.strptime(birth_date_str, fmt).date()
-                    break
-                except ValueError:
-                    continue
-            if birth_date is None:
-                return Response(
-                    {'error': f'Ungültiges Datumsformat: {birth_date_str}. Erwartet YYYY-MM-DD.'},
-                    status=status.HTTP_400_BAD_REQUEST,
-                )
+        try:
+            birth_date = parse_birth_date(d.get('patient_birth_date', ''))
+        except ValueError as exc:
+            return Response(
+                {'error': f'{exc}. Erwartet YYYY-MM-DD.'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
 
         # Template holen
         template_slug = d.get('template_slug', '').strip()
@@ -759,7 +775,6 @@ class GdtSessionCreateView(APIView):
                     status=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 )
 
-        from datetime import timedelta
         patient_email = d.get('patient_email', '').strip()
 
         session = QuestionnaireSession.objects.create(
@@ -770,22 +785,28 @@ class GdtSessionCreateView(APIView):
             patient_email      = patient_email,
             gdt_patient_id     = d.get('gdt_patient_id',  '').strip(),
             gdt_request_id     = d.get('gdt_request_id',  '').strip(),
-            expires_at         = timezone.now() + timedelta(days=14),
+            expires_at         = timezone.now() + timedelta(days=settings.SESSION_VALIDITY_DAYS),
         )
 
-        app_url = os.environ.get('APP_URL', 'http://localhost:3000')
-        questionnaire_url = f"{app_url}/q/{session.token}"
+        questionnaire_url = f"{settings.APP_URL}/q/{session.token}"
 
+        email_sent = False
+        email_error = None
         if patient_email:
             try:
-                _send_invitation_email(session, app_url)
-            except Exception:
-                pass  # E-Mail-Fehler blockiert GDT-Session nicht
+                _send_invitation_email(session)
+                email_sent = True
+            except Exception as exc:
+                # E-Mail-Fehler blockiert die GDT-Session nicht, wird aber gemeldet
+                email_error = str(exc)
+                logger.error('Einladungs-Mail fehlgeschlagen (Session %s): %s', session.token, exc)
 
         return Response(
             {
-                'token': str(session.token),
-                'url':   questionnaire_url,
+                'token':       str(session.token),
+                'url':         questionnaire_url,
+                'email_sent':  email_sent,
+                'email_error': email_error,
             },
             status=status.HTTP_201_CREATED,
         )
@@ -820,6 +841,12 @@ class GdtResultView(APIView):
         session = get_object_or_404(QuestionnaireSession, token=token)
 
         if not session.completed:
+            if session.is_expired():
+                # Abgelaufen und nie ausgefüllt: Bridge soll den Eintrag verwerfen
+                return Response(
+                    {'error': 'Session abgelaufen.'},
+                    status=status.HTTP_410_GONE,
+                )
             return Response({'completed': False}, status=status.HTTP_202_ACCEPTED)
 
         try:

@@ -1,6 +1,7 @@
 from django.db import models
 import uuid
 from datetime import timedelta
+from django.conf import settings
 from django.utils import timezone
 
 
@@ -79,8 +80,9 @@ class QuestionnaireSession(models.Model):
     
     def save(self, *args, **kwargs):
         if not self.expires_at:
-            # Standard: 7 Tage Gültigkeit
-            self.expires_at = timezone.now() + timedelta(days=7)
+            self.expires_at = timezone.now() + timedelta(
+                days=settings.SESSION_VALIDITY_DAYS
+            )
         super().save(*args, **kwargs)
     
     def is_expired(self):

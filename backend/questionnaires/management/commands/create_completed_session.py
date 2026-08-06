@@ -45,7 +45,7 @@ class Command(BaseCommand):
             'ess_8': 2,
             'ess_total': 11,
             'ess_band': 'erhöht',
-            'consent_complete': True,
+            'consent_truth': True,
             'consent_privacy': True
         }
 
