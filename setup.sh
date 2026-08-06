@@ -52,7 +52,7 @@ cd ..
 # 3. Datenbank Setup
 echo -e "\n${BLUE}🗄️  Datenbank Setup...${NC}"
 echo "Starte PostgreSQL Container..."
-docker-compose -f docker-compose.dev.yml up -d
+docker-compose -f docker-compose.dev.yml up -d db
 
 echo "Warte auf Datenbank..."
 sleep 5

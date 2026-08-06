@@ -36,16 +36,16 @@ services:
       - POSTGRES_PORT=5432
       - ALLOWED_HOSTS=*
       - CORS_ALLOWED_ORIGINS=http://localhost:3000,http://frontend:3000
-      - CORS_ALLOW_ALL_ORIGINS=True
     depends_on:
       db:
         condition: service_healthy
 
   frontend:
-    image: node:20-alpine
+    image: node:22-alpine
     restart: unless-stopped
     working_dir: /app
-    command: sh -c "npm install && npm run dev"
+    # Chromium fuer die Puppeteer-PDF-Route mitinstallieren
+    command: sh -c "apk add --no-cache chromium nss freetype harfbuzz ca-certificates ttf-freefont font-noto && npm ci && npm run dev"
     volumes:
       - ./frontend:/app
       - frontend_node_modules:/app/node_modules
@@ -53,6 +53,8 @@ services:
       - "3000:3000"
     environment:
       - BACKEND_URL=http://backend:8000
+      - NEXT_PUBLIC_APP_URL=http://localhost:3000
+      - PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
       # Hot Reload in Docker erfordert Polling
       - WATCHPACK_POLLING=true
       - CHOKIDAR_USEPOLLING=true

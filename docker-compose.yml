@@ -1,14 +1,13 @@
-version: '3.9'
-
 services:
   db:
     image: postgres:16-alpine
+    restart: unless-stopped
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=verkehrsmedizin
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=${POSTGRES_DB:-verkehrsmedizin}
+      - POSTGRES_USER=${POSTGRES_USER:-postgres}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-postgres}
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
@@ -17,32 +16,33 @@ services:
 
   backend:
     build: ./backend
+    restart: unless-stopped
     command: sh -c "python manage.py migrate && python manage.py collectstatic --noinput && gunicorn --bind 0.0.0.0:8000 config.wsgi:application"
     volumes:
       - ./backend:/app
       - static_volume:/app/staticfiles
-      - media_volume:/app/mediafiles
     ports:
       - "8000:8000"
     environment:
-      - DEBUG=True
-      - DJANGO_SECRET_KEY=change-this-secret-key-in-production
-      - POSTGRES_DB=verkehrsmedizin
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - DEBUG=${DEBUG:-False}
+      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY:?DJANGO_SECRET_KEY fehlt - bitte in .env setzen}
+      - POSTGRES_DB=${POSTGRES_DB:-verkehrsmedizin}
+      - POSTGRES_USER=${POSTGRES_USER:-postgres}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-postgres}
       - POSTGRES_HOST=db
       - POSTGRES_PORT=5432
-      - ALLOWED_HOSTS=localhost,127.0.0.1,backend,192.168.178.24,192.168.178.84
-      - CORS_ALLOWED_ORIGINS=http://localhost:3000,http://127.0.0.1:3000,http://frontend:3000,http://192.168.178.24:3000,http://192.168.178.84:3000
-      - CSRF_TRUSTED_ORIGINS=http://localhost:3000,http://127.0.0.1:3000,http://frontend:3000,http://192.168.178.24:3000,http://192.168.178.84:3000
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS:-localhost,127.0.0.1,backend}
+      - CORS_ALLOWED_ORIGINS=${CORS_ALLOWED_ORIGINS:-http://localhost:3000,http://127.0.0.1:3000}
+      - CSRF_TRUSTED_ORIGINS=${CSRF_TRUSTED_ORIGINS:-http://localhost:3000,http://127.0.0.1:3000}
       # Admin
-      - ADMIN_API_KEY=${ADMIN_API_KEY}
-      - APP_URL=${APP_URL}
-      # E-Mail (web.de)
-      - EMAIL_HOST=smtp.web.de
-      - EMAIL_PORT=587
-      - EMAIL_USE_TLS=True
-      - EMAIL_USE_SSL=False
+      - ADMIN_API_KEY=${ADMIN_API_KEY:?ADMIN_API_KEY fehlt - bitte in .env setzen}
+      - APP_URL=${APP_URL:-http://localhost:3000}
+      - SESSION_VALIDITY_DAYS=${SESSION_VALIDITY_DAYS:-14}
+      # E-Mail
+      - EMAIL_HOST=${EMAIL_HOST:-smtp.web.de}
+      - EMAIL_PORT=${EMAIL_PORT:-587}
+      - EMAIL_USE_TLS=${EMAIL_USE_TLS:-True}
+      - EMAIL_USE_SSL=${EMAIL_USE_SSL:-False}
       - EMAIL_HOST_USER=${EMAIL_HOST_USER}
       - EMAIL_HOST_PASSWORD=${EMAIL_HOST_PASSWORD}
       - EMAIL_FROM=${EMAIL_FROM}
@@ -53,14 +53,16 @@ services:
   frontend:
     build:
       context: ./frontend
+    restart: unless-stopped
     ports:
       - "3000:3000"
     environment:
       - BACKEND_URL=http://backend:8000
+      # Puppeteer rendert die Print-Page im selben Container
+      - NEXT_PUBLIC_APP_URL=http://localhost:3000
     depends_on:
       - backend
 
 volumes:
   postgres_data:
   static_volume:
-  media_volume:

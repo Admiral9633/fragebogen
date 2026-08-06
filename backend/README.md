@@ -39,9 +39,18 @@ python manage.py runserver
 
 ## API Endpoints
 
-- `GET /api/session/<token>/` - Fragebogen-Session Details abrufen
-- `POST /api/submit/<token>/` - Fragebogen einreichen
-- `GET /api/pdf/<token>/` - PDF generieren
+Vollständige Liste im [Projekt-README](../README.md#api-endpunkte). Kurzfassung:
+
+- `GET /api/session/<token>/`, `POST /api/submit/<token>/`,
+  `GET /api/pdf/<token>/`, `GET /api/answers/<token>/` – Patient (Token)
+- `/api/admin/sessions/…` – Praxis-Admin (Header `Authorization: Bearer <ADMIN_API_KEY>`)
+- `/api/gdt/…` – GDT-Bridge (gleicher API-Key)
+
+## Tests
+
+```bash
+python manage.py test questionnaires
+```
 
 ## Admin Interface
 

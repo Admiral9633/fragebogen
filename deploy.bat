@@ -21,12 +21,18 @@ if %errorLevel% NEQ 0 (
     pause & exit /b 1
 )
 
-echo [3/4] Python Cache loeschen + Backend neu starten ...
-ssh %SSH_HOST% "find %PROJ%/backend -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null; cd %PROJ% && docker compose restart backend"
+echo [3/4] Python Cache loeschen, Frontend neu bauen + Services aktualisieren ...
+:: Backend laeuft per Bind-Mount (restart reicht); das Frontend steckt im Image
+:: und muss bei Codeaenderungen neu gebaut werden.
+ssh %SSH_HOST% "find %PROJ%/backend -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null; cd %PROJ% && docker compose build frontend && docker compose up -d frontend && docker compose restart backend"
+if %errorLevel% NEQ 0 (
+    echo FEHLER: Deployment auf Server fehlgeschlagen.
+    pause & exit /b 1
+)
 
 echo [4/4] Status pruefen ...
 timeout /t 5 /nobreak > nul
-ssh %SSH_HOST% "cd %PROJ% && docker compose ps backend"
+ssh %SSH_HOST% "cd %PROJ% && docker compose ps"
 
 echo.
 echo Fertig! Server laeuft mit aktuellem Code.
