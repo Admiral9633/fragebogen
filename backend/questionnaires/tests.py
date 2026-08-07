@@ -11,7 +11,9 @@ from django.core.management import call_command
 from django.test import TestCase
 from django.utils import timezone
 
+from .catalog import CATALOG
 from .models import AnswerSet, QuestionnaireSession, QuestionnaireTemplate
+from .schema import ESS_KEYS, is_visible, iter_questions
 from .views import GeneratePDFView
 
 
@@ -144,6 +146,122 @@ class AdminApiKeyTests(TestCase):
             '/api/admin/sessions/', HTTP_AUTHORIZATION='Bearer falscher-key'
         )
         self.assertEqual(res.status_code, 403)
+
+
+def build_valid_answers(schema, overrides=None):
+    """Minimal gültiger Antwortsatz für ein v2-Schema (sichtbarkeitsbewusst)."""
+    answers = dict(overrides or {})
+    # Mehrere Durchläufe, weil Sichtbarkeit von bereits gesetzten Antworten abhängt
+    for _ in range(4):
+        for _section, q in iter_questions(schema):
+            qid = q["id"]
+            if qid in answers or not is_visible(q, answers):
+                continue
+            qtype = q.get("type")
+            if qtype == "yes_no":
+                answers[qid] = "no"
+            elif qtype == "choice":
+                answers[qid] = q["options"][0]["value"]
+            elif qtype == "multi_choice":
+                answers[qid] = [q["options"][0]["value"]]
+            elif qtype == "consent":
+                answers[qid] = True
+            elif qtype == "ess_matrix":
+                for key in ESS_KEYS:
+                    answers.setdefault(key, 1)
+    return answers
+
+
+class KatalogV2Tests(TestCase):
+    def setUp(self):
+        call_command('load_catalog', verbosity=0)
+        self.template = QuestionnaireTemplate.objects.get(slug='verkehrsmedizin-leitlinien')
+        self.session = QuestionnaireSession.objects.create(
+            template=self.template,
+            patient_last_name='Mustermann',
+            patient_first_name='Max',
+            expires_at=timezone.now() + timedelta(days=14),
+        )
+
+    def submit(self, answers):
+        return self.client.post(
+            f'/api/submit/{self.session.token}/', answers,
+            content_type='application/json',
+        )
+
+    def test_load_catalog_deaktiviert_alte_templates(self):
+        alt = QuestionnaireTemplate.objects.create(
+            slug='alt', version=1, schema_json={'sections': ['ess']}, is_active=True
+        )
+        call_command('load_catalog', verbosity=0)
+        alt.refresh_from_db()
+        self.template.refresh_from_db()
+        self.assertFalse(alt.is_active)
+        self.assertTrue(self.template.is_active)
+
+    def test_gueltiger_submit_berechnet_ess(self):
+        res = self.submit(build_valid_answers(CATALOG))
+        self.assertEqual(res.status_code, 201, res.json())
+        self.assertEqual(res.json()['ess_total'], 8)
+        self.assertEqual(res.json()['ess_band'], 'normal')
+
+    def test_fehlende_einwilligung_gibt_400(self):
+        answers = build_valid_answers(CATALOG)
+        answers['consent_privacy'] = False
+        res = self.submit(answers)
+        self.assertEqual(res.status_code, 400)
+        self.assertIn('consent_privacy', res.json())
+
+    def test_fehlende_pflichtfrage_gibt_400(self):
+        answers = build_valid_answers(CATALOG)
+        del answers['night_driving']
+        res = self.submit(answers)
+        self.assertEqual(res.status_code, 400)
+        self.assertIn('night_driving', res.json())
+
+    def test_unbekannte_keys_werden_verworfen(self):
+        answers = build_valid_answers(CATALOG)
+        answers['hack'] = '<script>alert(1)</script>'
+        res = self.submit(answers)
+        self.assertEqual(res.status_code, 201, res.json())
+        stored = self.session.answers.answers_json
+        self.assertNotIn('hack', stored)
+
+    def test_versteckte_folgefrage_wird_nicht_verlangt(self):
+        # exam_occasion=pkw → psych_test_done ist unsichtbar und darf nicht fehlen
+        answers = build_valid_answers(CATALOG)
+        self.assertEqual(answers['exam_occasion'], 'pkw')
+        self.assertNotIn('psych_test_done', answers)
+        res = self.submit(answers)
+        self.assertEqual(res.status_code, 201, res.json())
+
+    def test_sichtbare_bedingte_frage_wird_verlangt(self):
+        answers = build_valid_answers(CATALOG, overrides={'exam_occasion': 'bus'})
+        answers.pop('psych_test_done', None)
+        res = self.submit(answers)
+        self.assertEqual(res.status_code, 400)
+        self.assertIn('psych_test_done', res.json())
+
+    def test_pdf_v2_rendert_und_escaped(self):
+        answers = build_valid_answers(CATALOG, overrides={
+            'accidents': 'yes',
+            'accidents_desc': '<script>alert(1)</script>',
+        })
+        res = self.submit(answers)
+        self.assertEqual(res.status_code, 201, res.json())
+        answer_set = self.session.answers
+        html = GeneratePDFView()._generate_html(self.session, answer_set)
+        self.assertIn('Epworth Sleepiness Scale', html)
+        self.assertIn('Anlass &amp; Fahrprofil', html)
+        self.assertNotIn('<script>alert(1)</script>', html)
+        self.assertIn('&lt;script&gt;alert(1)&lt;/script&gt;', html)
+
+    def test_ess_wertebereich_wird_geprueft(self):
+        answers = build_valid_answers(CATALOG)
+        answers['ess_3'] = 7
+        res = self.submit(answers)
+        self.assertEqual(res.status_code, 400)
+        self.assertIn('ess_3', res.json())
 
 
 class PurgeSessionsTests(TestCase):

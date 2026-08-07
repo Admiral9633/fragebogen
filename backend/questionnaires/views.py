@@ -20,6 +20,13 @@ from .serializers import (
     SubmitSerializer,
     QuestionnaireSessionSerializer,
 )
+from .schema import (
+    ESS_KEYS,
+    answer_display,
+    is_v2_schema,
+    is_visible,
+    validate_answers,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -80,14 +87,26 @@ class SubmitQuestionnaireView(APIView):
     POST: Fragebogen einreichen
     """
     def post(self, request, token):
-        # Eingabedaten validieren (ohne DB-Lock)
-        serializer = SubmitSerializer(data=request.data)
-        if not serializer.is_valid():
-            return Response(
-                serializer.errors,
-                status=status.HTTP_400_BAD_REQUEST
-            )
-        validated_data = serializer.validated_data
+        # Schema laden (fuer die Validierung), ohne DB-Lock
+        base_session = get_object_or_404(
+            QuestionnaireSession.objects.select_related('template'), token=token
+        )
+        template_schema = base_session.template.schema_json
+
+        if is_v2_schema(template_schema):
+            # Schema-getriebene Validierung: nur bekannte Fragen werden gespeichert
+            validated_data, schema_errors = validate_answers(template_schema, request.data)
+            if schema_errors:
+                return Response(schema_errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            # Legacy-Templates (v1): fixe ESS+Consent-Validierung
+            serializer = SubmitSerializer(data=request.data)
+            if not serializer.is_valid():
+                return Response(
+                    serializer.errors,
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            validated_data = serializer.validated_data
 
         # Atomar: Doppel-Submit (Doppelklick, paralleler POST) sauber abfangen
         try:
@@ -155,6 +174,7 @@ class AnswersView(APIView):
             return Response({'error': 'Keine Antworten gefunden.'}, status=status.HTTP_404_NOT_FOUND)
         return Response({
             'answers': answer_set.answers_json,
+            'schema': session.template.schema_json,
             'ess_total': answer_set.ess_total,
             'ess_band': answer_set.ess_band,
             'completed_at': session.completed_at.strftime('%d.%m.%Y') if session.completed_at else None,
@@ -221,6 +241,243 @@ class GeneratePDFView(APIView):
             )
     
     def _generate_html(self, session, answer_set):
+        schema = session.template.schema_json
+        if is_v2_schema(schema):
+            return self._generate_html_v2(session, answer_set, schema)
+        return self._generate_html_legacy(session, answer_set)
+
+    # ── Generischer Renderer für Schema-Version 2 ─────────────────────────────
+    def _generate_html_v2(self, session, answer_set, schema):
+        a = answer_set.answers_json
+
+        def cb(checked):
+            if checked:
+                return '<span class="cb-x">&#10003;</span>'
+            return '<span class="cb-o">&nbsp;</span>'
+
+        def yes_no_row(q, bg):
+            val = a.get(q["id"])
+            follow_html = ""
+            follow = q.get("followup")
+            if follow and a.get(follow["id"]):
+                follow_html = (
+                    f'<div class="ft">{escape(follow.get("label", ""))}: '
+                    f'{escape(str(a.get(follow["id"])))}</div>'
+                )
+            return (
+                f'<tr style="background:{bg}">'
+                f'<td class="q">{escape(q.get("label", q["id"]))}{follow_html}</td>'
+                f'<td class="c">{cb(val == "yes")}</td>'
+                f'<td class="c">{cb(val == "no")}</td></tr>'
+            )
+
+        def value_row(q, bg):
+            display = escape(answer_display(q, a.get(q["id"])))
+            follow_html = ""
+            follow = q.get("followup")
+            if follow and a.get(follow["id"]):
+                follow_html = (
+                    f'<div class="ft">{escape(follow.get("label", ""))}: '
+                    f'{escape(str(a.get(follow["id"])))}</div>'
+                )
+            return (
+                f'<tr style="background:{bg}">'
+                f'<td class="q">{escape(q.get("label", q["id"]))}{follow_html}</td>'
+                f'<td colspan="2" class="q"><span class="val">{display}</span></td></tr>'
+            )
+
+        def ess_table(q):
+            intro = (
+                '<div class="italic-box"><strong>Epworth Sleepiness Scale (ESS)</strong> – '
+                'Wie wahrscheinlich ist es, dass Sie in den folgenden Situationen einnicken '
+                'würden?&nbsp; 0 = Nie &nbsp;·&nbsp; 1 = Gering &nbsp;·&nbsp; 2 = Mittel '
+                '&nbsp;·&nbsp; 3 = Hoch</div>'
+            )
+            rows = ""
+            items = q.get("items") or [
+                {"id": key, "label": key} for key in ESS_KEYS
+            ]
+            for i, item in enumerate(items):
+                val = a.get(item["id"])
+                bg = "#f5f5f5" if i % 2 == 0 else "#fff"
+                cells = "".join(
+                    f'<td class="c">{cb(val == n)}</td>' for n in range(4)
+                )
+                rows += (
+                    f'<tr style="background:{bg}">'
+                    f'<td class="q">{i + 1}. {escape(item.get("label", item["id"]))}</td>'
+                    f'{cells}</tr>'
+                )
+            total = answer_set.ess_total or 0
+            if total <= 9:
+                band = f"{total}/24 – Normal (0–9)"
+            elif total <= 15:
+                band = f"{total}/24 – Erhöht (10–15)"
+            else:
+                band = f"{total}/24 – Ausgeprägt (≥16) – ärztliche Abklärung erforderlich"
+            return (
+                f'{intro}<table>'
+                '<tr><td class="thl" style="width:62%">Situation</td>'
+                '<td class="th">0</td><td class="th">1</td><td class="th">2</td>'
+                '<td class="th">3</td></tr>'
+                f'{rows}'
+                '<tr style="background:#1f3864">'
+                '<td class="q" style="font-weight:bold;color:#ffffff;border:1px solid #1f3864">'
+                'Gesamtpunktzahl</td>'
+                f'<td colspan="4" class="q" style="font-weight:bold;color:#ffffff;'
+                f'border:1px solid #1f3864">{band}</td></tr></table>'
+            )
+
+        def consent_row(q, bg):
+            val = a.get(q["id"]) is True
+            return (
+                f'<tr style="background:{bg}">'
+                f'<td class="q">{escape(q.get("label", q["id"]))}</td>'
+                f'<td class="c">{cb(val)}</td>'
+                f'<td class="c">{cb(not val)}</td></tr>'
+            )
+
+        sections_html = ""
+        for idx, section in enumerate(schema.get("sections", []), 1):
+            body = ""
+            open_table = False
+            needs_header = any(
+                q.get("type") in ("yes_no", "consent")
+                for q in section.get("questions", [])
+            )
+            for q in section.get("questions", []):
+                if not is_visible(q, a):
+                    continue
+                qtype = q.get("type")
+                if qtype == "ess_matrix":
+                    if open_table:
+                        body += "</table>"
+                        open_table = False
+                    body += ess_table(q)
+                    continue
+                if not open_table:
+                    body += "<table>"
+                    if needs_header:
+                        body += (
+                            '<tr><td class="thl">Frage</td>'
+                            '<td class="th">ja</td><td class="th">nein</td></tr>'
+                        )
+                    open_table = True
+                row_count = body.count("<tr")
+                bg = "#f5f5f5" if row_count % 2 == 0 else "#fff"
+                if qtype == "yes_no":
+                    body += yes_no_row(q, bg)
+                elif qtype == "consent":
+                    body += consent_row(q, bg)
+                else:
+                    body += value_row(q, bg)
+            if open_table:
+                body += "</table>"
+            if not body:
+                continue
+            note = section.get("pdf_note")
+            note_html = f'<div class="italic-box">{escape(note)}</div>' if note else ""
+            sections_html += (
+                f'<h2>{idx}. {escape(section.get("title", ""))}</h2>{note_html}{body}'
+            )
+
+        completed = (
+            session.completed_at.strftime('%d.%m.%Y') if session.completed_at else "—"
+        )
+        patient_name = escape(session.patient_last_name or "")
+        patient_first = escape(session.patient_first_name or "")
+        patient_birth = (
+            session.patient_birth_date.strftime('%d.%m.%Y')
+            if session.patient_birth_date else ""
+        )
+        title = escape(schema.get("title", "Verkehrsmedizinischer Fragebogen"))
+        basis = escape(schema.get("basis", ""))
+        basis_html = f'<div class="xs">{basis}</div>' if basis else ""
+
+        return f"""<!DOCTYPE html>
+<html lang="de"><head><meta charset="UTF-8"/>
+<title>{title}</title>
+<style>
+  @page {{ size: A4; margin: 14mm 13mm 12mm 13mm; }}
+  * {{ box-sizing: border-box; }}
+  body {{ font-family: Helvetica, Arial, sans-serif; font-size: 8pt; color: #1a1a1a; margin:0; line-height:1.35; }}
+  h1 {{ font-size:13pt; font-weight:bold; color:#1f3864; margin:0 0 6px 0; letter-spacing:0.3pt; }}
+  h2 {{ font-size:7.5pt; font-weight:bold; color:#ffffff; background:#1f3864;
+        margin:7px 0 0 0; padding:2px 6px; border:none; }}
+  table {{ width:100%; border-collapse:collapse; margin-bottom:3px; }}
+  .c {{ border:1px solid #aab; width:26px; text-align:center; padding:1px; vertical-align:middle; }}
+  .q {{ border:1px solid #ccd; padding:2px 6px; vertical-align:middle; }}
+  .cb-x {{ display:inline-block; width:12px; height:12px;
+           background:#1f3864; color:#ffffff;
+           text-align:center; font-size:9pt; font-weight:bold; line-height:12px;
+           border:1px solid #1f3864; }}
+  .cb-o {{ display:inline-block; width:12px; height:12px;
+           background:#ffffff; border:1.5px solid #8899aa; }}
+  .th  {{ background:#1f3864; color:#ffffff; border:1px solid #1f3864;
+          padding:2px 4px; font-size:7.5pt; text-align:center; font-weight:bold; }}
+  .thl {{ background:#1f3864; color:#ffffff; border:1px solid #1f3864;
+          padding:2px 6px; font-size:7.5pt; font-weight:bold; }}
+  .hdr {{ background:#eef1f7; border:1px solid #c8d0e0; padding:5px 8px; margin-bottom:5px; }}
+  .italic-box {{ background:#f0f4fb; border:1px solid #c8d0e0; padding:4px 8px;
+                 font-style:italic; font-size:7.5pt; margin-bottom:2px; }}
+  .warn {{ border:2px solid #1f3864; background:#f7f0f0; padding:5px 8px;
+           font-style:italic; font-size:8pt; font-weight:bold; margin:5px 0; color:#1a1a1a; }}
+  .sig  {{ border-bottom:1px solid #555; height:22px; margin-top:3px; }}
+  .xs   {{ font-size:7pt; color:#555; margin-top:1px; }}
+  .ft   {{ font-size:7.5pt; color:#333; font-style:italic; margin-top:1px; padding-left:8px;
+           border-left:2px solid #1f3864; }}
+  .val  {{ font-weight:bold; }}
+</style></head><body>
+
+<h1>{title}</h1>
+{basis_html}
+
+<div class="hdr">
+<table><tr>
+  <td style="width:55%;vertical-align:top">
+    <table style="width:100%">
+      <tr><td style="width:90px;padding:1px 4px">Name:</td>
+          <td style="border-bottom:1px solid #888">{patient_name}&nbsp;</td></tr>
+      <tr><td style="padding:1px 4px">Vorname:</td>
+          <td style="border-bottom:1px solid #888">{patient_first}&nbsp;</td></tr>
+      <tr><td style="padding:1px 4px">Geburtsdatum:</td>
+          <td style="border-bottom:1px solid #888">{patient_birth}&nbsp;</td></tr>
+    </table>
+  </td>
+  <td style="width:45%;padding-left:12px;vertical-align:top;font-size:8pt;line-height:1.6">
+    <strong>Dr. med. Björn Micka</strong><br/>
+    Betriebsmedizin, Notfallmedizin<br/>
+    Christoph-Dassler-Str. 22, 91074 Herzogenaurach
+  </td>
+</tr></table>
+<div style="margin-top:3px;font-size:8pt">
+  Ausgefüllt am: <span class="val">{completed}</span>
+</div>
+</div>
+
+{sections_html}
+
+<div class="warn">
+  Zur wahrheitsgemäßen Beantwortung <u>a l l e r</u> Fragen sind Sie verpflichtet.
+  Das Verschweigen von Vorerkrankungen stellt einen Verstoß gegen § 11 FeV dar
+  und kann rechtliche Konsequenzen haben!
+</div>
+
+<table style="margin-top:10px">
+  <tr>
+    <td style="width:44%;padding-right:8px">
+      <div class="sig">&nbsp;</div><div class="xs">Ort / Datum</div>
+    </td>
+    <td style="width:12%">&nbsp;</td>
+    <td style="width:44%">
+      <div class="sig">&nbsp;</div><div class="xs">Unterschrift Patient</div>
+    </td>
+  </tr>
+</table>
+
+</body></html>"""
+
+    def _generate_html_legacy(self, session, answer_set):
         """Generiere HTML – exakter Wortlaut aus Online-Fragebogen, 2 Seiten"""
         a = answer_set.answers_json
 
