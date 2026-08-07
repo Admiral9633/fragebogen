@@ -19,7 +19,13 @@ export default function RootLayout({
   return (
     <html lang="de" suppressHydrationWarning>
       <body className={inter.className}>
-        <ThemeProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+          themes={["light", "dark", "paper-ink"]}
+        >
           {children}
           <Toaster richColors position="bottom-right" />
         </ThemeProvider>

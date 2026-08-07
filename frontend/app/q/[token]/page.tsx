@@ -3,21 +3,24 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { VerkehrsmedizinForm, FormData } from "@/components/verkehrsmedizin-form";
 import { CheckCircle2, AlertCircle, Download, FileText, Car } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { AnamneseForm } from "@/components/anamnese-form";
+import { isV2Schema } from "@/lib/schema";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { badgeVariants } from "@/components/ui/badge";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { ModeToggle } from "@/components/mode-toggle";
+import { Spinner } from "@/components/ui/spinner";
 
 const API_URL = ""; // Requests go via Next.js proxy rewrites → backend:8000
 
 // DRF-Fehlerobjekte ({"feld": ["Meldung"]} oder {"error": "..."}) menschenlesbar machen
-function extractApiError(d: any): string {
+function extractApiError(d: unknown): string {
   if (!d || typeof d !== "object") return "Fehler beim Absenden. Bitte versuchen Sie es erneut.";
-  if (typeof d.error === "string") return d.error;
-  const first = Object.values(d).flat().find((v) => typeof v === "string");
+  const obj = d as Record<string, unknown>;
+  if (typeof obj.error === "string") return obj.error;
+  const first = Object.values(obj).flat().find((v) => typeof v === "string");
   return typeof first === "string" ? first : "Fehler beim Absenden. Bitte prüfen Sie Ihre Angaben.";
 }
 
@@ -51,7 +54,7 @@ export default function QuestionnairePage() {
     })();
   }, [token]);
 
-  const handleSubmit = async (data: FormData) => {
+  const handleSubmit = async (data: Record<string, unknown>) => {
     setIsSubmitting(true);
     try {
       const res = await fetch(`${API_URL}/api/submit/${token}/`, {
@@ -79,7 +82,7 @@ export default function QuestionnairePage() {
     return (
       <main className="min-h-screen flex items-center justify-center bg-background">
         <div className="text-center">
-          <div className="w-10 h-10 border-4 border-primary/20 border-t-primary rounded-full animate-spin mx-auto mb-4" />
+          <Spinner className="size-10 text-primary mx-auto mb-4" />
           <p className="text-sm text-muted-foreground">Lade Fragebogen …</p>
         </div>
       </main>
@@ -92,7 +95,7 @@ export default function QuestionnairePage() {
       <main className="min-h-screen flex items-center justify-center bg-background p-4">
         <Card className="max-w-md w-full text-center">
           <CardContent className="p-8">
-            <AlertCircle className="w-12 h-12 text-destructive mx-auto mb-4" />
+            <AlertCircle className="size-12 text-destructive mx-auto mb-4" />
             <h2 className="text-lg font-semibold text-foreground mb-2">Fragebogen nicht gefunden</h2>
             <p className="text-sm text-muted-foreground mb-6">{error}</p>
             <Button onClick={() => router.push("/")}>Zur Startseite</Button>
@@ -105,10 +108,10 @@ export default function QuestionnairePage() {
   // ── Success ────────────────────────────────────────────────────────────────
   if (submitted && result) {
     const band = result.ess_band || "normal";
-    const bandMeta: Record<string, { bg: string; border: string; text: string; badgeVariant: "success" | "warning" | "destructive"; label: string }> = {
-      normal:     { bg: "bg-green-50 dark:bg-green-950/30",   border: "border-green-200 dark:border-green-800",   text: "text-green-700 dark:text-green-400",   badgeVariant: "success",     label: "Normal (0–9)" },
-      erhöht:     { bg: "bg-orange-50 dark:bg-orange-950/30", border: "border-orange-200 dark:border-orange-800", text: "text-orange-700 dark:text-orange-400", badgeVariant: "warning",     label: "Erhöht (10–15)" },
-      ausgeprägt: { bg: "bg-red-50 dark:bg-red-950/30",       border: "border-red-200 dark:border-red-800",       text: "text-red-700 dark:text-red-400",       badgeVariant: "destructive", label: "Ausgeprägt (≥16)" },
+    const bandMeta: Record<string, { box: string; text: string; badgeVariant: "success" | "warning" | "destructive"; label: string }> = {
+      normal:     { box: "border-success/50 bg-success/10",         text: "text-success",     badgeVariant: "success",     label: "Normal (0–9)" },
+      erhöht:     { box: "border-warning/50 bg-warning/10",         text: "text-warning",     badgeVariant: "warning",     label: "Erhöht (10–15)" },
+      ausgeprägt: { box: "border-destructive/50 bg-destructive/10", text: "text-destructive", badgeVariant: "destructive", label: "Ausgeprägt (≥16)" },
     };
     const m = bandMeta[band] ?? bandMeta["normal"];
 
@@ -117,15 +120,15 @@ export default function QuestionnairePage() {
         <div className="max-w-lg w-full space-y-4">
           <Card>
             <CardContent className="p-8 text-center">
-              <div className="w-16 h-16 bg-green-100 dark:bg-green-900/40 rounded-full flex items-center justify-center mx-auto mb-4">
-                <CheckCircle2 className="w-8 h-8 text-green-600 dark:text-green-400" />
+              <div className="mx-auto mb-4 flex size-16 items-center justify-center rounded-full bg-success/15">
+                <CheckCircle2 className="size-8 text-success" />
               </div>
               <h1 className="text-xl font-bold text-foreground mb-1">Vielen Dank!</h1>
               <p className="text-sm text-muted-foreground">Ihr Fragebogen wurde erfolgreich übermittelt.</p>
             </CardContent>
           </Card>
 
-          <div className={cn("rounded-xl border-2 p-6", m.bg, m.border)}>
+          <div className={cn("rounded-xl border-2 p-6", m.box)}>
             <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">ESS-Ergebnis</p>
             <div className="flex items-center justify-between">
               <div>
@@ -133,7 +136,7 @@ export default function QuestionnairePage() {
                 <span className="text-lg text-muted-foreground ml-1">/ 24</span>
                 <p className={cn("text-sm font-semibold mt-1", m.text)}>{m.label}</p>
               </div>
-              <div className={cn(badgeVariants({ variant: m.badgeVariant }), "w-16 h-16 rounded-full flex items-center justify-center text-2xl font-black border-0")}>
+              <div className={cn(badgeVariants({ variant: m.badgeVariant }), "flex size-16 items-center justify-center rounded-full border-0 text-2xl font-black")}>
                 {result.ess_total}
               </div>
             </div>
@@ -148,14 +151,14 @@ export default function QuestionnairePage() {
               className="flex-1 h-12 gap-2 text-sm"
               onClick={() => window.open(`${API_URL}/api/pdf/${token}/`, "_blank")}
             >
-              <FileText className="w-4 h-4" />
+              <FileText className="size-4" />
               PDF (klassisch)
             </Button>
             <Button
               className="flex-1 h-12 gap-2 text-sm"
               onClick={() => window.open(`/api/puppeteer-pdf/${token}/`, "_blank")}
             >
-              <Download className="w-4 h-4" />
+              <Download className="size-4" />
               PDF (Design)
             </Button>
           </div>
@@ -166,24 +169,27 @@ export default function QuestionnairePage() {
     );
   }
 
+  const schema = sessionData?.template;
+  const hasV2Schema = isV2Schema(schema);
+
   // ── Form ───────────────────────────────────────────────────────────────────
   return (
     <main className="min-h-screen bg-background">
       {/* Sticky header */}
       <header className="bg-card border-b border-border sticky top-0 z-20 shadow-sm">
         <div className="max-w-3xl mx-auto px-4 py-3 flex items-center gap-3">
-          <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center flex-shrink-0">
-            <Car className="w-4 h-4 text-primary-foreground" />
+          <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary">
+            <Car className="size-4 text-primary-foreground" />
           </div>
           <div className="min-w-0 flex-1">
             <h1 className="text-sm font-semibold text-foreground truncate">
-              Verkehrsmedizinischer Fragebogen
+              {schema?.title || "Verkehrsmedizinischer Fragebogen"}
             </h1>
             <p className="text-xs text-muted-foreground truncate">
-              {sessionData?.template?.title || "Bitte füllen Sie alle Felder aus"}
+              Bitte beantworten Sie alle Fragen
             </p>
           </div>
-          <ThemeToggle />
+          <ModeToggle />
         </div>
       </header>
 
@@ -192,7 +198,19 @@ export default function QuestionnairePage() {
         <div className="sm:px-4">
           <Card className="rounded-none border-x-0 border-t-0 sm:rounded-xl sm:border shadow-none sm:shadow-sm">
             <CardContent className="p-4 sm:p-8">
-              <VerkehrsmedizinForm onSubmit={handleSubmit} isSubmitting={isSubmitting} />
+              {hasV2Schema ? (
+                <AnamneseForm schema={schema} onSubmit={handleSubmit} isSubmitting={isSubmitting} />
+              ) : (
+                <div className="py-8 text-center space-y-2">
+                  <AlertCircle className="size-10 text-muted-foreground mx-auto" />
+                  <h2 className="text-lg font-semibold text-foreground">Veraltete Vorlage</h2>
+                  <p className="text-sm text-muted-foreground">
+                    Dieser Fragebogen-Link gehört zu einer veralteten Vorlage und kann online
+                    nicht mehr ausgefüllt werden. Bitte wenden Sie sich an die Praxis, um einen
+                    neuen Link zu erhalten.
+                  </p>
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>

@@ -1,18 +1,24 @@
 # Verkehrsmedizin Fragebogen App
 
-Full-Stack-Anwendung für verkehrsmedizinische Fragebögen mit Epworth Sleepiness Scale (ESS),
-Admin-Bereich für die Praxis und GDT-Anbindung an die Praxis-EDV (SAMAS).
+Full-Stack-Anwendung für verkehrsmedizinische Anamnese-Fragebögen. Der Fragenkatalog
+basiert auf den **Begutachtungsleitlinien zur Kraftfahreignung (BASt, Stand 2022)**
+und wird schema-getrieben ausgeliefert: Backend-Template, Patientenformular,
+Validierung und beide PDF-Renderer arbeiten mit derselben Quelle. Inklusive
+Epworth Sleepiness Scale (ESS), Admin-Bereich für die Praxis und GDT-Anbindung
+an die Praxis-EDV (SAMAS).
 
 ## Technologie-Stack
 
 ### Backend
-- Django 5.2 LTS + Django REST Framework
+- Django 6.0 + Django REST Framework
 - PostgreSQL 16 (psycopg 3)
 - xhtml2pdf (klassisches PDF direkt aus dem Backend)
 
 ### Frontend
 - Next.js 16 (App Router) + React 19
-- Tailwind CSS + shadcn/ui, sonner-Toasts, Dark Mode
+- Tailwind CSS v4 + shadcn/ui (new-york, OKLCH-Theme, Field-Familie)
+- react-hook-form (dokumentiertes shadcn-Formular-Muster), sonner-Toasts
+- Dark Mode nach shadcn (next-themes): Hell · Dunkel · E-Ink (Praxis-Tablet) · System
 - Puppeteer (Design-PDF über die serverseitige Print-Page)
 
 ### Integration & Deployment
@@ -23,10 +29,31 @@ Admin-Bereich für die Praxis und GDT-Anbindung an die Praxis-EDV (SAMAS).
 
 1. **Session anlegen** – über den Admin-Bereich (`/admin`-Seite des Frontends) oder
    automatisch durch die GDT-Bridge, wenn SAMAS eine Anforderung in den GDT-Ordner legt.
-2. **Patient füllt aus** – Token-Link (`/q/<token>`), 10-Schritte-Formular inkl. ESS
-   mit Echtzeit-Auswertung, Einwilligung mit Datenschutzhinweisen.
+2. **Patient füllt aus** – Token-Link (`/q/<token>`), 14-Schritte-Formular nach den
+   Begutachtungsleitlinien (bedingte Folgefragen, ESS mit Echtzeit-Auswertung,
+   Einwilligung mit Datenschutzhinweisen).
 3. **Ergebnis** – ESS-Score + Kategorie, PDF-Export (klassisch via xhtml2pdf oder
    Design-PDF via Puppeteer), Rückmeldung an SAMAS als Ergebnis-GDT.
+
+## Fragenkatalog
+
+Der Katalog liegt in `backend/questionnaires/catalog.py` (14 Abschnitte, ~90 Fragen
+mit bedingter Logik) und deckt die anamnese-relevanten Kapitel der
+Begutachtungsleitlinien ab: Anfälle/Synkopen, Sehen/Hören, Herz-Kreislauf,
+Schlaganfall/Gehirn, Nervensystem, Gleichgewicht/Schwindel, Bewegungsapparat,
+Diabetes, innere Organe, Tagesschläfrigkeit/OSAS inkl. ESS, Psyche sowie
+Alkohol/Drogen/Medikamente — inklusive der Leitlinien-Zeitfenster (z.B.
+anfallsfrei seit, Fremdhilfe-Hypoglykämie in den letzten 12 Monaten) und einer
+Steuerfrage für Gruppe 2 (LKW/Bus/Fahrgastbeförderung).
+
+```bash
+# Katalog als aktives Template laden (läuft in Docker automatisch beim Start)
+python manage.py load_catalog
+```
+
+Änderungen am Katalog werden mit dem nächsten `load_catalog` wirksam; das Frontend
+rendert das Formular vollständig aus dem Template-Schema der Session-API, die
+Submit-Validierung und beide PDFs nutzen dasselbe Schema (eine Quelle, kein Drift).
 
 ## Schnellstart
 
@@ -53,6 +80,7 @@ pip install -r requirements.txt
 cp .env.example .env                            # wird von settings.py geladen
 docker-compose -f ../docker-compose.dev.yml up -d db
 python manage.py migrate
+python manage.py load_catalog
 python manage.py runserver
 
 # Frontend (zweites Terminal)
@@ -151,7 +179,7 @@ docker-compose exec backend python manage.py purge_sessions --days 30
 
 ```bash
 cd backend
-python manage.py test questionnaires   # 10 API-Tests (Submit, Ablauf, Escaping, Auth, Purge)
+python manage.py test questionnaires   # 19 API-Tests (Submit, Katalog, Ablauf, Escaping, Auth, Purge)
 ```
 
 ```bash

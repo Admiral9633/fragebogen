@@ -94,7 +94,7 @@ function LoginForm({ onLogin }: { onLogin: (key: string) => void }) {
             </div>
             {error && <p className="text-sm text-destructive">{error}</p>}
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              {loading && <Loader2 className="mr-2 size-4 animate-spin" />}
               Anmelden
             </Button>
           </form>
@@ -187,7 +187,7 @@ function EditDialog({ session, onClose, onSaved, headers }: EditDialogProps) {
         <DialogFooter>
           <Button variant="outline" onClick={onClose}>Abbrechen</Button>
           <Button onClick={handleSave} disabled={saving}>
-            {saving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            {saving && <Loader2 className="mr-2 size-4 animate-spin" />}
             Speichern
           </Button>
         </DialogFooter>
@@ -346,7 +346,7 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
           <Card id="create" className="scroll-mt-16">
             <CardHeader className="pb-3">
               <CardTitle className="text-base flex items-center gap-2">
-                <Plus className="h-4 w-4" />
+                <Plus className="size-4" />
                 Neue Einladung
               </CardTitle>
             </CardHeader>
@@ -374,8 +374,8 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
                 <div className="sm:col-span-2 lg:col-span-4">
                   <Button type="submit" disabled={creating}>
                     {creating
-                      ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Wird angelegt…</>
-                      : <><Mail className="mr-2 h-4 w-4" />Einladung senden</>
+                      ? <><Loader2 className="mr-2 size-4 animate-spin" />Wird angelegt…</>
+                      : <><Mail className="mr-2 size-4" />Einladung senden</>
                     }
                   </Button>
                 </div>
@@ -394,7 +394,7 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
                   )}
                 </CardTitle>
                 <Button variant="ghost" size="icon" onClick={loadSessions}>
-                  <RefreshCw className="h-4 w-4" />
+                  <RefreshCw className="size-4" />
                 </Button>
               </div>
             </CardHeader>
@@ -450,12 +450,12 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
                         <TableCell>
                           {s.completed ? (
                             <Badge variant="success" className="gap-1">
-                              <CheckCircle2 className="h-3 w-3" />
+                              <CheckCircle2 className="size-3" />
                               {s.completed_at ?? "Ausgefüllt"}
                             </Badge>
                           ) : (
                             <Badge variant="warning" className="gap-1">
-                              <Clock className="h-3 w-3" />
+                              <Clock className="size-3" />
                               Offen bis {s.expires_at}
                             </Badge>
                           )}
@@ -468,7 +468,7 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
                             <Tooltip>
                               <TooltipTrigger asChild>
                                 <Button variant="ghost" size="icon" onClick={() => copyLink(s.token)}>
-                                  <Link2 className="h-4 w-4" />
+                                  <Link2 className="size-4" />
                                 </Button>
                               </TooltipTrigger>
                               <TooltipContent>Link kopieren</TooltipContent>
@@ -483,7 +483,7 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
                                     rel="noopener noreferrer"
                                     className="inline-flex items-center justify-center h-9 w-9 rounded-md text-sm hover:bg-accent hover:text-accent-foreground"
                                   >
-                                    <FileText className="h-4 w-4" />
+                                    <FileText className="size-4" />
                                   </a>
                                 </TooltipTrigger>
                                 <TooltipContent>PDF öffnen</TooltipContent>
@@ -494,7 +494,7 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
                               <Tooltip>
                                 <TooltipTrigger asChild>
                                   <Button variant="ghost" size="icon" onClick={() => handleResend(s.token)}>
-                                    <Mail className="h-4 w-4" />
+                                    <Mail className="size-4" />
                                   </Button>
                                 </TooltipTrigger>
                                 <TooltipContent>Einladung erneut senden</TooltipContent>
@@ -504,7 +504,7 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
                             <Tooltip>
                               <TooltipTrigger asChild>
                                 <Button variant="ghost" size="icon" onClick={() => setEditSession(s)}>
-                                  <Pencil className="h-4 w-4" />
+                                  <Pencil className="size-4" />
                                 </Button>
                               </TooltipTrigger>
                               <TooltipContent>Bearbeiten</TooltipContent>
@@ -518,7 +518,7 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
                                   className="text-destructive hover:text-destructive"
                                   onClick={() => setDeleteSession(s)}
                                 >
-                                  <Trash2 className="h-4 w-4" />
+                                  <Trash2 className="size-4" />
                                 </Button>
                               </TooltipTrigger>
                               <TooltipContent>Session löschen</TooltipContent>

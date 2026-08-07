@@ -1,6 +1,6 @@
 import { Separator } from "@/components/ui/separator"
 import { SidebarTrigger } from "@/components/ui/sidebar"
-import { ThemeToggle } from "@/components/theme-toggle"
+import { ModeToggle } from "@/components/mode-toggle"
 
 export function SiteHeader({ title = "Admin" }: { title?: string }) {
   return (
@@ -12,7 +12,7 @@ export function SiteHeader({ title = "Admin" }: { title?: string }) {
           className="mx-2 data-[orientation=vertical]:h-4"
         />
         <h1 className="text-base font-medium flex-1">{title}</h1>
-        <ThemeToggle />
+        <ModeToggle />
       </div>
     </header>
   )

@@ -53,7 +53,7 @@ export function DatePicker({
           )}
           disabled={disabled}
         >
-          <CalendarIcon className="mr-2 h-4 w-4" />
+          <CalendarIcon className="mr-2 size-4" />
           {date ? format(date, "dd.MM.yyyy", { locale: de }) : placeholder}
         </Button>
       </PopoverTrigger>
@@ -63,11 +63,11 @@ export function DatePicker({
           selected={date}
           onSelect={handleSelect}
           defaultMonth={date}
-          initialFocus
+          autoFocus
           locale={de}
           captionLayout="dropdown"
-          fromYear={1920}
-          toYear={new Date().getFullYear()}
+          startMonth={new Date(1920, 0)}
+          endMonth={new Date()}
         />
       </PopoverContent>
     </Popover>
