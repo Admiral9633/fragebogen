@@ -12,9 +12,9 @@ from django.test import TestCase
 from django.utils import timezone
 
 from .catalog import CATALOG
+from .evaluation import evaluate_answers
 from .models import AnswerSet, QuestionnaireSession, QuestionnaireTemplate
 from .schema import ESS_KEYS, is_visible, iter_questions
-from .views import GeneratePDFView
 
 
 def make_session(**kwargs):
@@ -96,33 +96,22 @@ class ErgebnisZugriffTests(TestCase):
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.json()['ess_total'], 8)
 
-    def test_answers_und_pdf_nach_ablauf_410(self):
+    def test_answers_nach_ablauf_410(self):
         session = self._completed_session(
             expires_at=timezone.now() - timedelta(days=1)
         )
         self.assertEqual(
             self.client.get(f'/api/answers/{session.token}/').status_code, 410
         )
-        self.assertEqual(
-            self.client.get(f'/api/pdf/{session.token}/').status_code, 410
-        )
 
-    def test_pdf_html_escaped_patienten_eingaben(self):
+    def test_answers_enthaelt_auswertung(self):
         session = self._completed_session()
-        answer_set = session.answers
-        answer_set.answers_json = valid_submit_payload(
-            accidents='yes',
-            accidents_desc='<script>alert(1)</script>',
-            license_classes='<b>B</b>',
-            driving_hours='<img src=x onerror=alert(1)>',
-        )
-        answer_set.save()
-
-        html = GeneratePDFView()._generate_html(session, answer_set)
-        self.assertNotIn('<script>alert(1)</script>', html)
-        self.assertIn('&lt;script&gt;alert(1)&lt;/script&gt;', html)
-        self.assertNotIn('<img src=x', html)
-        self.assertNotIn('<b>B</b>', html)
+        res = self.client.get(f'/api/answers/{session.token}/')
+        self.assertEqual(res.status_code, 200)
+        evaluation = res.json()['evaluation']
+        self.assertIn('findings', evaluation)
+        self.assertIn('zusammenfassung', evaluation)
+        self.assertIn('disclaimer', evaluation)
 
 
 class AdminApiKeyTests(TestCase):
@@ -242,26 +231,86 @@ class KatalogV2Tests(TestCase):
         self.assertEqual(res.status_code, 400)
         self.assertIn('psych_test_done', res.json())
 
-    def test_pdf_v2_rendert_und_escaped(self):
-        answers = build_valid_answers(CATALOG, overrides={
-            'accidents': 'yes',
-            'accidents_desc': '<script>alert(1)</script>',
-        })
-        res = self.submit(answers)
-        self.assertEqual(res.status_code, 201, res.json())
-        answer_set = self.session.answers
-        html = GeneratePDFView()._generate_html(self.session, answer_set)
-        self.assertIn('Epworth Sleepiness Scale', html)
-        self.assertIn('Anlass &amp; Fahrprofil', html)
-        self.assertNotIn('<script>alert(1)</script>', html)
-        self.assertIn('&lt;script&gt;alert(1)&lt;/script&gt;', html)
-
     def test_ess_wertebereich_wird_geprueft(self):
         answers = build_valid_answers(CATALOG)
         answers['ess_3'] = 7
         res = self.submit(answers)
         self.assertEqual(res.status_code, 400)
         self.assertIn('ess_3', res.json())
+
+
+class AuswertungTests(TestCase):
+    """Regelwerk der automatischen BASt-Auswertung (evaluation.py)."""
+
+    def test_unauffaelliger_fragebogen_ohne_befunde(self):
+        answers = build_valid_answers(CATALOG)
+        result = evaluate_answers(answers)
+        self.assertFalse(result['gruppe2'])
+        self.assertEqual(result['zusammenfassung']['kritisch'], 0)
+        self.assertEqual(result['zusammenfassung']['pruefen'], 0)
+
+    def test_frischer_anfall_und_sekundenschlaf_sind_kritisch(self):
+        answers = build_valid_answers(CATALOG, overrides={
+            'seizure_ever': 'yes',
+            'seizure_free': 'unter3m',
+            'antiepileptics': 'aktuell',
+            'microsleep': 'yes',
+        })
+        result = evaluate_answers(answers)
+        kritisch = [f for f in result['findings'] if f['schwere'] == 'kritisch']
+        self.assertGreaterEqual(len(kritisch), 2)
+        kapitel = {f['kapitel'] for f in kritisch}
+        self.assertIn('3.9.6', kapitel)
+        self.assertIn('3.11.1', kapitel)
+        # kritisch sortiert vor pruefen/hinweis
+        self.assertEqual(result['findings'][0]['schwere'], 'kritisch')
+
+    def test_gruppe2_verschaerft_epilepsie_und_icd(self):
+        answers = build_valid_answers(CATALOG, overrides={
+            'exam_occasion': 'lkw',
+            'seizure_ever': 'yes',
+            'seizure_free': 'ueber5j',
+            'epilepsy': 'yes',
+            'antiepileptics': 'nie',
+            'pacemaker_icd': 'icd',
+            'icd_shock': 'no',
+        })
+        result = evaluate_answers(answers)
+        self.assertTrue(result['gruppe2'])
+        bereiche = {
+            f['bereich'] for f in result['findings'] if f['schwere'] == 'kritisch'
+        }
+        self.assertIn('Epilepsie', bereiche)
+        self.assertIn('Defibrillator (ICD)', bereiche)
+
+    def test_ess_grenzwert_elf_ausloest_abklaerung(self):
+        ess_hoch = {f'ess_{i}': 2 for i in range(1, 9)}  # Summe 16
+        answers = build_valid_answers(CATALOG, overrides=ess_hoch)
+        answers['ess_total'] = 16
+        result = evaluate_answers(answers)
+        ess_findings = [f for f in result['findings'] if f['kapitel'] == '3.11.1']
+        self.assertTrue(any(f['schwere'] == 'kritisch' for f in ess_findings))
+
+    def test_gdt_result_liefert_auswertungs_zusammenfassung(self):
+        call_command('load_catalog', verbosity=0)
+        template = QuestionnaireTemplate.objects.get(slug='verkehrsmedizin-leitlinien')
+        session = QuestionnaireSession.objects.create(
+            template=template,
+            patient_last_name='Mustermann', patient_first_name='Max',
+            expires_at=timezone.now() + timedelta(days=14),
+        )
+        answers = build_valid_answers(CATALOG, overrides={'microsleep': 'yes'})
+        res = self.client.post(
+            f'/api/submit/{session.token}/', answers, content_type='application/json'
+        )
+        self.assertEqual(res.status_code, 201, res.json())
+        with mock.patch.dict(os.environ, {'ADMIN_API_KEY': 'test-key-123'}):
+            res = self.client.get(
+                f'/api/gdt/result/{session.token}/',
+                HTTP_AUTHORIZATION='Bearer test-key-123',
+            )
+        self.assertEqual(res.status_code, 200)
+        self.assertGreaterEqual(res.json()['auswertung_kritisch'], 1)
 
 
 class PurgeSessionsTests(TestCase):

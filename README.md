@@ -3,7 +3,9 @@
 Full-Stack-Anwendung für verkehrsmedizinische Anamnese-Fragebögen. Der Fragenkatalog
 basiert auf den **Begutachtungsleitlinien zur Kraftfahreignung (BASt, Stand 2022)**
 und wird schema-getrieben ausgeliefert: Backend-Template, Patientenformular,
-Validierung und beide PDF-Renderer arbeiten mit derselben Quelle. Inklusive
+Validierung und PDF arbeiten mit derselben Quelle. Inklusive automatischer
+Auswertung der Antworten mit Leitlinien-Konsequenzen (Entscheidungsunterstützung
+für die ärztliche Beurteilung),
 Epworth Sleepiness Scale (ESS), Admin-Bereich für die Praxis und GDT-Anbindung
 an die Praxis-EDV (SAMAS).
 
@@ -11,8 +13,8 @@ an die Praxis-EDV (SAMAS).
 
 ### Backend
 - Django 6.0 + Django REST Framework
-- PostgreSQL 16 (psycopg 3)
-- xhtml2pdf (klassisches PDF direkt aus dem Backend)
+- PostgreSQL 16 (psycopg 3); lokal optional SQLite (USE_SQLITE=True)
+- Automatische BASt-Auswertung (questionnaires/evaluation.py)
 
 ### Frontend
 - Next.js 16 (App Router) + React 19
@@ -32,8 +34,9 @@ an die Praxis-EDV (SAMAS).
 2. **Patient füllt aus** – Token-Link (`/q/<token>`), 14-Schritte-Formular nach den
    Begutachtungsleitlinien (bedingte Folgefragen, ESS mit Echtzeit-Auswertung,
    Einwilligung mit Datenschutzhinweisen).
-3. **Ergebnis** – ESS-Score + Kategorie, PDF-Export (klassisch via xhtml2pdf oder
-   Design-PDF via Puppeteer), Rückmeldung an SAMAS als Ergebnis-GDT.
+3. **Ergebnis** – ESS-Score + Kategorie, PDF-Export (Puppeteer über die
+   Print-Seite) inkl. automatischer Leitlinien-Auswertung (kritisch/prüfen/
+   Hinweis mit Kapitel-Referenz), Rückmeldung an SAMAS als Ergebnis-GDT.
 
 ## Fragenkatalog
 
@@ -53,7 +56,18 @@ python manage.py load_catalog
 
 Änderungen am Katalog werden mit dem nächsten `load_catalog` wirksam; das Frontend
 rendert das Formular vollständig aus dem Template-Schema der Session-API, die
-Submit-Validierung und beide PDFs nutzen dasselbe Schema (eine Quelle, kein Drift).
+Submit-Validierung, PDF und automatische Auswertung nutzen dasselbe Schema
+(eine Quelle, kein Drift).
+
+### Automatische Auswertung
+
+`questionnaires/evaluation.py` prüft die Antworten gegen ein Regelwerk aus den
+Begutachtungsleitlinien (z.B. Anfallsfreiheits-Fristen nach Kap. 3.9.6, ESS-Grenzwert
+11 nach Kap. 3.11, ICD/Gruppe 2 nach Kap. 3.4.1.4) und liefert Befunde in drei
+Schweregraden (**kritisch / prüfen / Hinweis**) mit Kapitel-Referenz und
+Gruppe-1/2-Konsequenz. Die Auswertung erscheint im PDF und in `/api/answers/`;
+`/api/gdt/result/` liefert die Zusammenfassung als Zählwerte. Sie ist
+Entscheidungsunterstützung – die abschließende Beurteilung trifft die Ärztin/der Arzt.
 
 ## Schnellstart
 
@@ -127,8 +141,7 @@ fragebogen/
 ### Patient (Token-basiert)
 - `GET  /api/session/<token>/` – Session-Details (410 wenn abgelaufen/ausgefüllt)
 - `POST /api/submit/<token>/` – Fragebogen einreichen (atomar, Doppel-Submit → 400)
-- `GET  /api/pdf/<token>/` – klassisches PDF (410 nach Linkablauf)
-- `GET  /api/answers/<token>/` – Antworten als JSON für die Print-Page (410 nach Ablauf)
+- `GET  /api/answers/<token>/` – Antworten + Schema + Auswertung für die Print-Page (410 nach Ablauf)
 
 ### Praxis-Admin (Header `Authorization: Bearer <ADMIN_API_KEY>`)
 - `GET/POST /api/admin/sessions/` – Sessions auflisten / anlegen (+ Einladungs-Mail)

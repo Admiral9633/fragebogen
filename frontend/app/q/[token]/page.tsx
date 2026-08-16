@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { CheckCircle2, AlertCircle, Download, FileText, Car } from "lucide-react";
+import { CheckCircle2, AlertCircle, Download, Car } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { AnamneseForm } from "@/components/anamnese-form";
 import { isV2Schema } from "@/lib/schema";
@@ -145,23 +145,13 @@ export default function QuestionnairePage() {
             </p>
           </div>
 
-          <div className="flex gap-3">
-            <Button
-              variant="outline"
-              className="flex-1 h-12 gap-2 text-sm"
-              onClick={() => window.open(`${API_URL}/api/pdf/${token}/`, "_blank")}
-            >
-              <FileText className="size-4" />
-              PDF (klassisch)
-            </Button>
-            <Button
-              className="flex-1 h-12 gap-2 text-sm"
-              onClick={() => window.open(`/api/puppeteer-pdf/${token}/`, "_blank")}
-            >
-              <Download className="size-4" />
-              PDF (Design)
-            </Button>
-          </div>
+          <Button
+            className="h-12 w-full gap-2 text-sm"
+            onClick={() => window.open(`/api/puppeteer-pdf/${token}/`, "_blank")}
+          >
+            <Download className="size-4" />
+            PDF-Zusammenfassung herunterladen
+          </Button>
 
           <p className="text-center text-xs text-muted-foreground">Sie können dieses Fenster nun schließen.</p>
         </div>

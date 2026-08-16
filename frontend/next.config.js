@@ -3,7 +3,9 @@ const nextConfig = {
   trailingSlash: false,
   serverExternalPackages: ['puppeteer-core'],
   async rewrites() {
-    const backendUrl = process.env.BACKEND_URL || 'http://backend:8000'
+    // Default: lokale Entwicklung. Docker-Compose setzt BACKEND_URL=http://backend:8000 explizit.
+    // (Turbopack wertet next.config.js vor .env.local aus - deshalb kein Docker-Hostname als Default.)
+    const backendUrl = process.env.BACKEND_URL || 'http://localhost:8000'
     return [
       // session
       { source: '/api/session/:token', destination: `${backendUrl}/api/session/:token/` },
@@ -11,9 +13,6 @@ const nextConfig = {
       // submit
       { source: '/api/submit/:token', destination: `${backendUrl}/api/submit/:token/` },
       { source: '/api/submit/:token/', destination: `${backendUrl}/api/submit/:token/` },
-      // pdf (klassisch)
-      { source: '/api/pdf/:token', destination: `${backendUrl}/api/pdf/:token/` },
-      { source: '/api/pdf/:token/', destination: `${backendUrl}/api/pdf/:token/` },
       // Hinweis: /api/answers/:token wird bewusst NICHT öffentlich durchgereicht —
       // die Print-Page holt die Daten serverseitig direkt vom Backend.
       // admin

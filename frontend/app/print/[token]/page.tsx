@@ -6,12 +6,15 @@ import {
   answerDisplay,
   isV2Schema,
   isVisible,
+  type EvaluationFinding,
+  type EvaluationResult,
   type Question,
   type Schema,
+  type Schwere,
   type Section as SchemaSection,
 } from "@/lib/schema";
 
-const BACKEND_URL = process.env.BACKEND_URL || "http://backend:8000";
+const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:8000";
 
 function getLogoDataUrl(): string {
   try {
@@ -26,6 +29,7 @@ function getLogoDataUrl(): string {
 interface AnswerData {
   answers: Record<string, unknown>;
   schema?: unknown;
+  evaluation?: EvaluationResult;
   ess_total: number;
   ess_band: string;
   completed_at: string | null;
@@ -138,6 +142,7 @@ function YNRow({
   ftLabel,
   stripe,
   target = "yes",
+  highlight,
 }: {
   label: string;
   val: unknown;
@@ -145,6 +150,8 @@ function YNRow({
   ftLabel?: string;
   stripe?: boolean;
   target?: string;
+  /** Auffällige Antwort (z.B. "Ja" bei Symptomfragen) fürs schnelle Scannen markieren */
+  highlight?: boolean;
 }) {
   return (
     <>
@@ -155,11 +162,14 @@ function YNRow({
           justifyContent: "space-between",
           padding: "3px 10px",
           borderBottom: "1px solid #dde3ef",
-          background: stripe ? "#f3f5fa" : "#fff",
+          background: highlight ? "#fef3c7" : stripe ? "#f3f5fa" : "#fff",
+          borderLeft: highlight ? "3px solid #d97706" : "3px solid transparent",
           gap: 8,
         }}
       >
-        <span style={{ fontSize: 7.5, flex: 1 }}>{label}</span>
+        <span style={{ fontSize: 7.5, flex: 1, fontWeight: highlight ? 700 : 400 }}>
+          {label}
+        </span>
         <div
           style={{
             display: "flex",
@@ -477,6 +487,143 @@ function SignatureRow() {
 
 // ─── V2: generisches Rendering aus dem Schema ─────────────────────────────────
 
+// ─── Automatische Auswertung (BASt-Leitlinien) ───────────────────────────────
+
+const SCHWERE_STYLE: Record<
+  Schwere,
+  { label: string; color: string; bg: string; border: string }
+> = {
+  kritisch: { label: "KRITISCH", color: "#b91c1c", bg: "#fef2f2", border: "#fecaca" },
+  pruefen: { label: "PRÜFEN", color: "#b45309", bg: "#fffbeb", border: "#fde68a" },
+  hinweis: { label: "HINWEIS", color: "#1f3864", bg: "#f3f6fc", border: "#c8d0e0" },
+};
+
+function EvaluationFindingRow({ finding }: { finding: EvaluationFinding }) {
+  const s = SCHWERE_STYLE[finding.schwere];
+  return (
+    <div
+      style={{
+        display: "flex",
+        gap: 8,
+        padding: "4px 10px",
+        borderBottom: "1px solid #e5e9f2",
+        background: s.bg,
+        breakInside: "avoid" as const,
+      }}
+    >
+      <span
+        style={{
+          flexShrink: 0,
+          alignSelf: "flex-start",
+          marginTop: 1,
+          width: 52,
+          textAlign: "center" as const,
+          fontSize: 6,
+          fontWeight: 900,
+          letterSpacing: "0.5px",
+          color: "#fff",
+          background: s.color,
+          borderRadius: 3,
+          padding: "2px 0",
+        }}
+      >
+        {s.label}
+      </span>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ fontSize: 7.5, fontWeight: 700, color: "#1a1a1a" }}>
+          {finding.bereich}
+          <span style={{ fontWeight: 400, color: "#667" }}> · Kap. {finding.kapitel}</span>
+        </div>
+        <div style={{ fontSize: 7, color: "#333" }}>{finding.befund}</div>
+        <div style={{ fontSize: 6.8, color: s.color, fontStyle: "italic" }}>
+          {finding.konsequenz}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function EvaluationBlock({ evaluation }: { evaluation: EvaluationResult }) {
+  const z = evaluation.zusammenfassung;
+  const unauffaellig = z.kritisch === 0 && z.pruefen === 0 && z.hinweis === 0;
+
+  return (
+    <div
+      style={{
+        border: "1.5px solid #1f3864",
+        borderRadius: 4,
+        overflow: "hidden",
+        marginBottom: 8,
+        breakInside: "avoid" as const,
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          background: "#1f3864",
+          color: "#fff",
+          padding: "4px 10px",
+        }}
+      >
+        <span style={{ fontSize: 8.5, fontWeight: 900, letterSpacing: "0.5px" }}>
+          AUTOMATISCHE AUSWERTUNG NACH BEGUTACHTUNGSLEITLINIEN
+        </span>
+        <span style={{ fontSize: 7, display: "flex", gap: 8 }}>
+          <span style={{ fontWeight: 900, color: z.kritisch ? "#fca5a5" : "#9fb3d9" }}>
+            {z.kritisch} kritisch
+          </span>
+          <span style={{ fontWeight: 900, color: z.pruefen ? "#fcd34d" : "#9fb3d9" }}>
+            {z.pruefen} prüfen
+          </span>
+          <span style={{ fontWeight: 700, color: "#c9d6ee" }}>{z.hinweis} Hinweise</span>
+          <span
+            style={{
+              background: "#fff",
+              color: "#1f3864",
+              borderRadius: 3,
+              padding: "1px 6px",
+              fontWeight: 900,
+            }}
+          >
+            Gruppe {evaluation.gruppe2 ? "2" : "1"}
+          </span>
+        </span>
+      </div>
+
+      {unauffaellig ? (
+        <div
+          style={{
+            padding: "6px 10px",
+            fontSize: 7.5,
+            color: "#166534",
+            background: "#f0fdf4",
+            fontWeight: 700,
+          }}
+        >
+          Keine eignungsrelevanten Auffälligkeiten aus den Angaben ableitbar.
+        </div>
+      ) : (
+        evaluation.findings.map((f, i) => <EvaluationFindingRow key={i} finding={f} />)
+      )}
+
+      <div
+        style={{
+          padding: "3px 10px",
+          fontSize: 6,
+          color: "#667",
+          fontStyle: "italic",
+          background: "#f7f9ff",
+          borderTop: "1px solid #e5e9f2",
+        }}
+      >
+        {evaluation.disclaimer}
+      </div>
+    </div>
+  );
+}
+
 function followupText(
   q: Question,
   answers: Record<string, unknown>
@@ -525,7 +672,15 @@ function PrintSection({
 
     if (q.type === "yes_no") {
       rows.push(
-        <YNRow key={q.id} label={q.label} val={answers[q.id]} ft={ft} ftLabel={ftLabel} stripe={stripe} />
+        <YNRow
+          key={q.id}
+          label={q.label}
+          val={answers[q.id]}
+          ft={ft}
+          ftLabel={ftLabel}
+          stripe={stripe}
+          highlight={answers[q.id] === "yes"}
+        />
       );
     } else if (q.type === "consent") {
       rows.push(
@@ -584,6 +739,9 @@ function PrintV2({
         logoDataUrl={logoDataUrl}
         title={schema.title || "Verkehrsmedizinischer Fragebogen"}
       />
+
+      {/* Automatische Auswertung nach BASt-Leitlinien */}
+      {data.evaluation && <EvaluationBlock evaluation={data.evaluation} />}
 
       {/* Sektionen in 2 Spalten (CSS columns) */}
       <div style={{ columns: 2, columnGap: 6 }}>

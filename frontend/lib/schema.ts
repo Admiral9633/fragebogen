@@ -66,6 +66,25 @@ export interface Schema {
 
 export type Answers = Record<string, unknown>;
 
+// ─── Automatische Auswertung (Spiegel von backend/questionnaires/evaluation.py) ──
+
+export type Schwere = "kritisch" | "pruefen" | "hinweis";
+
+export interface EvaluationFinding {
+  schwere: Schwere;
+  bereich: string;
+  kapitel: string;
+  befund: string;
+  konsequenz: string;
+}
+
+export interface EvaluationResult {
+  gruppe2: boolean;
+  findings: EvaluationFinding[];
+  zusammenfassung: Record<Schwere, number>;
+  disclaimer: string;
+}
+
 /** True, wenn das Schema das strukturierte v2-Format hat (sections als Objekte). */
 export function isV2Schema(schema: unknown): schema is Schema {
   if (!schema || typeof schema !== "object") return false;

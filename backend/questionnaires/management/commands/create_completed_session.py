@@ -61,6 +61,6 @@ class Command(BaseCommand):
                 f'\n✓ Ausgefüllte Test-Session erstellt!\n'
                 f'  Token: {session.token}\n'
                 f'  Fragebogen-URL: http://localhost:3000/q/{session.token}\n'
-                f'  PDF-URL: http://localhost:8000/api/pdf/{session.token}/\n'
+                f'  PDF-URL: http://localhost:3000/api/puppeteer-pdf/{session.token}\n'
             )
         )

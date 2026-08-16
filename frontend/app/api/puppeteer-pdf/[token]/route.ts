@@ -14,7 +14,7 @@ export async function GET(
   const printUrl = `${appUrl}/print/${token}`;
 
   // Session erst validieren, bevor eine Chromium-Instanz gestartet wird
-  const backendUrl = process.env.BACKEND_URL || "http://backend:8000";
+  const backendUrl = process.env.BACKEND_URL || "http://localhost:8000";
   try {
     const check = await fetch(`${backendUrl}/api/answers/${token}/`, {
       cache: "no-store",
@@ -71,13 +71,22 @@ export async function GET(
     // Wait for fonts
     await page.evaluate(() => document.fonts.ready);
 
+    const generatedAt = new Date().toLocaleDateString("de-DE");
     const pdf = await page.pdf({
       format: "A4",
       printBackground: true,
+      displayHeaderFooter: true,
+      headerTemplate: "<span></span>",
+      footerTemplate: `
+        <div style="width:100%;font-size:6.5px;color:#667;padding:0 12mm;
+                    display:flex;justify-content:space-between;font-family:Helvetica,Arial,sans-serif;">
+          <span>Verkehrsmedizinischer Fragebogen · erstellt am ${generatedAt}</span>
+          <span>${token.slice(0, 8)} · Seite <span class="pageNumber"></span> von <span class="totalPages"></span></span>
+        </div>`,
       margin: {
-        top: "13mm",
+        top: "10mm",
         right: "12mm",
-        bottom: "11mm",
+        bottom: "14mm",
         left: "12mm",
       },
     });
