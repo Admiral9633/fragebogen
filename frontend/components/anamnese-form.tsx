@@ -1,21 +1,16 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { Control, Controller, FieldErrors, useForm } from "react-hook-form";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useMemo, useState } from "react";
 
 import { cn } from "@/lib/utils";
-import { calcESS } from "@/lib/ess";
+import { ESS_OPTIONS, calcESS } from "@/lib/ess";
 import {
-  Answers,
-  Question,
-  Schema,
-  Section,
-  visibleQuestions,
+  isVisible,
+  type Answers,
+  type Question,
+  type Schema,
 } from "@/lib/schema";
 import { Button } from "@/components/ui/button";
-import { ButtonGroup } from "@/components/ui/button-group";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   Dialog,
   DialogContent,
@@ -24,25 +19,22 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import {
-  Field,
-  FieldContent,
-  FieldDescription,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-  FieldLegend,
-  FieldSet,
-} from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import { Progress } from "@/components/ui/progress";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+  Questionnaire,
+  QuestionnaireActions,
+  QuestionnaireChoice,
+  QuestionnaireChoices,
+  QuestionnaireDescription,
+  QuestionnaireError,
+  QuestionnaireInput,
+  QuestionnaireItem,
+  QuestionnaireNext,
+  QuestionnairePrevious,
+  QuestionnaireProgress,
+  QuestionnaireSkip,
+  QuestionnaireSubmit,
+  QuestionnaireTitle,
+} from "@/components/ui/questionnaire";
 import { Spinner } from "@/components/ui/spinner";
-import { Textarea } from "@/components/ui/textarea";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-
-const REQUIRED_MSG = "Bitte beantworten Sie diese Frage.";
-
-type FormValues = Record<string, unknown>;
 
 interface AnamneseFormProps {
   schema: Schema;
@@ -50,427 +42,147 @@ interface AnamneseFormProps {
   isSubmitting: boolean;
 }
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
+// ─── Schema → flache Item-Liste (eine Frage pro Schritt) ─────────────────────
 
-/** Feldnamen einer Fragenliste (inkl. ESS-Items und aktiver Followups). */
-function fieldNames(questions: Question[], values: Answers): string[] {
-  const names: string[] = [];
-  for (const q of questions) {
-    if (q.type === "ess_matrix") {
-      names.push(...(q.items ?? []).map((item) => item.id));
-      continue;
-    }
-    names.push(q.id);
-    if (q.followup && values[q.id] === (q.followup.when ?? "yes")) {
-      names.push(q.followup.id);
-    }
-  }
-  return names;
+type ItemKind = "choice" | "multiple" | "input" | "ess" | "consent" | "followup";
+
+interface FlatItem {
+  name: string;
+  kind: ItemKind;
+  sectionIndex: number;
+  sectionTitle: string;
+  title: string;
+  hint?: string;
+  required: boolean;
+  options?: { value: string; label: string }[];
+  /** followup: Elternfrage + Auslösewert */
+  parent?: { id: string; when: string };
+  /** show_if der Original-Frage (für disabled) */
+  question?: Question;
+  essIndex?: number;
+  consentError?: string;
 }
 
-/** Nur beantwortete, aktuell sichtbare Felder einsammeln; ESS-Werte als int. */
-function collectPayload(schema: Schema, values: FormValues): Record<string, unknown> {
-  const payload: Record<string, unknown> = {};
-  for (const section of schema.sections) {
-    for (const q of visibleQuestions(section, values)) {
+function flattenSchema(schema: Schema): FlatItem[] {
+  const flat: FlatItem[] = [];
+
+  schema.sections.forEach((section, sectionIndex) => {
+    for (const q of section.questions) {
+      const base = {
+        sectionIndex,
+        sectionTitle: section.title,
+        question: q,
+      };
+
       if (q.type === "ess_matrix") {
-        for (const item of q.items ?? []) {
-          const v = values[item.id];
-          if (typeof v === "string" && v !== "") payload[item.id] = parseInt(v, 10);
-        }
+        (q.items ?? []).forEach((essItem, i) => {
+          flat.push({
+            ...base,
+            name: essItem.id,
+            kind: "ess",
+            title: `${essItem.label}`,
+            hint: q.hint,
+            required: q.required !== false,
+            options: ESS_OPTIONS,
+            essIndex: i + 1,
+          });
+        });
         continue;
       }
-      const v = values[q.id];
+
       if (q.type === "consent") {
-        if (v === true) payload[q.id] = true;
+        flat.push({
+          ...base,
+          name: q.id,
+          kind: "consent",
+          title: "Einwilligung",
+          required: true,
+          consentError: q.error,
+        });
+        continue;
+      }
+
+      if (q.type === "yes_no" || q.type === "choice") {
+        flat.push({
+          ...base,
+          name: q.id,
+          kind: "choice",
+          title: q.label,
+          hint: q.hint,
+          required: q.required !== false,
+          options:
+            q.type === "yes_no"
+              ? [
+                  { value: "yes", label: "Ja" },
+                  { value: "no", label: "Nein" },
+                ]
+              : (q.options ?? []),
+        });
       } else if (q.type === "multi_choice") {
-        if (Array.isArray(v) && v.length > 0) payload[q.id] = v;
-      } else if (typeof v === "string" && v.trim() !== "") {
-        payload[q.id] = v;
+        flat.push({
+          ...base,
+          name: q.id,
+          kind: "multiple",
+          title: q.label,
+          hint: q.hint,
+          required: q.required !== false,
+          options: q.options ?? [],
+        });
+      } else if (q.type === "text" || q.type === "textarea") {
+        flat.push({
+          ...base,
+          name: q.id,
+          kind: "input",
+          title: q.label,
+          hint: q.hint,
+          required: q.required !== false,
+        });
       }
-      const f = q.followup;
-      if (f && values[q.id] === (f.when ?? "yes")) {
-        const fv = values[f.id];
-        if (typeof fv === "string" && fv.trim() !== "") payload[f.id] = fv;
+
+      if (q.followup) {
+        flat.push({
+          ...base,
+          name: q.followup.id,
+          kind: "followup",
+          title: q.followup.label,
+          required: false,
+          parent: { id: q.id, when: q.followup.when ?? "yes" },
+        });
       }
+    }
+  });
+
+  return flat;
+}
+
+function isItemEnabled(item: FlatItem, answers: Answers): boolean {
+  if (item.parent) {
+    return answers[item.parent.id] === item.parent.when;
+  }
+  if (item.question && !isVisible(item.question, answers)) {
+    return false;
+  }
+  return true;
+}
+
+/** Nur beantwortete, aktuell aktive Fragen einsammeln; ESS-Werte als int. */
+function collectPayload(flat: FlatItem[], answers: Answers): Record<string, unknown> {
+  const payload: Record<string, unknown> = {};
+  for (const item of flat) {
+    if (!isItemEnabled(item, answers)) continue;
+    const v = answers[item.name];
+    if (v === undefined || v === null || v === "") continue;
+    if (item.kind === "ess") {
+      payload[item.name] = parseInt(String(v), 10);
+    } else if (item.kind === "consent") {
+      if (v === true) payload[item.name] = true;
+    } else if (item.kind === "multiple") {
+      if (Array.isArray(v) && v.length > 0) payload[item.name] = v;
+    } else if (typeof v === "string" && v.trim() !== "") {
+      payload[item.name] = v.trim();
     }
   }
   return payload;
-}
-
-// ─── Frage-Renderer ───────────────────────────────────────────────────────────
-
-interface QuestionProps {
-  question: Question;
-  control: Control<FormValues>;
-  values: Answers;
-  onOpenPrivacy: () => void;
-}
-
-function RadioQuestion({
-  question,
-  control,
-  options,
-  horizontal,
-}: {
-  question: Question;
-  control: Control<FormValues>;
-  options: { value: string; label: string }[];
-  horizontal: boolean;
-}) {
-  return (
-    <Controller
-      name={question.id}
-      control={control}
-      rules={{ required: question.required ? REQUIRED_MSG : false }}
-      render={({ field, fieldState }) => (
-        <FieldSet data-invalid={fieldState.invalid}>
-          <FieldLegend variant="label">{question.label}</FieldLegend>
-          {question.hint && <FieldDescription>{question.hint}</FieldDescription>}
-          <RadioGroup
-            name={field.name}
-            value={(field.value as string) ?? ""}
-            onValueChange={field.onChange}
-            aria-invalid={fieldState.invalid}
-            className={cn(horizontal && "flex flex-row flex-wrap gap-6")}
-          >
-            {options.map((opt) => (
-              <Field
-                key={opt.value}
-                orientation="horizontal"
-                data-invalid={fieldState.invalid}
-                className="w-fit"
-              >
-                <RadioGroupItem
-                  value={opt.value}
-                  id={`${question.id}-${opt.value}`}
-                  aria-invalid={fieldState.invalid}
-                />
-                <FieldLabel
-                  htmlFor={`${question.id}-${opt.value}`}
-                  className="font-normal"
-                >
-                  {opt.label}
-                </FieldLabel>
-              </Field>
-            ))}
-          </RadioGroup>
-          {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-        </FieldSet>
-      )}
-    />
-  );
-}
-
-function MultiChoiceQuestion({ question, control }: QuestionProps) {
-  return (
-    <Controller
-      name={question.id}
-      control={control}
-      rules={{
-        validate: (v) =>
-          !question.required || (Array.isArray(v) && v.length > 0) || REQUIRED_MSG,
-      }}
-      render={({ field, fieldState }) => (
-        <FieldSet data-invalid={fieldState.invalid}>
-          <FieldLegend variant="label">{question.label}</FieldLegend>
-          {question.hint && <FieldDescription>{question.hint}</FieldDescription>}
-          <ToggleGroup
-            type="multiple"
-            variant="outline"
-            spacing={2}
-            value={(field.value as string[]) ?? []}
-            onValueChange={field.onChange}
-            aria-invalid={fieldState.invalid}
-            className="flex-wrap justify-start"
-          >
-            {(question.options ?? []).map((opt) => (
-              <ToggleGroupItem key={opt.value} value={opt.value} aria-label={opt.label}>
-                {opt.label}
-              </ToggleGroupItem>
-            ))}
-          </ToggleGroup>
-          {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-        </FieldSet>
-      )}
-    />
-  );
-}
-
-function TextQuestion({ question, control }: QuestionProps) {
-  const isTextarea = question.type === "textarea";
-  return (
-    <Controller
-      name={question.id}
-      control={control}
-      rules={{ required: question.required ? REQUIRED_MSG : false }}
-      render={({ field, fieldState }) => (
-        <Field data-invalid={fieldState.invalid}>
-          <FieldLabel htmlFor={question.id}>{question.label}</FieldLabel>
-          {isTextarea ? (
-            <Textarea
-              {...field}
-              value={(field.value as string) ?? ""}
-              id={question.id}
-              aria-invalid={fieldState.invalid}
-            />
-          ) : (
-            <Input
-              {...field}
-              value={(field.value as string) ?? ""}
-              id={question.id}
-              aria-invalid={fieldState.invalid}
-            />
-          )}
-          {question.hint && <FieldDescription>{question.hint}</FieldDescription>}
-          {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-        </Field>
-      )}
-    />
-  );
-}
-
-/** Eingerücktes Detailfeld unter der Elternfrage (optional, nie Pflicht). */
-function FollowupField({ question, control, values }: QuestionProps) {
-  const f = question.followup;
-  if (!f || values[question.id] !== (f.when ?? "yes")) return null;
-  const isTextarea = f.type !== "text";
-  return (
-    <div className="ml-2 border-l-2 border-primary/30 pl-4">
-      <Controller
-        name={f.id}
-        control={control}
-        render={({ field }) => (
-          <Field>
-            <FieldLabel htmlFor={f.id} className="font-normal">
-              {f.label}
-            </FieldLabel>
-            {isTextarea ? (
-              <Textarea
-                {...field}
-                value={(field.value as string) ?? ""}
-                id={f.id}
-                rows={3}
-              />
-            ) : (
-              <Input {...field} value={(field.value as string) ?? ""} id={f.id} />
-            )}
-          </Field>
-        )}
-      />
-    </div>
-  );
-}
-
-const ESS_BAND_STYLES: Record<
-  string,
-  { box: string; text: string; badge: string }
-> = {
-  normal: {
-    box: "border-success/50 bg-success/10",
-    text: "text-success",
-    badge: "bg-success text-success-foreground",
-  },
-  erhöht: {
-    box: "border-warning/50 bg-warning/10",
-    text: "text-warning",
-    badge: "bg-warning text-warning-foreground",
-  },
-  ausgeprägt: {
-    box: "border-destructive/50 bg-destructive/10",
-    text: "text-destructive",
-    badge: "bg-destructive text-destructive-foreground",
-  },
-};
-
-function EssMatrixQuestion({ question, control, values }: QuestionProps) {
-  const { total, band, bandLabel } = calcESS(values);
-  const styles = ESS_BAND_STYLES[band] ?? ESS_BAND_STYLES.normal;
-
-  return (
-    <div className="space-y-5 rounded-xl border border-primary/25 bg-primary/5 p-4">
-      <div>
-        <p className="text-sm font-semibold">{question.label}</p>
-        {question.hint && (
-          <p className="mt-1 text-xs text-muted-foreground">{question.hint}</p>
-        )}
-      </div>
-
-      {(question.items ?? []).map((item, i) => (
-        <Controller
-          key={item.id}
-          name={item.id}
-          control={control}
-          rules={{ required: question.required ? REQUIRED_MSG : false }}
-          render={({ field, fieldState }) => (
-            <FieldSet data-invalid={fieldState.invalid}>
-              <FieldLegend variant="label" className="mb-2 text-xs font-medium">
-                {i + 1}. {item.label}
-              </FieldLegend>
-              <RadioGroup
-                name={field.name}
-                value={(field.value as string) ?? ""}
-                onValueChange={field.onChange}
-                aria-invalid={fieldState.invalid}
-                className="flex flex-row flex-wrap gap-6"
-              >
-                {["0", "1", "2", "3"].map((n) => (
-                  <Field
-                    key={n}
-                    orientation="horizontal"
-                    data-invalid={fieldState.invalid}
-                    className="w-fit"
-                  >
-                    <RadioGroupItem
-                      value={n}
-                      id={`${item.id}-${n}`}
-                      aria-invalid={fieldState.invalid}
-                    />
-                    <FieldLabel htmlFor={`${item.id}-${n}`} className="font-normal">
-                      {n}
-                    </FieldLabel>
-                  </Field>
-                ))}
-              </RadioGroup>
-              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-            </FieldSet>
-          )}
-        />
-      ))}
-
-      {/* Live-Score */}
-      <div
-        className={cn(
-          "flex items-center justify-between rounded-xl border-2 p-4",
-          styles.box
-        )}
-      >
-        <div>
-          <p className="text-2xl font-bold text-foreground">
-            {total}{" "}
-            <span className="text-base font-normal text-muted-foreground">
-              / 24 Punkte
-            </span>
-          </p>
-          <p className={cn("mt-0.5 text-sm font-semibold", styles.text)}>
-            {bandLabel}
-          </p>
-        </div>
-        <div
-          className={cn(
-            "flex size-14 items-center justify-center rounded-full text-xl font-black",
-            styles.badge
-          )}
-        >
-          {total}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function ConsentQuestion({ question, control, onOpenPrivacy }: QuestionProps) {
-  const label = question.label;
-  const marker = "Datenschutzhinweise";
-  const idx = label.indexOf(marker);
-
-  const labelContent =
-    idx >= 0 ? (
-      <span>
-        {label.slice(0, idx)}
-        <button
-          type="button"
-          className="font-semibold underline underline-offset-2 hover:text-primary"
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            onOpenPrivacy();
-          }}
-        >
-          {marker}
-        </button>
-        {label.slice(idx + marker.length)}
-      </span>
-    ) : (
-      label
-    );
-
-  return (
-    <Controller
-      name={question.id}
-      control={control}
-      rules={{
-        validate: (v) =>
-          v === true || question.error || "Bitte bestätigen Sie diese Erklärung.",
-      }}
-      render={({ field, fieldState }) => (
-        <Field orientation="horizontal" data-invalid={fieldState.invalid}>
-          <Checkbox
-            id={question.id}
-            name={field.name}
-            checked={field.value === true}
-            onCheckedChange={(v) => field.onChange(v === true)}
-            aria-invalid={fieldState.invalid}
-          />
-          <FieldContent>
-            <FieldLabel htmlFor={question.id} className="font-normal">
-              {labelContent}
-            </FieldLabel>
-            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-          </FieldContent>
-        </Field>
-      )}
-    />
-  );
-}
-
-function QuestionField(props: QuestionProps) {
-  const { question, control } = props;
-  switch (question.type) {
-    case "yes_no":
-      return (
-        <>
-          <RadioQuestion
-            question={question}
-            control={control}
-            options={[
-              { value: "yes", label: "Ja" },
-              { value: "no", label: "Nein" },
-            ]}
-            horizontal
-          />
-          <FollowupField {...props} />
-        </>
-      );
-    case "choice":
-      return (
-        <>
-          <RadioQuestion
-            question={question}
-            control={control}
-            options={question.options ?? []}
-            horizontal={false}
-          />
-          <FollowupField {...props} />
-        </>
-      );
-    case "multi_choice":
-      return <MultiChoiceQuestion {...props} />;
-    case "text":
-    case "textarea":
-      return (
-        <>
-          <TextQuestion {...props} />
-          <FollowupField {...props} />
-        </>
-      );
-    case "ess_matrix":
-      return <EssMatrixQuestion {...props} />;
-    case "consent":
-      return <ConsentQuestion {...props} />;
-    default:
-      return null;
-  }
 }
 
 // ─── Datenschutz-Dialog ───────────────────────────────────────────────────────
@@ -527,130 +239,208 @@ function PrivacyDialog({
 // ─── Haupt-Komponente ─────────────────────────────────────────────────────────
 
 export function AnamneseForm({ schema, onSubmit, isSubmitting }: AnamneseFormProps) {
-  const sections: Section[] = schema.sections;
-  const [step, setStep] = useState(0);
+  const flat = useMemo(() => flattenSchema(schema), [schema]);
+  const [answers, setAnswers] = useState<Answers>({});
   const [showPrivacy, setShowPrivacy] = useState(false);
-  const headingRef = useRef<HTMLHeadingElement>(null);
 
-  const form = useForm<FormValues>({ mode: "onTouched" });
-  const values = form.watch();
-  const { errors } = form.formState;
+  const setAnswer = (name: string, value: unknown) =>
+    setAnswers((prev) => ({ ...prev, [name]: value }));
 
-  const section = sections[step];
-  const visible = visibleQuestions(section, values);
-  const stepFields = fieldNames(visible, values);
-  const stepErrorCount = stepFields.filter(
-    (name) => (errors as FieldErrors)[name]
-  ).length;
-  const isLast = step === sections.length - 1;
+  const toggleMulti = (name: string, value: string) =>
+    setAnswers((prev) => {
+      const cur = Array.isArray(prev[name]) ? (prev[name] as string[]) : [];
+      return {
+        ...prev,
+        [name]: cur.includes(value) ? cur.filter((v) => v !== value) : [...cur, value],
+      };
+    });
 
-  // Fokus + Scroll beim Schrittwechsel
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    headingRef.current?.focus();
-  }, [step]);
+  // Item-Definitionen (Reihenfolge + disabled) für das Questionnaire-Primitive
+  const itemDefs = useMemo(
+    () =>
+      flat.map((item) => {
+        const enabled = isItemEnabled(item, answers);
+        return {
+          name: item.name,
+          required: enabled && item.required,
+          disabled: !enabled,
+        };
+      }),
+    [flat, answers]
+  );
 
-  const goNext = async () => {
-    const ok = await form.trigger(stepFields, { shouldFocus: true });
-    if (!ok) return;
-    if (isLast) {
-      await onSubmit(collectPayload(schema, form.getValues()));
-    } else {
-      setStep((s) => s + 1);
-    }
-  };
+  // Aktive Items in Anzeige-Reihenfolge (für Sektionsanzeige im Progress)
+  const enabledFlat = useMemo(
+    () => flat.filter((item) => isItemEnabled(item, answers)),
+    [flat, answers]
+  );
 
-  const goBack = () => {
-    if (step > 0) setStep((s) => s - 1);
+  const sectionCount = schema.sections.length;
+  const { total: essTotal } = calcESS(answers);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (isSubmitting) return;
+    await onSubmit(collectPayload(flat, answers));
   };
 
   return (
-    <form
-      noValidate
-      onSubmit={(e) => {
-        e.preventDefault();
-        if (!isSubmitting) void goNext();
-      }}
-      className="space-y-6"
-    >
-      {/* Fortschritt */}
-      <div className="space-y-2">
-        <Progress value={((step + 1) / sections.length) * 100} className="h-1.5" />
-        <p className="text-right text-xs text-muted-foreground">
-          Schritt {step + 1} von {sections.length}
-        </p>
-      </div>
+    <>
+      <Questionnaire
+        items={itemDefs}
+        shortcuts="numbers"
+        onSubmit={handleSubmit}
+        className="gap-6"
+      >
+        {/* Fortschritt: Sektions-Segmente + Frage-Zähler */}
+        <QuestionnaireProgress
+          className="w-full"
+          render={(props, state) => {
+            const current = enabledFlat[state.current - 1];
+            const sectionIndex = current?.sectionIndex ?? 0;
+            return (
+              <div {...props}>
+                <div className="mb-2 flex gap-1" aria-hidden="true">
+                  {Array.from({ length: sectionCount }, (_, i) => (
+                    <span
+                      key={i}
+                      className={cn(
+                        "h-1.5 flex-1 rounded-full transition-colors",
+                        i < sectionIndex
+                          ? "bg-primary"
+                          : i === sectionIndex
+                            ? "bg-primary/50"
+                            : "bg-muted"
+                      )}
+                    />
+                  ))}
+                </div>
+                <div className="flex items-baseline justify-between gap-2">
+                  <span className="text-sm font-semibold text-foreground">
+                    {current?.sectionTitle}
+                  </span>
+                  <span className="text-xs tabular-nums text-muted-foreground">
+                    Frage {state.current} von {state.total}
+                  </span>
+                </div>
+              </div>
+            );
+          }}
+        />
 
-      {/* Schritt-Überschrift */}
-      <div>
-        <h2
-          ref={headingRef}
-          tabIndex={-1}
-          className="text-2xl font-bold text-foreground outline-none"
-        >
-          {section.title}
-        </h2>
-        {section.subtitle && (
-          <p className="mt-1 text-sm text-muted-foreground">{section.subtitle}</p>
-        )}
-      </div>
-
-      {/* Fehler-Summary */}
-      {stepErrorCount > 0 && (
-        <div
-          role="alert"
-          className="rounded-lg border border-destructive/40 bg-destructive/10 px-4 py-3"
-        >
-          <p className="text-sm font-medium text-destructive">
-            {stepErrorCount === 1
-              ? "1 Frage ist noch unbeantwortet."
-              : `${stepErrorCount} Fragen sind noch unbeantwortet.`}{" "}
-            Bitte prüfen Sie Ihre Angaben.
-          </p>
-        </div>
-      )}
-
-      {/* Fragen des aktuellen Schritts */}
-      <FieldGroup>
-        {visible.map((q) => (
-          <QuestionField
-            key={q.id}
-            question={q}
-            control={form.control}
-            values={values}
-            onOpenPrivacy={() => setShowPrivacy(true)}
-          />
-        ))}
-      </FieldGroup>
-
-      {/* Navigation */}
-      <div className="flex justify-end pb-4 pt-2">
-        <ButtonGroup>
-          <Button
-            type="button"
-            variant="outline"
-            onClick={goBack}
-            disabled={step === 0 || isSubmitting}
+        {flat.map((item) => (
+          <QuestionnaireItem
+            key={item.name}
+            name={item.name}
+            required={item.required}
+            multiple={item.kind === "multiple" || item.kind === "consent"}
+            disabled={!isItemEnabled(item, answers)}
           >
-            <ChevronLeft /> Zurück
-          </Button>
-          <Button type="submit" disabled={isSubmitting} className="min-w-[120px]">
+            <QuestionnaireTitle>
+              {item.kind === "ess" ? `${item.essIndex}. ${item.title}` : item.title}
+            </QuestionnaireTitle>
+
+            {item.kind === "ess" && (
+              <QuestionnaireDescription>
+                Wie wahrscheinlich ist es, dass Sie in dieser Situation einnicken
+                würden? · Bisherige Summe: {essTotal}/24
+              </QuestionnaireDescription>
+            )}
+            {item.kind !== "ess" && item.hint && (
+              <QuestionnaireDescription>{item.hint}</QuestionnaireDescription>
+            )}
+            {item.kind === "followup" && (
+              <QuestionnaireDescription>
+                Freiwillige Zusatzangabe – hilft bei der ärztlichen Beurteilung.
+              </QuestionnaireDescription>
+            )}
+            {item.kind === "consent" && item.name === "consent_privacy" && (
+              <QuestionnaireDescription
+                render={
+                  <div className="text-sm text-muted-foreground">
+                    <button
+                      type="button"
+                      className="font-semibold text-primary underline underline-offset-2"
+                      onClick={() => setShowPrivacy(true)}
+                    >
+                      Datenschutzhinweise anzeigen
+                    </button>
+                  </div>
+                }
+              />
+            )}
+
+            {item.kind === "input" || item.kind === "followup" ? (
+              <QuestionnaireChoices>
+                <QuestionnaireInput
+                  aria-label={item.title}
+                  value={(answers[item.name] as string) ?? ""}
+                  onChange={(e) => setAnswer(item.name, e.target.value)}
+                  placeholder="Ihre Antwort…"
+                />
+              </QuestionnaireChoices>
+            ) : item.kind === "consent" ? (
+              <QuestionnaireChoices>
+                <QuestionnaireChoice
+                  value="ja"
+                  checked={answers[item.name] === true}
+                  onChange={(e) => setAnswer(item.name, e.target.checked)}
+                >
+                  <span className="font-medium">{item.question?.label}</span>
+                </QuestionnaireChoice>
+              </QuestionnaireChoices>
+            ) : (
+              <QuestionnaireChoices>
+                {(item.options ?? []).map((opt) =>
+                  item.kind === "multiple" ? (
+                    <QuestionnaireChoice
+                      key={opt.value}
+                      value={opt.value}
+                      checked={
+                        Array.isArray(answers[item.name]) &&
+                        (answers[item.name] as string[]).includes(opt.value)
+                      }
+                      onChange={() => toggleMulti(item.name, opt.value)}
+                    >
+                      {opt.label}
+                    </QuestionnaireChoice>
+                  ) : (
+                    <QuestionnaireChoice
+                      key={opt.value}
+                      value={opt.value}
+                      checked={answers[item.name] === opt.value}
+                      onChange={() => setAnswer(item.name, opt.value)}
+                    >
+                      {opt.label}
+                    </QuestionnaireChoice>
+                  )
+                )}
+              </QuestionnaireChoices>
+            )}
+
+            <QuestionnaireError>
+              {item.consentError ?? "Bitte beantworten Sie diese Frage."}
+            </QuestionnaireError>
+          </QuestionnaireItem>
+        ))}
+
+        <QuestionnaireActions>
+          <QuestionnairePrevious>Zurück</QuestionnairePrevious>
+          <QuestionnaireSkip>Überspringen</QuestionnaireSkip>
+          <QuestionnaireNext>Weiter</QuestionnaireNext>
+          <QuestionnaireSubmit disabled={isSubmitting}>
             {isSubmitting ? (
               <>
                 <Spinner /> Senden…
               </>
-            ) : isLast ? (
-              "Absenden"
             ) : (
-              <>
-                Weiter <ChevronRight />
-              </>
+              "Absenden"
             )}
-          </Button>
-        </ButtonGroup>
-      </div>
+          </QuestionnaireSubmit>
+        </QuestionnaireActions>
+      </Questionnaire>
 
       <PrivacyDialog open={showPrivacy} onOpenChange={setShowPrivacy} />
-    </form>
+    </>
   );
 }
