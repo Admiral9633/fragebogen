@@ -72,23 +72,32 @@ docker-compose exec backend python manage.py createsuperuser
 
 ### Lokale Entwicklung
 
-```bash
-# Backend
+Ohne Docker/PostgreSQL: `USE_SQLITE=True` in `backend/.env` setzen — dann läuft
+alles gegen `backend/db.sqlite3`. **Wichtig:** immer das venv aktivieren, sonst
+fehlt dem globalen Python u.a. `psycopg` (`ModuleNotFoundError: No module named
+'psycopg'`).
+
+```powershell
+# Backend (PowerShell, Windows)
 cd backend
-python -m venv venv && venv\Scripts\activate   # Windows
+python -m venv venv
+.\venv\Scripts\Activate.ps1                     # Pfad ist "venv", nicht ".venv"
 pip install -r requirements.txt
-cp .env.example .env                            # wird von settings.py geladen
-docker-compose -f ../docker-compose.dev.yml up -d db
+copy .env.example .env                          # dann USE_SQLITE=True setzen
 python manage.py migrate
 python manage.py load_catalog
+python manage.py create_sample_data             # optional: Test-Session + Token
 python manage.py runserver
 
 # Frontend (zweites Terminal)
 cd frontend
 npm install
-cp .env.example .env.local
+copy .env.example .env.local                    # BACKEND_URL=http://localhost:8000
 npm run dev
 ```
+
+Danach den Token aus `create_sample_data` aufrufen: `http://localhost:3000/q/<TOKEN>`.
+Praxis-Admin unter `http://localhost:3000/admin` mit dem `ADMIN_API_KEY` aus der `.env`.
 
 ## Projektstruktur
 
