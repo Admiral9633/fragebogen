@@ -3,6 +3,7 @@ from .views import (
     QuestionnaireSessionView,
     SubmitQuestionnaireView,
     AnswersView,
+    TranslationView,
     AdminSessionListView,
     AdminResendEmailView,
     AdminDeleteSessionView,
@@ -15,6 +16,8 @@ urlpatterns = [
     path('session/<uuid:token>/', QuestionnaireSessionView.as_view(), name='session-detail'),
     path('submit/<uuid:token>/', SubmitQuestionnaireView.as_view(), name='submit-questionnaire'),
     path('answers/<uuid:token>/', AnswersView.as_view(), name='answers-data'),
+    path('i18n/', TranslationView.as_view(), name='i18n-list'),
+    path('i18n/<slug:lang>/', TranslationView.as_view(), name='i18n-detail'),
     # Admin
     path('admin/sessions/', AdminSessionListView.as_view(), name='admin-sessions'),
     path('admin/sessions/<uuid:token>/resend/', AdminResendEmailView.as_view(), name='admin-resend'),

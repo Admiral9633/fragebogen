@@ -3,7 +3,8 @@
 import { useMemo, useState } from "react";
 
 import { cn } from "@/lib/utils";
-import { ESS_OPTIONS, calcESS } from "@/lib/ess";
+import { calcESS } from "@/lib/ess";
+import { UI_DE, type UiStrings } from "@/lib/i18n";
 import {
   isVisible,
   type Answers,
@@ -40,6 +41,8 @@ interface AnamneseFormProps {
   schema: Schema;
   onSubmit: (data: Record<string, unknown>) => Promise<void>;
   isSubmitting: boolean;
+  /** Übersetzte UI-Texte (Default: Deutsch) */
+  ui?: UiStrings;
 }
 
 // ─── Schema → flache Item-Liste (eine Frage pro Schritt) ─────────────────────
@@ -63,8 +66,14 @@ interface FlatItem {
   consentError?: string;
 }
 
-function flattenSchema(schema: Schema): FlatItem[] {
+function flattenSchema(schema: Schema, ui: UiStrings): FlatItem[] {
   const flat: FlatItem[] = [];
+  const essOptions = [
+    { value: "0", label: ui.ess_opt_0 },
+    { value: "1", label: ui.ess_opt_1 },
+    { value: "2", label: ui.ess_opt_2 },
+    { value: "3", label: ui.ess_opt_3 },
+  ];
 
   schema.sections.forEach((section, sectionIndex) => {
     for (const q of section.questions) {
@@ -83,7 +92,7 @@ function flattenSchema(schema: Schema): FlatItem[] {
             title: `${essItem.label}`,
             hint: q.hint,
             required: q.required !== false,
-            options: ESS_OPTIONS,
+            options: essOptions,
             essIndex: i + 1,
           });
         });
@@ -95,7 +104,7 @@ function flattenSchema(schema: Schema): FlatItem[] {
           ...base,
           name: q.id,
           kind: "consent",
-          title: "Einwilligung",
+          title: ui.consent_title,
           required: true,
           consentError: q.error,
         });
@@ -113,8 +122,8 @@ function flattenSchema(schema: Schema): FlatItem[] {
           options:
             q.type === "yes_no"
               ? [
-                  { value: "yes", label: "Ja" },
-                  { value: "no", label: "Nein" },
+                  { value: "yes", label: ui.yes },
+                  { value: "no", label: ui.no },
                 ]
               : (q.options ?? []),
         });
@@ -190,46 +199,26 @@ function collectPayload(flat: FlatItem[], answers: Answers): Record<string, unkn
 function PrivacyDialog({
   open,
   onOpenChange,
+  ui,
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  ui: UiStrings;
 }) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-h-[85vh] overflow-y-auto sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>Datenschutzhinweise</DialogTitle>
-          <DialogDescription>
-            Information zur Verarbeitung Ihrer Daten nach Art. 13 DSGVO
-          </DialogDescription>
+          <DialogTitle>{ui.privacy_title}</DialogTitle>
+          <DialogDescription>{ui.privacy_subtitle}</DialogDescription>
         </DialogHeader>
         <div className="space-y-3 text-sm text-foreground/90">
-          <p>
-            <strong>Verantwortlicher:</strong> Dr. med. Björn Micka, Betriebsmedizin ·
-            Notfallmedizin, Christoph-Dassler-Str. 22, 91074 Herzogenaurach
-          </p>
-          <p>
-            <strong>Zweck der Verarbeitung:</strong> Ihre Angaben in diesem Fragebogen
-            (einschließlich Gesundheitsdaten) werden ausschließlich zur Vorbereitung und
-            Durchführung Ihrer verkehrsmedizinischen Untersuchung verwendet.
-          </p>
-          <p>
-            <strong>Rechtsgrundlage:</strong> Ihre Einwilligung (Art. 6 Abs. 1 lit. a,
-            Art. 9 Abs. 2 lit. a DSGVO). Sie können die Einwilligung jederzeit mit Wirkung
-            für die Zukunft widerrufen.
-          </p>
-          <p>
-            <strong>Speicherung:</strong> Das Ergebnis wird in Ihre Untersuchungsunterlagen
-            übernommen und unterliegt den ärztlichen Aufbewahrungsfristen. Der Online-Zugang
-            über Ihren persönlichen Link erlischt nach Ablauf der Gültigkeit; die Daten
-            dieses Online-Fragebogens werden anschließend routinemäßig gelöscht.
-          </p>
-          <p>
-            <strong>Ihre Rechte:</strong> Sie haben das Recht auf Auskunft, Berichtigung,
-            Löschung und Einschränkung der Verarbeitung sowie ein Beschwerderecht bei der
-            zuständigen Datenschutz-Aufsichtsbehörde.
-          </p>
-          <p>Alle Angaben unterliegen der ärztlichen Schweigepflicht.</p>
+          <p>{ui.privacy_controller}</p>
+          <p>{ui.privacy_purpose}</p>
+          <p>{ui.privacy_legal}</p>
+          <p>{ui.privacy_storage}</p>
+          <p>{ui.privacy_rights}</p>
+          <p>{ui.privacy_secrecy}</p>
         </div>
       </DialogContent>
     </Dialog>
@@ -238,8 +227,8 @@ function PrivacyDialog({
 
 // ─── Haupt-Komponente ─────────────────────────────────────────────────────────
 
-export function AnamneseForm({ schema, onSubmit, isSubmitting }: AnamneseFormProps) {
-  const flat = useMemo(() => flattenSchema(schema), [schema]);
+export function AnamneseForm({ schema, onSubmit, isSubmitting, ui = UI_DE }: AnamneseFormProps) {
+  const flat = useMemo(() => flattenSchema(schema, ui), [schema, ui]);
   const [answers, setAnswers] = useState<Answers>({});
   const [showPrivacy, setShowPrivacy] = useState(false);
 
@@ -320,7 +309,9 @@ export function AnamneseForm({ schema, onSubmit, isSubmitting }: AnamneseFormPro
                     {current?.sectionTitle}
                   </span>
                   <span className="text-xs tabular-nums text-muted-foreground">
-                    Frage {state.current} von {state.total}
+                    {ui.question_of
+                      .replace("{current}", String(state.current))
+                      .replace("{total}", String(state.total))}
                   </span>
                 </div>
               </div>
@@ -342,17 +333,14 @@ export function AnamneseForm({ schema, onSubmit, isSubmitting }: AnamneseFormPro
 
             {item.kind === "ess" && (
               <QuestionnaireDescription>
-                Wie wahrscheinlich ist es, dass Sie in dieser Situation einnicken
-                würden? · Bisherige Summe: {essTotal}/24
+                {ui.ess_question} · {ui.ess_sum}: {essTotal}/24
               </QuestionnaireDescription>
             )}
             {item.kind !== "ess" && item.hint && (
               <QuestionnaireDescription>{item.hint}</QuestionnaireDescription>
             )}
             {item.kind === "followup" && (
-              <QuestionnaireDescription>
-                Freiwillige Zusatzangabe – hilft bei der ärztlichen Beurteilung.
-              </QuestionnaireDescription>
+              <QuestionnaireDescription>{ui.followup_hint}</QuestionnaireDescription>
             )}
             {item.kind === "consent" && item.name === "consent_privacy" && (
               <QuestionnaireDescription
@@ -363,7 +351,7 @@ export function AnamneseForm({ schema, onSubmit, isSubmitting }: AnamneseFormPro
                       className="font-semibold text-primary underline underline-offset-2"
                       onClick={() => setShowPrivacy(true)}
                     >
-                      Datenschutzhinweise anzeigen
+                      {ui.privacy_button}
                     </button>
                   </div>
                 }
@@ -376,7 +364,7 @@ export function AnamneseForm({ schema, onSubmit, isSubmitting }: AnamneseFormPro
                   aria-label={item.title}
                   value={(answers[item.name] as string) ?? ""}
                   onChange={(e) => setAnswer(item.name, e.target.value)}
-                  placeholder="Ihre Antwort…"
+                  placeholder={ui.answer_placeholder}
                 />
               </QuestionnaireChoices>
             ) : item.kind === "consent" ? (
@@ -419,28 +407,28 @@ export function AnamneseForm({ schema, onSubmit, isSubmitting }: AnamneseFormPro
             )}
 
             <QuestionnaireError>
-              {item.consentError ?? "Bitte beantworten Sie diese Frage."}
+              {item.consentError ?? ui.required_error}
             </QuestionnaireError>
           </QuestionnaireItem>
         ))}
 
         <QuestionnaireActions>
-          <QuestionnairePrevious>Zurück</QuestionnairePrevious>
-          <QuestionnaireSkip>Überspringen</QuestionnaireSkip>
-          <QuestionnaireNext>Weiter</QuestionnaireNext>
+          <QuestionnairePrevious>{ui.back}</QuestionnairePrevious>
+          <QuestionnaireSkip>{ui.skip}</QuestionnaireSkip>
+          <QuestionnaireNext>{ui.next}</QuestionnaireNext>
           <QuestionnaireSubmit disabled={isSubmitting}>
             {isSubmitting ? (
               <>
-                <Spinner /> Senden…
+                <Spinner /> {ui.sending}
               </>
             ) : (
-              "Absenden"
+              ui.submit
             )}
           </QuestionnaireSubmit>
         </QuestionnaireActions>
       </Questionnaire>
 
-      <PrivacyDialog open={showPrivacy} onOpenChange={setShowPrivacy} />
+      <PrivacyDialog open={showPrivacy} onOpenChange={setShowPrivacy} ui={ui} />
     </>
   );
 }

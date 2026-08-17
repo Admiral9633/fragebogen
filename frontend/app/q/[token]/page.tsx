@@ -1,11 +1,19 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { CheckCircle2, AlertCircle, Download, Car } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { AnamneseForm } from "@/components/anamnese-form";
+import { LanguageSelect } from "@/components/language-select";
+import { COUNTRIES, RTL_LANGUAGES } from "@/lib/countries";
+import {
+  fetchTranslation,
+  translateSchema,
+  uiStrings,
+  type Translation,
+} from "@/lib/i18n";
 import { isV2Schema } from "@/lib/schema";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -35,6 +43,40 @@ export default function QuestionnairePage() {
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [result, setResult] = useState<any>(null);
+
+  // ── Sprache ────────────────────────────────────────────────────────────────
+  const [country, setCountry] = useState("de");
+  const [lang, setLang] = useState("de");
+  const [translation, setTranslation] = useState<Translation | null>(null);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("fragebogen_country");
+    const found = saved && COUNTRIES.find((c) => c.code === saved);
+    if (found) {
+      setCountry(found.code);
+      setLang(found.lang);
+    }
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      const t = await fetchTranslation(lang);
+      if (!cancelled) setTranslation(t);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [lang]);
+
+  const handleCountryChange = (code: string, language: string) => {
+    setCountry(code);
+    setLang(language);
+    localStorage.setItem("fragebogen_country", code);
+  };
+
+  const ui = uiStrings(translation);
+  const dir = RTL_LANGUAGES.has(lang) ? "rtl" : "ltr";
 
   useEffect(() => {
     if (!token) return;
@@ -83,7 +125,7 @@ export default function QuestionnairePage() {
       <main className="min-h-screen flex items-center justify-center bg-background">
         <div className="text-center">
           <Spinner className="size-10 text-primary mx-auto mb-4" />
-          <p className="text-sm text-muted-foreground">Lade Fragebogen …</p>
+          <p className="text-sm text-muted-foreground">{ui.loading}</p>
         </div>
       </main>
     );
@@ -109,27 +151,27 @@ export default function QuestionnairePage() {
   if (submitted && result) {
     const band = result.ess_band || "normal";
     const bandMeta: Record<string, { box: string; text: string; badgeVariant: "success" | "warning" | "destructive"; label: string }> = {
-      normal:     { box: "border-success/50 bg-success/10",         text: "text-success",     badgeVariant: "success",     label: "Normal (0–9)" },
-      erhöht:     { box: "border-warning/50 bg-warning/10",         text: "text-warning",     badgeVariant: "warning",     label: "Erhöht (10–15)" },
-      ausgeprägt: { box: "border-destructive/50 bg-destructive/10", text: "text-destructive", badgeVariant: "destructive", label: "Ausgeprägt (≥16)" },
+      normal:     { box: "border-success/50 bg-success/10",         text: "text-success",     badgeVariant: "success",     label: ui.band_normal },
+      erhöht:     { box: "border-warning/50 bg-warning/10",         text: "text-warning",     badgeVariant: "warning",     label: ui.band_elevated },
+      ausgeprägt: { box: "border-destructive/50 bg-destructive/10", text: "text-destructive", badgeVariant: "destructive", label: ui.band_severe },
     };
     const m = bandMeta[band] ?? bandMeta["normal"];
 
     return (
-      <main className="min-h-screen bg-background flex items-center justify-center p-4">
+      <main className="min-h-screen bg-background flex items-center justify-center p-4" dir={dir}>
         <div className="max-w-lg w-full space-y-4">
           <Card>
             <CardContent className="p-8 text-center">
               <div className="mx-auto mb-4 flex size-16 items-center justify-center rounded-full bg-success/15">
                 <CheckCircle2 className="size-8 text-success" />
               </div>
-              <h1 className="text-xl font-bold text-foreground mb-1">Vielen Dank!</h1>
-              <p className="text-sm text-muted-foreground">Ihr Fragebogen wurde erfolgreich übermittelt.</p>
+              <h1 className="text-xl font-bold text-foreground mb-1">{ui.success_title}</h1>
+              <p className="text-sm text-muted-foreground">{ui.success_text}</p>
             </CardContent>
           </Card>
 
           <div className={cn("rounded-xl border-2 p-6", m.box)}>
-            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">ESS-Ergebnis</p>
+            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">{ui.success_result}</p>
             <div className="flex items-center justify-between">
               <div>
                 <span className="text-4xl font-black text-foreground">{result.ess_total}</span>
@@ -140,9 +182,7 @@ export default function QuestionnairePage() {
                 {result.ess_total}
               </div>
             </div>
-            <p className="mt-4 text-xs text-muted-foreground">
-              Bitte besprechen Sie das Ergebnis mit Ihrem Arzt. Eine abschließende Bewertung erfolgt durch einen Facharzt.
-            </p>
+            <p className="mt-4 text-xs text-muted-foreground">{ui.success_doctor_note}</p>
           </div>
 
           <Button
@@ -150,10 +190,10 @@ export default function QuestionnairePage() {
             onClick={() => window.open(`/api/puppeteer-pdf/${token}/`, "_blank")}
           >
             <Download className="size-4" />
-            PDF-Zusammenfassung herunterladen
+            {ui.success_pdf}
           </Button>
 
-          <p className="text-center text-xs text-muted-foreground">Sie können dieses Fenster nun schließen.</p>
+          <p className="text-center text-xs text-muted-foreground">{ui.success_close}</p>
         </div>
       </main>
     );
@@ -161,6 +201,10 @@ export default function QuestionnairePage() {
 
   const schema = sessionData?.template;
   const hasV2Schema = isV2Schema(schema);
+  const translatedSchema = useMemo(
+    () => (hasV2Schema ? translateSchema(schema, translation) : schema),
+    [schema, hasV2Schema, translation]
+  );
 
   // ── Form ───────────────────────────────────────────────────────────────────
   return (
@@ -173,23 +217,33 @@ export default function QuestionnairePage() {
           </div>
           <div className="min-w-0 flex-1">
             <h1 className="text-sm font-semibold text-foreground truncate">
-              {schema?.title || "Verkehrsmedizinischer Fragebogen"}
+              {ui.header_title}
             </h1>
             <p className="text-xs text-muted-foreground truncate">
-              Bitte beantworten Sie alle Fragen
+              {ui.header_subtitle}
             </p>
           </div>
+          <LanguageSelect
+            value={country}
+            onSelect={handleCountryChange}
+            label={ui.language_label}
+          />
           <ModeToggle />
         </div>
       </header>
 
       {/* Form body – edge-to-edge on mobile, Card on sm+ */}
-      <div className="max-w-3xl mx-auto py-4 pb-20">
+      <div className="max-w-3xl mx-auto py-4 pb-20" dir={dir}>
         <div className="sm:px-4">
           <Card className="rounded-none border-x-0 border-t-0 sm:rounded-xl sm:border shadow-none sm:shadow-sm">
             <CardContent className="p-4 sm:p-8">
               {hasV2Schema ? (
-                <AnamneseForm schema={schema} onSubmit={handleSubmit} isSubmitting={isSubmitting} />
+                <AnamneseForm
+                  schema={translatedSchema}
+                  onSubmit={handleSubmit}
+                  isSubmitting={isSubmitting}
+                  ui={ui}
+                />
               ) : (
                 <div className="py-8 text-center space-y-2">
                   <AlertCircle className="size-10 text-muted-foreground mx-auto" />

@@ -21,6 +21,7 @@ from .serializers import (
 )
 from .schema import is_v2_schema, validate_answers
 from .evaluation import evaluate_answers
+from .translations import available_languages, load_translation
 
 logger = logging.getLogger(__name__)
 
@@ -178,6 +179,26 @@ class AnswersView(APIView):
             'patient_first_name': session.patient_first_name,
             'patient_birth_date': session.patient_birth_date.strftime('%d.%m.%Y') if session.patient_birth_date else '',
         })
+
+
+class TranslationView(APIView):
+    """
+    GET /api/i18n/            – verfügbare Sprachcodes
+    GET /api/i18n/<lang>/     – Sprachdatei (UI-Texte + übersetzte Fragen)
+    """
+    def get(self, request, lang=None):
+        if lang is None:
+            return Response({'languages': available_languages()})
+        data = load_translation(lang)
+        if data is None:
+            return Response(
+                {'error': f'Sprache "{lang}" nicht verfügbar.'},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+        response = Response(data)
+        # Sprachdateien ändern sich nur mit Deployments – aggressiv cachen
+        response['Cache-Control'] = 'public, max-age=3600'
+        return response
 
 
 def _send_invitation_email(session):

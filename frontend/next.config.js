@@ -15,6 +15,9 @@ const nextConfig = {
       { source: '/api/submit/:token/', destination: `${backendUrl}/api/submit/:token/` },
       // Hinweis: /api/answers/:token wird bewusst NICHT öffentlich durchgereicht —
       // die Print-Page holt die Daten serverseitig direkt vom Backend.
+      // i18n (Sprachdateien für den Patienten-Fragebogen)
+      { source: '/api/i18n/:lang', destination: `${backendUrl}/api/i18n/:lang/` },
+      { source: '/api/i18n/:lang/', destination: `${backendUrl}/api/i18n/:lang/` },
       // admin
       { source: '/api/admin/sessions', destination: `${backendUrl}/api/admin/sessions/` },
       { source: '/api/admin/sessions/', destination: `${backendUrl}/api/admin/sessions/` },

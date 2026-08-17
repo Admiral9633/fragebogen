@@ -313,6 +313,25 @@ class AuswertungTests(TestCase):
         self.assertGreaterEqual(res.json()['auswertung_kritisch'], 1)
 
 
+class TranslationTests(TestCase):
+    def test_sprachliste_enthaelt_deutsch(self):
+        res = self.client.get('/api/i18n/')
+        self.assertEqual(res.status_code, 200)
+        self.assertIn('de', res.json()['languages'])
+
+    def test_deutsche_sprachdatei_hat_ui_und_fragen(self):
+        res = self.client.get('/api/i18n/de/')
+        self.assertEqual(res.status_code, 200)
+        data = res.json()
+        self.assertIn('ui', data)
+        self.assertIn('questions', data)
+        self.assertEqual(data['ui']['next'], 'Weiter')
+
+    def test_unbekannte_sprache_404(self):
+        self.assertEqual(self.client.get('/api/i18n/zz/').status_code, 404)
+        self.assertEqual(self.client.get('/api/i18n/DE1/').status_code, 404)
+
+
 class PurgeSessionsTests(TestCase):
     def test_purge_loescht_nur_lange_abgelaufene(self):
         alt = make_session(expires_at=timezone.now() - timedelta(days=45))

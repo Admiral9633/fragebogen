@@ -1,0 +1,576 @@
+{
+ "_meta": {
+  "language": "de",
+  "name": "Deutsch"
+ },
+ "ui": {
+  "header_title": "Verkehrsmedizinischer Fragebogen",
+  "header_subtitle": "Bitte beantworten Sie alle Fragen",
+  "language_label": "Sprache",
+  "loading": "Lade Fragebogen …",
+  "not_found_title": "Fragebogen nicht gefunden",
+  "to_start": "Zur Startseite",
+  "back": "Zurück",
+  "next": "Weiter",
+  "skip": "Überspringen",
+  "submit": "Absenden",
+  "sending": "Senden…",
+  "question_of": "Frage {current} von {total}",
+  "answer_placeholder": "Ihre Antwort…",
+  "required_error": "Bitte beantworten Sie diese Frage.",
+  "yes": "Ja",
+  "no": "Nein",
+  "consent_title": "Einwilligung",
+  "followup_hint": "Freiwillige Zusatzangabe – hilft bei der ärztlichen Beurteilung.",
+  "ess_question": "Wie wahrscheinlich ist es, dass Sie in dieser Situation einnicken würden?",
+  "ess_sum": "Bisherige Summe",
+  "ess_opt_0": "0 – Würde nie einnicken",
+  "ess_opt_1": "1 – Geringe Wahrscheinlichkeit",
+  "ess_opt_2": "2 – Mittlere Wahrscheinlichkeit",
+  "ess_opt_3": "3 – Hohe Wahrscheinlichkeit",
+  "privacy_button": "Datenschutzhinweise anzeigen",
+  "privacy_title": "Datenschutzhinweise",
+  "privacy_subtitle": "Information zur Verarbeitung Ihrer Daten nach Art. 13 DSGVO",
+  "privacy_controller": "Verantwortlicher: Dr. med. Björn Micka, Betriebsmedizin · Notfallmedizin, Christoph-Dassler-Str. 22, 91074 Herzogenaurach",
+  "privacy_purpose": "Zweck der Verarbeitung: Ihre Angaben in diesem Fragebogen (einschließlich Gesundheitsdaten) werden ausschließlich zur Vorbereitung und Durchführung Ihrer verkehrsmedizinischen Untersuchung verwendet.",
+  "privacy_legal": "Rechtsgrundlage: Ihre Einwilligung (Art. 6 Abs. 1 lit. a, Art. 9 Abs. 2 lit. a DSGVO). Sie können die Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen.",
+  "privacy_storage": "Speicherung: Das Ergebnis wird in Ihre Untersuchungsunterlagen übernommen und unterliegt den ärztlichen Aufbewahrungsfristen. Der Online-Zugang über Ihren persönlichen Link erlischt nach Ablauf der Gültigkeit; die Daten dieses Online-Fragebogens werden anschließend routinemäßig gelöscht.",
+  "privacy_rights": "Ihre Rechte: Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung sowie ein Beschwerderecht bei der zuständigen Datenschutz-Aufsichtsbehörde.",
+  "privacy_secrecy": "Alle Angaben unterliegen der ärztlichen Schweigepflicht.",
+  "success_title": "Vielen Dank!",
+  "success_text": "Ihr Fragebogen wurde erfolgreich übermittelt.",
+  "success_result": "ESS-Ergebnis",
+  "success_doctor_note": "Bitte besprechen Sie das Ergebnis mit Ihrem Arzt. Eine abschließende Bewertung erfolgt durch einen Facharzt.",
+  "success_pdf": "PDF-Zusammenfassung herunterladen",
+  "success_close": "Sie können dieses Fenster nun schließen.",
+  "band_normal": "Normal (0–9)",
+  "band_elevated": "Erhöht (10–15)",
+  "band_severe": "Ausgeprägt (≥16)",
+  "submit_error": "Fehler beim Absenden. Bitte prüfen Sie Ihre Angaben."
+ },
+ "sections": {
+  "anlass": {
+   "title": "Anlass & Fahrprofil",
+   "subtitle": "Angaben zur Untersuchung und Ihrer Fahrtätigkeit"
+  },
+  "anfaelle": {
+   "title": "Anfälle & Bewusstlosigkeit",
+   "subtitle": "Plötzliches Ausfallrisiko – epileptische Anfälle und Ohnmachten"
+  },
+  "sehen_hoeren": {
+   "title": "Sehen & Hören",
+   "subtitle": "Seh- und Hörfunktion"
+  },
+  "herz": {
+   "title": "Herz & Kreislauf",
+   "subtitle": "Herz- und Gefäßerkrankungen"
+  },
+  "gehirn": {
+   "title": "Schlaganfall & Gehirn",
+   "subtitle": "Durchblutungsstörungen, Verletzungen und Operationen des Gehirns"
+  },
+  "neuro": {
+   "title": "Nervensystem",
+   "subtitle": "Neurologische Erkrankungen"
+  },
+  "schwindel": {
+   "title": "Gleichgewicht & Schwindel",
+   "subtitle": "Schwindelformen und Gleichgewichtsstörungen"
+  },
+  "bewegung": {
+   "title": "Bewegungsapparat",
+   "subtitle": "Körperliche Einschränkungen und Hilfsmittel"
+  },
+  "diabetes": {
+   "title": "Diabetes / Stoffwechsel",
+   "subtitle": "Zuckerkrankheit und Unterzuckerungen"
+  },
+  "organe": {
+   "title": "Innere Organe",
+   "subtitle": "Nieren, Lunge und Transplantationen"
+  },
+  "schlaf": {
+   "title": "Schlaf & Tagesschläfrigkeit",
+   "subtitle": "Inkl. Epworth Sleepiness Scale (ESS)"
+  },
+  "psyche": {
+   "title": "Psychische Gesundheit",
+   "subtitle": "Psychische Erkrankungen und Gedächtnis"
+  },
+  "substanzen": {
+   "title": "Alkohol, Drogen & Medikamente",
+   "subtitle": "Konsum und Dauermedikation"
+  },
+  "allgemein": {
+   "title": "Allgemeines & Einwilligung",
+   "subtitle": "Weitere Angaben und Erklärungen"
+  }
+ },
+ "questions": {
+  "exam_occasion": {
+   "label": "Für welche Fahrerlaubnis findet die Untersuchung statt?",
+   "options": {
+    "pkw": "PKW / andere Klasse",
+    "lkw": "LKW (C, C1, CE, C1E)",
+    "bus": "Bus (D, D1, DE, D1E)",
+    "fahrgast": "Fahrgastbeförderung (Taxi, Mietwagen, Krankentransport)"
+   }
+  },
+  "exam_kind": {
+   "label": "Handelt es sich um eine Ersterteilung oder eine Verlängerung?",
+   "options": {
+    "erst": "Ersterteilung",
+    "verlaengerung": "Verlängerung"
+   }
+  },
+  "license_classes": {
+   "label": "Welche Führerscheinklassen besitzen oder beantragen Sie?",
+   "options": {
+    "AM": "AM",
+    "A1": "A1",
+    "A2": "A2",
+    "A": "A",
+    "B": "B",
+    "BE": "BE",
+    "C1": "C1",
+    "C1E": "C1E",
+    "C": "C",
+    "CE": "CE",
+    "D1": "D1",
+    "D": "D",
+    "DE": "DE",
+    "T": "T"
+   }
+  },
+  "license_years": {
+   "label": "Seit wie vielen Jahren besitzen Sie eine Fahrerlaubnis?",
+   "options": {
+    "erstantrag": "Noch keine (Erstantrag)",
+    "unter3": "Weniger als 3 Jahre",
+    "3bis10": "3 bis 10 Jahre",
+    "ueber10": "Mehr als 10 Jahre"
+   }
+  },
+  "driving_hours": {
+   "label": "Wie viele Stunden fahren Sie durchschnittlich pro Tag?",
+   "options": {
+    "<1": "Weniger als 1 Stunde",
+    "1-2": "1 bis 2 Stunden",
+    "2-4": "2 bis 4 Stunden",
+    ">4": "Mehr als 4 Stunden"
+   }
+  },
+  "night_driving": {
+   "label": "Fahren Sie regelmäßig nachts?"
+  },
+  "accidents": {
+   "label": "Hatten Sie in den letzten 24 Monaten Unfälle oder Beinahe-Unfälle im Straßenverkehr?",
+   "followup": "Was ist passiert?"
+  },
+  "license_withdrawn": {
+   "label": "Wurde Ihnen schon einmal die Fahrerlaubnis entzogen oder mussten Sie an einer medizinisch-psychologischen Untersuchung (MPU) teilnehmen?",
+   "followup": "Wann und aus welchem Grund?"
+  },
+  "psych_test_done": {
+   "label": "Haben Sie für diese Fahrerlaubnis bereits einen psychologischen Leistungstest (Reaktions-, Konzentrations- und Aufmerksamkeitstest) absolviert?",
+   "hint": "Bei Bus-Klassen und Fahrgastbeförderung ist dieser Nachweis nach Anlage 5 FeV vorgeschrieben. Bitte bringen Sie ein vorhandenes Gutachten zur Untersuchung mit.",
+   "followup": "Wann und wo wurde der Test durchgeführt?"
+  },
+  "seizure_ever": {
+   "label": "Hatten Sie jemals einen epileptischen Anfall oder Krampfanfall?",
+   "followup": "Wann war der letzte Anfall, wie viele hatten Sie insgesamt, und gab es einen Auslöser (z.B. Schlafentzug, Fieber, Alkohol)?"
+  },
+  "epilepsy": {
+   "label": "Wurde bei Ihnen eine Epilepsie diagnostiziert?",
+   "followup": "Treten die Anfälle ausschließlich im Schlaf auf? Sind Sie in regelmäßiger neurologischer Behandlung?"
+  },
+  "seizure_free": {
+   "label": "Wie lange sind Sie inzwischen anfallsfrei?",
+   "hint": "Die Leitlinien knüpfen die Fahreignung an konkrete anfallsfreie Zeiträume.",
+   "options": {
+    "unter3m": "Weniger als 3 Monate",
+    "3bis6m": "3 bis 6 Monate",
+    "6bis12m": "6 bis 12 Monate",
+    "1bis2j": "1 bis 2 Jahre",
+    "2bis5j": "2 bis 5 Jahre",
+    "ueber5j": "Mehr als 5 Jahre"
+   }
+  },
+  "antiepileptics": {
+   "label": "Nehmen Sie Medikamente gegen Anfälle (Antiepileptika) ein?",
+   "options": {
+    "nie": "Nein, nie eingenommen",
+    "aktuell": "Ja, aktuell",
+    "reduktion": "Die Behandlung wird derzeit schrittweise reduziert",
+    "ende_unter3m": "Vor weniger als 3 Monaten beendet",
+    "ende_ueber3m": "Vor mehr als 3 Monaten beendet"
+   }
+  },
+  "syncope": {
+   "label": "Sind Sie schon einmal plötzlich ohnmächtig geworden (kurze Bewusstlosigkeit)?",
+   "options": {
+    "nie": "Noch nie",
+    "einmal": "Einmal",
+    "mehrmals": "Mehrmals"
+   }
+  },
+  "syncope_recent": {
+   "label": "Liegt Ihre letzte Ohnmacht weniger als 6 Monate zurück?",
+   "followup": "In welcher Situation trat die Ohnmacht auf, und wurde eine Ursache gefunden (z.B. Kreislauf, Herzrhythmus, beim Wasserlassen)?"
+  },
+  "syncope_prodromi": {
+   "label": "Kündigt sich eine Ohnmacht bei Ihnen vorher an (z.B. Schwitzen, Schwindel, Übelkeit, Herzklopfen)?"
+  },
+  "glasses": {
+   "label": "Tragen Sie beim Fahren eine Brille oder Kontaktlinsen?"
+  },
+  "eye_disease": {
+   "label": "Ist bei Ihnen eine Augenerkrankung bekannt (z.B. Grauer Star, Grüner Star/Glaukom, Netzhauterkrankung, Gesichtsfeldeinschränkung)?",
+   "followup": "Welche Erkrankung, und sind Sie in augenärztlicher Behandlung?"
+  },
+  "one_eyed": {
+   "label": "Sehen Sie auf einem Auge deutlich schlechter oder sind Sie auf einem Auge blind?"
+  },
+  "night_vision": {
+   "label": "Haben Sie Probleme beim Sehen in Dämmerung oder Dunkelheit, oder werden Sie durch Gegenverkehr stark geblendet?",
+   "followup": "In welchen Situationen treten die Probleme auf?"
+  },
+  "hearing_impaired": {
+   "label": "Sind Sie hochgradig schwerhörig oder gehörlos?",
+   "followup": "Seit wann, und sind Sie in HNO-ärztlicher Behandlung?"
+  },
+  "hearing_aid": {
+   "label": "Tragen Sie ein Hörgerät oder Cochlea-Implantat?"
+  },
+  "heart_disease": {
+   "label": "Ist bei Ihnen eine Herz- oder Gefäßerkrankung bekannt?",
+   "hint": "z.B. Rhythmusstörungen, Herzinfarkt, Herzschwäche, Klappenfehler, Durchblutungsstörungen",
+   "followup": "Welche Erkrankung(en), seit wann, und wie werden sie behandelt?"
+  },
+  "cardio_checkup": {
+   "label": "Sind Sie deswegen regelmäßig bei einem Kardiologen in Kontrolle?",
+   "followup": "Wann war die letzte Kontrolle?"
+  },
+  "heart_attack": {
+   "label": "Hatten Sie schon einmal einen Herzinfarkt, eine Stent-Behandlung oder eine Bypass-Operation?",
+   "followup": "Wann war das Ereignis bzw. der Eingriff, und gab es Komplikationen (z.B. eingeschränkte Pumpleistung)?"
+  },
+  "arrhythmia": {
+   "label": "Sind bei Ihnen Herzrhythmusstörungen bekannt (z.B. Herzstolpern, Herzrasen, auffallend langsamer Puls, Vorhofflimmern, AV-Block)?",
+   "followup": "Welche Diagnose, und wie wird behandelt?"
+  },
+  "pacemaker_icd": {
+   "label": "Tragen Sie einen Herzschrittmacher oder Defibrillator (ICD)?",
+   "options": {
+    "nein": "Nein",
+    "schrittmacher": "Herzschrittmacher",
+    "icd": "Defibrillator (ICD)"
+   },
+   "followup": "Wann eingesetzt, und wann war die letzte Kontrolle?"
+  },
+  "icd_shock": {
+   "label": "Hat Ihr Defibrillator in den letzten 3 Monaten einen Schock abgegeben?",
+   "followup": "Wann, und was hat Ihr Kardiologe dazu gesagt?"
+  },
+  "exertion_symptoms": {
+   "label": "Bekommen Sie bei Belastung Luftnot, Brustschmerzen, Herzstolpern oder ungewöhnliche Erschöpfung?",
+   "hint": "Selbsteinschätzung entsprechend der NYHA-Stadien",
+   "options": {
+    "keine": "Nein, keine Beschwerden bei alltäglicher Belastung",
+    "stark": "Bei stärkerer Belastung (z.B. zügiges Treppensteigen)",
+    "leicht": "Schon bei leichter Belastung (z.B. langsames Gehen)",
+    "ruhe": "Bereits in Ruhe"
+   }
+  },
+  "hypertension": {
+   "label": "Ist bei Ihnen Bluthochdruck bekannt?",
+   "followup": "Seit wann, welche Medikamente, und welche Werte messen Sie üblicherweise?"
+  },
+  "bp_dizziness": {
+   "label": "Kommt es unter Ihren Blutdruckmedikamenten zu Schwindel, Schwächegefühl oder Schwarzwerden vor den Augen?"
+  },
+  "heart_other": {
+   "label": "Ist bei Ihnen eine weitere Herz-/Gefäßerkrankung bekannt: Herzklappenfehler, angeborener Herzfehler, Herzmuskelerkrankung (Kardiomyopathie), erbliche Rhythmuserkrankung (z.B. Long-QT), Aortenaneurysma oder verengte Halsschlagader?",
+   "followup": "Welche Diagnose, und wie wird sie kontrolliert/behandelt?"
+  },
+  "family_sudden_death": {
+   "label": "Gab es in Ihrer engsten Familie (Eltern, Geschwister, Kinder) einen plötzlichen Herztod?"
+  },
+  "stroke": {
+   "label": "Hatten Sie jemals einen Schlaganfall, eine Hirnblutung oder eine TIA (vorübergehende Durchblutungsstörung mit kurzzeitigen Ausfällen)?",
+   "followup": "Wann war das Ereignis, und wurde eine Rehabilitation abgeschlossen?"
+  },
+  "stroke_residuals": {
+   "label": "Bestehen seitdem noch Folgen wie Lähmungen, Sprachstörungen, Gedächtnisprobleme oder Einschränkungen des Blickfelds?",
+   "followup": "Welche Beschwerden bestehen aktuell noch?"
+  },
+  "head_injury": {
+   "label": "Hatten Sie jemals eine schwere Kopfverletzung (mit Bewusstlosigkeit oder Krankenhausaufenthalt) oder eine Operation am Gehirn?",
+   "followup": "Wann, und was wurde behandelt?"
+  },
+  "head_injury_recent": {
+   "label": "Liegt diese Verletzung oder Operation weniger als 3 Monate zurück?",
+   "hint": "Nach einer Hirnverletzung oder -operation besteht laut Leitlinie im Allgemeinen für 3 Monate keine Fahreignung."
+  },
+  "brain_residuals": {
+   "label": "Bestehen seit der Verletzung/Operation Beschwerden wie Konzentrations- oder Gedächtnisstörungen, Wesensveränderung oder Krampfanfälle?",
+   "followup": "Welche Beschwerden, und wie wirken sie sich aus?"
+  },
+  "parkinson": {
+   "label": "Wurde bei Ihnen die Parkinson-Krankheit oder eine andere Bewegungs- oder Koordinationsstörung diagnostiziert?",
+   "followup": "Seit wann, wie wird behandelt, und wann war die letzte neurologische Kontrolle?"
+  },
+  "ms_spinal": {
+   "label": "Ist bei Ihnen eine Multiple Sklerose, eine Rückenmarkserkrankung oder eine Rückenmarksverletzung bekannt?",
+   "followup": "Welche Diagnose, und welche Beschwerden haben Sie aktuell?"
+  },
+  "muscle_nerve": {
+   "label": "Ist bei Ihnen eine Muskel- oder Nervenerkrankung bekannt (z.B. Muskelschwund, Myasthenie, Polyneuropathie)?",
+   "followup": "Welche Diagnose, und wie stark sind Sie eingeschränkt?"
+  },
+  "paralysis_attacks": {
+   "label": "Kommt es bei Ihnen zu anfallsartigen Lähmungen oder plötzlicher starker Muskelschwäche?",
+   "followup": "Wann trat der letzte Anfall auf, und wie schnell setzt er ein?"
+  },
+  "motor_limits": {
+   "label": "Haben Sie Lähmungen, Muskelschwäche oder Gefühlsstörungen in Armen oder Beinen, die Sie beim Bedienen eines Fahrzeugs einschränken könnten?",
+   "followup": "Welche Körperteile sind betroffen?"
+  },
+  "vertigo": {
+   "label": "Leiden Sie unter Schwindel oder Gleichgewichtsstörungen (z.B. Drehgefühl, Schwanken, Unsicherheit beim Gehen)?",
+   "followup": "Wie fühlt sich der Schwindel an, wie oft tritt er auf, wie lange dauert ein Anfall, und was löst ihn aus?"
+  },
+  "vertigo_last": {
+   "label": "Wie lange liegt Ihr letzter Schwindelanfall zurück?",
+   "options": {
+    "unter3m": "Weniger als 3 Monate",
+    "3bis6m": "3 bis 6 Monate",
+    "6bis12m": "6 bis 12 Monate",
+    "1bis2j": "1 bis 2 Jahre",
+    "ueber2j": "Mehr als 2 Jahre"
+   }
+  },
+  "vertigo_prodromi": {
+   "label": "Kündigen sich Ihre Schwindelanfälle vorher an (z.B. Ohrdruck, Ohrgeräusche, Hörminderung), sodass Sie rechtzeitig anhalten könnten?",
+   "options": {
+    "immer": "Ja, immer",
+    "manchmal": "Manchmal",
+    "nie": "Nein, sie kommen ohne Vorwarnung"
+   }
+  },
+  "vertigo_positional": {
+   "label": "Wird der Schwindel durch bestimmte Kopfbewegungen oder Lageänderungen ausgelöst (z.B. Umdrehen im Bett, Bücken)?"
+  },
+  "vertigo_ear": {
+   "label": "Tritt der Schwindel zusammen mit Hörminderung, Ohrgeräuschen (Tinnitus) oder Druckgefühl im Ohr auf?"
+  },
+  "ear_disease": {
+   "label": "Wurde bei Ihnen eine Erkrankung des Gleichgewichtsorgans oder Innenohrs festgestellt (z.B. Lagerungsschwindel, Morbus Menière)?",
+   "followup": "Welche Diagnose, wie wurde behandelt, und sind Sie seither beschwerdefrei?"
+  },
+  "mobility_limits": {
+   "label": "Haben Sie eine dauerhafte Einschränkung der Beweglichkeit von Armen, Beinen, Händen oder der Wirbelsäule (z.B. nach Unfall, Operation, Amputation)?",
+   "followup": "Welche Körperteile sind betroffen, und seit wann?"
+  },
+  "prosthesis": {
+   "label": "Tragen Sie eine Prothese oder nutzen Sie orthopädische Hilfsmittel?",
+   "followup": "Welche Hilfsmittel, und haben Sie Beschwerden bei längerer Belastung?"
+  },
+  "vehicle_modified": {
+   "label": "Ist Ihr Fahrzeug wegen einer körperlichen Einschränkung umgebaut (z.B. Handbedienung, Lenkhilfe)?",
+   "followup": "Welche Umbauten, und sind sie im Führerschein eingetragen?"
+  },
+  "diabetes_type": {
+   "label": "Ist bei Ihnen ein Diabetes mellitus (Zuckerkrankheit) bekannt?",
+   "options": {
+    "none": "Nein",
+    "type1": "Ja, Typ 1",
+    "type2": "Ja, Typ 2",
+    "other": "Ja, andere/unklare Form"
+   }
+  },
+  "diabetes_therapy": {
+   "label": "Wie wird Ihr Diabetes derzeit behandelt?",
+   "options": {
+    "lifestyle": "Nur Ernährung / Lebensstil",
+    "tabl_low": "Tabletten mit niedrigem Unterzuckerungsrisiko (z.B. Metformin)",
+    "tabl_high": "Tabletten mit Unterzuckerungsrisiko (Sulfonylharnstoffe, Glinide)",
+    "insulin": "Insulin",
+    "unknown": "Weiß ich nicht genau"
+   }
+  },
+  "hypoglycemia": {
+   "label": "Hatten Sie in den letzten 12 Monaten eine schwere Unterzuckerung, bei der Sie auf fremde Hilfe angewiesen waren?",
+   "followup": "Wie oft, wann war die letzte Episode, und trat sie im Wachzustand oder im Schlaf auf?"
+  },
+  "hypo_awareness": {
+   "label": "Ist es vorgekommen, dass Sie eine Unterzuckerung nicht rechtzeitig selbst bemerkt haben (fehlende Warnzeichen)?",
+   "followup": "Wann zuletzt, und wurde etwas unternommen (z.B. Training, Therapieumstellung)?"
+  },
+  "glucose_monitoring": {
+   "label": "Messen Sie Ihren Blutzucker regelmäßig selbst (oder tragen Sie einen Glukosesensor)?",
+   "options": {
+    "2x": "Ja, mindestens zweimal täglich",
+    "seltener": "Ja, aber seltener",
+    "nein": "Nein",
+    "keine_med": "Betrifft mich nicht (keine blutzuckersenkenden Medikamente)"
+   }
+  },
+  "diabetes_derailment": {
+   "label": "Gab es in den letzten Monaten eine Neueinstellung der Therapie oder eine Stoffwechselentgleisung (z.B. Krankenhausbehandlung wegen entgleister Werte)?",
+   "followup": "Was ist passiert, und wann?"
+  },
+  "kidney_disease": {
+   "label": "Ist bei Ihnen eine chronische Nierenerkrankung oder Nierenschwäche bekannt?",
+   "followup": "Welche Erkrankung, und sind Sie in nephrologischer Behandlung?"
+  },
+  "dialysis": {
+   "label": "Werden Sie regelmäßig mit einer Dialyse (Blutwäsche) behandelt?",
+   "followup": "Seit wann und wie oft pro Woche? Fühlen Sie sich zwischen den Behandlungen leistungsfähig?"
+  },
+  "transplant": {
+   "label": "Wurde bei Ihnen ein Organ transplantiert (z.B. Niere, Herz, Leber, Lunge)?",
+   "followup": "Welches Organ, wann, und sind Sie in regelmäßiger Nachsorge?"
+  },
+  "lung_disease": {
+   "label": "Leiden Sie an einer chronischen Lungen- oder Bronchialerkrankung (z.B. COPD, Asthma, Lungenfibrose)?",
+   "followup": "Welche Erkrankung, und wie wird sie behandelt?"
+  },
+  "dyspnea": {
+   "label": "Haben Sie Atemnot bereits bei leichter Belastung oder in Ruhe, oder benötigen Sie eine Sauerstoff-Langzeittherapie?"
+  },
+  "cough_syncope": {
+   "label": "Kam es bei starken Hustenanfällen schon zu Schwindel, Schwarzwerden vor den Augen oder kurzer Bewusstlosigkeit?"
+  },
+  "daytime_sleepiness": {
+   "label": "Fällt es Ihnen tagsüber schwer, wach und aufmerksam zu bleiben – besonders in eintönigen Situationen (z.B. Lesen, Besprechungen, längere Autofahrten)?"
+  },
+  "microsleep": {
+   "label": "Sind Sie in den letzten Monaten ungewollt eingeschlafen oder hatten Sie Sekundenschlaf?",
+   "followup": "In welchen Situationen? Ist es auch am Steuer passiert?"
+  },
+  "snoring": {
+   "label": "Wurde Ihnen berichtet, dass Sie laut und unregelmäßig schnarchen oder nachts Atempausen haben?"
+  },
+  "osas": {
+   "label": "Wurde bei Ihnen ein Schlafapnoe-Syndrom (nächtliche Atemaussetzer) festgestellt?",
+   "followup": "Wann wurde die Diagnose gestellt, und welcher Schweregrad bzw. AHI-Wert wurde festgestellt (falls bekannt)?"
+  },
+  "cpap": {
+   "label": "Werden Sie wegen der Schlafapnoe behandelt (z.B. CPAP-Atemmaske)?",
+   "options": {
+    "regelmaessig": "Ja, regelmäßig (fast jede Nacht)",
+    "unregelmaessig": "Ja, aber unregelmäßig",
+    "abgebrochen": "Behandlung wurde abgebrochen",
+    "keine": "Nein, keine Behandlung"
+   }
+  },
+  "psychiatric": {
+   "label": "Wurde bei Ihnen eine psychische Erkrankung diagnostiziert (z.B. Depression, Angststörung, bipolare Störung)?",
+   "followup": "Welche Erkrankung, und wie wird sie behandelt?"
+  },
+  "psychiatric_severe": {
+   "label": "Waren Sie deswegen schon einmal in stationärer Behandlung, hatten Sie eine manische Phase oder Selbsttötungsgedanken?",
+   "followup": "Wann war das zuletzt?"
+  },
+  "psychosis": {
+   "label": "Wurde bei Ihnen jemals eine Schizophrenie oder andere Psychose diagnostiziert (Erkrankung mit Wahnvorstellungen oder Halluzinationen)?",
+   "followup": "Wie viele akute Episoden hatten Sie, wann war die letzte, und sind Sie in fachärztlicher Behandlung?"
+  },
+  "memory_problems": {
+   "label": "Haben Sie selbst oder Ihre Angehörigen in letzter Zeit zunehmende Gedächtnis- oder Orientierungsprobleme bei Ihnen bemerkt?",
+   "followup": "Seit wann, und wie wirken sie sich im Alltag aus?"
+  },
+  "concentration": {
+   "label": "Haben Sie Konzentrations- oder Aufmerksamkeitsprobleme?"
+  },
+  "alcohol": {
+   "label": "Wie häufig trinken Sie Alkohol?",
+   "options": {
+    "nie": "Nie",
+    "selten": "Selten (höchstens 1-mal pro Monat)",
+    "woechentlich": "1- bis 2-mal pro Woche",
+    "mehrmals": "Mehrmals pro Woche",
+    "taeglich": "Täglich oder fast täglich"
+   }
+  },
+  "alcohol_control": {
+   "label": "Ist es vorgekommen, dass Sie mehr getrunken haben als beabsichtigt oder die Kontrolle über Ihren Konsum verloren haben?"
+  },
+  "alcohol_traffic": {
+   "label": "Sind Sie jemals im Straßenverkehr unter Alkoholeinfluss aufgefallen (z.B. Trunkenheitsfahrt, Bußgeld, MPU)?",
+   "followup": "Wann, und welcher Promillewert wurde festgestellt (falls bekannt)?"
+  },
+  "alcohol_dependence": {
+   "label": "Wurde bei Ihnen jemals eine Alkoholabhängigkeit festgestellt oder haben Sie eine Entgiftung bzw. Entwöhnungsbehandlung gemacht?",
+   "followup": "Wann wurde die Behandlung abgeschlossen, und seit wann leben Sie abstinent?"
+  },
+  "drugs": {
+   "label": "Nehmen Sie derzeit Drogen (z.B. Cannabis, Kokain, Amphetamine) oder haben Sie früher regelmäßig Drogen konsumiert?",
+   "followup": "Welche Substanzen, wie häufig, und wann zuletzt?"
+  },
+  "cannabis": {
+   "label": "Wie häufig konsumieren Sie Cannabis?",
+   "options": {
+    "nie": "Nie",
+    "gelegentlich": "Gelegentlich (nicht regelmäßig)",
+    "regelmaessig": "Regelmäßig (täglich oder gewohnheitsmäßig)"
+   }
+  },
+  "substitution": {
+   "label": "Erhalten Sie eine Substitutionsbehandlung (z.B. Methadon)?",
+   "followup": "Seit wann?"
+  },
+  "regular_meds": {
+   "label": "Nehmen Sie regelmäßig Medikamente ein?",
+   "followup": "Welche Medikamente, und wogegen?"
+  },
+  "sedating_meds": {
+   "label": "Sind darunter Medikamente, die müde machen oder das Reaktionsvermögen beeinflussen können (z.B. starke Schmerzmittel/Opioide, Schlaf- oder Beruhigungsmittel, Antidepressiva, Antiepileptika, Allergiemittel)?",
+   "followup": "Welche Medikamente, in welcher Dosierung?"
+  },
+  "med_side_effects": {
+   "label": "Bemerken Sie unter Ihren Medikamenten Nebenwirkungen wie Müdigkeit, Verlangsamung, Konzentrationsstörungen oder Schwindel?",
+   "followup": "Welche Nebenwirkungen, und wie stark?"
+  },
+  "med_recent_change": {
+   "label": "Wurde in den letzten Wochen ein solches Medikament neu angesetzt oder die Dosis deutlich verändert?",
+   "followup": "Welches Medikament, und wann?"
+  },
+  "benzo_regular": {
+   "label": "Nehmen Sie seit mehreren Monaten regelmäßig – auch nur abends in kleiner Menge – Schlaf- oder Beruhigungsmittel (z.B. Benzodiazepine) ein?",
+   "followup": "Welches Mittel, wie lange schon, und bemerken Sie beim Weglassen Entzugserscheinungen?"
+  },
+  "multiple_conditions": {
+   "label": "Bestehen bei Ihnen mehrere Erkrankungen oder gesundheitliche Einschränkungen gleichzeitig?",
+   "hint": "Mehrere Auffälligkeiten können in ihrer Summe eignungsrelevant sein, auch wenn jede einzelne unbedenklich wäre (Leitlinien Kap. 2.7).",
+   "followup": "Bitte zählen Sie alle bekannten Erkrankungen kurz auf."
+  },
+  "other_conditions": {
+   "label": "Gibt es weitere Erkrankungen, Beschwerden oder frühere Operationen, die bisher nicht erwähnt wurden?",
+   "followup": "Welche?"
+  },
+  "driving_adaptation": {
+   "label": "Verzichten Sie wegen gesundheitlicher Einschränkungen bewusst auf bestimmte Fahrten (z.B. bei Dunkelheit, lange Strecken, Autobahn)?",
+   "followup": "Auf welche Fahrten, und warum?"
+  },
+  "consent_truth": {
+   "label": "Ich bestätige, dass meine Angaben vollständig und wahrheitsgemäß sind.",
+   "error": "Bitte bestätigen Sie die Vollständigkeit Ihrer Angaben."
+  },
+  "consent_privacy": {
+   "label": "Ich habe die Datenschutzhinweise gelesen und willige in die Verarbeitung meiner Daten zu verkehrsmedizinischen Zwecken ein.",
+   "error": "Bitte akzeptieren Sie die Datenschutzhinweise."
+  }
+ },
+ "ess_items": {
+  "ess_1": "Beim Sitzen und Lesen",
+  "ess_2": "Beim Fernsehen",
+  "ess_3": "Wenn Sie passiv in der Öffentlichkeit sitzen (z.B. im Theater oder bei einer Besprechung)",
+  "ess_4": "Als Beifahrer im Auto während einer einstündigen Fahrt ohne Pause",
+  "ess_5": "Wenn Sie sich am Nachmittag hingelegt haben, um auszuruhen",
+  "ess_6": "Wenn Sie sitzen und sich mit jemandem unterhalten",
+  "ess_7": "Wenn Sie nach dem Mittagessen (ohne Alkohol) ruhig dasitzen",
+  "ess_8": "Wenn Sie als Fahrer eines Autos verkehrsbedingt einige Minuten halten müssen"
+ }
+}
