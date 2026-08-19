@@ -1,0 +1,585 @@
+{
+ "_meta": {
+  "language": "en",
+  "name": "English",
+  "machine_translated": true
+ },
+ "ui": {
+  "header_title": "Traffic Medicine Questionnaire",
+  "header_subtitle": "Please answer all questions",
+  "language_label": "Language",
+  "loading": "Loading questionnaire …",
+  "not_found_title": "Questionnaire not found",
+  "to_start": "Go to start page",
+  "back": "Back",
+  "next": "Next",
+  "skip": "Skip",
+  "submit": "Submit",
+  "sending": "Sending…",
+  "question_of": "Question {current} of {total}",
+  "answer_placeholder": "Your answer…",
+  "required_error": "Please answer this question.",
+  "yes": "Yes",
+  "no": "No",
+  "consent_title": "Consent",
+  "followup_hint": "Optional additional information – it helps with the medical assessment.",
+  "ess_question": "How likely are you to doze off in this situation?",
+  "ess_sum": "Current total",
+  "ess_opt_0": "0 – Would never doze off",
+  "ess_opt_1": "1 – Slight chance",
+  "ess_opt_2": "2 – Moderate chance",
+  "ess_opt_3": "3 – High chance",
+  "privacy_button": "Show privacy notice",
+  "privacy_title": "Privacy notice",
+  "privacy_subtitle": "Information on the processing of your data according to Art. 13 DSGVO (EU General Data Protection Regulation)",
+  "privacy_controller": "Controller: Dr. med. Björn Micka, Occupational Medicine · Emergency Medicine, Christoph-Dassler-Str. 22, 91074 Herzogenaurach",
+  "privacy_purpose": "Purpose of processing: The information you provide in this questionnaire (including health data) is used exclusively to prepare and carry out your traffic medicine (fitness-to-drive) examination.",
+  "privacy_legal": "Legal basis: Your consent (Art. 6 Abs. 1 lit. a, Art. 9 Abs. 2 lit. a DSGVO – GDPR). You may withdraw your consent at any time with effect for the future.",
+  "privacy_storage": "Storage: The result is added to your examination records and is subject to the medical retention periods. Online access via your personal link expires at the end of its validity; the data of this online questionnaire is then routinely deleted.",
+  "privacy_rights": "Your rights: You have the right to access, rectification, erasure and restriction of processing, as well as the right to lodge a complaint with the competent data protection supervisory authority.",
+  "privacy_secrecy": "All information is subject to medical confidentiality.",
+  "success_title": "Thank you!",
+  "success_text": "Your questionnaire has been submitted successfully.",
+  "success_result": "ESS result",
+  "success_doctor_note": "Please discuss the result with your doctor. The final assessment is made by a medical specialist.",
+  "success_pdf": "Download PDF summary",
+  "success_close": "You can now close this window.",
+  "band_normal": "Normal (0–9)",
+  "band_elevated": "Elevated (10–15)",
+  "band_severe": "Severe (≥16)",
+  "submit_error": "Error while submitting. Please check your entries."
+ },
+ "sections": {
+  "anlass": {
+   "title": "Reason & Driving Profile",
+   "subtitle": "Details about the examination and your driving"
+  },
+  "gesundheit": {
+   "title": "State of Health",
+   "subtitle": "One question first"
+  },
+  "anfaelle": {
+   "title": "Seizures & Loss of Consciousness",
+   "subtitle": "Risk of sudden incapacity – epileptic seizures and fainting"
+  },
+  "sehen_hoeren": {
+   "title": "Vision & Hearing",
+   "subtitle": "Visual and hearing function"
+  },
+  "herz": {
+   "title": "Heart & Circulation",
+   "subtitle": "Heart and vascular diseases"
+  },
+  "gehirn": {
+   "title": "Stroke & Brain",
+   "subtitle": "Circulatory disorders, injuries and operations of the brain"
+  },
+  "neuro": {
+   "title": "Nervous System",
+   "subtitle": "Neurological diseases"
+  },
+  "schwindel": {
+   "title": "Balance & Dizziness",
+   "subtitle": "Types of dizziness and balance disorders"
+  },
+  "bewegung": {
+   "title": "Musculoskeletal System",
+   "subtitle": "Physical limitations and aids"
+  },
+  "diabetes": {
+   "title": "Diabetes / Metabolism",
+   "subtitle": "Diabetes and low blood sugar episodes"
+  },
+  "organe": {
+   "title": "Internal Organs",
+   "subtitle": "Kidneys, lungs and transplants"
+  },
+  "schlaf": {
+   "title": "Sleep & Daytime Sleepiness",
+   "subtitle": "Including the Epworth Sleepiness Scale (ESS)"
+  },
+  "psyche": {
+   "title": "Mental Health",
+   "subtitle": "Mental illnesses and memory"
+  },
+  "substanzen": {
+   "title": "Alcohol, Drugs & Medication",
+   "subtitle": "Consumption and long-term medication"
+  },
+  "allgemein": {
+   "title": "General & Consent",
+   "subtitle": "Further information and declarations"
+  }
+ },
+ "questions": {
+  "exam_occasion": {
+   "label": "For which driving licence is the examination taking place?",
+   "options": {
+    "pkw": "Car / other category",
+    "lkw": "Truck (C, C1, CE, C1E)",
+    "bus": "Bus (D, D1, DE, D1E)",
+    "fahrgast": "Passenger transport (taxi, chauffeured hire car, patient transport)"
+   }
+  },
+  "exam_kind": {
+   "label": "Is this a first issue or a renewal?",
+   "options": {
+    "erst": "First issue",
+    "verlaengerung": "Renewal"
+   }
+  },
+  "license_classes": {
+   "label": "Which driving licence categories do you hold or are you applying for?",
+   "options": {
+    "AM": "AM",
+    "A1": "A1",
+    "A2": "A2",
+    "A": "A",
+    "B": "B",
+    "BE": "BE",
+    "C1": "C1",
+    "C1E": "C1E",
+    "C": "C",
+    "CE": "CE",
+    "D1": "D1",
+    "D": "D",
+    "DE": "DE",
+    "T": "T"
+   }
+  },
+  "license_years": {
+   "label": "For how many years have you held a driving licence?",
+   "options": {
+    "erstantrag": "None yet (first application)",
+    "unter3": "Less than 3 years",
+    "3bis10": "3 to 10 years",
+    "ueber10": "More than 10 years"
+   }
+  },
+  "driving_hours": {
+   "label": "On average, how many hours do you drive per day?",
+   "options": {
+    "<1": "Less than 1 hour",
+    "1-2": "1 to 2 hours",
+    "2-4": "2 to 4 hours",
+    ">4": "More than 4 hours"
+   }
+  },
+  "night_driving": {
+   "label": "Do you regularly drive at night?"
+  },
+  "accidents": {
+   "label": "Have you had any accidents or near-accidents in road traffic in the last 24 months?",
+   "followup": "What happened?"
+  },
+  "license_withdrawn": {
+   "label": "Has your driving licence ever been withdrawn, or have you ever had to take part in a medical-psychological assessment (MPU)?",
+   "followup": "When and for what reason?"
+  },
+  "psych_test_done": {
+   "label": "Have you already completed a psychological performance test (reaction, concentration and attention test) for this driving licence?",
+   "hint": "For bus categories and passenger transport, this proof is required under Anlage 5 FeV (Annex 5 of the German Driving Licence Regulation). Please bring any existing report to the examination.",
+   "followup": "When and where was the test carried out?"
+  },
+  "has_conditions": {
+   "label": "Do you have a known pre-existing medical condition, a permanent physical impairment, or are you receiving regular medical treatment?",
+   "hint": "This also includes serious illnesses further back in the past (e.g. heart, diabetes, nerves, mental health). If no, the questionnaire becomes considerably shorter."
+  },
+  "seizure_ever": {
+   "label": "Have you ever had an epileptic seizure or convulsion?",
+   "followup": "When was the last seizure, how many have you had in total, and was there a trigger (e.g. lack of sleep, fever, alcohol)?"
+  },
+  "epilepsy": {
+   "label": "Have you been diagnosed with epilepsy?",
+   "followup": "Do the seizures occur exclusively during sleep? Are you under regular neurological care?"
+  },
+  "seizure_free": {
+   "label": "How long have you now been free of seizures?",
+   "hint": "The guidelines link fitness to drive to specific seizure-free periods.",
+   "options": {
+    "unter3m": "Less than 3 months",
+    "3bis6m": "3 to 6 months",
+    "6bis12m": "6 to 12 months",
+    "1bis2j": "1 to 2 years",
+    "2bis5j": "2 to 5 years",
+    "ueber5j": "More than 5 years"
+   }
+  },
+  "antiepileptics": {
+   "label": "Do you take medication against seizures (antiepileptic drugs)?",
+   "options": {
+    "nie": "No, never taken",
+    "aktuell": "Yes, currently",
+    "reduktion": "The treatment is currently being reduced step by step",
+    "ende_unter3m": "Stopped less than 3 months ago",
+    "ende_ueber3m": "Stopped more than 3 months ago"
+   }
+  },
+  "syncope": {
+   "label": "Have you ever suddenly fainted (brief loss of consciousness)?",
+   "options": {
+    "nie": "Never",
+    "einmal": "Once",
+    "mehrmals": "Several times"
+   }
+  },
+  "syncope_recent": {
+   "label": "Was your last fainting episode less than 6 months ago?",
+   "followup": "In what situation did the fainting occur, and was a cause found (e.g. circulation, heart rhythm, while urinating)?"
+  },
+  "syncope_prodromi": {
+   "label": "Do you get warning signs before fainting (e.g. sweating, dizziness, nausea, palpitations)?"
+  },
+  "glasses": {
+   "label": "Do you wear glasses or contact lenses when driving?"
+  },
+  "eye_disease": {
+   "label": "Do you have a known eye disease (e.g. cataract, glaucoma, retinal disease, restricted visual field)?",
+   "followup": "Which disease, and are you under the care of an eye specialist?"
+  },
+  "one_eyed": {
+   "label": "Do you see clearly worse with one eye, or are you blind in one eye?"
+  },
+  "night_vision": {
+   "label": "Do you have problems seeing at dusk or in the dark, or are you strongly dazzled by oncoming traffic?",
+   "followup": "In which situations do the problems occur?"
+  },
+  "hearing_impaired": {
+   "label": "Do you have severe hearing loss, or are you deaf?",
+   "followup": "Since when, and are you under the care of an ear, nose and throat (ENT) doctor?"
+  },
+  "hearing_aid": {
+   "label": "Do you wear a hearing aid or cochlear implant?"
+  },
+  "heart_disease": {
+   "label": "Do you have a known heart or vascular disease?",
+   "hint": "e.g. rhythm disorders, heart attack, heart failure, valve defects, circulatory disorders",
+   "followup": "Which disease(s), since when, and how are they treated?"
+  },
+  "cardio_checkup": {
+   "label": "Are you having regular check-ups with a cardiologist because of this?",
+   "followup": "When was the last check-up?"
+  },
+  "heart_attack": {
+   "label": "Have you ever had a heart attack, a stent procedure or bypass surgery?",
+   "followup": "When was the event or procedure, and were there complications (e.g. reduced pumping function)?"
+  },
+  "arrhythmia": {
+   "label": "Do you have known heart rhythm disorders (e.g. skipped heartbeats, racing heart, noticeably slow pulse, atrial fibrillation, AV block)?",
+   "followup": "What diagnosis, and how is it treated?"
+  },
+  "pacemaker_icd": {
+   "label": "Do you have a pacemaker or defibrillator (ICD)?",
+   "options": {
+    "nein": "No",
+    "schrittmacher": "Pacemaker",
+    "icd": "Defibrillator (ICD)"
+   },
+   "followup": "When was it implanted, and when was the last check-up?"
+  },
+  "icd_shock": {
+   "label": "Has your defibrillator delivered a shock in the last 3 months?",
+   "followup": "When, and what did your cardiologist say about it?"
+  },
+  "exertion_symptoms": {
+   "label": "During exertion, do you get shortness of breath, chest pain, skipped heartbeats or unusual exhaustion?",
+   "hint": "Self-assessment according to the NYHA stages",
+   "options": {
+    "keine": "No, no symptoms during everyday exertion",
+    "stark": "During heavier exertion (e.g. climbing stairs briskly)",
+    "leicht": "Even during light exertion (e.g. walking slowly)",
+    "ruhe": "Even at rest"
+   }
+  },
+  "hypertension": {
+   "label": "Do you have known high blood pressure?",
+   "followup": "Since when, which medication, and what readings do you usually measure?"
+  },
+  "bp_dizziness": {
+   "label": "While taking your blood pressure medication, do you experience dizziness, feelings of weakness or your vision going black?"
+  },
+  "heart_other": {
+   "label": "Do you have another known heart or vascular disease: heart valve defect, congenital heart defect, heart muscle disease (cardiomyopathy), inherited rhythm disorder (e.g. long QT), aortic aneurysm or narrowed carotid artery?",
+   "followup": "What diagnosis, and how is it monitored/treated?"
+  },
+  "family_sudden_death": {
+   "label": "Has there been a sudden cardiac death in your immediate family (parents, siblings, children)?"
+  },
+  "stroke": {
+   "label": "Have you ever had a stroke, a brain haemorrhage or a TIA (temporary circulatory disturbance with short-lasting deficits)?",
+   "followup": "When was the event, and was rehabilitation completed?"
+  },
+  "stroke_residuals": {
+   "label": "Do you still have after-effects such as paralysis, speech disorders, memory problems or a restricted field of vision?",
+   "followup": "Which symptoms do you still have at present?"
+  },
+  "head_injury": {
+   "label": "Have you ever had a severe head injury (with loss of consciousness or a hospital stay) or an operation on the brain?",
+   "followup": "When, and what was treated?"
+  },
+  "head_injury_recent": {
+   "label": "Was this injury or operation less than 3 months ago?",
+   "hint": "According to the guideline, after a brain injury or brain operation there is generally no fitness to drive for 3 months."
+  },
+  "brain_residuals": {
+   "label": "Since the injury/operation, do you have complaints such as concentration or memory problems, personality change or seizures?",
+   "followup": "Which complaints, and how do they affect you?"
+  },
+  "parkinson": {
+   "label": "Have you been diagnosed with Parkinson's disease or another movement or coordination disorder?",
+   "followup": "Since when, how is it treated, and when was the last neurological check-up?"
+  },
+  "ms_spinal": {
+   "label": "Do you have known multiple sclerosis, a spinal cord disease or a spinal cord injury?",
+   "followup": "What diagnosis, and what complaints do you currently have?"
+  },
+  "muscle_nerve": {
+   "label": "Do you have a known muscle or nerve disease (e.g. muscle wasting, myasthenia, polyneuropathy)?",
+   "followup": "What diagnosis, and how severely are you limited?"
+  },
+  "paralysis_attacks": {
+   "label": "Do you experience attack-like paralysis or sudden severe muscle weakness?",
+   "followup": "When did the last attack occur, and how quickly does it set in?"
+  },
+  "motor_limits": {
+   "label": "Do you have paralysis, muscle weakness or sensory disturbances in your arms or legs that could limit you when operating a vehicle?",
+   "followup": "Which parts of the body are affected?"
+  },
+  "vertigo": {
+   "label": "Do you suffer from dizziness or balance disorders (e.g. spinning sensation, swaying, unsteadiness when walking)?",
+   "followup": "What does the dizziness feel like, how often does it occur, how long does an attack last, and what triggers it?"
+  },
+  "vertigo_last": {
+   "label": "How long ago was your last dizziness attack?",
+   "options": {
+    "unter3m": "Less than 3 months",
+    "3bis6m": "3 to 6 months",
+    "6bis12m": "6 to 12 months",
+    "1bis2j": "1 to 2 years",
+    "ueber2j": "More than 2 years"
+   }
+  },
+  "vertigo_prodromi": {
+   "label": "Do your dizziness attacks announce themselves in advance (e.g. ear pressure, ear noises, reduced hearing), so that you could stop in time?",
+   "options": {
+    "immer": "Yes, always",
+    "manchmal": "Sometimes",
+    "nie": "No, they come without warning"
+   }
+  },
+  "vertigo_positional": {
+   "label": "Is the dizziness triggered by certain head movements or changes of position (e.g. turning over in bed, bending down)?"
+  },
+  "vertigo_ear": {
+   "label": "Does the dizziness occur together with reduced hearing, ear noises (tinnitus) or a feeling of pressure in the ear?"
+  },
+  "ear_disease": {
+   "label": "Have you been diagnosed with a disease of the balance organ or inner ear (e.g. positional vertigo, Ménière's disease)?",
+   "followup": "What diagnosis, how was it treated, and have you been free of symptoms since then?"
+  },
+  "mobility_limits": {
+   "label": "Do you have a permanent restriction of the mobility of your arms, legs, hands or spine (e.g. after an accident, operation, amputation)?",
+   "followup": "Which parts of the body are affected, and since when?"
+  },
+  "prosthesis": {
+   "label": "Do you wear a prosthesis or use orthopaedic aids?",
+   "followup": "Which aids, and do you have complaints during longer strain?"
+  },
+  "vehicle_modified": {
+   "label": "Has your vehicle been modified because of a physical limitation (e.g. hand controls, steering aid)?",
+   "followup": "Which modifications, and are they entered in your driving licence?"
+  },
+  "diabetes_type": {
+   "label": "Do you have known diabetes mellitus (high blood sugar disease)?",
+   "options": {
+    "none": "No",
+    "type1": "Yes, type 1",
+    "type2": "Yes, type 2",
+    "other": "Yes, other/unclear type"
+   }
+  },
+  "diabetes_therapy": {
+   "label": "How is your diabetes currently treated?",
+   "options": {
+    "lifestyle": "Diet / lifestyle only",
+    "tabl_low": "Tablets with a low risk of hypoglycaemia (low blood sugar) (e.g. metformin)",
+    "tabl_high": "Tablets with a risk of hypoglycaemia (sulfonylureas, glinides)",
+    "insulin": "Insulin",
+    "unknown": "I don't know exactly"
+   }
+  },
+  "hypoglycemia": {
+   "label": "In the last 12 months, have you had a severe hypoglycaemia (low blood sugar) in which you needed help from another person?",
+   "followup": "How often, when was the last episode, and did it occur while awake or during sleep?"
+  },
+  "hypo_awareness": {
+   "label": "Has it happened that you did not notice a low blood sugar in time yourself (missing warning signs)?",
+   "followup": "When was the last time, and was anything done about it (e.g. training, change of therapy)?"
+  },
+  "glucose_monitoring": {
+   "label": "Do you regularly measure your blood sugar yourself (or do you wear a glucose sensor)?",
+   "options": {
+    "2x": "Yes, at least twice a day",
+    "seltener": "Yes, but less often",
+    "nein": "No",
+    "keine_med": "Does not apply to me (no blood-sugar-lowering medication)"
+   }
+  },
+  "diabetes_derailment": {
+   "label": "In the last few months, has your therapy been newly adjusted, or has your metabolism gone off track (e.g. hospital treatment because of derailed blood sugar values)?",
+   "followup": "What happened, and when?"
+  },
+  "kidney_disease": {
+   "label": "Do you have a known chronic kidney disease or reduced kidney function?",
+   "followup": "Which disease, and are you being treated by a kidney specialist (nephrologist)?"
+  },
+  "dialysis": {
+   "label": "Are you regularly treated with dialysis (blood washing)?",
+   "followup": "Since when, and how often per week? Do you feel fit between the treatments?"
+  },
+  "transplant": {
+   "label": "Have you had an organ transplant (e.g. kidney, heart, liver, lung)?",
+   "followup": "Which organ, when, and are you in regular follow-up care?"
+  },
+  "lung_disease": {
+   "label": "Do you suffer from a chronic lung or bronchial disease (e.g. COPD, asthma, pulmonary fibrosis)?",
+   "followup": "Which disease, and how is it treated?"
+  },
+  "dyspnea": {
+   "label": "Do you have shortness of breath even during light exertion or at rest, or do you need long-term oxygen therapy?"
+  },
+  "cough_syncope": {
+   "label": "During severe coughing fits, have you ever experienced dizziness, your vision going black or brief loss of consciousness?"
+  },
+  "daytime_sleepiness": {
+   "label": "Do you find it hard to stay awake and attentive during the day – especially in monotonous situations (e.g. reading, meetings, longer car journeys)?"
+  },
+  "microsleep": {
+   "label": "In the last few months, have you fallen asleep unintentionally or had episodes of microsleep (nodding off for seconds)?",
+   "followup": "In which situations? Has it also happened at the wheel?"
+  },
+  "snoring": {
+   "label": "Have you been told that you snore loudly and irregularly or have pauses in breathing at night?"
+  },
+  "osas": {
+   "label": "Have you been diagnosed with a sleep apnoea syndrome (pauses in breathing during the night)?",
+   "followup": "When was the diagnosis made, and what severity or AHI value was found (if known)?"
+  },
+  "cpap": {
+   "label": "Are you being treated for the sleep apnoea (e.g. CPAP breathing mask)?",
+   "options": {
+    "regelmaessig": "Yes, regularly (almost every night)",
+    "unregelmaessig": "Yes, but irregularly",
+    "abgebrochen": "Treatment was discontinued",
+    "keine": "No, no treatment"
+   }
+  },
+  "psychiatric": {
+   "label": "Have you been diagnosed with a mental illness (e.g. depression, anxiety disorder, bipolar disorder)?",
+   "followup": "Which illness, and how is it treated?"
+  },
+  "psychiatric_severe": {
+   "label": "Have you ever been treated in hospital for this, had a manic phase or thoughts of taking your own life?",
+   "followup": "When was the last time?"
+  },
+  "psychosis": {
+   "label": "Have you ever been diagnosed with schizophrenia or another psychosis (an illness with delusions or hallucinations)?",
+   "followup": "How many acute episodes have you had, when was the last one, and are you under specialist care?"
+  },
+  "memory_problems": {
+   "label": "Have you yourself or your relatives recently noticed increasing memory or orientation problems in you?",
+   "followup": "Since when, and how do they affect everyday life?"
+  },
+  "concentration": {
+   "label": "Do you have concentration or attention problems?"
+  },
+  "alcohol": {
+   "label": "How often do you drink alcohol?",
+   "options": {
+    "nie": "Never",
+    "selten": "Rarely (at most once a month)",
+    "woechentlich": "1 to 2 times a week",
+    "mehrmals": "Several times a week",
+    "taeglich": "Daily or almost daily"
+   }
+  },
+  "alcohol_control": {
+   "label": "Has it happened that you drank more than intended or lost control over your consumption?"
+  },
+  "alcohol_traffic": {
+   "label": "Have you ever come to attention in road traffic under the influence of alcohol (e.g. drink-driving, fine, MPU)?",
+   "followup": "When, and what blood alcohol level was found (if known)?"
+  },
+  "alcohol_dependence": {
+   "label": "Have you ever been diagnosed with alcohol dependence, or have you undergone detoxification or withdrawal treatment?",
+   "followup": "When was the treatment completed, and since when have you been abstinent?"
+  },
+  "drugs": {
+   "label": "Do you currently take drugs (e.g. cannabis, cocaine, amphetamines), or did you regularly use drugs in the past?",
+   "followup": "Which substances, how often, and when was the last time?"
+  },
+  "cannabis": {
+   "label": "How often do you use cannabis?",
+   "options": {
+    "nie": "Never",
+    "gelegentlich": "Occasionally (not regularly)",
+    "regelmaessig": "Regularly (daily or habitually)"
+   }
+  },
+  "substitution": {
+   "label": "Are you receiving substitution treatment (e.g. methadone)?",
+   "followup": "Since when?"
+  },
+  "regular_meds": {
+   "label": "Do you take medication regularly?",
+   "followup": "Which medication, and for what?"
+  },
+  "sedating_meds": {
+   "label": "Do these include medications that can make you tired or affect your ability to react (e.g. strong painkillers/opioids, sleeping pills or sedatives, antidepressants, antiepileptic drugs, allergy medication)?",
+   "followup": "Which medications, at what dose?"
+  },
+  "med_side_effects": {
+   "label": "Do you notice side effects from your medication such as tiredness, slowing down, concentration problems or dizziness?",
+   "followup": "Which side effects, and how severe?"
+  },
+  "med_recent_change": {
+   "label": "In the last few weeks, has such a medication been newly started, or has the dose been changed significantly?",
+   "followup": "Which medication, and when?"
+  },
+  "benzo_regular": {
+   "label": "Have you been regularly taking sleeping pills or sedatives (e.g. benzodiazepines) for several months – even only in the evening in small amounts?",
+   "followup": "Which medication, for how long, and do you notice withdrawal symptoms when you leave it out?"
+  },
+  "multiple_conditions": {
+   "label": "Do you have several diseases or health impairments at the same time?",
+   "hint": "Several findings can, taken together, be relevant for fitness to drive, even if each one alone would be harmless (guidelines, chapter 2.7).",
+   "followup": "Please briefly list all known diseases."
+  },
+  "other_conditions": {
+   "label": "Are there any other diseases, complaints or previous operations that have not been mentioned so far?",
+   "followup": "Which ones?"
+  },
+  "driving_adaptation": {
+   "label": "Because of health limitations, do you deliberately avoid certain journeys (e.g. in the dark, long distances, motorway)?",
+   "followup": "Which journeys, and why?"
+  },
+  "consent_truth": {
+   "label": "I confirm that my answers are complete and truthful.",
+   "error": "Please confirm that your information is complete."
+  },
+  "consent_privacy": {
+   "label": "I have read the privacy notice and consent to the processing of my data for traffic medicine purposes.",
+   "error": "Please accept the privacy notice."
+  }
+ },
+ "ess_items": {
+  "ess_1": "Sitting and reading",
+  "ess_2": "Watching TV",
+  "ess_3": "Sitting inactive in a public place (e.g. a theatre or a meeting)",
+  "ess_4": "As a passenger in a car for an hour without a break",
+  "ess_5": "Lying down to rest in the afternoon",
+  "ess_6": "Sitting and talking to someone",
+  "ess_7": "Sitting quietly after lunch (without alcohol)",
+  "ess_8": "In a car, as the driver, while stopped for a few minutes in traffic"
+ }
+}

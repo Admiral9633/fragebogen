@@ -54,6 +54,10 @@
    "title": "Arsyeja dhe profili i drejtimit",
    "subtitle": "Të dhëna për ekzaminimin dhe veprimtarinë tuaj si shofer"
   },
+  "gesundheit": {
+   "title": "Gjendja shëndetësore",
+   "subtitle": "Një pyetje paraprake"
+  },
   "anfaelle": {
    "title": "Krizat dhe humbja e vetëdijes",
    "subtitle": "Rreziku i një humbjeje të papritur të kontrollit – kriza epileptike dhe të fikëte"
@@ -176,6 +180,10 @@
    "label": "A keni kryer tashmë për këtë leje drejtimi një test psikologjik të performancës (test i reagimit, i përqendrimit dhe i vëmendjes)?",
    "hint": "Për kategoritë e autobusëve dhe transportin e pasagjerëve kjo dëshmi kërkohet sipas Shtojcës 5 të FeV (rregullorja gjermane e lejeve të drejtimit). Ju lutemi sillni me vete në ekzaminim një raport ekzistues.",
    "followup": "Kur dhe ku u krye testi?"
+  },
+  "has_conditions": {
+   "label": "A keni ndonjë sëmundje të njohur të mëparshme, një kufizim të përhershëm fizik, ose jeni në trajtim të rregullt mjekësor?",
+   "hint": "Këtu përfshihen edhe sëmundjet e rënda të së kaluarës më të largët (p.sh. zemra, diabeti, nervat, psikika). Nëse jo, pyetësori shkurtohet ndjeshëm."
   },
   "seizure_ever": {
    "label": "A keni pasur ndonjëherë një krizë epileptike ose krizë konvulsive?",

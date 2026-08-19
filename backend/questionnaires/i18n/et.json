@@ -1,0 +1,585 @@
+{
+ "_meta": {
+  "language": "et",
+  "name": "Eesti",
+  "machine_translated": true
+ },
+ "ui": {
+  "header_title": "Liiklusmeditsiiniline küsimustik",
+  "header_subtitle": "Palun vastake kõikidele küsimustele",
+  "language_label": "Keel",
+  "loading": "Küsimustikku laaditakse …",
+  "not_found_title": "Küsimustikku ei leitud",
+  "to_start": "Avalehele",
+  "back": "Tagasi",
+  "next": "Edasi",
+  "skip": "Jäta vahele",
+  "submit": "Saada ära",
+  "sending": "Saadan…",
+  "question_of": "Küsimus {current} / {total}",
+  "answer_placeholder": "Teie vastus…",
+  "required_error": "Palun vastake sellele küsimusele.",
+  "yes": "Jah",
+  "no": "Ei",
+  "consent_title": "Nõusolek",
+  "followup_hint": "Vabatahtlik lisateave – aitab arstlikul hindamisel.",
+  "ess_question": "Kui tõenäoline on, et te selles olukorras tukkuma jääksite?",
+  "ess_sum": "Senine summa",
+  "ess_opt_0": "0 – Ei jääks kunagi tukkuma",
+  "ess_opt_1": "1 – Väike tõenäosus",
+  "ess_opt_2": "2 – Keskmine tõenäosus",
+  "ess_opt_3": "3 – Suur tõenäosus",
+  "privacy_button": "Näita andmekaitseteavet",
+  "privacy_title": "Andmekaitseteave",
+  "privacy_subtitle": "Teave teie andmete töötlemise kohta vastavalt DSGVO (isikuandmete kaitse üldmäärus) art 13",
+  "privacy_controller": "Vastutav töötleja: Dr. med. Björn Micka, Betriebsmedizin · Notfallmedizin, Christoph-Dassler-Str. 22, 91074 Herzogenaurach",
+  "privacy_purpose": "Töötlemise eesmärk: teie andmeid selles küsimustikus (sealhulgas terviseandmeid) kasutatakse ainult teie liiklusmeditsiinilise läbivaatuse ettevalmistamiseks ja läbiviimiseks.",
+  "privacy_legal": "Õiguslik alus: teie nõusolek (DSGVO art 6 lg 1 punkt a, art 9 lg 2 punkt a). Te võite nõusoleku igal ajal tagasi võtta, mõjuga tulevikku.",
+  "privacy_storage": "Säilitamine: tulemus kantakse teie läbivaatuse dokumentidesse ja sellele kehtivad arstlikud säilitamistähtajad. Veebijuurdepääs teie isikliku lingi kaudu lõpeb pärast kehtivusaja möödumist; selle veebiküsimustiku andmed kustutatakse seejärel tavapärases korras.",
+  "privacy_rights": "Teie õigused: teil on õigus saada teavet, nõuda andmete parandamist, kustutamist ja töötlemise piiramist ning esitada kaebus pädevale andmekaitse järelevalveasutusele.",
+  "privacy_secrecy": "Kõikidele andmetele kehtib arsti kutsesaladuse hoidmise kohustus.",
+  "success_title": "Suur tänu!",
+  "success_text": "Teie küsimustik on edukalt edastatud.",
+  "success_result": "ESS-i tulemus",
+  "success_doctor_note": "Palun arutage tulemust oma arstiga. Lõpliku hinnangu annab eriarst.",
+  "success_pdf": "Laadi alla PDF-kokkuvõte",
+  "success_close": "Te võite selle akna nüüd sulgeda.",
+  "band_normal": "Normaalne (0–9)",
+  "band_elevated": "Kõrgenenud (10–15)",
+  "band_severe": "Väljendunud (≥16)",
+  "submit_error": "Saatmisel tekkis viga. Palun kontrollige oma andmeid."
+ },
+ "sections": {
+  "anlass": {
+   "title": "Põhjus ja sõiduprofiil",
+   "subtitle": "Andmed läbivaatuse ja teie sõidutegevuse kohta"
+  },
+  "gesundheit": {
+   "title": "Terviseseisund",
+   "subtitle": "Üks küsimus enne"
+  },
+  "anfaelle": {
+   "title": "Hoogude teke ja teadvusekaotus",
+   "subtitle": "Äkilise väljalangemise risk – epilepsiahood ja minestused"
+  },
+  "sehen_hoeren": {
+   "title": "Nägemine ja kuulmine",
+   "subtitle": "Nägemis- ja kuulmisfunktsioon"
+  },
+  "herz": {
+   "title": "Süda ja vereringe",
+   "subtitle": "Südame- ja veresoonkonnahaigused"
+  },
+  "gehirn": {
+   "title": "Insult ja aju",
+   "subtitle": "Aju verevarustuse häired, vigastused ja operatsioonid"
+  },
+  "neuro": {
+   "title": "Närvisüsteem",
+   "subtitle": "Neuroloogilised haigused"
+  },
+  "schwindel": {
+   "title": "Tasakaal ja pearinglus",
+   "subtitle": "Pearingluse vormid ja tasakaaluhäired"
+  },
+  "bewegung": {
+   "title": "Liikumisaparaat",
+   "subtitle": "Kehalised piirangud ja abivahendid"
+  },
+  "diabetes": {
+   "title": "Diabeet / ainevahetus",
+   "subtitle": "Suhkurtõbi ja veresuhkru langused"
+  },
+  "organe": {
+   "title": "Siseelundid",
+   "subtitle": "Neerud, kopsud ja siirdamised"
+  },
+  "schlaf": {
+   "title": "Uni ja päevane unisus",
+   "subtitle": "Sh Epworthi unisuse skaala (ESS)"
+  },
+  "psyche": {
+   "title": "Vaimne tervis",
+   "subtitle": "Psüühikahäired ja mälu"
+  },
+  "substanzen": {
+   "title": "Alkohol, narkootikumid ja ravimid",
+   "subtitle": "Tarvitamine ja püsiravimid"
+  },
+  "allgemein": {
+   "title": "Üldine ja nõusolek",
+   "subtitle": "Täiendavad andmed ja kinnitused"
+  }
+ },
+ "questions": {
+  "exam_occasion": {
+   "label": "Millise juhtimisõiguse jaoks läbivaatus toimub?",
+   "options": {
+    "pkw": "Sõiduauto / muu kategooria",
+    "lkw": "Veoauto (C, C1, CE, C1E)",
+    "bus": "Buss (D, D1, DE, D1E)",
+    "fahrgast": "Reisijatevedu (takso, renditud sõiduk koos juhiga, haigete vedu)"
+   }
+  },
+  "exam_kind": {
+   "label": "Kas tegemist on esmase väljastamise või pikendamisega?",
+   "options": {
+    "erst": "Esmane väljastamine",
+    "verlaengerung": "Pikendamine"
+   }
+  },
+  "license_classes": {
+   "label": "Millised juhiloakategooriad on teil olemas või milliseid taotlete?",
+   "options": {
+    "AM": "AM",
+    "A1": "A1",
+    "A2": "A2",
+    "A": "A",
+    "B": "B",
+    "BE": "BE",
+    "C1": "C1",
+    "C1E": "C1E",
+    "C": "C",
+    "CE": "CE",
+    "D1": "D1",
+    "D": "D",
+    "DE": "DE",
+    "T": "T"
+   }
+  },
+  "license_years": {
+   "label": "Mitu aastat on teil juhtimisõigus olnud?",
+   "options": {
+    "erstantrag": "Veel ei ole (esmataotlus)",
+    "unter3": "Vähem kui 3 aastat",
+    "3bis10": "3 kuni 10 aastat",
+    "ueber10": "Rohkem kui 10 aastat"
+   }
+  },
+  "driving_hours": {
+   "label": "Mitu tundi te keskmiselt päevas sõidate?",
+   "options": {
+    "<1": "Vähem kui 1 tund",
+    "1-2": "1 kuni 2 tundi",
+    "2-4": "2 kuni 4 tundi",
+    ">4": "Rohkem kui 4 tundi"
+   }
+  },
+  "night_driving": {
+   "label": "Kas te sõidate regulaarselt öösel?"
+  },
+  "accidents": {
+   "label": "Kas teil on viimase 24 kuu jooksul olnud liikluses õnnetusi või peaaegu-õnnetusi?",
+   "followup": "Mis juhtus?"
+  },
+  "license_withdrawn": {
+   "label": "Kas teilt on kunagi juhtimisõigus ära võetud või olete pidanud osalema meditsiinilis-psühholoogilises uuringus (MPU)?",
+   "followup": "Millal ja mis põhjusel?"
+  },
+  "psych_test_done": {
+   "label": "Kas te olete selle juhtimisõiguse jaoks juba läbinud psühholoogilise sooritustesti (reaktsiooni-, keskendumis- ja tähelepanutesti)?",
+   "hint": "Bussikategooriate ja reisijateveo puhul on see tõend nõutav juhilubade määruse (FeV) lisa 5 järgi. Palun võtke olemasolev ekspertarvamus läbivaatusele kaasa.",
+   "followup": "Millal ja kus test tehti?"
+  },
+  "has_conditions": {
+   "label": "Kas teil on teadaolev varasem haigus, püsiv füüsiline piirang, või olete regulaarsel arstlikul ravil?",
+   "hint": "Siia kuuluvad ka ammu põetud rasked haigused (nt süda, diabeet, närvid, psüühika). Kui ei, lüheneb küsimustik märgatavalt."
+  },
+  "seizure_ever": {
+   "label": "Kas teil on kunagi olnud epilepsiahoog või krambihoog?",
+   "followup": "Millal oli viimane hoog, mitu neid on kokku olnud ja kas oli mõni vallandaja (nt unepuudus, palavik, alkohol)?"
+  },
+  "epilepsy": {
+   "label": "Kas teil on diagnoositud epilepsia?",
+   "followup": "Kas hood tekivad ainult une ajal? Kas te käite regulaarselt neuroloogilisel ravil?"
+  },
+  "seizure_free": {
+   "label": "Kui kaua olete praeguseks olnud hoovaba?",
+   "hint": "Ravijuhendid seovad sõidukijuhtimiseks sobivuse kindlate hoovabade ajavahemikega.",
+   "options": {
+    "unter3m": "Vähem kui 3 kuud",
+    "3bis6m": "3 kuni 6 kuud",
+    "6bis12m": "6 kuni 12 kuud",
+    "1bis2j": "1 kuni 2 aastat",
+    "2bis5j": "2 kuni 5 aastat",
+    "ueber5j": "Rohkem kui 5 aastat"
+   }
+  },
+  "antiepileptics": {
+   "label": "Kas te võtate hoogude vastu ravimeid (epilepsiavastased ravimid)?",
+   "options": {
+    "nie": "Ei, ei ole kunagi võtnud",
+    "aktuell": "Jah, praegu",
+    "reduktion": "Ravi vähendatakse praegu järk-järgult",
+    "ende_unter3m": "Lõpetatud vähem kui 3 kuud tagasi",
+    "ende_ueber3m": "Lõpetatud rohkem kui 3 kuud tagasi"
+   }
+  },
+  "syncope": {
+   "label": "Kas te olete kunagi äkitselt minestanud (lühiajaline teadvusekaotus)?",
+   "options": {
+    "nie": "Mitte kunagi",
+    "einmal": "Üks kord",
+    "mehrmals": "Mitu korda"
+   }
+  },
+  "syncope_recent": {
+   "label": "Kas teie viimasest minestusest on möödunud vähem kui 6 kuud?",
+   "followup": "Millises olukorras minestus tekkis ja kas põhjus leiti (nt vereringe, südamerütm, urineerimise ajal)?"
+  },
+  "syncope_prodromi": {
+   "label": "Kas minestus annab teil endast eelnevalt märku (nt higistamine, pearinglus, iiveldus, südamekloppimine)?"
+  },
+  "glasses": {
+   "label": "Kas te kannate sõites prille või kontaktläätsi?"
+  },
+  "eye_disease": {
+   "label": "Kas teil on teadaolevalt mõni silmahaigus (nt kae, roheline kae/glaukoom, võrkkesta haigus, vaatevälja piiratus)?",
+   "followup": "Milline haigus ja kas te käite silmaarsti ravil?"
+  },
+  "one_eyed": {
+   "label": "Kas te näete ühe silmaga tunduvalt halvemini või olete ühest silmast pime?"
+  },
+  "night_vision": {
+   "label": "Kas teil on raskusi nägemisega hämaras või pimedas või pimestab vastutulev liiklus teid tugevalt?",
+   "followup": "Millistes olukordades probleemid tekivad?"
+  },
+  "hearing_impaired": {
+   "label": "Kas teil on raskekujuline kuulmislangus või olete kurt?",
+   "followup": "Mis ajast alates ja kas te käite kõrva-nina-kurguarsti ravil?"
+  },
+  "hearing_aid": {
+   "label": "Kas te kannate kuuldeaparaati või sisekõrvaimplantaati (kohleaarimplantaati)?"
+  },
+  "heart_disease": {
+   "label": "Kas teil on teadaolevalt mõni südame- või veresoonkonnahaigus?",
+   "hint": "nt rütmihäired, südameinfarkt, südamepuudulikkus, klapirikked, verevarustuse häired",
+   "followup": "Milline haigus või millised haigused, mis ajast alates ja kuidas neid ravitakse?"
+  },
+  "cardio_checkup": {
+   "label": "Kas te käite selle tõttu regulaarselt kardioloogi kontrollis?",
+   "followup": "Millal oli viimane kontroll?"
+  },
+  "heart_attack": {
+   "label": "Kas teil on kunagi olnud südameinfarkt, stendi paigaldamine või šunteerimisoperatsioon (bypass)?",
+   "followup": "Millal sündmus või protseduur toimus ja kas esines tüsistusi (nt vähenenud pumpamisvõime)?"
+  },
+  "arrhythmia": {
+   "label": "Kas teil on teadaolevalt südame rütmihäired (nt südame vahelelöögid, kiire südametegevus, silmatorkavalt aeglane pulss, kodade virvendus, AV-blokaad)?",
+   "followup": "Milline diagnoos ja kuidas seda ravitakse?"
+  },
+  "pacemaker_icd": {
+   "label": "Kas teil on südamestimulaator või defibrillaator (ICD)?",
+   "options": {
+    "nein": "Ei",
+    "schrittmacher": "Südamestimulaator",
+    "icd": "Defibrillaator (ICD)"
+   },
+   "followup": "Millal paigaldati ja millal oli viimane kontroll?"
+  },
+  "icd_shock": {
+   "label": "Kas teie defibrillaator on viimase 3 kuu jooksul andnud šoki?",
+   "followup": "Millal ja mida teie kardioloog selle kohta ütles?"
+  },
+  "exertion_symptoms": {
+   "label": "Kas teil tekib koormusel õhupuudus, valu rinnus, südame vahelelöögid või ebatavaline kurnatus?",
+   "hint": "Enesehinnang NYHA-astmete järgi",
+   "options": {
+    "keine": "Ei, igapäevase koormuse juures kaebusi ei ole",
+    "stark": "Suurema koormuse korral (nt kiire trepist üles minek)",
+    "leicht": "Juba kerge koormuse korral (nt aeglane kõndimine)",
+    "ruhe": "Juba rahuolekus"
+   }
+  },
+  "hypertension": {
+   "label": "Kas teil on teadaolevalt kõrge vererõhk?",
+   "followup": "Mis ajast alates, millised ravimid ja milliseid väärtusi te tavaliselt mõõdate?"
+  },
+  "bp_dizziness": {
+   "label": "Kas teie vererõhuravimite kasutamisel tekib pearinglus, nõrkustunne või silmade eest mustaks minemine?"
+  },
+  "heart_other": {
+   "label": "Kas teil on teadaolevalt mõni muu südame- või veresoonkonnahaigus: südameklapirike, kaasasündinud südamerike, südamelihase haigus (kardiomüopaatia), pärilik rütmihaigus (nt pika QT sündroom), aordi aneurüsm või ahenenud unearter?",
+   "followup": "Milline diagnoos ja kuidas seda kontrollitakse või ravitakse?"
+  },
+  "family_sudden_death": {
+   "label": "Kas teie lähimas peres (vanemad, õed-vennad, lapsed) on esinenud äkiline südamesurm?"
+  },
+  "stroke": {
+   "label": "Kas teil on kunagi olnud insult, ajuverejooks või TIA (mööduv verevarustuse häire lühiajaliste väljalangemisnähtudega)?",
+   "followup": "Millal sündmus toimus ja kas taastusravi on lõpetatud?"
+  },
+  "stroke_residuals": {
+   "label": "Kas sellest ajast on veel tagajärgi, nagu halvatused, kõnehäired, mäluprobleemid või vaatevälja piirangud?",
+   "followup": "Millised kaebused on praegu veel olemas?"
+  },
+  "head_injury": {
+   "label": "Kas teil on kunagi olnud raske peavigastus (teadvusekaotusega või haiglaravi vajanud) või ajuoperatsioon?",
+   "followup": "Millal ja mida raviti?"
+  },
+  "head_injury_recent": {
+   "label": "Kas sellest vigastusest või operatsioonist on möödunud vähem kui 3 kuud?",
+   "hint": "Pärast ajuvigastust või ajuoperatsiooni puudub ravijuhendi järgi üldjuhul 3 kuu jooksul sobivus sõidukit juhtida."
+  },
+  "brain_residuals": {
+   "label": "Kas pärast vigastust või operatsiooni on teil kaebusi, nagu keskendumis- või mäluhäired, iseloomu muutus või krambihood?",
+   "followup": "Millised kaebused ja kuidas need avalduvad?"
+  },
+  "parkinson": {
+   "label": "Kas teil on diagnoositud Parkinsoni tõbi või mõni muu liigutuste või koordinatsiooni häire?",
+   "followup": "Mis ajast alates, kuidas seda ravitakse ja millal oli viimane neuroloogiline kontroll?"
+  },
+  "ms_spinal": {
+   "label": "Kas teil on teadaolevalt hulgiskleroos (sclerosis multiplex), seljaajuhaigus või seljaaju vigastus?",
+   "followup": "Milline diagnoos ja millised kaebused teil praegu on?"
+  },
+  "muscle_nerve": {
+   "label": "Kas teil on teadaolevalt lihas- või närvihaigus (nt lihaskõhetus, myasthenia, polüneuropaatia)?",
+   "followup": "Milline diagnoos ja kui tugevalt olete piiratud?"
+  },
+  "paralysis_attacks": {
+   "label": "Kas teil esineb hoogudena halvatusi või äkilist tugevat lihasnõrkust?",
+   "followup": "Millal tekkis viimane hoog ja kui kiiresti see algab?"
+  },
+  "motor_limits": {
+   "label": "Kas teil on kätes või jalgades halvatusi, lihasnõrkust või tundlikkushäireid, mis võiksid teid sõiduki juhtimisel piirata?",
+   "followup": "Millised kehaosad on haaratud?"
+  },
+  "vertigo": {
+   "label": "Kas teil esineb pearinglust või tasakaaluhäireid (nt pöörlemistunne, kõikumine, ebakindlus kõndimisel)?",
+   "followup": "Milline pearinglus tundub olevat, kui sageli see tekib, kui kaua hoog kestab ja mis selle vallandab?"
+  },
+  "vertigo_last": {
+   "label": "Kui kaua on möödunud teie viimasest pearinglushoost?",
+   "options": {
+    "unter3m": "Vähem kui 3 kuud",
+    "3bis6m": "3 kuni 6 kuud",
+    "6bis12m": "6 kuni 12 kuud",
+    "1bis2j": "1 kuni 2 aastat",
+    "ueber2j": "Rohkem kui 2 aastat"
+   }
+  },
+  "vertigo_prodromi": {
+   "label": "Kas teie pearinglushood annavad endast eelnevalt märku (nt surve kõrvas, kõrvakohin, kuulmise langus), nii et te jõuaksite õigel ajal peatuda?",
+   "options": {
+    "immer": "Jah, alati",
+    "manchmal": "Mõnikord",
+    "nie": "Ei, need tulevad ilma hoiatuseta"
+   }
+  },
+  "vertigo_positional": {
+   "label": "Kas pearinglust vallandavad teatud pealiigutused või asendimuutused (nt voodis ümber pööramine, kummardumine)?"
+  },
+  "vertigo_ear": {
+   "label": "Kas pearinglus tekib koos kuulmise langusega, kõrvakohinaga (tinnitus) või survetundega kõrvas?"
+  },
+  "ear_disease": {
+   "label": "Kas teil on tuvastatud tasakaaluelundi või sisekõrva haigus (nt healoomuline asendipearinglus, Ménière'i tõbi)?",
+   "followup": "Milline diagnoos, kuidas seda raviti ja kas te olete sellest ajast kaebusteta?"
+  },
+  "mobility_limits": {
+   "label": "Kas teil on püsiv liikuvuse piiratus käsivartes, jalgades, kätes või lülisambas (nt pärast õnnetust, operatsiooni, amputatsiooni)?",
+   "followup": "Millised kehaosad on haaratud ja mis ajast alates?"
+  },
+  "prosthesis": {
+   "label": "Kas te kannate proteesi või kasutate ortopeedilisi abivahendeid?",
+   "followup": "Millised abivahendid ja kas teil on pikemal koormusel kaebusi?"
+  },
+  "vehicle_modified": {
+   "label": "Kas teie sõiduk on kehalise piirangu tõttu ümber ehitatud (nt käsijuhtimine, roolimisabi)?",
+   "followup": "Millised ümberehitused ja kas need on juhiloale kantud?"
+  },
+  "diabetes_type": {
+   "label": "Kas teil on teadaolevalt suhkurtõbi (diabetes mellitus)?",
+   "options": {
+    "none": "Ei",
+    "type1": "Jah, 1. tüüp",
+    "type2": "Jah, 2. tüüp",
+    "other": "Jah, muu või ebaselge vorm"
+   }
+  },
+  "diabetes_therapy": {
+   "label": "Kuidas teie diabeeti praegu ravitakse?",
+   "options": {
+    "lifestyle": "Ainult toitumine / eluviis",
+    "tabl_low": "Tabletid, millel on väike veresuhkru languse risk (nt metformiin)",
+    "tabl_high": "Tabletid, millel on veresuhkru languse risk (sulfonüüluurea preparaadid, gliniidid)",
+    "insulin": "Insuliin",
+    "unknown": "Ma ei tea täpselt"
+   }
+  },
+  "hypoglycemia": {
+   "label": "Kas teil on viimase 12 kuu jooksul olnud raske veresuhkru langus, mille puhul vajasite kõrvalist abi?",
+   "followup": "Kui sageli, millal oli viimane episood ja kas see tekkis ärkvel olles või une ajal?"
+  },
+  "hypo_awareness": {
+   "label": "Kas on juhtunud, et te ei märganud veresuhkru langust ise õigel ajal (hoiatusmärgid puudusid)?",
+   "followup": "Millal viimati ja kas midagi ette võeti (nt koolitus, ravi muutmine)?"
+  },
+  "glucose_monitoring": {
+   "label": "Kas te mõõdate ise regulaarselt oma veresuhkrut (või kannate glükoosisensorit)?",
+   "options": {
+    "2x": "Jah, vähemalt kaks korda päevas",
+    "seltener": "Jah, kuid harvemini",
+    "nein": "Ei",
+    "keine_med": "See ei puuduta mind (ei kasuta veresuhkrut langetavaid ravimeid)"
+   }
+  },
+  "diabetes_derailment": {
+   "label": "Kas viimastel kuudel on ravi uuesti paika seatud või on esinenud ainevahetuse tasakaalust väljumine (nt haiglaravi paigast läinud väärtuste tõttu)?",
+   "followup": "Mis juhtus ja millal?"
+  },
+  "kidney_disease": {
+   "label": "Kas teil on teadaolevalt krooniline neeruhaigus või neerupuudulikkus?",
+   "followup": "Milline haigus ja kas te käite nefroloogi ravil?"
+  },
+  "dialysis": {
+   "label": "Kas teid ravitakse regulaarselt dialüüsiga (vere puhastamine)?",
+   "followup": "Mis ajast alates ja mitu korda nädalas? Kas te tunnete end ravikordade vahel töövõimelisena?"
+  },
+  "transplant": {
+   "label": "Kas teile on siirdatud mõni organ (nt neer, süda, maks, kops)?",
+   "followup": "Milline organ, millal ja kas te käite regulaarses järelkontrollis?"
+  },
+  "lung_disease": {
+   "label": "Kas teil on krooniline kopsu- või bronhihaigus (nt KOK/COPD, astma, kopsufibroos)?",
+   "followup": "Milline haigus ja kuidas seda ravitakse?"
+  },
+  "dyspnea": {
+   "label": "Kas teil tekib õhupuudus juba kerge koormuse korral või rahuolekus või vajate pikaajalist hapnikravi?"
+  },
+  "cough_syncope": {
+   "label": "Kas tugevate köhahoogude ajal on tekkinud pearinglus, silmade eest mustaks minemine või lühiajaline teadvusekaotus?"
+  },
+  "daytime_sleepiness": {
+   "label": "Kas teil on päeval raske ärkvel ja tähelepanelik püsida – eriti üksluistes olukordades (nt lugemine, koosolekud, pikemad autosõidud)?"
+  },
+  "microsleep": {
+   "label": "Kas te olete viimastel kuudel tahtmatult magama jäänud või olnud sekundiunes?",
+   "followup": "Millistes olukordades? Kas see on juhtunud ka rooli taga?"
+  },
+  "snoring": {
+   "label": "Kas teile on öeldud, et te norskate valjult ja ebaühtlaselt või et teil on öösel hingamispause?"
+  },
+  "osas": {
+   "label": "Kas teil on tuvastatud uneapnoe sündroom (öised hingamisseisakud)?",
+   "followup": "Millal diagnoos pandi ja milline raskusaste või AHI-väärtus tuvastati (kui teate)?"
+  },
+  "cpap": {
+   "label": "Kas teid ravitakse uneapnoe tõttu (nt CPAP-hingamismask)?",
+   "options": {
+    "regelmaessig": "Jah, regulaarselt (peaaegu igal ööl)",
+    "unregelmaessig": "Jah, kuid ebaregulaarselt",
+    "abgebrochen": "Ravi katkestati",
+    "keine": "Ei, ravi ei ole"
+   }
+  },
+  "psychiatric": {
+   "label": "Kas teil on diagnoositud psüühikahäire (nt depressioon, ärevushäire, bipolaarne häire)?",
+   "followup": "Milline haigus ja kuidas seda ravitakse?"
+  },
+  "psychiatric_severe": {
+   "label": "Kas te olete selle tõttu olnud haiglaravil, kas teil on olnud maniakaalne faas või enesetapumõtted?",
+   "followup": "Millal see viimati oli?"
+  },
+  "psychosis": {
+   "label": "Kas teil on kunagi diagnoositud skisofreenia või mõni muu psühhoos (haigus luulumõtete või hallutsinatsioonidega)?",
+   "followup": "Mitu ägedat episoodi teil on olnud, millal oli viimane ja kas te käite eriarsti ravil?"
+  },
+  "memory_problems": {
+   "label": "Kas te ise või teie lähedased olete viimasel ajal märganud teil süvenevaid mälu- või orienteerumisprobleeme?",
+   "followup": "Mis ajast alates ja kuidas need igapäevaelus avalduvad?"
+  },
+  "concentration": {
+   "label": "Kas teil on keskendumis- või tähelepanuprobleeme?"
+  },
+  "alcohol": {
+   "label": "Kui sageli te tarvitate alkoholi?",
+   "options": {
+    "nie": "Mitte kunagi",
+    "selten": "Harva (kõige rohkem 1 kord kuus)",
+    "woechentlich": "1–2 korda nädalas",
+    "mehrmals": "Mitu korda nädalas",
+    "taeglich": "Iga päev või peaaegu iga päev"
+   }
+  },
+  "alcohol_control": {
+   "label": "Kas on juhtunud, et te olete joonud rohkem, kui kavatsesite, või kaotanud kontrolli oma tarvitamise üle?"
+  },
+  "alcohol_traffic": {
+   "label": "Kas te olete kunagi liikluses alkoholijoobes vahele jäänud (nt joobes juhtimine, rahatrahv, MPU)?",
+   "followup": "Millal ja milline promilliväärtus tuvastati (kui teate)?"
+  },
+  "alcohol_dependence": {
+   "label": "Kas teil on kunagi tuvastatud alkoholisõltuvus või olete läbinud võõrutus- või rehabilitatsiooniravi?",
+   "followup": "Millal ravi lõpetati ja mis ajast alates elate kainena?"
+  },
+  "drugs": {
+   "label": "Kas te tarvitate praegu narkootikume (nt kanepit, kokaiini, amfetamiini) või olete varem regulaarselt narkootikume tarvitanud?",
+   "followup": "Millised ained, kui sageli ja millal viimati?"
+  },
+  "cannabis": {
+   "label": "Kui sageli te tarvitate kanepit?",
+   "options": {
+    "nie": "Mitte kunagi",
+    "gelegentlich": "Aeg-ajalt (mitte regulaarselt)",
+    "regelmaessig": "Regulaarselt (iga päev või harjumuspäraselt)"
+   }
+  },
+  "substitution": {
+   "label": "Kas te saate asendusravi (nt metadooni)?",
+   "followup": "Mis ajast alates?"
+  },
+  "regular_meds": {
+   "label": "Kas te võtate regulaarselt ravimeid?",
+   "followup": "Millised ravimid ja mille vastu?"
+  },
+  "sedating_meds": {
+   "label": "Kas nende hulgas on ravimeid, mis võivad väsitada või mõjutada reaktsioonivõimet (nt tugevad valuvaigistid/opioidid, uinutid või rahustid, antidepressandid, epilepsiavastased ravimid, allergiaravimid)?",
+   "followup": "Millised ravimid ja millises annuses?"
+  },
+  "med_side_effects": {
+   "label": "Kas te märkate oma ravimite kasutamisel kõrvaltoimeid, nagu väsimus, aeglustumine, keskendumishäired või pearinglus?",
+   "followup": "Millised kõrvaltoimed ja kui tugevad?"
+  },
+  "med_recent_change": {
+   "label": "Kas viimastel nädalatel on mõni selline ravim uuesti määratud või annust oluliselt muudetud?",
+   "followup": "Milline ravim ja millal?"
+  },
+  "benzo_regular": {
+   "label": "Kas te võtate juba mitu kuud regulaarselt – kas või ainult õhtuti väikeses koguses – uinuteid või rahusteid (nt bensodiasepiine)?",
+   "followup": "Milline ravim, kui kaua juba ja kas te märkate ärajätmisel võõrutusnähte?"
+  },
+  "multiple_conditions": {
+   "label": "Kas teil esineb korraga mitu haigust või tervisest tulenevat piirangut?",
+   "hint": "Mitu leidu võivad kokkuvõttes olla sobivuse hindamisel olulised, isegi kui iga üksik oleks ohutu (ravijuhendid ptk 2.7).",
+   "followup": "Palun loetlege lühidalt kõik teadaolevad haigused."
+  },
+  "other_conditions": {
+   "label": "Kas on veel haigusi, kaebusi või varasemaid operatsioone, mida seni ei ole nimetatud?",
+   "followup": "Millised?"
+  },
+  "driving_adaptation": {
+   "label": "Kas te loobute tervisepiirangute tõttu teadlikult teatud sõitudest (nt pimedas, pikad vahemaad, kiirtee)?",
+   "followup": "Millistest sõitudest ja miks?"
+  },
+  "consent_truth": {
+   "label": "Kinnitan, et minu andmed on täielikud ja tõesed.",
+   "error": "Palun kinnitage oma andmete täielikkust."
+  },
+  "consent_privacy": {
+   "label": "Olen andmekaitseteabe läbi lugenud ja annan nõusoleku oma andmete töötlemiseks liiklusmeditsiinilistel eesmärkidel.",
+   "error": "Palun nõustuge andmekaitseteabega."
+  }
+ },
+ "ess_items": {
+  "ess_1": "Istudes ja lugedes",
+  "ess_2": "Televiisorit vaadates",
+  "ess_3": "Kui istute avalikus kohas passiivselt (nt teatris või koosolekul)",
+  "ess_4": "Kaassõitjana autos tunniajase sõidu ajal ilma pausita",
+  "ess_5": "Kui olete pärastlõunal puhkama heitnud",
+  "ess_6": "Kui istute ja vestlete kellegagi",
+  "ess_7": "Kui istute pärast lõunasööki (ilma alkoholita) rahulikult",
+  "ess_8": "Kui peate autojuhina liiklusolude tõttu mõneks minutiks peatuma"
+ }
+}

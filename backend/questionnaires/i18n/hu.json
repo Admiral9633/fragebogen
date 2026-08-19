@@ -1,0 +1,585 @@
+{
+ "_meta": {
+  "language": "hu",
+  "name": "Magyar",
+  "machine_translated": true
+ },
+ "ui": {
+  "header_title": "Közlekedésorvosi kérdőív",
+  "header_subtitle": "Kérjük, válaszoljon minden kérdésre",
+  "language_label": "Nyelv",
+  "loading": "Kérdőív betöltése …",
+  "not_found_title": "A kérdőív nem található",
+  "to_start": "A kezdőoldalra",
+  "back": "Vissza",
+  "next": "Tovább",
+  "skip": "Kihagyás",
+  "submit": "Beküldés",
+  "sending": "Küldés…",
+  "question_of": "{current}. kérdés a következőből: {total}",
+  "answer_placeholder": "Az Ön válasza…",
+  "required_error": "Kérjük, válaszoljon erre a kérdésre.",
+  "yes": "Igen",
+  "no": "Nem",
+  "consent_title": "Hozzájárulás",
+  "followup_hint": "Önkéntes kiegészítő adat – segít az orvosi megítélésben.",
+  "ess_question": "Mennyire valószínű, hogy ebben a helyzetben elbóbiskolna?",
+  "ess_sum": "Eddigi összeg",
+  "ess_opt_0": "0 – Soha nem bóbiskolnék el",
+  "ess_opt_1": "1 – Kis valószínűség",
+  "ess_opt_2": "2 – Közepes valószínűség",
+  "ess_opt_3": "3 – Nagy valószínűség",
+  "privacy_button": "Adatvédelmi tájékoztató megjelenítése",
+  "privacy_title": "Adatvédelmi tájékoztató",
+  "privacy_subtitle": "Tájékoztatás az Ön adatainak kezeléséről a DSGVO Art. 13 (általános adatvédelmi rendelet, 13. cikk) szerint",
+  "privacy_controller": "Adatkezelő: Dr. med. Björn Micka, Betriebsmedizin · Notfallmedizin, Christoph-Dassler-Str. 22, 91074 Herzogenaurach",
+  "privacy_purpose": "Az adatkezelés célja: Az Ön ebben a kérdőívben megadott adatait (beleértve az egészségügyi adatokat is) kizárólag a közlekedésorvosi vizsgálatának előkészítésére és elvégzésére használjuk fel.",
+  "privacy_legal": "Jogalap: az Ön hozzájárulása (DSGVO Art. 6 (1) a) pont, Art. 9 (2) a) pont). A hozzájárulást bármikor visszavonhatja, a jövőre nézve érvényes hatállyal.",
+  "privacy_storage": "Tárolás: Az eredmény bekerül az Ön vizsgálati dokumentációjába, és az orvosi megőrzési határidők vonatkoznak rá. A személyes linkjén keresztüli online hozzáférés az érvényesség lejárta után megszűnik; ezen online kérdőív adatait ezt követően rutinszerűen töröljük.",
+  "privacy_rights": "Az Ön jogai: Önnek joga van tájékoztatáshoz, helyesbítéshez, törléshez és az adatkezelés korlátozásához, valamint panaszt tehet az illetékes adatvédelmi felügyeleti hatóságnál.",
+  "privacy_secrecy": "Minden adatra vonatkozik az orvosi titoktartás.",
+  "success_title": "Köszönjük!",
+  "success_text": "A kérdőívét sikeresen elküldtük.",
+  "success_result": "ESS-eredmény",
+  "success_doctor_note": "Kérjük, beszélje meg az eredményt orvosával. A végleges értékelést szakorvos végzi.",
+  "success_pdf": "PDF-összefoglaló letöltése",
+  "success_close": "Ezt az ablakot most bezárhatja.",
+  "band_normal": "Normális (0–9)",
+  "band_elevated": "Emelkedett (10–15)",
+  "band_severe": "Kifejezett (≥16)",
+  "submit_error": "Hiba a beküldés során. Kérjük, ellenőrizze az adatait."
+ },
+ "sections": {
+  "anlass": {
+   "title": "A vizsgálat oka és vezetési szokások",
+   "subtitle": "Adatok a vizsgálatról és az Ön vezetési tevékenységéről"
+  },
+  "gesundheit": {
+   "title": "Egészségi állapot",
+   "subtitle": "Előzetesen egy kérdés"
+  },
+  "anfaelle": {
+   "title": "Rohamok és eszméletvesztés",
+   "subtitle": "Hirtelen kiesés kockázata – epilepsziás rohamok és ájulások"
+  },
+  "sehen_hoeren": {
+   "title": "Látás és hallás",
+   "subtitle": "Látás- és hallásfunkció"
+  },
+  "herz": {
+   "title": "Szív és keringés",
+   "subtitle": "Szív- és érbetegségek"
+  },
+  "gehirn": {
+   "title": "Agyvérzés/agyi történés és az agy",
+   "subtitle": "Keringési zavarok, sérülések és agyműtétek"
+  },
+  "neuro": {
+   "title": "Idegrendszer",
+   "subtitle": "Neurológiai betegségek"
+  },
+  "schwindel": {
+   "title": "Egyensúly és szédülés",
+   "subtitle": "A szédülés formái és egyensúlyzavarok"
+  },
+  "bewegung": {
+   "title": "Mozgásszervek",
+   "subtitle": "Testi korlátozottságok és segédeszközök"
+  },
+  "diabetes": {
+   "title": "Cukorbetegség / anyagcsere",
+   "subtitle": "Cukorbetegség és vércukoresések"
+  },
+  "organe": {
+   "title": "Belső szervek",
+   "subtitle": "Vese, tüdő és szervátültetések"
+  },
+  "schlaf": {
+   "title": "Alvás és nappali aluszékonyság",
+   "subtitle": "Beleértve az Epworth-féle aluszékonysági skálát (ESS)"
+  },
+  "psyche": {
+   "title": "Lelki egészség",
+   "subtitle": "Pszichés betegségek és emlékezet"
+  },
+  "substanzen": {
+   "title": "Alkohol, drogok és gyógyszerek",
+   "subtitle": "Fogyasztás és tartós gyógyszerszedés"
+  },
+  "allgemein": {
+   "title": "Általános adatok és hozzájárulás",
+   "subtitle": "További adatok és nyilatkozatok"
+  }
+ },
+ "questions": {
+  "exam_occasion": {
+   "label": "Melyik vezetői engedélyhez történik a vizsgálat?",
+   "options": {
+    "pkw": "Személygépkocsi / más kategória",
+    "lkw": "Tehergépkocsi (C, C1, CE, C1E)",
+    "bus": "Busz (D, D1, DE, D1E)",
+    "fahrgast": "Személyszállítás (taxi, bérelt gépkocsi sofőrrel, betegszállítás)"
+   }
+  },
+  "exam_kind": {
+   "label": "Első megszerzésről vagy meghosszabbításról van szó?",
+   "options": {
+    "erst": "Első megszerzés",
+    "verlaengerung": "Meghosszabbítás"
+   }
+  },
+  "license_classes": {
+   "label": "Mely vezetőiengedély-kategóriákkal rendelkezik, vagy melyeket igényli?",
+   "options": {
+    "AM": "AM",
+    "A1": "A1",
+    "A2": "A2",
+    "A": "A",
+    "B": "B",
+    "BE": "BE",
+    "C1": "C1",
+    "C1E": "C1E",
+    "C": "C",
+    "CE": "CE",
+    "D1": "D1",
+    "D": "D",
+    "DE": "DE",
+    "T": "T"
+   }
+  },
+  "license_years": {
+   "label": "Hány éve rendelkezik vezetői engedéllyel?",
+   "options": {
+    "erstantrag": "Még nincs (első kérelem)",
+    "unter3": "Kevesebb mint 3 éve",
+    "3bis10": "3–10 éve",
+    "ueber10": "Több mint 10 éve"
+   }
+  },
+  "driving_hours": {
+   "label": "Naponta átlagosan hány órát vezet?",
+   "options": {
+    "<1": "Kevesebb mint 1 órát",
+    "1-2": "1–2 órát",
+    "2-4": "2–4 órát",
+    ">4": "Több mint 4 órát"
+   }
+  },
+  "night_driving": {
+   "label": "Vezet rendszeresen éjszaka?"
+  },
+  "accidents": {
+   "label": "Volt az elmúlt 24 hónapban balesete vagy majdnem-balesete a közúti közlekedésben?",
+   "followup": "Mi történt?"
+  },
+  "license_withdrawn": {
+   "label": "Vonták már el valaha a vezetői engedélyét, vagy kellett orvosi-pszichológiai vizsgálaton (MPU) részt vennie?",
+   "followup": "Mikor és milyen okból?"
+  },
+  "psych_test_done": {
+   "label": "Elvégzett már ehhez a vezetői engedélyhez pszichológiai teljesítménytesztet (reakció-, koncentráció- és figyelemvizsgálatot)?",
+   "hint": "Buszkategóriáknál és személyszállításnál ez az igazolás az Anlage 5 FeV (a német vezetőiengedély-rendelet 5. melléklete) szerint kötelező. Kérjük, hozza magával a meglévő szakvéleményt a vizsgálatra.",
+   "followup": "Mikor és hol végezték a tesztet?"
+  },
+  "has_conditions": {
+   "label": "Van Önnek ismert korábbi betegsége, tartós testi korlátozottsága, vagy áll rendszeres orvosi kezelés alatt?",
+   "hint": "Ide tartoznak a régebben lezajlott súlyos betegségek is (pl. szív, cukorbetegség, idegrendszer, pszichés betegségek). Ha nem, a kérdőív lényegesen rövidebb lesz."
+  },
+  "seizure_ever": {
+   "label": "Volt valaha epilepsziás rohama vagy görcsrohama?",
+   "followup": "Mikor volt az utolsó roham, összesen hány volt, és volt kiváltó ok (pl. alváshiány, láz, alkohol)?"
+  },
+  "epilepsy": {
+   "label": "Diagnosztizáltak Önnél epilepsziát?",
+   "followup": "A rohamok kizárólag alvás közben jelentkeznek? Rendszeres neurológiai kezelés alatt áll?"
+  },
+  "seizure_free": {
+   "label": "Mióta rohammentes?",
+   "hint": "Az irányelvek a vezetésre való alkalmasságot konkrét rohammentes időszakokhoz kötik.",
+   "options": {
+    "unter3m": "Kevesebb mint 3 hónapja",
+    "3bis6m": "3–6 hónapja",
+    "6bis12m": "6–12 hónapja",
+    "1bis2j": "1–2 éve",
+    "2bis5j": "2–5 éve",
+    "ueber5j": "Több mint 5 éve"
+   }
+  },
+  "antiepileptics": {
+   "label": "Szed rohamok elleni gyógyszert (antiepileptikumot)?",
+   "options": {
+    "nie": "Nem, soha nem szedtem",
+    "aktuell": "Igen, jelenleg is",
+    "reduktion": "A kezelést jelenleg fokozatosan csökkentik",
+    "ende_unter3m": "Kevesebb mint 3 hónapja hagytam abba",
+    "ende_ueber3m": "Több mint 3 hónapja hagytam abba"
+   }
+  },
+  "syncope": {
+   "label": "Ájult már el hirtelen (rövid eszméletvesztés)?",
+   "options": {
+    "nie": "Még soha",
+    "einmal": "Egyszer",
+    "mehrmals": "Többször"
+   }
+  },
+  "syncope_recent": {
+   "label": "Az utolsó ájulása kevesebb mint 6 hónapja volt?",
+   "followup": "Milyen helyzetben történt az ájulás, és találtak rá okot (pl. keringés, szívritmus, vizeletürítés közben)?"
+  },
+  "syncope_prodromi": {
+   "label": "Előre jelzi magát Önnél az ájulás (pl. izzadás, szédülés, hányinger, szívdobogás)?"
+  },
+  "glasses": {
+   "label": "Visel vezetés közben szemüveget vagy kontaktlencsét?"
+  },
+  "eye_disease": {
+   "label": "Ismert Önnél szembetegség (pl. szürkehályog, zöldhályog/glaukóma, ideghártya-betegség, látótérkiesés)?",
+   "followup": "Melyik betegség, és szemészeti kezelés alatt áll?"
+  },
+  "one_eyed": {
+   "label": "Az egyik szemével lényegesen rosszabbul lát, vagy az egyik szemére vak?"
+  },
+  "night_vision": {
+   "label": "Vannak nehézségei a látással szürkületben vagy sötétben, illetve erősen elvakítja a szembejövő forgalom?",
+   "followup": "Milyen helyzetekben jelentkeznek a nehézségek?"
+  },
+  "hearing_impaired": {
+   "label": "Súlyos fokban nagyothalló vagy siket?",
+   "followup": "Mióta, és fül-orr-gégészeti kezelés alatt áll?"
+  },
+  "hearing_aid": {
+   "label": "Visel hallókészüléket vagy cochleáris implantátumot?"
+  },
+  "heart_disease": {
+   "label": "Ismert Önnél szív- vagy érbetegség?",
+   "hint": "pl. ritmuszavarok, szívinfarktus, szívgyengeség, billentyűhiba, keringési zavarok",
+   "followup": "Melyik betegség(ek), mióta, és hogyan kezelik?"
+  },
+  "cardio_checkup": {
+   "label": "Jár emiatt rendszeresen kardiológiai ellenőrzésre?",
+   "followup": "Mikor volt az utolsó ellenőrzés?"
+  },
+  "heart_attack": {
+   "label": "Volt már szívinfarktusa, sztentbeültetése vagy bypassműtétje?",
+   "followup": "Mikor történt az esemény, illetve a beavatkozás, és voltak szövődmények (pl. csökkent pumpafunkció)?"
+  },
+  "arrhythmia": {
+   "label": "Ismertek Önnél szívritmuszavarok (pl. szívkihagyás, szapora szívverés, feltűnően lassú pulzus, pitvarfibrilláció, AV-blokk)?",
+   "followup": "Milyen diagnózis, és hogyan kezelik?"
+  },
+  "pacemaker_icd": {
+   "label": "Visel szívritmus-szabályozót (pacemakert) vagy defibrillátort (ICD)?",
+   "options": {
+    "nein": "Nem",
+    "schrittmacher": "Szívritmus-szabályozó (pacemaker)",
+    "icd": "Defibrillátor (ICD)"
+   },
+   "followup": "Mikor ültették be, és mikor volt az utolsó ellenőrzés?"
+  },
+  "icd_shock": {
+   "label": "Adott le a defibrillátora az elmúlt 3 hónapban sokkot?",
+   "followup": "Mikor, és mit mondott erről a kardiológusa?"
+  },
+  "exertion_symptoms": {
+   "label": "Jelentkezik terhelésre légszomj, mellkasi fájdalom, szívkihagyás vagy szokatlan kimerültség?",
+   "hint": "Önértékelés a NYHA-stádiumok szerint",
+   "options": {
+    "keine": "Nem, a mindennapi terhelésnél nincs panasz",
+    "stark": "Nagyobb terhelésnél (pl. gyors lépcsőzés)",
+    "leicht": "Már enyhe terhelésnél is (pl. lassú séta)",
+    "ruhe": "Már nyugalomban is"
+   }
+  },
+  "hypertension": {
+   "label": "Ismert Önnél magas vérnyomás?",
+   "followup": "Mióta, milyen gyógyszereket szed, és általában milyen értékeket mér?"
+  },
+  "bp_dizziness": {
+   "label": "Jelentkezik a vérnyomáscsökkentő gyógyszerei mellett szédülés, gyengeségérzés vagy elsötétülés a szeme előtt?"
+  },
+  "heart_other": {
+   "label": "Ismert Önnél további szív-/érbetegség: szívbillentyűhiba, veleszületett szívhiba, szívizombetegség (kardiomiopátia), örökletes ritmusbetegség (pl. hosszú QT-szindróma), aortaaneurizma vagy szűkült nyaki verőér?",
+   "followup": "Milyen diagnózis, és hogyan ellenőrzik/kezelik?"
+  },
+  "family_sudden_death": {
+   "label": "Előfordult a legközelebbi családjában (szülők, testvérek, gyermekek) hirtelen szívhalál?"
+  },
+  "stroke": {
+   "label": "Volt valaha agyvérzése, agyi érkatasztrófája (stroke) vagy TIA-ja (átmeneti keringési zavar rövid ideig tartó kiesésekkel)?",
+   "followup": "Mikor történt az esemény, és lezajlott rehabilitáció?"
+  },
+  "stroke_residuals": {
+   "label": "Maradtak azóta következmények, például bénulás, beszédzavar, emlékezetproblémák vagy a látótér beszűkülése?",
+   "followup": "Milyen panaszok állnak fenn jelenleg?"
+  },
+  "head_injury": {
+   "label": "Volt valaha súlyos fejsérülése (eszméletvesztéssel vagy kórházi kezeléssel) vagy agyműtétje?",
+   "followup": "Mikor, és mit kezeltek?"
+  },
+  "head_injury_recent": {
+   "label": "Ez a sérülés vagy műtét kevesebb mint 3 hónapja történt?",
+   "hint": "Agysérülés vagy agyműtét után az irányelv szerint általában 3 hónapig nem áll fenn a vezetésre való alkalmasság."
+  },
+  "brain_residuals": {
+   "label": "Fennállnak a sérülés/műtét óta panaszok, például koncentrációs vagy emlékezetzavarok, jellemváltozás vagy görcsrohamok?",
+   "followup": "Milyen panaszok, és hogyan hatnak ki Önre?"
+  },
+  "parkinson": {
+   "label": "Diagnosztizáltak Önnél Parkinson-kórt vagy más mozgás- vagy koordinációs zavart?",
+   "followup": "Mióta, hogyan kezelik, és mikor volt az utolsó neurológiai ellenőrzés?"
+  },
+  "ms_spinal": {
+   "label": "Ismert Önnél sclerosis multiplex, gerincvelői betegség vagy gerincvelő-sérülés?",
+   "followup": "Milyen diagnózis, és milyen panaszai vannak jelenleg?"
+  },
+  "muscle_nerve": {
+   "label": "Ismert Önnél izom- vagy idegbetegség (pl. izomsorvadás, myasthenia, polineuropátia)?",
+   "followup": "Milyen diagnózis, és mennyire korlátozza Önt?"
+  },
+  "paralysis_attacks": {
+   "label": "Előfordulnak Önnél rohamszerű bénulások vagy hirtelen fellépő erős izomgyengeség?",
+   "followup": "Mikor jelentkezett az utolsó roham, és milyen gyorsan alakul ki?"
+  },
+  "motor_limits": {
+   "label": "Van bénulása, izomgyengesége vagy érzészavara a karjában vagy a lábában, amely korlátozhatja Önt a jármű kezelésében?",
+   "followup": "Mely testrészek érintettek?"
+  },
+  "vertigo": {
+   "label": "Szenved szédüléstől vagy egyensúlyzavartól (pl. forgó érzés, imbolygás, bizonytalanság járás közben)?",
+   "followup": "Milyen érzés a szédülés, milyen gyakran jelentkezik, meddig tart egy roham, és mi váltja ki?"
+  },
+  "vertigo_last": {
+   "label": "Mennyi ideje volt az utolsó szédüléses rohama?",
+   "options": {
+    "unter3m": "Kevesebb mint 3 hónapja",
+    "3bis6m": "3–6 hónapja",
+    "6bis12m": "6–12 hónapja",
+    "1bis2j": "1–2 éve",
+    "ueber2j": "Több mint 2 éve"
+   }
+  },
+  "vertigo_prodromi": {
+   "label": "Előre jelzik magukat a szédüléses rohamai (pl. fülnyomás, fülzúgás, halláscsökkenés), hogy időben meg tudna állni?",
+   "options": {
+    "immer": "Igen, mindig",
+    "manchmal": "Néha",
+    "nie": "Nem, előjel nélkül jönnek"
+   }
+  },
+  "vertigo_positional": {
+   "label": "Kiváltja a szédülést bizonyos fejmozgás vagy testhelyzet-változás (pl. megfordulás az ágyban, lehajolás)?"
+  },
+  "vertigo_ear": {
+   "label": "A szédülés együtt jelentkezik halláscsökkenéssel, fülzúgással (tinnitus) vagy nyomásérzéssel a fülben?"
+  },
+  "ear_disease": {
+   "label": "Állapítottak meg Önnél egyensúlyszervi vagy belsőfül-betegséget (pl. jóindulatú helyzeti szédülés, Ménière-betegség)?",
+   "followup": "Milyen diagnózis, hogyan kezelték, és azóta panaszmentes?"
+  },
+  "mobility_limits": {
+   "label": "Van tartós mozgáskorlátozottsága a karjában, lábában, kezében vagy a gerincében (pl. baleset, műtét, amputáció után)?",
+   "followup": "Mely testrészek érintettek, és mióta?"
+  },
+  "prosthesis": {
+   "label": "Visel protézist vagy használ ortopédiai segédeszközt?",
+   "followup": "Milyen segédeszközöket, és vannak panaszai hosszabb terhelésnél?"
+  },
+  "vehicle_modified": {
+   "label": "Át van alakítva a járműve testi korlátozottság miatt (pl. kézi vezérlés, szervokormány)?",
+   "followup": "Milyen átalakítások, és be vannak jegyezve a vezetői engedélybe?"
+  },
+  "diabetes_type": {
+   "label": "Ismert Önnél diabetes mellitus (cukorbetegség)?",
+   "options": {
+    "none": "Nem",
+    "type1": "Igen, 1-es típus",
+    "type2": "Igen, 2-es típus",
+    "other": "Igen, más/tisztázatlan forma"
+   }
+  },
+  "diabetes_therapy": {
+   "label": "Hogyan kezelik jelenleg a cukorbetegségét?",
+   "options": {
+    "lifestyle": "Csak étrend / életmód",
+    "tabl_low": "Tabletták alacsony vércukoresési kockázattal (pl. metformin)",
+    "tabl_high": "Tabletták vércukoresési kockázattal (szulfonilureák, glinidek)",
+    "insulin": "Inzulin",
+    "unknown": "Nem tudom pontosan"
+   }
+  },
+  "hypoglycemia": {
+   "label": "Volt az elmúlt 12 hónapban súlyos vércukoresése, amelynél mások segítségére szorult?",
+   "followup": "Milyen gyakran, mikor volt az utolsó epizód, és ébren vagy alvás közben jelentkezett?"
+  },
+  "hypo_awareness": {
+   "label": "Előfordult, hogy egy vércukoresést nem vett észre időben magán (hiányzó figyelmeztető jelek)?",
+   "followup": "Mikor utoljára, és történt valami (pl. tréning, a kezelés átállítása)?"
+  },
+  "glucose_monitoring": {
+   "label": "Méri rendszeresen maga a vércukrát (vagy visel glükózszenzort)?",
+   "options": {
+    "2x": "Igen, naponta legalább kétszer",
+    "seltener": "Igen, de ritkábban",
+    "nein": "Nem",
+    "keine_med": "Rám nem vonatkozik (nem szedek vércukorcsökkentő gyógyszert)"
+   }
+  },
+  "diabetes_derailment": {
+   "label": "Volt az elmúlt hónapokban a kezelés újbóli beállítása vagy anyagcsere-kisiklás (pl. kórházi kezelés kisiklott értékek miatt)?",
+   "followup": "Mi történt, és mikor?"
+  },
+  "kidney_disease": {
+   "label": "Ismert Önnél krónikus vesebetegség vagy vesegyengeség?",
+   "followup": "Melyik betegség, és nefrológiai kezelés alatt áll?"
+  },
+  "dialysis": {
+   "label": "Kezelik rendszeresen dialízissel (művesekezelés)?",
+   "followup": "Mióta és hetente hányszor? Teljesítőképesnek érzi magát a kezelések között?"
+  },
+  "transplant": {
+   "label": "Ültettek be Önbe szervet (pl. vese, szív, máj, tüdő)?",
+   "followup": "Melyik szervet, mikor, és jár rendszeres utókezelésre?"
+  },
+  "lung_disease": {
+   "label": "Szenved krónikus tüdő- vagy hörgőbetegségben (pl. COPD, asztma, tüdőfibrózis)?",
+   "followup": "Melyik betegség, és hogyan kezelik?"
+  },
+  "dyspnea": {
+   "label": "Van légszomja már enyhe terhelésnél vagy nyugalomban, illetve szüksége van tartós oxigénkezelésre?"
+  },
+  "cough_syncope": {
+   "label": "Előfordult erős köhögési rohamnál szédülés, elsötétülés a szem előtt vagy rövid eszméletvesztés?"
+  },
+  "daytime_sleepiness": {
+   "label": "Nehezére esik napközben ébren és figyelmesen maradni – különösen egyhangú helyzetekben (pl. olvasás, megbeszélések, hosszabb autóutak)?"
+  },
+  "microsleep": {
+   "label": "Aludt el az elmúlt hónapokban akaratlanul, vagy volt mikroalvása?",
+   "followup": "Milyen helyzetekben? Előfordult vezetés közben is?"
+  },
+  "snoring": {
+   "label": "Mondták Önnek, hogy hangosan és szabálytalanul horkol, vagy éjszaka légzéskimaradásai vannak?"
+  },
+  "osas": {
+   "label": "Állapítottak meg Önnél alvási apnoe szindrómát (éjszakai légzéskimaradások)?",
+   "followup": "Mikor állították fel a diagnózist, és milyen súlyossági fokot, illetve AHI-értéket állapítottak meg (ha ismert)?"
+  },
+  "cpap": {
+   "label": "Kezelik Önt az alvási apnoe miatt (pl. CPAP-légzőmaszkkal)?",
+   "options": {
+    "regelmaessig": "Igen, rendszeresen (majdnem minden éjjel)",
+    "unregelmaessig": "Igen, de rendszertelenül",
+    "abgebrochen": "A kezelést abbahagytuk",
+    "keine": "Nem, nincs kezelés"
+   }
+  },
+  "psychiatric": {
+   "label": "Diagnosztizáltak Önnél pszichés betegséget (pl. depresszió, szorongásos zavar, bipoláris zavar)?",
+   "followup": "Melyik betegség, és hogyan kezelik?"
+  },
+  "psychiatric_severe": {
+   "label": "Volt emiatt már kórházi kezelés alatt, volt mániás fázisa vagy öngyilkossági gondolata?",
+   "followup": "Mikor volt ez utoljára?"
+  },
+  "psychosis": {
+   "label": "Diagnosztizáltak Önnél valaha skizofréniát vagy más pszichózist (téveszmékkel vagy hallucinációkkal járó betegséget)?",
+   "followup": "Hány heveny epizódja volt, mikor volt az utolsó, és szakorvosi kezelés alatt áll?"
+  },
+  "memory_problems": {
+   "label": "Vette Ön vagy vették a hozzátartozói az utóbbi időben észre Önnél a növekvő emlékezet- vagy tájékozódási problémákat?",
+   "followup": "Mióta, és hogyan hatnak ki a mindennapokra?"
+  },
+  "concentration": {
+   "label": "Vannak koncentrációs vagy figyelemproblémái?"
+  },
+  "alcohol": {
+   "label": "Milyen gyakran iszik alkoholt?",
+   "options": {
+    "nie": "Soha",
+    "selten": "Ritkán (legfeljebb havonta 1-szer)",
+    "woechentlich": "Hetente 1–2-szer",
+    "mehrmals": "Hetente többször",
+    "taeglich": "Naponta vagy majdnem naponta"
+   }
+  },
+  "alcohol_control": {
+   "label": "Előfordult, hogy többet ivott a tervezettnél, vagy elvesztette a kontrollt a fogyasztása felett?"
+  },
+  "alcohol_traffic": {
+   "label": "Vonták már valaha felelősségre a közúti közlekedésben alkoholos befolyásoltság miatt (pl. ittas vezetés, bírság, MPU – orvosi-pszichológiai vizsgálat)?",
+   "followup": "Mikor, és milyen véralkoholértéket állapítottak meg (ha ismert)?"
+  },
+  "alcohol_dependence": {
+   "label": "Állapítottak meg Önnél valaha alkoholfüggőséget, vagy vett részt méregtelenítő, illetve leszoktató kezelésen?",
+   "followup": "Mikor fejeződött be a kezelés, és mióta él absztinensen?"
+  },
+  "drugs": {
+   "label": "Fogyaszt jelenleg kábítószert (pl. kannabisz, kokain, amfetaminok), vagy fogyasztott korábban rendszeresen kábítószert?",
+   "followup": "Milyen szereket, milyen gyakran, és mikor utoljára?"
+  },
+  "cannabis": {
+   "label": "Milyen gyakran fogyaszt kannabiszt?",
+   "options": {
+    "nie": "Soha",
+    "gelegentlich": "Alkalmanként (nem rendszeresen)",
+    "regelmaessig": "Rendszeresen (naponta vagy megszokásból)"
+   }
+  },
+  "substitution": {
+   "label": "Kap helyettesítő (szubsztitúciós) kezelést (pl. metadon)?",
+   "followup": "Mióta?"
+  },
+  "regular_meds": {
+   "label": "Szed rendszeresen gyógyszert?",
+   "followup": "Milyen gyógyszereket, és mi ellen?"
+  },
+  "sedating_meds": {
+   "label": "Van köztük olyan gyógyszer, amely fáradttá tehet vagy befolyásolhatja a reakciókészséget (pl. erős fájdalomcsillapítók/opioidok, altatók vagy nyugtatók, antidepresszánsok, antiepileptikumok, allergia elleni szerek)?",
+   "followup": "Milyen gyógyszereket, milyen adagolásban?"
+  },
+  "med_side_effects": {
+   "label": "Észlel a gyógyszerei mellett mellékhatásokat, például fáradtságot, lelassulást, koncentrációzavart vagy szédülést?",
+   "followup": "Milyen mellékhatásokat, és milyen erősen?"
+  },
+  "med_recent_change": {
+   "label": "Állítottak be az elmúlt hetekben újonnan ilyen gyógyszert, vagy változtatták meg jelentősen az adagját?",
+   "followup": "Melyik gyógyszert, és mikor?"
+  },
+  "benzo_regular": {
+   "label": "Szed több hónapja rendszeresen – akár csak esténként kis mennyiségben – altatót vagy nyugtatót (pl. benzodiazepint)?",
+   "followup": "Melyik szert, mióta, és észlel elhagyáskor elvonási tüneteket?"
+  },
+  "multiple_conditions": {
+   "label": "Áll fenn Önnél egyszerre több betegség vagy egészségi korlátozottság?",
+   "hint": "Több eltérés az összességében jelentős lehet az alkalmasság szempontjából, még ha egyenként ártalmatlan is lenne (irányelvek 2.7. fejezet).",
+   "followup": "Kérjük, sorolja fel röviden az összes ismert betegségét."
+  },
+  "other_conditions": {
+   "label": "Vannak további betegségek, panaszok vagy korábbi műtétek, amelyeket eddig nem említettünk?",
+   "followup": "Melyek?"
+  },
+  "driving_adaptation": {
+   "label": "Mond le egészségi korlátozottság miatt tudatosan bizonyos utakról (pl. sötétben, hosszú távok, autópálya)?",
+   "followup": "Mely utakról, és miért?"
+  },
+  "consent_truth": {
+   "label": "Megerősítem, hogy adataim hiánytalanok és a valóságnak megfelelnek.",
+   "error": "Kérjük, erősítse meg adatai hiánytalanságát."
+  },
+  "consent_privacy": {
+   "label": "Elolvastam az adatvédelmi tájékoztatót, és hozzájárulok adataim közlekedésorvosi célú kezeléséhez.",
+   "error": "Kérjük, fogadja el az adatvédelmi tájékoztatót."
+  }
+ },
+ "ess_items": {
+  "ess_1": "Ülve, olvasás közben",
+  "ess_2": "Tévénézés közben",
+  "ess_3": "Amikor passzívan ül nyilvános helyen (pl. színházban vagy megbeszélésen)",
+  "ess_4": "Utasként az autóban egy egyórás, szünet nélküli út alatt",
+  "ess_5": "Amikor délután lefeküdt pihenni",
+  "ess_6": "Amikor ül és beszélget valakivel",
+  "ess_7": "Amikor ebéd után (alkohol nélkül) nyugodtan ül",
+  "ess_8": "Amikor autóvezetőként a forgalom miatt néhány percre meg kell állnia"
+ }
+}

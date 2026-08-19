@@ -1,0 +1,585 @@
+{
+ "_meta": {
+  "language": "sk",
+  "name": "Slovenčina",
+  "machine_translated": true
+ },
+ "ui": {
+  "header_title": "Dopravno-lekársky dotazník",
+  "header_subtitle": "Prosím, odpovedzte na všetky otázky",
+  "language_label": "Jazyk",
+  "loading": "Načítava sa dotazník …",
+  "not_found_title": "Dotazník sa nenašiel",
+  "to_start": "Na úvodnú stránku",
+  "back": "Späť",
+  "next": "Ďalej",
+  "skip": "Preskočiť",
+  "submit": "Odoslať",
+  "sending": "Odosiela sa…",
+  "question_of": "Otázka {current} z {total}",
+  "answer_placeholder": "Vaša odpoveď…",
+  "required_error": "Prosím, odpovedzte na túto otázku.",
+  "yes": "Áno",
+  "no": "Nie",
+  "consent_title": "Súhlas",
+  "followup_hint": "Dobrovoľný doplňujúci údaj – pomáha pri lekárskom posúdení.",
+  "ess_question": "Aká je pravdepodobnosť, že by ste v tejto situácii zaspali?",
+  "ess_sum": "Doterajší súčet",
+  "ess_opt_0": "0 – Nikdy by som nezaspal(a)",
+  "ess_opt_1": "1 – Malá pravdepodobnosť",
+  "ess_opt_2": "2 – Stredná pravdepodobnosť",
+  "ess_opt_3": "3 – Vysoká pravdepodobnosť",
+  "privacy_button": "Zobraziť informácie o ochrane osobných údajov",
+  "privacy_title": "Informácie o ochrane osobných údajov",
+  "privacy_subtitle": "Informácia o spracúvaní vašich údajov podľa Art. 13 DSGVO (všeobecné nariadenie o ochrane údajov)",
+  "privacy_controller": "Prevádzkovateľ: Dr. med. Björn Micka, Betriebsmedizin · Notfallmedizin, Christoph-Dassler-Str. 22, 91074 Herzogenaurach",
+  "privacy_purpose": "Účel spracúvania: Vaše údaje v tomto dotazníku (vrátane údajov o zdravotnom stave) sa použijú výlučne na prípravu a vykonanie vašej dopravno-lekárskej prehliadky.",
+  "privacy_legal": "Právny základ: Váš súhlas (Art. 6 ods. 1 písm. a, Art. 9 ods. 2 písm. a DSGVO). Súhlas môžete kedykoľvek odvolať s účinnosťou do budúcnosti.",
+  "privacy_storage": "Uchovávanie: Výsledok sa prevezme do vašej zdravotnej dokumentácie o prehliadke a podlieha lekárskym lehotám uchovávania. Online prístup cez váš osobný odkaz zanikne po uplynutí platnosti; údaje tohto online dotazníka sa potom rutinne vymažú.",
+  "privacy_rights": "Vaše práva: Máte právo na prístup k údajom, na opravu, vymazanie a obmedzenie spracúvania, ako aj právo podať sťažnosť príslušnému dozornému orgánu na ochranu osobných údajov.",
+  "privacy_secrecy": "Všetky údaje podliehajú lekárskemu tajomstvu.",
+  "success_title": "Ďakujeme!",
+  "success_text": "Váš dotazník bol úspešne odoslaný.",
+  "success_result": "Výsledok ESS",
+  "success_doctor_note": "Prosím, preberte výsledok so svojím lekárom. Konečné posúdenie vykoná odborný lekár.",
+  "success_pdf": "Stiahnuť súhrn vo formáte PDF",
+  "success_close": "Toto okno teraz môžete zavrieť.",
+  "band_normal": "Normálne (0–9)",
+  "band_elevated": "Zvýšené (10–15)",
+  "band_severe": "Výrazné (≥16)",
+  "submit_error": "Chyba pri odosielaní. Prosím, skontrolujte svoje údaje."
+ },
+ "sections": {
+  "anlass": {
+   "title": "Dôvod prehliadky a profil jazdenia",
+   "subtitle": "Údaje o prehliadke a o vašom jazdení"
+  },
+  "gesundheit": {
+   "title": "Zdravotný stav",
+   "subtitle": "Najprv jedna otázka"
+  },
+  "anfaelle": {
+   "title": "Záchvaty a bezvedomie",
+   "subtitle": "Riziko náhleho zlyhania – epileptické záchvaty a mdloby"
+  },
+  "sehen_hoeren": {
+   "title": "Zrak a sluch",
+   "subtitle": "Funkcia zraku a sluchu"
+  },
+  "herz": {
+   "title": "Srdce a obeh",
+   "subtitle": "Ochorenia srdca a ciev"
+  },
+  "gehirn": {
+   "title": "Mozgová porážka a mozog",
+   "subtitle": "Poruchy prekrvenia, poranenia a operácie mozgu"
+  },
+  "neuro": {
+   "title": "Nervový systém",
+   "subtitle": "Neurologické ochorenia"
+  },
+  "schwindel": {
+   "title": "Rovnováha a závraty",
+   "subtitle": "Formy závratov a poruchy rovnováhy"
+  },
+  "bewegung": {
+   "title": "Pohybový aparát",
+   "subtitle": "Telesné obmedzenia a pomôcky"
+  },
+  "diabetes": {
+   "title": "Diabetes / látková premena",
+   "subtitle": "Cukrovka a poklesy cukru v krvi"
+  },
+  "organe": {
+   "title": "Vnútorné orgány",
+   "subtitle": "Obličky, pľúca a transplantácie"
+  },
+  "schlaf": {
+   "title": "Spánok a denná spavosť",
+   "subtitle": "Vrátane Epworthskej škály spavosti (ESS)"
+  },
+  "psyche": {
+   "title": "Duševné zdravie",
+   "subtitle": "Duševné ochorenia a pamäť"
+  },
+  "substanzen": {
+   "title": "Alkohol, drogy a lieky",
+   "subtitle": "Užívanie a trvalá liečba liekmi"
+  },
+  "allgemein": {
+   "title": "Všeobecné údaje a súhlas",
+   "subtitle": "Ďalšie údaje a vyhlásenia"
+  }
+ },
+ "questions": {
+  "exam_occasion": {
+   "label": "Pre ktoré vodičské oprávnenie sa prehliadka vykonáva?",
+   "options": {
+    "pkw": "Osobné auto / iná skupina",
+    "lkw": "Nákladné auto (C, C1, CE, C1E)",
+    "bus": "Autobus (D, D1, DE, D1E)",
+    "fahrgast": "Preprava cestujúcich (taxi, prenajaté vozidlo s vodičom, prevoz pacientov)"
+   }
+  },
+  "exam_kind": {
+   "label": "Ide o prvé udelenie alebo o predĺženie?",
+   "options": {
+    "erst": "Prvé udelenie",
+    "verlaengerung": "Predĺženie"
+   }
+  },
+  "license_classes": {
+   "label": "Ktoré skupiny vodičského oprávnenia vlastníte alebo o ktoré žiadate?",
+   "options": {
+    "AM": "AM",
+    "A1": "A1",
+    "A2": "A2",
+    "A": "A",
+    "B": "B",
+    "BE": "BE",
+    "C1": "C1",
+    "C1E": "C1E",
+    "C": "C",
+    "CE": "CE",
+    "D1": "D1",
+    "D": "D",
+    "DE": "DE",
+    "T": "T"
+   }
+  },
+  "license_years": {
+   "label": "Koľko rokov už vlastníte vodičské oprávnenie?",
+   "options": {
+    "erstantrag": "Zatiaľ žiadne (prvá žiadosť)",
+    "unter3": "Menej ako 3 roky",
+    "3bis10": "3 až 10 rokov",
+    "ueber10": "Viac ako 10 rokov"
+   }
+  },
+  "driving_hours": {
+   "label": "Koľko hodín denne v priemere šoférujete?",
+   "options": {
+    "<1": "Menej ako 1 hodinu",
+    "1-2": "1 až 2 hodiny",
+    "2-4": "2 až 4 hodiny",
+    ">4": "Viac ako 4 hodiny"
+   }
+  },
+  "night_driving": {
+   "label": "Šoférujete pravidelne v noci?"
+  },
+  "accidents": {
+   "label": "Mali ste za posledných 24 mesiacov v cestnej premávke nehody alebo situácie tesne pred nehodou?",
+   "followup": "Čo sa stalo?"
+  },
+  "license_withdrawn": {
+   "label": "Bolo vám už niekedy odobraté vodičské oprávnenie alebo ste sa museli zúčastniť lekársko-psychologického vyšetrenia (MPU)?",
+   "followup": "Kedy a z akého dôvodu?"
+  },
+  "psych_test_done": {
+   "label": "Absolvovali ste už pre toto vodičské oprávnenie psychologický výkonový test (test reakcie, sústredenia a pozornosti)?",
+   "hint": "Pri autobusových skupinách a preprave cestujúcich je tento doklad predpísaný podľa prílohy 5 FeV (nemecké nariadenie o vodičských preukazoch). Ak posudok máte, prineste ho, prosím, na prehliadku.",
+   "followup": "Kedy a kde bol test vykonaný?"
+  },
+  "has_conditions": {
+   "label": "Máte známe predchádzajúce ochorenie, trvalé telesné obmedzenie, alebo ste v pravidelnej lekárskej starostlivosti?",
+   "hint": "Patria sem aj závažné ochorenia z dávnejšej minulosti (napr. srdce, cukrovka, nervy, psychika). Ak nie, dotazník sa výrazne skráti."
+  },
+  "seizure_ever": {
+   "label": "Mali ste niekedy epileptický záchvat alebo kŕčový záchvat?",
+   "followup": "Kedy bol posledný záchvat, koľko ste ich mali celkovo a existoval nejaký spúšťač (napr. nedostatok spánku, horúčka, alkohol)?"
+  },
+  "epilepsy": {
+   "label": "Bola u vás diagnostikovaná epilepsia?",
+   "followup": "Vyskytujú sa záchvaty výlučne v spánku? Ste v pravidelnej neurologickej liečbe?"
+  },
+  "seizure_free": {
+   "label": "Ako dlho ste už bez záchvatov?",
+   "hint": "Odborné odporúčania viažu spôsobilosť na vedenie vozidla na konkrétne obdobia bez záchvatov.",
+   "options": {
+    "unter3m": "Menej ako 3 mesiace",
+    "3bis6m": "3 až 6 mesiacov",
+    "6bis12m": "6 až 12 mesiacov",
+    "1bis2j": "1 až 2 roky",
+    "2bis5j": "2 až 5 rokov",
+    "ueber5j": "Viac ako 5 rokov"
+   }
+  },
+  "antiepileptics": {
+   "label": "Užívate lieky proti záchvatom (antiepileptiká)?",
+   "options": {
+    "nie": "Nie, nikdy som ich neužíval(a)",
+    "aktuell": "Áno, v súčasnosti",
+    "reduktion": "Liečba sa práve postupne znižuje",
+    "ende_unter3m": "Ukončená pred menej ako 3 mesiacmi",
+    "ende_ueber3m": "Ukončená pred viac ako 3 mesiacmi"
+   }
+  },
+  "syncope": {
+   "label": "Odpadli ste už niekedy náhle (krátke bezvedomie)?",
+   "options": {
+    "nie": "Nikdy",
+    "einmal": "Raz",
+    "mehrmals": "Viackrát"
+   }
+  },
+  "syncope_recent": {
+   "label": "Bolo vaše posledné odpadnutie pred menej ako 6 mesiacmi?",
+   "followup": "V akej situácii k odpadnutiu došlo a našla sa príčina (napr. obeh, srdcový rytmus, pri močení)?"
+  },
+  "syncope_prodromi": {
+   "label": "Ohlasuje sa u vás odpadnutie vopred (napr. potenie, závrat, nevoľnosť, búšenie srdca)?"
+  },
+  "glasses": {
+   "label": "Nosíte pri šoférovaní okuliare alebo kontaktné šošovky?"
+  },
+  "eye_disease": {
+   "label": "Je u vás známe ochorenie očí (napr. sivý zákal, zelený zákal/glaukóm, ochorenie sietnice, obmedzenie zorného poľa)?",
+   "followup": "Ktoré ochorenie a ste v očnej liečbe?"
+  },
+  "one_eyed": {
+   "label": "Vidíte na jedno oko výrazne horšie alebo ste na jedno oko slepý(á)?"
+  },
+  "night_vision": {
+   "label": "Máte problémy s videním za súmraku alebo v tme, alebo vás silno oslepuje protiidúca premávka?",
+   "followup": "V ktorých situáciách sa problémy vyskytujú?"
+  },
+  "hearing_impaired": {
+   "label": "Máte ťažkú nedoslýchavosť alebo ste nepočujúci(a)?",
+   "followup": "Odkedy a ste v liečbe u ušného lekára (ORL)?"
+  },
+  "hearing_aid": {
+   "label": "Nosíte načúvací prístroj alebo kochleárny implantát?"
+  },
+  "heart_disease": {
+   "label": "Je u vás známe ochorenie srdca alebo ciev?",
+   "hint": "napr. poruchy rytmu, infarkt srdca, slabosť srdca, chyba chlopne, poruchy prekrvenia",
+   "followup": "Ktoré ochorenie (ochorenia), odkedy a ako sa lieči?"
+  },
+  "cardio_checkup": {
+   "label": "Chodíte kvôli tomu pravidelne na kontroly ku kardiológovi?",
+   "followup": "Kedy bola posledná kontrola?"
+  },
+  "heart_attack": {
+   "label": "Mali ste už niekedy infarkt srdca, zákrok so stentom alebo bypassovú operáciu?",
+   "followup": "Kedy k tejto udalosti alebo zákroku došlo a boli komplikácie (napr. znížený čerpací výkon srdca)?"
+  },
+  "arrhythmia": {
+   "label": "Sú u vás známe poruchy srdcového rytmu (napr. preskakovanie srdca, búšenie srdca, nápadne pomalý pulz, fibrilácia predsiení, AV blokáda)?",
+   "followup": "Aká diagnóza a ako sa lieči?"
+  },
+  "pacemaker_icd": {
+   "label": "Máte kardiostimulátor alebo defibrilátor (ICD)?",
+   "options": {
+    "nein": "Nie",
+    "schrittmacher": "Kardiostimulátor",
+    "icd": "Defibrilátor (ICD)"
+   },
+   "followup": "Kedy bol implantovaný a kedy bola posledná kontrola?"
+  },
+  "icd_shock": {
+   "label": "Vydal váš defibrilátor za posledné 3 mesiace výboj?",
+   "followup": "Kedy a čo k tomu povedal váš kardiológ?"
+  },
+  "exertion_symptoms": {
+   "label": "Máte pri námahe dýchavičnosť, bolesti na hrudníku, preskakovanie srdca alebo nezvyčajné vyčerpanie?",
+   "hint": "Vlastné posúdenie podľa štádií NYHA",
+   "options": {
+    "keine": "Nie, pri bežnej námahe žiadne ťažkosti",
+    "stark": "Pri väčšej námahe (napr. rýchla chôdza po schodoch)",
+    "leicht": "Už pri ľahkej námahe (napr. pomalá chôdza)",
+    "ruhe": "Už v pokoji"
+   }
+  },
+  "hypertension": {
+   "label": "Je u vás známy vysoký krvný tlak?",
+   "followup": "Odkedy, aké lieky a aké hodnoty si zvyčajne meriate?"
+  },
+  "bp_dizziness": {
+   "label": "Dochádza pri vašich liekoch na krvný tlak k závratom, pocitu slabosti alebo tmavnutiu pred očami?"
+  },
+  "heart_other": {
+   "label": "Je u vás známe ďalšie ochorenie srdca alebo ciev: chyba srdcovej chlopne, vrodená srdcová chyba, ochorenie srdcového svalu (kardiomyopatia), dedičné ochorenie srdcového rytmu (napr. syndróm dlhého QT), aneuryzma aorty alebo zúžená krčná tepna?",
+   "followup": "Aká diagnóza a ako sa kontroluje/lieči?"
+  },
+  "family_sudden_death": {
+   "label": "Vyskytla sa vo vašej najbližšej rodine (rodičia, súrodenci, deti) náhla srdcová smrť?"
+  },
+  "stroke": {
+   "label": "Mali ste niekedy mozgovú porážku, krvácanie do mozgu alebo TIA (prechodná porucha prekrvenia s krátkodobými výpadkami)?",
+   "followup": "Kedy k tomu došlo a bola ukončená rehabilitácia?"
+  },
+  "stroke_residuals": {
+   "label": "Pretrvávajú odvtedy následky ako ochrnutie, poruchy reči, problémy s pamäťou alebo obmedzenia zorného poľa?",
+   "followup": "Aké ťažkosti pretrvávajú v súčasnosti?"
+  },
+  "head_injury": {
+   "label": "Mali ste niekedy ťažké poranenie hlavy (s bezvedomím alebo pobytom v nemocnici) alebo operáciu mozgu?",
+   "followup": "Kedy a čo sa liečilo?"
+  },
+  "head_injury_recent": {
+   "label": "Došlo k tomuto poraneniu alebo operácii pred menej ako 3 mesiacmi?",
+   "hint": "Po poranení alebo operácii mozgu podľa odborných odporúčaní vo všeobecnosti 3 mesiace nie je daná spôsobilosť na vedenie vozidla."
+  },
+  "brain_residuals": {
+   "label": "Pretrvávajú od poranenia/operácie ťažkosti ako poruchy sústredenia alebo pamäti, zmena povahy alebo kŕčové záchvaty?",
+   "followup": "Aké ťažkosti a ako sa prejavujú?"
+  },
+  "parkinson": {
+   "label": "Bola u vás diagnostikovaná Parkinsonova choroba alebo iná porucha pohybu či koordinácie?",
+   "followup": "Odkedy, ako sa lieči a kedy bola posledná neurologická kontrola?"
+  },
+  "ms_spinal": {
+   "label": "Je u vás známa skleróza multiplex, ochorenie miechy alebo poranenie miechy?",
+   "followup": "Aká diagnóza a aké ťažkosti máte v súčasnosti?"
+  },
+  "muscle_nerve": {
+   "label": "Je u vás známe ochorenie svalov alebo nervov (napr. svalová atrofia, myasténia, polyneuropatia)?",
+   "followup": "Aká diagnóza a ako veľmi ste obmedzený(á)?"
+  },
+  "paralysis_attacks": {
+   "label": "Dochádza u vás k záchvatovitým ochrnutiam alebo náhlej silnej svalovej slabosti?",
+   "followup": "Kedy nastal posledný záchvat a ako rýchlo sa začína?"
+  },
+  "motor_limits": {
+   "label": "Máte ochrnutie, svalovú slabosť alebo poruchy citlivosti v rukách alebo nohách, ktoré by vás mohli obmedzovať pri ovládaní vozidla?",
+   "followup": "Ktoré časti tela sú postihnuté?"
+  },
+  "vertigo": {
+   "label": "Trpíte závratmi alebo poruchami rovnováhy (napr. pocit točenia, kolísanie, neistota pri chôdzi)?",
+   "followup": "Ako sa závrat prejavuje, ako často sa vyskytuje, ako dlho trvá jeden záchvat a čo ho spúšťa?"
+  },
+  "vertigo_last": {
+   "label": "Ako dávno ste mali posledný záchvat závratu?",
+   "options": {
+    "unter3m": "Menej ako 3 mesiace",
+    "3bis6m": "3 až 6 mesiacov",
+    "6bis12m": "6 až 12 mesiacov",
+    "1bis2j": "1 až 2 roky",
+    "ueber2j": "Viac ako 2 roky"
+   }
+  },
+  "vertigo_prodromi": {
+   "label": "Ohlasujú sa vaše záchvaty závratu vopred (napr. tlak v uchu, hučanie v ušiach, zhoršenie sluchu), takže by ste stihli včas zastaviť?",
+   "options": {
+    "immer": "Áno, vždy",
+    "manchmal": "Niekedy",
+    "nie": "Nie, prichádzajú bez varovania"
+   }
+  },
+  "vertigo_positional": {
+   "label": "Spúšťa sa závrat určitými pohybmi hlavy alebo zmenou polohy (napr. otočenie sa v posteli, zohnutie sa)?"
+  },
+  "vertigo_ear": {
+   "label": "Vyskytuje sa závrat spolu so zhoršením sluchu, hučaním v ušiach (tinnitus) alebo pocitom tlaku v uchu?"
+  },
+  "ear_disease": {
+   "label": "Bolo u vás zistené ochorenie rovnovážneho orgánu alebo vnútorného ucha (napr. polohový závrat, Menièrova choroba)?",
+   "followup": "Aká diagnóza, ako sa liečila a ste odvtedy bez ťažkostí?"
+  },
+  "mobility_limits": {
+   "label": "Máte trvalé obmedzenie pohyblivosti rúk, nôh, dlaní alebo chrbtice (napr. po úraze, operácii, amputácii)?",
+   "followup": "Ktoré časti tela sú postihnuté a odkedy?"
+  },
+  "prosthesis": {
+   "label": "Nosíte protézu alebo používate ortopedické pomôcky?",
+   "followup": "Aké pomôcky a máte ťažkosti pri dlhšej záťaži?"
+  },
+  "vehicle_modified": {
+   "label": "Je vaše vozidlo kvôli telesnému obmedzeniu upravené (napr. ručné ovládanie, posilňovač riadenia)?",
+   "followup": "Aké úpravy a sú zapísané vo vodičskom preukaze?"
+  },
+  "diabetes_type": {
+   "label": "Je u vás známy diabetes mellitus (cukrovka)?",
+   "options": {
+    "none": "Nie",
+    "type1": "Áno, 1. typ",
+    "type2": "Áno, 2. typ",
+    "other": "Áno, iná/nejasná forma"
+   }
+  },
+  "diabetes_therapy": {
+   "label": "Ako sa vaša cukrovka v súčasnosti lieči?",
+   "options": {
+    "lifestyle": "Len strava / životný štýl",
+    "tabl_low": "Tablety s nízkym rizikom poklesu cukru v krvi (napr. metformín)",
+    "tabl_high": "Tablety s rizikom poklesu cukru v krvi (sulfonylmočoviny, glinidy)",
+    "insulin": "Inzulín",
+    "unknown": "Presne neviem"
+   }
+  },
+  "hypoglycemia": {
+   "label": "Mali ste za posledných 12 mesiacov ťažký pokles cukru v krvi, pri ktorom ste boli odkázaný(á) na cudziu pomoc?",
+   "followup": "Ako často, kedy bola posledná epizóda a nastala v bdelom stave alebo v spánku?"
+  },
+  "hypo_awareness": {
+   "label": "Stalo sa, že ste pokles cukru v krvi sami včas nezbadali (chýbajúce varovné príznaky)?",
+   "followup": "Kedy naposledy a urobilo sa niečo (napr. tréning, zmena liečby)?"
+  },
+  "glucose_monitoring": {
+   "label": "Meriate si pravidelne sami cukor v krvi (alebo nosíte senzor glukózy)?",
+   "options": {
+    "2x": "Áno, najmenej dvakrát denne",
+    "seltener": "Áno, ale menej často",
+    "nein": "Nie",
+    "keine_med": "Netýka sa ma (žiadne lieky znižujúce cukor v krvi)"
+   }
+  },
+  "diabetes_derailment": {
+   "label": "Došlo v posledných mesiacoch k novému nastaveniu liečby alebo k vykoľajeniu látkovej premeny (napr. liečba v nemocnici pre vykoľajené hodnoty)?",
+   "followup": "Čo sa stalo a kedy?"
+  },
+  "kidney_disease": {
+   "label": "Je u vás známe chronické ochorenie obličiek alebo slabosť obličiek?",
+   "followup": "Aké ochorenie a ste v nefrologickej liečbe?"
+  },
+  "dialysis": {
+   "label": "Ste pravidelne liečený(á) dialýzou (čistenie krvi)?",
+   "followup": "Odkedy a koľkokrát týždenne? Cítite sa medzi jednotlivými liečbami výkonný(á)?"
+  },
+  "transplant": {
+   "label": "Bol vám transplantovaný nejaký orgán (napr. oblička, srdce, pečeň, pľúca)?",
+   "followup": "Ktorý orgán, kedy a ste v pravidelnej následnej starostlivosti?"
+  },
+  "lung_disease": {
+   "label": "Trpíte chronickým ochorením pľúc alebo priedušiek (napr. CHOCHP, astma, pľúcna fibróza)?",
+   "followup": "Aké ochorenie a ako sa lieči?"
+  },
+  "dyspnea": {
+   "label": "Máte dýchavičnosť už pri ľahkej námahe alebo v pokoji, prípadne potrebujete dlhodobú liečbu kyslíkom?"
+  },
+  "cough_syncope": {
+   "label": "Došlo pri silných záchvatoch kašľa už k závratu, tmavnutiu pred očami alebo krátkemu bezvedomiu?"
+  },
+  "daytime_sleepiness": {
+   "label": "Je pre vás cez deň ťažké zostať bdelý(á) a pozorný(á) – najmä v jednotvárnych situáciách (napr. čítanie, porady, dlhšie jazdy autom)?"
+  },
+  "microsleep": {
+   "label": "Zaspali ste v posledných mesiacoch nechcene alebo ste mali mikrospánok?",
+   "followup": "V akých situáciách? Stalo sa to aj za volantom?"
+  },
+  "snoring": {
+   "label": "Povedal vám niekto, že hlasno a nepravidelne chrápete alebo že máte v noci prestávky v dýchaní?"
+  },
+  "osas": {
+   "label": "Bol u vás zistený syndróm spánkového apnoe (nočné zástavy dýchania)?",
+   "followup": "Kedy bola diagnóza stanovená a aký stupeň závažnosti, resp. hodnota AHI bola zistená (ak je známa)?"
+  },
+  "cpap": {
+   "label": "Ste kvôli spánkovému apnoe liečený(á) (napr. dýchacou maskou CPAP)?",
+   "options": {
+    "regelmaessig": "Áno, pravidelne (takmer každú noc)",
+    "unregelmaessig": "Áno, ale nepravidelne",
+    "abgebrochen": "Liečba bola prerušená",
+    "keine": "Nie, žiadna liečba"
+   }
+  },
+  "psychiatric": {
+   "label": "Bolo u vás diagnostikované duševné ochorenie (napr. depresia, úzkostná porucha, bipolárna porucha)?",
+   "followup": "Aké ochorenie a ako sa lieči?"
+  },
+  "psychiatric_severe": {
+   "label": "Boli ste kvôli tomu už niekedy hospitalizovaný(á), mali ste manickú fázu alebo myšlienky na samovraždu?",
+   "followup": "Kedy to bolo naposledy?"
+  },
+  "psychosis": {
+   "label": "Bola u vás niekedy diagnostikovaná schizofrénia alebo iná psychóza (ochorenie s bludmi alebo halucináciami)?",
+   "followup": "Koľko akútnych epizód ste mali, kedy bola posledná a ste v odbornej liečbe?"
+  },
+  "memory_problems": {
+   "label": "Všimli ste si vy sami alebo vaši blízki v poslednom čase u vás narastajúce problémy s pamäťou alebo orientáciou?",
+   "followup": "Odkedy a ako sa prejavujú v bežnom dni?"
+  },
+  "concentration": {
+   "label": "Máte problémy so sústredením alebo pozornosťou?"
+  },
+  "alcohol": {
+   "label": "Ako často pijete alkohol?",
+   "options": {
+    "nie": "Nikdy",
+    "selten": "Zriedka (najviac 1-krát za mesiac)",
+    "woechentlich": "1- až 2-krát týždenne",
+    "mehrmals": "Viackrát týždenne",
+    "taeglich": "Denne alebo takmer denne"
+   }
+  },
+  "alcohol_control": {
+   "label": "Stalo sa, že ste vypili viac, ako ste zamýšľali, alebo ste stratili kontrolu nad svojím pitím?"
+  },
+  "alcohol_traffic": {
+   "label": "Boli ste už niekedy v cestnej premávke prichytený(á) pod vplyvom alkoholu (napr. jazda pod vplyvom, pokuta, MPU – lekársko-psychologické vyšetrenie)?",
+   "followup": "Kedy a aká hodnota alkoholu v krvi bola zistená (ak je známa)?"
+  },
+  "alcohol_dependence": {
+   "label": "Bola u vás niekedy zistená závislosť od alkoholu alebo ste absolvovali detoxikáciu, resp. odvykaciu liečbu?",
+   "followup": "Kedy bola liečba ukončená a odkedy žijete abstinentne?"
+  },
+  "drugs": {
+   "label": "Užívate v súčasnosti drogy (napr. kanabis, kokaín, amfetamíny) alebo ste drogy pravidelne užívali v minulosti?",
+   "followup": "Aké látky, ako často a kedy naposledy?"
+  },
+  "cannabis": {
+   "label": "Ako často užívate kanabis?",
+   "options": {
+    "nie": "Nikdy",
+    "gelegentlich": "Príležitostne (nie pravidelne)",
+    "regelmaessig": "Pravidelne (denne alebo zvykovo)"
+   }
+  },
+  "substitution": {
+   "label": "Dostávate substitučnú liečbu (napr. metadón)?",
+   "followup": "Odkedy?"
+  },
+  "regular_meds": {
+   "label": "Užívate pravidelne lieky?",
+   "followup": "Aké lieky a na čo?"
+  },
+  "sedating_meds": {
+   "label": "Sú medzi nimi lieky, ktoré môžu spôsobovať únavu alebo ovplyvňovať schopnosť reagovať (napr. silné lieky proti bolesti/opioidy, lieky na spanie alebo na upokojenie, antidepresíva, antiepileptiká, lieky proti alergii)?",
+   "followup": "Aké lieky a v akom dávkovaní?"
+  },
+  "med_side_effects": {
+   "label": "Pozorujete pri svojich liekoch vedľajšie účinky ako únavu, spomalenie, poruchy sústredenia alebo závraty?",
+   "followup": "Aké vedľajšie účinky a ako silné?"
+  },
+  "med_recent_change": {
+   "label": "Bol v posledných týždňoch taký liek novo nasadený alebo bola jeho dávka výrazne zmenená?",
+   "followup": "Ktorý liek a kedy?"
+  },
+  "benzo_regular": {
+   "label": "Užívate už niekoľko mesiacov pravidelne – aj keď len večer v malom množstve – lieky na spanie alebo na upokojenie (napr. benzodiazepíny)?",
+   "followup": "Aký liek, ako dlho už a pozorujete pri vynechaní abstinenčné príznaky?"
+  },
+  "multiple_conditions": {
+   "label": "Máte súčasne viacero ochorení alebo zdravotných obmedzení?",
+   "hint": "Viaceré odchýlky môžu byť vo svojom súhrne významné pre spôsobilosť, aj keď každá jednotlivo by bola neškodná (odborné odporúčania, kap. 2.7).",
+   "followup": "Prosím, krátko vymenujte všetky známe ochorenia."
+  },
+  "other_conditions": {
+   "label": "Existujú ďalšie ochorenia, ťažkosti alebo skoršie operácie, ktoré doteraz neboli spomenuté?",
+   "followup": "Aké?"
+  },
+  "driving_adaptation": {
+   "label": "Vzdávate sa kvôli zdravotným obmedzeniam vedome určitých jázd (napr. za tmy, dlhé trasy, diaľnica)?",
+   "followup": "Ktorých jázd a prečo?"
+  },
+  "consent_truth": {
+   "label": "Potvrdzujem, že moje údaje sú úplné a pravdivé.",
+   "error": "Prosím, potvrďte úplnosť svojich údajov."
+  },
+  "consent_privacy": {
+   "label": "Prečítal(a) som si informácie o ochrane osobných údajov a súhlasím so spracúvaním svojich údajov na dopravno-lekárske účely.",
+   "error": "Prosím, prijmite informácie o ochrane osobných údajov."
+  }
+ },
+ "ess_items": {
+  "ess_1": "Pri sedení a čítaní",
+  "ess_2": "Pri sledovaní televízie",
+  "ess_3": "Keď pasívne sedíte na verejnosti (napr. v divadle alebo na porade)",
+  "ess_4": "Ako spolujazdec v aute počas hodinovej jazdy bez prestávky",
+  "ess_5": "Keď si popoludní ľahnete, aby ste si oddýchli",
+  "ess_6": "Keď sedíte a s niekým sa rozprávate",
+  "ess_7": "Keď po obede (bez alkoholu) pokojne sedíte",
+  "ess_8": "Keď ako vodič auta musíte kvôli premávke niekoľko minút stáť"
+ }
+}

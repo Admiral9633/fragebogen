@@ -1,0 +1,585 @@
+{
+ "_meta": {
+  "language": "ro",
+  "name": "Română",
+  "machine_translated": true
+ },
+ "ui": {
+  "header_title": "Chestionar de medicina traficului rutier",
+  "header_subtitle": "Vă rugăm să răspundeți la toate întrebările",
+  "language_label": "Limba",
+  "loading": "Se încarcă chestionarul …",
+  "not_found_title": "Chestionarul nu a fost găsit",
+  "to_start": "Către pagina de start",
+  "back": "Înapoi",
+  "next": "Continuă",
+  "skip": "Sari peste",
+  "submit": "Trimite",
+  "sending": "Se trimite…",
+  "question_of": "Întrebarea {current} din {total}",
+  "answer_placeholder": "Răspunsul dumneavoastră…",
+  "required_error": "Vă rugăm să răspundeți la această întrebare.",
+  "yes": "Da",
+  "no": "Nu",
+  "consent_title": "Consimțământ",
+  "followup_hint": "Informație suplimentară facultativă – ajută la evaluarea medicală.",
+  "ess_question": "Cât de probabil este să ațipiți în această situație?",
+  "ess_sum": "Suma de până acum",
+  "ess_opt_0": "0 – Nu aș ațipi niciodată",
+  "ess_opt_1": "1 – Probabilitate mică",
+  "ess_opt_2": "2 – Probabilitate medie",
+  "ess_opt_3": "3 – Probabilitate mare",
+  "privacy_button": "Afișează informațiile privind protecția datelor",
+  "privacy_title": "Informații privind protecția datelor",
+  "privacy_subtitle": "Informare privind prelucrarea datelor dumneavoastră conform Art. 13 DSGVO (Regulamentul general privind protecția datelor)",
+  "privacy_controller": "Operator: Dr. med. Björn Micka, Betriebsmedizin · Notfallmedizin, Christoph-Dassler-Str. 22, 91074 Herzogenaurach",
+  "privacy_purpose": "Scopul prelucrării: Datele dumneavoastră din acest chestionar (inclusiv datele privind sănătatea) sunt utilizate exclusiv pentru pregătirea și efectuarea examinării dumneavoastră de medicina traficului rutier.",
+  "privacy_legal": "Temeiul juridic: consimțământul dumneavoastră (Art. 6 alin. 1 lit. a, Art. 9 alin. 2 lit. a DSGVO). Puteți retrage consimțământul oricând, cu efect pentru viitor.",
+  "privacy_storage": "Stocare: Rezultatul este preluat în documentația dumneavoastră de examinare și este supus termenelor medicale de păstrare. Accesul online prin linkul dumneavoastră personal expiră după încheierea valabilității; datele acestui chestionar online sunt apoi șterse în mod uzual.",
+  "privacy_rights": "Drepturile dumneavoastră: Aveți dreptul de acces la date, de rectificare, de ștergere și de restricționare a prelucrării, precum și dreptul de a depune o plângere la autoritatea de supraveghere competentă pentru protecția datelor.",
+  "privacy_secrecy": "Toate informațiile sunt supuse secretului profesional medical.",
+  "success_title": "Vă mulțumim!",
+  "success_text": "Chestionarul dumneavoastră a fost transmis cu succes.",
+  "success_result": "Rezultatul ESS",
+  "success_doctor_note": "Vă rugăm să discutați rezultatul cu medicul dumneavoastră. Evaluarea finală este făcută de un medic specialist.",
+  "success_pdf": "Descarcă rezumatul PDF",
+  "success_close": "Puteți închide acum această fereastră.",
+  "band_normal": "Normal (0–9)",
+  "band_elevated": "Crescut (10–15)",
+  "band_severe": "Pronunțat (≥16)",
+  "submit_error": "Eroare la trimitere. Vă rugăm să verificați datele introduse."
+ },
+ "sections": {
+  "anlass": {
+   "title": "Motivul examinării și profilul de condus",
+   "subtitle": "Informații despre examinare și despre activitatea dumneavoastră de conducere auto"
+  },
+  "gesundheit": {
+   "title": "Starea de sănătate",
+   "subtitle": "O întrebare în prealabil"
+  },
+  "anfaelle": {
+   "title": "Crize și pierderi ale cunoștinței",
+   "subtitle": "Risc de incapacitate bruscă – crize epileptice și leșinuri"
+  },
+  "sehen_hoeren": {
+   "title": "Văz și auz",
+   "subtitle": "Funcția vizuală și auditivă"
+  },
+  "herz": {
+   "title": "Inimă și circulație",
+   "subtitle": "Boli ale inimii și ale vaselor de sânge"
+  },
+  "gehirn": {
+   "title": "Accident vascular cerebral și creier",
+   "subtitle": "Tulburări de circulație, leziuni și operații ale creierului"
+  },
+  "neuro": {
+   "title": "Sistemul nervos",
+   "subtitle": "Boli neurologice"
+  },
+  "schwindel": {
+   "title": "Echilibru și amețeli",
+   "subtitle": "Forme de amețeală și tulburări de echilibru"
+  },
+  "bewegung": {
+   "title": "Aparatul locomotor",
+   "subtitle": "Limitări fizice și dispozitive ajutătoare"
+  },
+  "diabetes": {
+   "title": "Diabet / metabolism",
+   "subtitle": "Boala de zahăr și scăderile glicemiei"
+  },
+  "organe": {
+   "title": "Organe interne",
+   "subtitle": "Rinichi, plămâni și transplanturi"
+  },
+  "schlaf": {
+   "title": "Somn și somnolență diurnă",
+   "subtitle": "Inclusiv Scala de somnolență Epworth (ESS)"
+  },
+  "psyche": {
+   "title": "Sănătate psihică",
+   "subtitle": "Boli psihice și memorie"
+  },
+  "substanzen": {
+   "title": "Alcool, droguri și medicamente",
+   "subtitle": "Consum și medicație de durată"
+  },
+  "allgemein": {
+   "title": "Informații generale și consimțământ",
+   "subtitle": "Alte informații și declarații"
+  }
+ },
+ "questions": {
+  "exam_occasion": {
+   "label": "Pentru ce permis de conducere are loc examinarea?",
+   "options": {
+    "pkw": "Autoturism / altă categorie",
+    "lkw": "Camion (C, C1, CE, C1E)",
+    "bus": "Autobuz (D, D1, DE, D1E)",
+    "fahrgast": "Transport de persoane (taxi, mașină închiriată cu șofer, transport de bolnavi)"
+   }
+  },
+  "exam_kind": {
+   "label": "Este vorba despre o primă eliberare sau despre o prelungire?",
+   "options": {
+    "erst": "Prima eliberare",
+    "verlaengerung": "Prelungire"
+   }
+  },
+  "license_classes": {
+   "label": "Ce categorii de permis de conducere dețineți sau solicitați?",
+   "options": {
+    "AM": "AM",
+    "A1": "A1",
+    "A2": "A2",
+    "A": "A",
+    "B": "B",
+    "BE": "BE",
+    "C1": "C1",
+    "C1E": "C1E",
+    "C": "C",
+    "CE": "CE",
+    "D1": "D1",
+    "D": "D",
+    "DE": "DE",
+    "T": "T"
+   }
+  },
+  "license_years": {
+   "label": "De câți ani dețineți permis de conducere?",
+   "options": {
+    "erstantrag": "Încă niciunul (prima cerere)",
+    "unter3": "Mai puțin de 3 ani",
+    "3bis10": "Între 3 și 10 ani",
+    "ueber10": "Mai mult de 10 ani"
+   }
+  },
+  "driving_hours": {
+   "label": "Câte ore conduceți în medie pe zi?",
+   "options": {
+    "<1": "Mai puțin de 1 oră",
+    "1-2": "Între 1 și 2 ore",
+    "2-4": "Între 2 și 4 ore",
+    ">4": "Mai mult de 4 ore"
+   }
+  },
+  "night_driving": {
+   "label": "Conduceți în mod regulat noaptea?"
+  },
+  "accidents": {
+   "label": "Ați avut în ultimele 24 de luni accidente sau situații de aproape-accident în traficul rutier?",
+   "followup": "Ce s-a întâmplat?"
+  },
+  "license_withdrawn": {
+   "label": "V-a fost retras vreodată permisul de conducere sau a trebuit să participați la o examinare medico-psihologică (MPU)?",
+   "followup": "Când și din ce motiv?"
+  },
+  "psych_test_done": {
+   "label": "Ați susținut deja pentru acest permis de conducere un test psihologic de performanță (test de reacție, concentrare și atenție)?",
+   "hint": "Pentru categoriile de autobuz și pentru transportul de persoane, această dovadă este obligatorie conform Anlage 5 FeV (anexa 5 la regulamentul german privind permisele de conducere). Vă rugăm să aduceți la examinare un raport de expertiză existent.",
+   "followup": "Când și unde a fost efectuat testul?"
+  },
+  "has_conditions": {
+   "label": "Aveți o afecțiune preexistentă cunoscută, o limitare fizică permanentă, sau sunteți în tratament medical regulat?",
+   "hint": "Se includ și bolile grave din trecutul mai îndepărtat (de ex. inimă, diabet, nervi, psihic). Dacă nu, chestionarul se scurtează considerabil."
+  },
+  "seizure_ever": {
+   "label": "Ați avut vreodată o criză epileptică sau o criză convulsivă?",
+   "followup": "Când a fost ultima criză, câte ați avut în total și a existat un factor declanșator (de ex. lipsa somnului, febră, alcool)?"
+  },
+  "epilepsy": {
+   "label": "Ați fost diagnosticat(ă) cu epilepsie?",
+   "followup": "Crizele apar exclusiv în somn? Sunteți în tratament neurologic regulat?"
+  },
+  "seizure_free": {
+   "label": "De cât timp sunteți fără crize?",
+   "hint": "Ghidurile leagă aptitudinea de a conduce de perioade concrete fără crize.",
+   "options": {
+    "unter3m": "Mai puțin de 3 luni",
+    "3bis6m": "Între 3 și 6 luni",
+    "6bis12m": "Între 6 și 12 luni",
+    "1bis2j": "Între 1 și 2 ani",
+    "2bis5j": "Între 2 și 5 ani",
+    "ueber5j": "Mai mult de 5 ani"
+   }
+  },
+  "antiepileptics": {
+   "label": "Luați medicamente împotriva crizelor (antiepileptice)?",
+   "options": {
+    "nie": "Nu, nu am luat niciodată",
+    "aktuell": "Da, în prezent",
+    "reduktion": "Tratamentul este în prezent redus treptat",
+    "ende_unter3m": "Încheiat în urmă cu mai puțin de 3 luni",
+    "ende_ueber3m": "Încheiat în urmă cu mai mult de 3 luni"
+   }
+  },
+  "syncope": {
+   "label": "Ați leșinat vreodată brusc (pierdere scurtă a cunoștinței)?",
+   "options": {
+    "nie": "Niciodată",
+    "einmal": "O dată",
+    "mehrmals": "De mai multe ori"
+   }
+  },
+  "syncope_recent": {
+   "label": "Ultimul dumneavoastră leșin a fost în urmă cu mai puțin de 6 luni?",
+   "followup": "În ce situație a apărut leșinul și s-a găsit o cauză (de ex. circulația, ritmul inimii, la urinare)?"
+  },
+  "syncope_prodromi": {
+   "label": "Leșinul se anunță la dumneavoastră dinainte (de ex. transpirație, amețeală, greață, palpitații)?"
+  },
+  "glasses": {
+   "label": "Purtați ochelari sau lentile de contact când conduceți?"
+  },
+  "eye_disease": {
+   "label": "Aveți o boală de ochi cunoscută (de ex. cataractă, glaucom, boală a retinei, îngustare a câmpului vizual)?",
+   "followup": "Ce boală și sunteți în tratament oftalmologic?"
+  },
+  "one_eyed": {
+   "label": "Vedeți cu un ochi considerabil mai slab sau sunteți orb(oarbă) de un ochi?"
+  },
+  "night_vision": {
+   "label": "Aveți probleme la vedere în amurg sau în întuneric ori sunteți orbit(ă) puternic de traficul din sens opus?",
+   "followup": "În ce situații apar problemele?"
+  },
+  "hearing_impaired": {
+   "label": "Aveți hipoacuzie severă sau sunteți surd(ă)?",
+   "followup": "De când și sunteți în tratament ORL?"
+  },
+  "hearing_aid": {
+   "label": "Purtați un aparat auditiv sau un implant cohlear?"
+  },
+  "heart_disease": {
+   "label": "Aveți o boală de inimă sau a vaselor de sânge cunoscută?",
+   "hint": "de ex. tulburări de ritm, infarct miocardic, insuficiență cardiacă, defect de valvă, tulburări de circulație",
+   "followup": "Ce boală (boli), de când și cum sunt tratate?"
+  },
+  "cardio_checkup": {
+   "label": "Mergeți din acest motiv în mod regulat la control la cardiolog?",
+   "followup": "Când a fost ultimul control?"
+  },
+  "heart_attack": {
+   "label": "Ați avut vreodată un infarct miocardic, un tratament cu stent sau o operație de bypass?",
+   "followup": "Când a avut loc evenimentul, respectiv intervenția, și au existat complicații (de ex. capacitate de pompare redusă)?"
+  },
+  "arrhythmia": {
+   "label": "Aveți tulburări de ritm cardiac cunoscute (de ex. bătăi neregulate, palpitații, puls vizibil de lent, fibrilație atrială, bloc AV)?",
+   "followup": "Ce diagnostic și cum este tratat?"
+  },
+  "pacemaker_icd": {
+   "label": "Purtați un stimulator cardiac (pacemaker) sau un defibrilator (ICD)?",
+   "options": {
+    "nein": "Nu",
+    "schrittmacher": "Stimulator cardiac (pacemaker)",
+    "icd": "Defibrilator (ICD)"
+   },
+   "followup": "Când a fost implantat și când a fost ultimul control?"
+  },
+  "icd_shock": {
+   "label": "A administrat defibrilatorul dumneavoastră un șoc în ultimele 3 luni?",
+   "followup": "Când și ce a spus cardiologul dumneavoastră despre acest lucru?"
+  },
+  "exertion_symptoms": {
+   "label": "Aveți la efort lipsă de aer, dureri în piept, bătăi neregulate ale inimii sau o epuizare neobișnuită?",
+   "hint": "Autoevaluare conform stadiilor NYHA",
+   "options": {
+    "keine": "Nu, nicio suferință la efortul de zi cu zi",
+    "stark": "La efort mai mare (de ex. urcatul rapid pe scări)",
+    "leicht": "Deja la efort ușor (de ex. mers încet)",
+    "ruhe": "Deja în repaus"
+   }
+  },
+  "hypertension": {
+   "label": "Aveți hipertensiune arterială (tensiune crescută) cunoscută?",
+   "followup": "De când, ce medicamente și ce valori măsurați de obicei?"
+  },
+  "bp_dizziness": {
+   "label": "Apar sub medicamentele dumneavoastră pentru tensiune amețeli, senzație de slăbiciune sau întunecarea vederii?"
+  },
+  "heart_other": {
+   "label": "Aveți o altă boală a inimii sau a vaselor cunoscută: defect de valvă cardiacă, malformație cardiacă din naștere, boală a mușchiului inimii (cardiomiopatie), boală ereditară de ritm (de ex. sindromul QT lung), anevrism de aortă sau îngustare a arterei carotide?",
+   "followup": "Ce diagnostic și cum este controlat/tratat?"
+  },
+  "family_sudden_death": {
+   "label": "A existat în familia dumneavoastră apropiată (părinți, frați/surori, copii) un caz de moarte subită cardiacă?"
+  },
+  "stroke": {
+   "label": "Ați avut vreodată un accident vascular cerebral, o hemoragie cerebrală sau un AIT (tulburare trecătoare de circulație cu deficite de scurtă durată)?",
+   "followup": "Când a avut loc evenimentul și a fost finalizată o recuperare medicală?"
+  },
+  "stroke_residuals": {
+   "label": "Au rămas de atunci urmări precum paralizii, tulburări de vorbire, probleme de memorie sau limitări ale câmpului vizual?",
+   "followup": "Ce suferințe mai există în prezent?"
+  },
+  "head_injury": {
+   "label": "Ați avut vreodată o leziune gravă a capului (cu pierderea cunoștinței sau internare în spital) sau o operație pe creier?",
+   "followup": "Când și ce a fost tratat?"
+  },
+  "head_injury_recent": {
+   "label": "Această leziune sau operație a avut loc în urmă cu mai puțin de 3 luni?",
+   "hint": "După o leziune sau o operație a creierului, conform ghidului, în general nu există aptitudine de a conduce timp de 3 luni."
+  },
+  "brain_residuals": {
+   "label": "Există de la leziune/operație suferințe precum tulburări de concentrare sau de memorie, schimbări de personalitate sau crize convulsive?",
+   "followup": "Ce suferințe și cum se manifestă?"
+  },
+  "parkinson": {
+   "label": "Ați fost diagnosticat(ă) cu boala Parkinson sau cu o altă tulburare de mișcare sau de coordonare?",
+   "followup": "De când, cum este tratată și când a fost ultimul control neurologic?"
+  },
+  "ms_spinal": {
+   "label": "Aveți o scleroză multiplă, o boală a măduvei spinării sau o leziune a măduvei spinării cunoscută?",
+   "followup": "Ce diagnostic și ce suferințe aveți în prezent?"
+  },
+  "muscle_nerve": {
+   "label": "Aveți o boală a mușchilor sau a nervilor cunoscută (de ex. atrofie musculară, miastenie, polineuropatie)?",
+   "followup": "Ce diagnostic și cât de mult sunteți limitat(ă)?"
+  },
+  "paralysis_attacks": {
+   "label": "Apar la dumneavoastră paralizii sub formă de crize sau o slăbiciune musculară puternică și bruscă?",
+   "followup": "Când a apărut ultima criză și cât de repede se instalează?"
+  },
+  "motor_limits": {
+   "label": "Aveți paralizii, slăbiciune musculară sau tulburări de sensibilitate la brațe sau la picioare care v-ar putea limita la manevrarea unui vehicul?",
+   "followup": "Ce părți ale corpului sunt afectate?"
+  },
+  "vertigo": {
+   "label": "Suferiți de amețeli sau de tulburări de echilibru (de ex. senzație de învârtire, legănare, nesiguranță la mers)?",
+   "followup": "Cum se simte amețeala, cât de des apare, cât durează o criză și ce o declanșează?"
+  },
+  "vertigo_last": {
+   "label": "Cu cât timp în urmă a fost ultima dumneavoastră criză de amețeală?",
+   "options": {
+    "unter3m": "Mai puțin de 3 luni",
+    "3bis6m": "Între 3 și 6 luni",
+    "6bis12m": "Între 6 și 12 luni",
+    "1bis2j": "Între 1 și 2 ani",
+    "ueber2j": "Mai mult de 2 ani"
+   }
+  },
+  "vertigo_prodromi": {
+   "label": "Se anunță dinainte crizele dumneavoastră de amețeală (de ex. presiune în ureche, țiuit în urechi, scăderea auzului), astfel încât ați putea opri la timp?",
+   "options": {
+    "immer": "Da, întotdeauna",
+    "manchmal": "Uneori",
+    "nie": "Nu, apar fără avertisment"
+   }
+  },
+  "vertigo_positional": {
+   "label": "Este amețeala declanșată de anumite mișcări ale capului sau de schimbări de poziție (de ex. întoarcerea în pat, aplecarea)?"
+  },
+  "vertigo_ear": {
+   "label": "Apare amețeala împreună cu scăderea auzului, țiuit în urechi (tinitus) sau senzație de presiune în ureche?"
+  },
+  "ear_disease": {
+   "label": "Vi s-a depistat o boală a organului de echilibru sau a urechii interne (de ex. vertij pozițional, boala Menière)?",
+   "followup": "Ce diagnostic, cum a fost tratată și sunteți de atunci fără suferințe?"
+  },
+  "mobility_limits": {
+   "label": "Aveți o limitare permanentă a mobilității brațelor, picioarelor, mâinilor sau a coloanei vertebrale (de ex. după un accident, o operație, o amputație)?",
+   "followup": "Ce părți ale corpului sunt afectate și de când?"
+  },
+  "prosthesis": {
+   "label": "Purtați o proteză sau folosiți dispozitive ortopedice ajutătoare?",
+   "followup": "Ce dispozitive și aveți suferințe la solicitare mai îndelungată?"
+  },
+  "vehicle_modified": {
+   "label": "Este vehiculul dumneavoastră modificat din cauza unei limitări fizice (de ex. comandă manuală, servodirecție)?",
+   "followup": "Ce modificări și sunt înscrise în permisul de conducere?"
+  },
+  "diabetes_type": {
+   "label": "Aveți diabet zaharat (boala de zahăr) cunoscut?",
+   "options": {
+    "none": "Nu",
+    "type1": "Da, tip 1",
+    "type2": "Da, tip 2",
+    "other": "Da, altă formă/formă neclară"
+   }
+  },
+  "diabetes_therapy": {
+   "label": "Cum este tratat în prezent diabetul dumneavoastră?",
+   "options": {
+    "lifestyle": "Doar alimentație / stil de viață",
+    "tabl_low": "Pastile cu risc scăzut de scădere a glicemiei (de ex. metformin)",
+    "tabl_high": "Pastile cu risc de scădere a glicemiei (sulfoniluree, glinide)",
+    "insulin": "Insulină",
+    "unknown": "Nu știu exact"
+   }
+  },
+  "hypoglycemia": {
+   "label": "Ați avut în ultimele 12 luni o scădere severă a glicemiei la care ați avut nevoie de ajutorul altei persoane?",
+   "followup": "Cât de des, când a fost ultimul episod și a apărut în stare de veghe sau în somn?"
+  },
+  "hypo_awareness": {
+   "label": "S-a întâmplat să nu observați singur(ă) la timp o scădere a glicemiei (lipsa semnelor de avertizare)?",
+   "followup": "Când ultima dată și s-a întreprins ceva (de ex. un curs de instruire, o schimbare a tratamentului)?"
+  },
+  "glucose_monitoring": {
+   "label": "Vă măsurați singur(ă) în mod regulat glicemia (sau purtați un senzor de glucoză)?",
+   "options": {
+    "2x": "Da, cel puțin de două ori pe zi",
+    "seltener": "Da, dar mai rar",
+    "nein": "Nu",
+    "keine_med": "Nu mă privește (nu iau medicamente care scad glicemia)"
+   }
+  },
+  "diabetes_derailment": {
+   "label": "A avut loc în ultimele luni o nouă ajustare a tratamentului sau o dezechilibrare metabolică (de ex. tratament în spital din cauza valorilor scăpate de sub control)?",
+   "followup": "Ce s-a întâmplat și când?"
+  },
+  "kidney_disease": {
+   "label": "Aveți o boală cronică de rinichi sau o insuficiență renală cunoscută?",
+   "followup": "Ce boală și sunteți în tratament nefrologic?"
+  },
+  "dialysis": {
+   "label": "Sunteți tratat(ă) în mod regulat cu dializă (spălarea sângelui)?",
+   "followup": "De când și de câte ori pe săptămână? Vă simțiți capabil(ă) de efort între tratamente?"
+  },
+  "transplant": {
+   "label": "Vi s-a transplantat un organ (de ex. rinichi, inimă, ficat, plămân)?",
+   "followup": "Ce organ, când și sunteți în control postoperator regulat?"
+  },
+  "lung_disease": {
+   "label": "Suferiți de o boală cronică a plămânilor sau a bronhiilor (de ex. BPOC, astm, fibroză pulmonară)?",
+   "followup": "Ce boală și cum este tratată?"
+  },
+  "dyspnea": {
+   "label": "Aveți lipsă de aer deja la efort ușor sau în repaus ori aveți nevoie de oxigenoterapie de lungă durată?"
+  },
+  "cough_syncope": {
+   "label": "A apărut la accese puternice de tuse amețeală, întunecarea vederii sau o scurtă pierdere a cunoștinței?"
+  },
+  "daytime_sleepiness": {
+   "label": "Vă este greu ziua să rămâneți treaz(ă) și atent(ă) – mai ales în situații monotone (de ex. citit, ședințe, călătorii mai lungi cu mașina)?"
+  },
+  "microsleep": {
+   "label": "Ați adormit în ultimele luni fără să vreți sau ați avut momente de ațipire de câteva secunde?",
+   "followup": "În ce situații? S-a întâmplat și la volan?"
+  },
+  "snoring": {
+   "label": "Vi s-a spus că sforăiți tare și neregulat sau că aveți pauze de respirație noaptea?"
+  },
+  "osas": {
+   "label": "Vi s-a depistat un sindrom de apnee în somn (opriri ale respirației în timpul nopții)?",
+   "followup": "Când a fost pus diagnosticul și ce grad de severitate, respectiv ce valoare AHI a fost constatată (dacă este cunoscută)?"
+  },
+  "cpap": {
+   "label": "Sunteți tratat(ă) pentru apneea în somn (de ex. cu mască de respirat CPAP)?",
+   "options": {
+    "regelmaessig": "Da, în mod regulat (aproape în fiecare noapte)",
+    "unregelmaessig": "Da, dar neregulat",
+    "abgebrochen": "Tratamentul a fost întrerupt",
+    "keine": "Nu, niciun tratament"
+   }
+  },
+  "psychiatric": {
+   "label": "Ați fost diagnosticat(ă) cu o boală psihică (de ex. depresie, tulburare de anxietate, tulburare bipolară)?",
+   "followup": "Ce boală și cum este tratată?"
+  },
+  "psychiatric_severe": {
+   "label": "Ați fost din acest motiv vreodată internat(ă) în spital, ați avut o fază maniacală sau gânduri de sinucidere?",
+   "followup": "Când a fost ultima dată?"
+  },
+  "psychosis": {
+   "label": "Ați fost vreodată diagnosticat(ă) cu schizofrenie sau cu o altă psihoză (boală cu idei delirante sau halucinații)?",
+   "followup": "Câte episoade acute ați avut, când a fost ultimul și sunteți în tratament de specialitate?"
+  },
+  "memory_problems": {
+   "label": "Ați observat dumneavoastră sau au observat aparținătorii dumneavoastră în ultimul timp probleme tot mai mari de memorie sau de orientare la dumneavoastră?",
+   "followup": "De când și cum se manifestă în viața de zi cu zi?"
+  },
+  "concentration": {
+   "label": "Aveți probleme de concentrare sau de atenție?"
+  },
+  "alcohol": {
+   "label": "Cât de des consumați alcool?",
+   "options": {
+    "nie": "Niciodată",
+    "selten": "Rar (cel mult o dată pe lună)",
+    "woechentlich": "De 1 până la 2 ori pe săptămână",
+    "mehrmals": "De mai multe ori pe săptămână",
+    "taeglich": "Zilnic sau aproape zilnic"
+   }
+  },
+  "alcohol_control": {
+   "label": "S-a întâmplat să beți mai mult decât ați intenționat sau să pierdeți controlul asupra consumului dumneavoastră?"
+  },
+  "alcohol_traffic": {
+   "label": "Ați fost vreodată depistat(ă) în traficul rutier sub influența alcoolului (de ex. condus în stare de ebrietate, amendă, MPU – examinare medico-psihologică)?",
+   "followup": "Când și ce valoare a alcoolemiei a fost constatată (dacă este cunoscută)?"
+  },
+  "alcohol_dependence": {
+   "label": "Vi s-a constatat vreodată o dependență de alcool sau ați urmat un tratament de dezintoxicare, respectiv de dezobișnuire?",
+   "followup": "Când a fost încheiat tratamentul și de când trăiți în abstinență?"
+  },
+  "drugs": {
+   "label": "Consumați în prezent droguri (de ex. canabis, cocaină, amfetamine) sau ați consumat în trecut droguri în mod regulat?",
+   "followup": "Ce substanțe, cât de des și când ultima dată?"
+  },
+  "cannabis": {
+   "label": "Cât de des consumați canabis?",
+   "options": {
+    "nie": "Niciodată",
+    "gelegentlich": "Ocazional (nu în mod regulat)",
+    "regelmaessig": "În mod regulat (zilnic sau ca obicei)"
+   }
+  },
+  "substitution": {
+   "label": "Primiți un tratament de substituție (de ex. metadonă)?",
+   "followup": "De când?"
+  },
+  "regular_meds": {
+   "label": "Luați medicamente în mod regulat?",
+   "followup": "Ce medicamente și pentru ce afecțiune?"
+  },
+  "sedating_meds": {
+   "label": "Se află printre acestea medicamente care pot provoca somnolență sau pot influența capacitatea de reacție (de ex. analgezice puternice/opioide, somnifere sau calmante, antidepresive, antiepileptice, medicamente pentru alergie)?",
+   "followup": "Ce medicamente și în ce doză?"
+  },
+  "med_side_effects": {
+   "label": "Observați sub medicamentele dumneavoastră efecte secundare precum oboseală, încetinire, tulburări de concentrare sau amețeli?",
+   "followup": "Ce efecte secundare și cât de puternice?"
+  },
+  "med_recent_change": {
+   "label": "A fost în ultimele săptămâni introdus un astfel de medicament sau modificată considerabil doza?",
+   "followup": "Ce medicament și când?"
+  },
+  "benzo_regular": {
+   "label": "Luați de mai multe luni în mod regulat – chiar și numai seara, în cantitate mică – somnifere sau calmante (de ex. benzodiazepine)?",
+   "followup": "Ce preparat, de cât timp și observați la întrerupere simptome de sevraj?"
+  },
+  "multiple_conditions": {
+   "label": "Aveți mai multe boli sau limitări de sănătate în același timp?",
+   "hint": "Mai multe modificări pot fi relevante în ansamblu pentru aptitudinea de a conduce, chiar dacă fiecare în parte ar fi nesemnificativă (ghiduri, cap. 2.7).",
+   "followup": "Vă rugăm să enumerați pe scurt toate bolile cunoscute."
+  },
+  "other_conditions": {
+   "label": "Există alte boli, suferințe sau operații anterioare care nu au fost menționate până acum?",
+   "followup": "Care?"
+  },
+  "driving_adaptation": {
+   "label": "Renunțați în mod conștient, din cauza unor limitări de sănătate, la anumite deplasări (de ex. pe întuneric, distanțe lungi, autostradă)?",
+   "followup": "La ce deplasări și de ce?"
+  },
+  "consent_truth": {
+   "label": "Confirm că informațiile mele sunt complete și conforme cu adevărul.",
+   "error": "Vă rugăm să confirmați caracterul complet al informațiilor dumneavoastră."
+  },
+  "consent_privacy": {
+   "label": "Am citit informațiile privind protecția datelor și îmi dau consimțământul pentru prelucrarea datelor mele în scopuri de medicina traficului rutier.",
+   "error": "Vă rugăm să acceptați informațiile privind protecția datelor."
+  }
+ },
+ "ess_items": {
+  "ess_1": "Stând jos și citind",
+  "ess_2": "Uitându-vă la televizor",
+  "ess_3": "Când stați pasiv într-un loc public (de ex. la teatru sau într-o ședință)",
+  "ess_4": "Ca pasager în mașină, în timpul unei călătorii de o oră fără pauză",
+  "ess_5": "Când v-ați întins după-amiaza ca să vă odihniți",
+  "ess_6": "Când stați jos și discutați cu cineva",
+  "ess_7": "Când stați liniștit(ă) după prânz (fără alcool)",
+  "ess_8": "Când, ca șofer al unei mașini, trebuie să opriți câteva minute din cauza traficului"
+ }
+}

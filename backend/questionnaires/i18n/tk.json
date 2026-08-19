@@ -1,0 +1,585 @@
+{
+ "_meta": {
+  "language": "tk",
+  "name": "Türkmençe",
+  "machine_translated": true
+ },
+ "ui": {
+  "header_title": "Sürüjiler üçin lukmançylyk soragnamasy",
+  "header_subtitle": "Haýyş edýäris, ähli soraglara jogap beriň",
+  "language_label": "Dil",
+  "loading": "Soragnama ýüklenýär …",
+  "not_found_title": "Soragnama tapylmady",
+  "to_start": "Baş sahypa",
+  "back": "Yza",
+  "next": "Öňe",
+  "skip": "Sypdyryp geçmek",
+  "submit": "Ibermek",
+  "sending": "Iberilýär…",
+  "question_of": "{total} soragdan {current}-nji sorag",
+  "answer_placeholder": "Jogabyňyz…",
+  "required_error": "Haýyş edýäris, bu soraga jogap beriň.",
+  "yes": "Hawa",
+  "no": "Ýok",
+  "consent_title": "Razylyk",
+  "followup_hint": "Meýletin goşmaça maglumat – lukmançylyk bahalandyrmasyna kömek edýär.",
+  "ess_question": "Şu ýagdaýda irkilmegiňiziň ähtimallygy näçe ýokary?",
+  "ess_sum": "Şu wagta çenli jemi",
+  "ess_opt_0": "0 – Hiç haçan irkilmerin",
+  "ess_opt_1": "1 – Pes ähtimallyk",
+  "ess_opt_2": "2 – Orta ähtimallyk",
+  "ess_opt_3": "3 – Ýokary ähtimallyk",
+  "privacy_button": "Maglumatlaryň goragy baradaky bellikleri görkezmek",
+  "privacy_title": "Maglumatlaryň goragy baradaky bellikler",
+  "privacy_subtitle": "Maglumatlaryňyzyň işlenilmegi barada maglumat – DSGVO Art. 13 (Ýewropa Bileleşiginiň maglumatlaryň goragy baradaky umumy düzgünnamasy, 13-nji madda) boýunça",
+  "privacy_controller": "Jogapkär: Dr. med. Björn Micka, Betriebsmedizin · Notfallmedizin, Christoph-Dassler-Str. 22, 91074 Herzogenaurach",
+  "privacy_purpose": "Işlenilmegiň maksady: Şu soragnamadaky maglumatlaryňyz (şol sanda saglyk maglumatlary) diňe ýol hereketi lukmançylyk barlagyňyzy taýýarlamak we geçirmek üçin ulanylýar.",
+  "privacy_legal": "Hukuk esasy: Siziň razylygyňyz (DSGVO Art. 6 Abs. 1 lit. a, Art. 9 Abs. 2 lit. a – Ýewropa Bileleşiginiň maglumatlaryň goragy düzgünnamasy). Razylygyňyzy islendik wagt geljek üçin güýjüni ýatyryp bilersiňiz.",
+  "privacy_storage": "Saklanylyşy: Netije Siziň barlag resminamalaryňyza goşulýar we lukmançylyk saklaýyş möhletlerine tabyn bolýar. Şahsy salgyňyz arkaly onlaýn giriş hereket ediş möhleti gutaransoň ýapylýar; şu onlaýn soragnamanyň maglumatlary soňra yzygiderli pozulýar.",
+  "privacy_rights": "Hukuklaryňyz: Siziň maglumat almaga, düzetmäge, pozdurmaga we işlenilmegi çäklendirmäge hukugyňyz, şeýle hem degişli maglumat goragy gözegçilik edarasyna şikaýat etmäge hukugyňyz bar.",
+  "privacy_secrecy": "Ähli maglumatlar lukmançylyk syryna degişlidir.",
+  "success_title": "Sag boluň!",
+  "success_text": "Soragnamaňyz üstünlikli iberildi.",
+  "success_result": "ESS netijesi",
+  "success_doctor_note": "Haýyş edýäris, netijäni lukmanyňyz bilen maslahatlaşyň. Jemleýji bahalandyrmany hünärmen lukman geçirýär.",
+  "success_pdf": "PDF görnüşinde gysgaça netijäni ýükläp almak",
+  "success_close": "Indi bu penjiräni ýapyp bilersiňiz.",
+  "band_normal": "Kadaly (0–9)",
+  "band_elevated": "Ýokarlanan (10–15)",
+  "band_severe": "Aç-açan ýokary (≥16)",
+  "submit_error": "Ibermekde ýalňyşlyk. Haýyş edýäris, maglumatlaryňyzy barlaň."
+ },
+ "sections": {
+  "anlass": {
+   "title": "Barlagyň sebäbi we sürüjilik häsiýetnamasy",
+   "subtitle": "Barlag we sürüjilik işiňiz barada maglumat"
+  },
+  "gesundheit": {
+   "title": "Saglyk ýagdaýy",
+   "subtitle": "Öňünden bir sorag"
+  },
+  "anfaelle": {
+   "title": "Tutgaýlar we huşdan gitmek",
+   "subtitle": "Duýdansyz işden galmak howpy – epilepsiýa tutgaýlary we huşdan gitmeler"
+  },
+  "sehen_hoeren": {
+   "title": "Görmek we eşitmek",
+   "subtitle": "Görüş we eşidiş ukyby"
+  },
+  "herz": {
+   "title": "Ýürek we gan aýlanyşy",
+   "subtitle": "Ýürek we gan damar keselleri"
+  },
+  "gehirn": {
+   "title": "Insult we kelle beýnisi",
+   "subtitle": "Beýniniň gan aýlanyş bozulmalary, şikesleri we operasiýalary"
+  },
+  "neuro": {
+   "title": "Nerw ulgamy",
+   "subtitle": "Newrologiki keseller"
+  },
+  "schwindel": {
+   "title": "Deňagramlylyk we baş aýlanmagy",
+   "subtitle": "Baş aýlanmagynyň görnüşleri we deňagramlylyk bozulmalary"
+  },
+  "bewegung": {
+   "title": "Daýanç-hereket ulgamy",
+   "subtitle": "Beden çäklendirmeleri we kömekçi serişdeler"
+  },
+  "diabetes": {
+   "title": "Süýji keseli / madda çalşygy",
+   "subtitle": "Süýji keseli we ganda şekeriň peselmegi"
+  },
+  "organe": {
+   "title": "Içki agzalar",
+   "subtitle": "Böwrekler, öýken we agza geçirmeler"
+  },
+  "schlaf": {
+   "title": "Uky we gündizki ukuçyllyk",
+   "subtitle": "Epworth Sleepiness Scale (ESS) şkalasy bilen"
+  },
+  "psyche": {
+   "title": "Ruhy saglyk",
+   "subtitle": "Ruhy keseller we ýat"
+  },
+  "substanzen": {
+   "title": "Alkogol, neşe serişdeleri we dermanlar",
+   "subtitle": "Ulanylyşy we hemişelik derman kabul edilişi"
+  },
+  "allgemein": {
+   "title": "Umumy maglumatlar we razylyk",
+   "subtitle": "Goşmaça maglumatlar we tassyklamalar"
+  }
+ },
+ "questions": {
+  "exam_occasion": {
+   "label": "Barlag haýsy sürüjilik şahadatnamasy üçin geçirilýär?",
+   "options": {
+    "pkw": "Ýeňil awtoulag / beýleki topar",
+    "lkw": "Ýük awtoulagy (C, C1, CE, C1E)",
+    "bus": "Awtobus (D, D1, DE, D1E)",
+    "fahrgast": "Ýolagçy gatnatmak (taksi, kärendesine berilýän awtoulag, hassa gatnadyş)"
+   }
+  },
+  "exam_kind": {
+   "label": "Bu ilkinji gezek berilmegimi ýa-da möhletiň uzaldylmagymy?",
+   "options": {
+    "erst": "Ilkinji gezek berilmegi",
+    "verlaengerung": "Möhletiň uzaldylmagy"
+   }
+  },
+  "license_classes": {
+   "label": "Haýsy sürüjilik şahadatnamasynyň toparlaryna eýe bolýarsyňyz ýa-da olar üçin ýüz tutýarsyňyz?",
+   "options": {
+    "AM": "AM",
+    "A1": "A1",
+    "A2": "A2",
+    "A": "A",
+    "B": "B",
+    "BE": "BE",
+    "C1": "C1",
+    "C1E": "C1E",
+    "C": "C",
+    "CE": "CE",
+    "D1": "D1",
+    "D": "D",
+    "DE": "DE",
+    "T": "T"
+   }
+  },
+  "license_years": {
+   "label": "Näçe ýyldan bäri sürüjilik şahadatnamaňyz bar?",
+   "options": {
+    "erstantrag": "Heniz ýok (ilkinji ýüz tutma)",
+    "unter3": "3 ýyldan az",
+    "3bis10": "3-den 10 ýyla çenli",
+    "ueber10": "10 ýyldan köp"
+   }
+  },
+  "driving_hours": {
+   "label": "Günde ortaça näçe sagat ulag sürýärsiňiz?",
+   "options": {
+    "<1": "1 sagatdan az",
+    "1-2": "1-den 2 sagada çenli",
+    "2-4": "2-den 4 sagada çenli",
+    ">4": "4 sagatdan köp"
+   }
+  },
+  "night_driving": {
+   "label": "Yzygiderli gijelerine ulag sürýärsiňizmi?"
+  },
+  "accidents": {
+   "label": "Soňky 24 aýyň dowamynda ýol hereketinde heläkçilige ýa-da heläkçilikden az galan ýagdaýa duçar bolduňyzmy?",
+   "followup": "Näme boldy?"
+  },
+  "license_withdrawn": {
+   "label": "Sizden haçandyr bir wagt sürüjilik şahadatnamasy alyndymy ýa-da lukmançylyk-psihologiki barlagdan (MPU – Germaniýadaky lukmançylyk-psihologiki seljerme) geçmeli bolduňyzmy?",
+   "followup": "Haçan we haýsy sebäbe görä?"
+  },
+  "psych_test_done": {
+   "label": "Şu sürüjilik şahadatnamasy üçin psihologiki ukyp barlagyny (reaksiýa, ünsi jemleme we üşük barlagy) eýýäm geçdiňizmi?",
+   "hint": "Awtobus toparlary we ýolagçy gatnatmak üçin bu delil Anlage 5 FeV (Germaniýanyň sürüjilik şahadatnamasy hakyndaky düzgünnamasy, 5-nji goşundy) boýunça hökmandyr. Bar bolan netijenamaňyzy barlaga alyp geliň.",
+   "followup": "Barlag haçan we nirede geçirildi?"
+  },
+  "has_conditions": {
+   "label": "Sizde belli bir öňki kesel, hemişelik bedeni çäklendirme barmy ýa-da yzygiderli lukman bejergisini alýaňyzmy?",
+   "hint": "Muňa köp wagt öň geçirilen agyr keseller hem degişlidir (mysal üçin, ýürek, süýji keseli, nerw, ruhy ýagdaý). Ýok bolsa, sowalnama ep-esli gysgalýar."
+  },
+  "seizure_ever": {
+   "label": "Haçandyr bir wagt epilepsiýa tutgaýy ýa-da damar çekme tutgaýy bolduňyzmy?",
+   "followup": "Iň soňky tutgaý haçan boldy, jemi näçe tutgaý boldy we oňa sebäp bolan zat barmydy (meselem, ukusyzlyk, gyzgyn, alkogol)?"
+  },
+  "epilepsy": {
+   "label": "Sizde epilepsiýa (tutgaý keseli) kesgitlenildimi?",
+   "followup": "Tutgaýlar diňe ukuda bolýarmy? Yzygiderli newrologyň gözegçiliginde durýarsyňyzmy?"
+  },
+  "seizure_free": {
+   "label": "Näçe wagtdan bäri tutgaýsyz ýaşaýarsyňyz?",
+   "hint": "Gollanmalara görä sürüjilik ukyby anyk tutgaýsyz döwürlere baglydyr.",
+   "options": {
+    "unter3m": "3 aýdan az",
+    "3bis6m": "3-den 6 aýa çenli",
+    "6bis12m": "6-dan 12 aýa çenli",
+    "1bis2j": "1-den 2 ýyla çenli",
+    "2bis5j": "2-den 5 ýyla çenli",
+    "ueber5j": "5 ýyldan köp"
+   }
+  },
+  "antiepileptics": {
+   "label": "Tutgaýa garşy dermanlary (antiepileptik dermanlar) kabul edýärsiňizmi?",
+   "options": {
+    "nie": "Ýok, hiç haçan kabul etmedim",
+    "aktuell": "Hawa, häzir kabul edýärin",
+    "reduktion": "Bejergi häzir tapgyrlaýyn azaldylýar",
+    "ende_unter3m": "3 aýdan az wagt öň bes edildi",
+    "ende_ueber3m": "3 aýdan köp wagt öň bes edildi"
+   }
+  },
+  "syncope": {
+   "label": "Haçandyr bir wagt duýdansyz huşuňyzdan gitdiňizmi (gysga wagtlyk huşuň ýitmegi)?",
+   "options": {
+    "nie": "Hiç haçan",
+    "einmal": "Bir gezek",
+    "mehrmals": "Birnäçe gezek"
+   }
+  },
+  "syncope_recent": {
+   "label": "Iň soňky huşdan gitmegiňiz 6 aýdan az wagt öň boldumy?",
+   "followup": "Huşdan gitme haýsy ýagdaýda boldy we sebäbi tapyldymy (meselem, gan aýlanyşy, ýürek urgusy, buşukýarkaňyz)?"
+  },
+  "syncope_prodromi": {
+   "label": "Huşdan gitmezden öň sizde duýduryş alamatlary bolýarmy (meselem, derlemek, baş aýlanmagy, ýürek bulanmagy, ýürek urgusynyň güýçlenmegi)?"
+  },
+  "glasses": {
+   "label": "Ulag sürende äýnek ýa-da kontakt linza ulanýarsyňyzmy?"
+  },
+  "eye_disease": {
+   "label": "Sizde göz keseli barlygy bellimi (meselem, katarakta – ak suw, glaukoma – gök suw, tor gatlagynyň keseli, görüş meýdanynyň daralmagy)?",
+   "followup": "Haýsy kesel we göz lukmanynyň gözegçiliginde durýarsyňyzmy?"
+  },
+  "one_eyed": {
+   "label": "Bir gözüňiz ep-esli erbet görýärmi ýa-da bir gözüňiz düýbünden görmeýärmi?"
+  },
+  "night_vision": {
+   "label": "Alagaraňkylykda ýa-da garaňkyda görmekde kynçylygyňyz barmy ýa-da garşydan gelýän ulaglaryň yşygy sizi güýçli gapýarmy?",
+   "followup": "Kynçylyklar haýsy ýagdaýlarda ýüze çykýar?"
+  },
+  "hearing_impaired": {
+   "label": "Siz agyr derejede erbet eşidýärsiňizmi ýa-da düýbünden eşitmeýärsiňizmi?",
+   "followup": "Haçandan bäri we gulak-burun-bokurdak lukmanynyň gözegçiliginde durýarsyňyzmy?"
+  },
+  "hearing_aid": {
+   "label": "Eşidiş enjamyny ýa-da kohlear implanty ulanýarsyňyzmy?"
+  },
+  "heart_disease": {
+   "label": "Sizde ýürek ýa-da gan damar keseli barlygy bellimi?",
+   "hint": "meselem, ýürek urgusynyň bozulmagy, infarkt, ýürek ýetmezçiligi, klapan kemçiligi, gan aýlanyş bozulmalary",
+   "followup": "Haýsy kesel ýa-da keseller, haçandan bäri we olar nähili bejerilýär?"
+  },
+  "cardio_checkup": {
+   "label": "Şol sebäpli yzygiderli kardiologyň gözegçiliginde durýarsyňyzmy?",
+   "followup": "Iň soňky barlag haçan boldy?"
+  },
+  "heart_attack": {
+   "label": "Haçandyr bir wagt infarkt, stent goýluşy ýa-da baýpas operasiýasy bolduňyzmy?",
+   "followup": "Waka ýa-da operasiýa haçan boldy we gaýra üzülmeler boldumy (meselem, ýüregiň sorujylyk ukybynyň peselmegi)?"
+  },
+  "arrhythmia": {
+   "label": "Sizde ýürek urgusynyň bozulmalary bellimi (meselem, ýüregiň büdremegi, ýüregiň çalt urmagy, aç-açan haýal puls, atrial fibrillýasiýa, AV-blokada)?",
+   "followup": "Haýsy kesgitleme we ol nähili bejerilýär?"
+  },
+  "pacemaker_icd": {
+   "label": "Sizde ýürek stimulýatory ýa-da defibrillýator (ICD) barmy?",
+   "options": {
+    "nein": "Ýok",
+    "schrittmacher": "Ýürek stimulýatory",
+    "icd": "Defibrillýator (ICD)"
+   },
+   "followup": "Haçan goýuldy we iň soňky barlag haçan boldy?"
+  },
+  "icd_shock": {
+   "label": "Defibrillýatoryňyz soňky 3 aýyň dowamynda zarba (şok) berdimi?",
+   "followup": "Haçan we kardiologyňyz bu barada näme diýdi?"
+  },
+  "exertion_symptoms": {
+   "label": "Fiziki agram düşende demiňiz gysýarmy, döşüňiz agyrýarmy, ýüregiňiz büdreýärmi ýa-da adaty bolmadyk ysgynsyzlyk duýýarsyňyzmy?",
+   "hint": "NYHA tapgyrlaryna laýyklykda öz-özüňi bahalandyrmak",
+   "options": {
+    "keine": "Ýok, gündelik agramda hiç hili şikaýat ýok",
+    "stark": "Güýçli agram düşende (meselem, basgançakdan çalt galanda)",
+    "leicht": "Eýýäm ýeňil agramda (meselem, haýal ýörände)",
+    "ruhe": "Eýýäm dynç ýagdaýynda"
+   }
+  },
+  "hypertension": {
+   "label": "Sizde ýokary gan basyşy (gipertoniýa) bellimi?",
+   "followup": "Haçandan bäri, haýsy dermanlary kabul edýärsiňiz we adatça haýsy görkezijileri ölçeýärsiňiz?"
+  },
+  "bp_dizziness": {
+   "label": "Gan basyşy dermanlaryny kabul edeniňizde baş aýlanmagy, ysgynsyzlyk duýgusy ýa-da gözüňiziň garaňkyramagy ýüze çykýarmy?"
+  },
+  "heart_other": {
+   "label": "Sizde başga ýürek ýa-da gan damar keseli bellimi: ýürek klapanynyň kemçiligi, dogabitdi ýürek kemçiligi, ýürek myşsasynyň keseli (kardiomiopatiýa), nesil yzarlaýan urgy keseli (meselem, Long-QT), aorta anewrizmasy ýa-da uky arteriýasynyň daralmagy?",
+   "followup": "Haýsy kesgitleme we ol nähili gözegçilikde saklanýar ýa-da bejerilýär?"
+  },
+  "family_sudden_death": {
+   "label": "Iň ýakyn maşgalaňyzda (ene-ata, doganlar, çagalar) duýdansyz ýürek ölümi boldumy?"
+  },
+  "stroke": {
+   "label": "Haçandyr bir wagt insult, beýnä gan inmegi ýa-da TIA (gysga wagtlyk alamatlar bilen geçýän gan aýlanyş bozulmasy) bolduňyzmy?",
+   "followup": "Waka haçan boldy we dikeldiş bejergisi tamamlandymy?"
+  },
+  "stroke_residuals": {
+   "label": "Şondan bäri ysmaz, gepleýiş bozulmasy, ýat kynçylyklary ýa-da görüş meýdanynyň çäklenmegi ýaly netijeler galdymy?",
+   "followup": "Häzir haýsy şikaýatlar dowam edýär?"
+  },
+  "head_injury": {
+   "label": "Haçandyr bir wagt agyr kelle şikesi (huşdan gitme ýa-da hassahanada ýatmak bilen) ýa-da beýnä operasiýa bolduňyzmy?",
+   "followup": "Haçan we näme bejerildi?"
+  },
+  "head_injury_recent": {
+   "label": "Bu şikes ýa-da operasiýa 3 aýdan az wagt öň boldumy?",
+   "hint": "Gollanma görä beýni şikesinden ýa-da operasiýasyndan soň umuman 3 aýlap sürüjilik ukyby ýokdur."
+  },
+  "brain_residuals": {
+   "label": "Şikesden ýa-da operasiýadan bäri ünsi jemlemek ýa-da ýat bozulmalary, häsiýetiň üýtgemegi ýa-da damar çekme tutgaýlary ýaly şikaýatlar barmy?",
+   "followup": "Haýsy şikaýatlar we olar nähili täsir edýär?"
+  },
+  "parkinson": {
+   "label": "Sizde Parkinson keseli ýa-da başga hereket ýa-da utgaşdyryş (koordinasiýa) bozulmasy kesgitlenildimi?",
+   "followup": "Haçandan bäri, nähili bejerilýär we iň soňky newrologiki barlag haçan boldy?"
+  },
+  "ms_spinal": {
+   "label": "Sizde köpsanly skleroz (multipl skleroz), oňurga ýiliginiň keseli ýa-da oňurga ýiliginiň şikesi bellimi?",
+   "followup": "Haýsy kesgitleme we häzir haýsy şikaýatlaryňyz bar?"
+  },
+  "muscle_nerve": {
+   "label": "Sizde myşsa ýa-da nerw keseli bellimi (meselem, myşsalaryň gurap gitmegi, miasteniýa, polinewropatiýa)?",
+   "followup": "Haýsy kesgitleme we näderejede çäklendirilensiňiz?"
+  },
+  "paralysis_attacks": {
+   "label": "Sizde tutgaý görnüşli ysmaz ýa-da duýdansyz güýçli myşsa gowşaklygy ýüze çykýarmy?",
+   "followup": "Iň soňky tutgaý haçan boldy we ol näçe çalt başlaýar?"
+  },
+  "motor_limits": {
+   "label": "Elleriňizde ýa-da aýaklaryňyzda ulagy dolandyrmakda size päsgel berip biljek ysmaz, myşsa gowşaklygy ýa-da duýujylyk bozulmasy barmy?",
+   "followup": "Bedeniň haýsy bölekleri zeperlenen?"
+  },
+  "vertigo": {
+   "label": "Sizde baş aýlanmagy ýa-da deňagramlylyk bozulmasy barmy (meselem, aýlanýan duýgy, yranmak, ýörände ynamsyzlyk)?",
+   "followup": "Baş aýlanmagy nähili duýulýar, näçe ýygy bolýar, bir tutgaý näçe wagt dowam edýär we oňa näme sebäp bolýar?"
+  },
+  "vertigo_last": {
+   "label": "Iň soňky baş aýlanma tutgaýyňyz näçe wagt öň boldy?",
+   "options": {
+    "unter3m": "3 aýdan az",
+    "3bis6m": "3-den 6 aýa çenli",
+    "6bis12m": "6-dan 12 aýa çenli",
+    "1bis2j": "1-den 2 ýyla çenli",
+    "ueber2j": "2 ýyldan köp"
+   }
+  },
+  "vertigo_prodromi": {
+   "label": "Baş aýlanma tutgaýlaryňyz öňünden duýdurýarmy (meselem, gulakda basyş, gulakda şaňlama, eşidişiň peselmegi), şeýlelikde wagtynda saklanyp bilýärsiňizmi?",
+   "options": {
+    "immer": "Hawa, elmydama",
+    "manchmal": "Käwagt",
+    "nie": "Ýok, olar duýdurmazdan gelýär"
+   }
+  },
+  "vertigo_positional": {
+   "label": "Baş aýlanmagy kelläňiziň belli hereketleri ýa-da beden ýagdaýynyň üýtgemegi bilen döreýärmi (meselem, düşekde agdarylanda, egilende)?"
+  },
+  "vertigo_ear": {
+   "label": "Baş aýlanmagy eşidişiň peselmegi, gulakda şaňlama (tinnitus) ýa-da gulakda basyş duýgusy bilen bilelikde ýüze çykýarmy?"
+  },
+  "ear_disease": {
+   "label": "Sizde deňagramlylyk agzasynyň ýa-da içki gulagyň keseli anyklanyldymy (meselem, beden ýagdaýyna bagly baş aýlanmagy, Menýer keseli)?",
+   "followup": "Haýsy kesgitleme, nähili bejerildi we şondan bäri şikaýatyňyz ýokmy?"
+  },
+  "mobility_limits": {
+   "label": "Sizde elleriň, aýaklaryň, penjeleriň ýa-da oňurganyň hereketiniň hemişelik çäklenmegi barmy (meselem, heläkçilikden, operasiýadan ýa-da amputasiýadan soň)?",
+   "followup": "Bedeniň haýsy bölekleri zeperlenen we haçandan bäri?"
+  },
+  "prosthesis": {
+   "label": "Protez ulanýarsyňyzmy ýa-da ortopediki kömekçi serişdelerden peýdalanýarsyňyzmy?",
+   "followup": "Haýsy kömekçi serişdeler we uzak wagtlyk agramda şikaýatlaryňyz barmy?"
+  },
+  "vehicle_modified": {
+   "label": "Ulagyňyz beden çäklendirmesi sebäpli üýtgedilenmi (meselem, el bilen dolandyryş, rul kömekçisi)?",
+   "followup": "Haýsy üýtgetmeler we olar sürüjilik şahadatnamasynda bellenilenmi?"
+  },
+  "diabetes_type": {
+   "label": "Sizde süýji keseli (diabet) bellimi?",
+   "options": {
+    "none": "Ýok",
+    "type1": "Hawa, 1-nji görnüş",
+    "type2": "Hawa, 2-nji görnüş",
+    "other": "Hawa, başga ýa-da nämälim görnüş"
+   }
+  },
+  "diabetes_therapy": {
+   "label": "Süýji keseliňiz häzir nähili bejerilýär?",
+   "options": {
+    "lifestyle": "Diňe iýmit / durmuş ýörelgesi",
+    "tabl_low": "Ganda şekeriň peselme howpy pes bolan dermanlar (meselem, metformin)",
+    "tabl_high": "Ganda şekeriň peselme howpy bolan dermanlar (sulfonilkarbamidler, glinidler)",
+    "insulin": "Insulin",
+    "unknown": "Takyk bilemok"
+   }
+  },
+  "hypoglycemia": {
+   "label": "Soňky 12 aýyň dowamynda ganda şekeriň agyr peselmegi bolup, başga adamyň kömegine mätäç bolduňyzmy?",
+   "followup": "Näçe gezek, iň soňky ýagdaý haçan boldy we ol oýa wagtyňyz ýa-da ukuda ýüze çykdymy?"
+  },
+  "hypo_awareness": {
+   "label": "Ganda şekeriň peselmegini öz wagtynda özüňiz duýmadyk ýagdaýlaryňyz boldumy (duýduryş alamatlarynyň ýoklugy)?",
+   "followup": "Iň soňky gezek haçan we haýsydyr bir çäre görüldimi (meselem, ýörite tälim, bejerginiň üýtgedilmegi)?"
+  },
+  "glucose_monitoring": {
+   "label": "Ganyňyzdaky şekeri yzygiderli özüňiz ölçeýärsiňizmi (ýa-da glýukoza datçigini dakýarsyňyzmy)?",
+   "options": {
+    "2x": "Hawa, günde iň azyndan iki gezek",
+    "seltener": "Hawa, ýöne seýrek",
+    "nein": "Ýok",
+    "keine_med": "Maňa degişli däl (ganda şekeri peseldýän derman kabul etmeýärin)"
+   }
+  },
+  "diabetes_derailment": {
+   "label": "Soňky aýlarda bejergi täzeden sazlanyldymy ýa-da madda çalşygy bozuldymy (meselem, görkezijileriň bozulmagy sebäpli hassahanada bejergi)?",
+   "followup": "Näme boldy we haçan?"
+  },
+  "kidney_disease": {
+   "label": "Sizde dowamly böwrek keseli ýa-da böwrek ýetmezçiligi bellimi?",
+   "followup": "Haýsy kesel we böwrek lukmanynyň (nefrolog) gözegçiliginde durýarsyňyzmy?"
+  },
+  "dialysis": {
+   "label": "Siz yzygiderli dializ (gan arassalaýyş) bilen bejerilýärsiňizmi?",
+   "followup": "Haçandan bäri we hepdede näçe gezek? Bejergileriň arasynda özüňizi işjeň duýýarsyňyzmy?"
+  },
+  "transplant": {
+   "label": "Size agza geçirildimi (meselem, böwrek, ýürek, bagyr, öýken)?",
+   "followup": "Haýsy agza, haçan we yzygiderli gözegçilikde durýarsyňyzmy?"
+  },
+  "lung_disease": {
+   "label": "Sizde dowamly öýken ýa-da bronh keseli barmy (meselem, COPD, demgysma, öýken fibrozy)?",
+   "followup": "Haýsy kesel we ol nähili bejerilýär?"
+  },
+  "dyspnea": {
+   "label": "Ýeňil agramda ýa-da dynç ýagdaýynda demiňiz gysýarmy ýa-da uzak möhletli kislorod bejergisine mätäçmisiňiz?"
+  },
+  "cough_syncope": {
+   "label": "Güýçli üsgülewük tutgaýlarynda baş aýlanmagy, gözüňiziň garaňkyramagy ýa-da gysga wagtlyk huşdan gitme boldumy?"
+  },
+  "daytime_sleepiness": {
+   "label": "Gündizine oýa we ünsli galmak size kynmy – aýratyn hem birsydyrgyn ýagdaýlarda (meselem, okanyňyzda, maslahatlarda, uzak awtoulag ýollarynda)?"
+  },
+  "microsleep": {
+   "label": "Soňky aýlarda islemezden uklap galdyňyzmy ýa-da sekuntlyk uky boldumy?",
+   "followup": "Haýsy ýagdaýlarda? Ol rulda hem boldumy?"
+  },
+  "snoring": {
+   "label": "Size gaty we bir kadada bolmadyk horlaýandygyňyz ýa-da gije demiňiziň kesilýändigi aýdyldymy?"
+  },
+  "osas": {
+   "label": "Sizde uky apnoesi sindromy (gije demiň kesilmegi) anyklanyldymy?",
+   "followup": "Kesgitleme haçan goýuldy we haýsy agyrlyk derejesi ýa-da AHI görkezijisi anyklanyldy (eger belli bolsa)?"
+  },
+  "cpap": {
+   "label": "Uky apnoesi sebäpli bejergi alýarsyňyzmy (meselem, CPAP dem alyş maskasy)?",
+   "options": {
+    "regelmaessig": "Hawa, yzygiderli (tas her gije)",
+    "unregelmaessig": "Hawa, ýöne yzygiderli däl",
+    "abgebrochen": "Bejergi bes edildi",
+    "keine": "Ýok, bejergi ýok"
+   }
+  },
+  "psychiatric": {
+   "label": "Sizde ruhy kesel kesgitlenildimi (meselem, depressiýa, howsala bozulmasy, bipolýar bozulma)?",
+   "followup": "Haýsy kesel we ol nähili bejerilýär?"
+  },
+  "psychiatric_severe": {
+   "label": "Şol sebäpli haçandyr bir wagt hassahanada ýatyp bejergi aldyňyzmy, maniakal (aşa göterilen ruhy ýagdaý) döwri ýa-da öz janyňyza kast etmek pikirleri boldumy?",
+   "followup": "Bu iň soňky gezek haçan boldy?"
+  },
+  "psychosis": {
+   "label": "Sizde haçandyr bir wagt şizofreniýa ýa-da başga psihoz kesgitlenildimi (hyýaly pikirler ýa-da gallýusinasiýalar bilen geçýän kesel)?",
+   "followup": "Näçe ýiti döwür boldy, iň soňkusy haçan boldy we hünärmen lukmanyň gözegçiliginde durýarsyňyzmy?"
+  },
+  "memory_problems": {
+   "label": "Siz özüňiz ýa-da ýakynlaryňyz soňky wagtlarda sizde ýat ýa-da ugur tapyş kynçylyklarynyň artýandygyny gördüňizmi?",
+   "followup": "Haçandan bäri we olar gündelik durmuşda nähili täsir edýär?"
+  },
+  "concentration": {
+   "label": "Sizde ünsi jemlemek ýa-da üşük bilen bagly kynçylyklar barmy?"
+  },
+  "alcohol": {
+   "label": "Alkogoly näçe ýygy içýärsiňiz?",
+   "options": {
+    "nie": "Hiç haçan",
+    "selten": "Seýrek (aýda köp bolsa 1 gezek)",
+    "woechentlich": "Hepdede 1–2 gezek",
+    "mehrmals": "Hepdede birnäçe gezek",
+    "taeglich": "Her gün ýa-da tas her gün"
+   }
+  },
+  "alcohol_control": {
+   "label": "Niýet edeniňizden köp içen ýa-da içişiňize gözegçiligi ýitiren ýagdaýlaryňyz boldumy?"
+  },
+  "alcohol_traffic": {
+   "label": "Ýol hereketinde haçandyr bir wagt alkogolyň täsiri astynda tutulduňyzmy (meselem, serhoş sürmek, jerime, MPU – lukmançylyk-psihologiki seljerme)?",
+   "followup": "Haçan we haýsy promille görkezijisi anyklanyldy (eger belli bolsa)?"
+  },
+  "alcohol_dependence": {
+   "label": "Sizde haçandyr bir wagt alkogol garaşlylygy anyklanyldymy ýa-da siz zäherden arassalaýyş (detoksikasiýa) ýa-da garaşlylykdan halas ediş bejergisini aldyňyzmy?",
+   "followup": "Bejergi haçan tamamlandy we haçandan bäri alkogol içmeýärsiňiz?"
+  },
+  "drugs": {
+   "label": "Häzir neşe serişdelerini ulanýarsyňyzmy (meselem, kanabis, kokain, amfetaminler) ýa-da öň yzygiderli neşe serişdelerini ulandyňyzmy?",
+   "followup": "Haýsy maddalar, näçe ýygy we iň soňky gezek haçan?"
+  },
+  "cannabis": {
+   "label": "Kanabisi näçe ýygy ulanýarsyňyz?",
+   "options": {
+    "nie": "Hiç haçan",
+    "gelegentlich": "Käwagt (yzygiderli däl)",
+    "regelmaessig": "Yzygiderli (her gün ýa-da endik görnüşinde)"
+   }
+  },
+  "substitution": {
+   "label": "Siz ornuny tutujy (substitusion) bejergi alýarsyňyzmy (meselem, metadon)?",
+   "followup": "Haçandan bäri?"
+  },
+  "regular_meds": {
+   "label": "Yzygiderli derman kabul edýärsiňizmi?",
+   "followup": "Haýsy dermanlar we näme üçin?"
+  },
+  "sedating_meds": {
+   "label": "Olaryň arasynda ukuçyllyk döredýän ýa-da reaksiýa ukybyna täsir edip biljek dermanlar barmy (meselem, güýçli agyry aýyryjylar/opioidler, uky ýa-da köşeşdiriji dermanlar, antidepressantlar, tutgaýa garşy dermanlar, allergiýa dermanlary)?",
+   "followup": "Haýsy dermanlar we haýsy mukdarda?"
+  },
+  "med_side_effects": {
+   "label": "Dermanlaryňyzyň täsiri astynda ýadawlyk, haýallamak, ünsi jemlemekde kynçylyk ýa-da baş aýlanmagy ýaly gapdal täsirleri duýýarsyňyzmy?",
+   "followup": "Haýsy gapdal täsirler we näderejede güýçli?"
+  },
+  "med_recent_change": {
+   "label": "Soňky hepdelerde şeýle derman täze bellenildimi ýa-da onuň mukdary ep-esli üýtgedildimi?",
+   "followup": "Haýsy derman we haçan?"
+  },
+  "benzo_regular": {
+   "label": "Birnäçe aýdan bäri yzygiderli – diňe agşamlaryna az mukdarda hem bolsa – uky ýa-da köşeşdiriji dermanlary (meselem, benzodiazepinler) kabul edýärsiňizmi?",
+   "followup": "Haýsy derman, näçe wagtdan bäri we ony bes edeniňizde ýatyrylyş alamatlaryny duýýarsyňyzmy?"
+  },
+  "multiple_conditions": {
+   "label": "Sizde birbada birnäçe kesel ýa-da saglyk bilen bagly çäklendirmeler barmy?",
+   "hint": "Birnäçe näsazlyk jemi boýunça sürüjilik ukyby üçin ähmiýetli bolup biler, hatda olaryň hersi aýratynlykda howpsuz bolsa-da (gollanmalar, 2.7-nji bap).",
+   "followup": "Haýyş edýäris, ähli belli keselleri gysgaça sanaň."
+  },
+  "other_conditions": {
+   "label": "Şu wagta çenli agzalmadyk başga keseller, şikaýatlar ýa-da öňki operasiýalar barmy?",
+   "followup": "Haýsylar?"
+  },
+  "driving_adaptation": {
+   "label": "Saglyk çäklendirmeleri sebäpli belli bir ýollardan bilkastlaýyn ýüz öwürýärsiňizmi (meselem, garaňkyda, uzak aralyklar, awtomagistral)?",
+   "followup": "Haýsy ýollardan we näme üçin?"
+  },
+  "consent_truth": {
+   "label": "Maglumatlarymyň doly we hakykata laýykdygyny tassyklaýaryn.",
+   "error": "Haýyş edýäris, maglumatlaryňyzyň dolulygyny tassyklaň."
+  },
+  "consent_privacy": {
+   "label": "Men maglumatlaryň goragy baradaky bellikleri okadym we maglumatlarymyň ýol hereketi lukmançylygy maksatlary üçin işlenilmegine razylyk berýärin.",
+   "error": "Haýyş edýäris, maglumatlaryň goragy baradaky bellikleri kabul ediň."
+  }
+ },
+ "ess_items": {
+  "ess_1": "Oturyp okanyňyzda",
+  "ess_2": "Telewizora seredeniňizde",
+  "ess_3": "Jemgyýetçilik ýerinde hereketsiz oturanyňyzda (meselem, teatrda ýa-da maslahatda)",
+  "ess_4": "Awtoulagda ýolagçy hökmünde bir sagatlyk arakesmesiz ýolda",
+  "ess_5": "Günortandan soň dynç almak üçin ýatanyňyzda",
+  "ess_6": "Oturyp biri bilen gürleşeniňizde",
+  "ess_7": "Günortanlyk naharyndan soň (alkogolsyz) rahat oturanyňyzda",
+  "ess_8": "Awtoulagyň sürüjisi hökmünde ýol hereketi sebäpli birnäçe minut durmaly bolanyňyzda"
+ }
+}

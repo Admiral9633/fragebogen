@@ -1,0 +1,585 @@
+{
+ "_meta": {
+  "language": "uz",
+  "name": "Oʻzbekcha",
+  "machine_translated": true
+ },
+ "ui": {
+  "header_title": "Haydovchilar uchun tibbiy soʻrovnoma",
+  "header_subtitle": "Iltimos, barcha savollarga javob bering",
+  "language_label": "Til",
+  "loading": "Soʻrovnoma yuklanmoqda …",
+  "not_found_title": "Soʻrovnoma topilmadi",
+  "to_start": "Bosh sahifaga",
+  "back": "Orqaga",
+  "next": "Keyingisi",
+  "skip": "Oʻtkazib yuborish",
+  "submit": "Yuborish",
+  "sending": "Yuborilmoqda…",
+  "question_of": "{total} savoldan {current}-savol",
+  "answer_placeholder": "Javobingiz…",
+  "required_error": "Iltimos, bu savolga javob bering.",
+  "yes": "Ha",
+  "no": "Yoʻq",
+  "consent_title": "Rozilik",
+  "followup_hint": "Ixtiyoriy qoʻshimcha maʼlumot – shifokorning baholashiga yordam beradi.",
+  "ess_question": "Bunday vaziyatda mudrab qolishingiz ehtimoli qanchalik yuqori?",
+  "ess_sum": "Hozirgacha toʻplangan ball",
+  "ess_opt_0": "0 – Hech qachon mudramayman",
+  "ess_opt_1": "1 – Ehtimoli past",
+  "ess_opt_2": "2 – Ehtimoli oʻrtacha",
+  "ess_opt_3": "3 – Ehtimoli yuqori",
+  "privacy_button": "Maʼlumotlar himoyasi haqidagi maʼlumotni koʻrsatish",
+  "privacy_title": "Maʼlumotlar himoyasi haqida maʼlumot",
+  "privacy_subtitle": "Maʼlumotlaringizni qayta ishlash haqida maʼlumot – DSGVO Art. 13 (Yevropa Ittifoqining maʼlumotlar himoyasi toʻgʻrisidagi umumiy reglamenti, 13-modda) boʻyicha",
+  "privacy_controller": "Masʼul shaxs: Dr. med. Björn Micka, Betriebsmedizin · Notfallmedizin, Christoph-Dassler-Str. 22, 91074 Herzogenaurach",
+  "privacy_purpose": "Qayta ishlash maqsadi: Ushbu soʻrovnomadagi maʼlumotlaringiz (shu jumladan sogʻliq haqidagi maʼlumotlar) faqat haydovchilik uchun tibbiy koʻrikni tayyorlash va oʻtkazish maqsadida ishlatiladi.",
+  "privacy_legal": "Huquqiy asos: Sizning roziligingiz (DSGVO Art. 6 Abs. 1 lit. a, Art. 9 Abs. 2 lit. a – Yevropa Ittifoqining maʼlumotlar himoyasi reglamenti). Roziligingizni istalgan vaqtda kelajakka nisbatan bekor qilishingiz mumkin.",
+  "privacy_storage": "Saqlash: Natija tibbiy koʻrik hujjatlaringizga kiritiladi va shifokorlar uchun belgilangan saqlash muddatlariga boʻysunadi. Shaxsiy havolangiz orqali onlayn kirish amal qilish muddati tugagach yopiladi; ushbu onlayn soʻrovnomaning maʼlumotlari keyin muntazam ravishda oʻchiriladi.",
+  "privacy_rights": "Huquqlaringiz: Siz maʼlumot olish, toʻgʻrilash, oʻchirish va qayta ishlashni cheklash huquqiga, shuningdek maʼlumotlar himoyasi boʻyicha vakolatli nazorat organiga shikoyat qilish huquqiga egasiz.",
+  "privacy_secrecy": "Barcha maʼlumotlar shifokorlik siri sifatida himoyalanadi.",
+  "success_title": "Katta rahmat!",
+  "success_text": "Soʻrovnomangiz muvaffaqiyatli yuborildi.",
+  "success_result": "ESS natijasi",
+  "success_doctor_note": "Iltimos, natijani shifokoringiz bilan muhokama qiling. Yakuniy baholashni mutaxassis shifokor amalga oshiradi.",
+  "success_pdf": "PDF xulosani yuklab olish",
+  "success_close": "Endi bu oynani yopishingiz mumkin.",
+  "band_normal": "Normal (0–9)",
+  "band_elevated": "Yuqori (10–15)",
+  "band_severe": "Sezilarli darajada yuqori (≥16)",
+  "submit_error": "Yuborishda xatolik yuz berdi. Iltimos, maʼlumotlaringizni tekshiring."
+ },
+ "sections": {
+  "anlass": {
+   "title": "Koʻrik sababi va haydash profili",
+   "subtitle": "Tibbiy koʻrik va haydovchilik faoliyatingiz haqida maʼlumot"
+  },
+  "gesundheit": {
+   "title": "Sogʻliq holati",
+   "subtitle": "Avval bitta savol"
+  },
+  "anfaelle": {
+   "title": "Tutqanoqlar va hushdan ketish",
+   "subtitle": "Toʻsatdan ish qobiliyatini yoʻqotish xavfi – epileptik tutqanoqlar va hushdan ketishlar"
+  },
+  "sehen_hoeren": {
+   "title": "Koʻrish va eshitish",
+   "subtitle": "Koʻrish va eshitish qobiliyati"
+  },
+  "herz": {
+   "title": "Yurak va qon aylanishi",
+   "subtitle": "Yurak va qon tomir kasalliklari"
+  },
+  "gehirn": {
+   "title": "Insult va bosh miya",
+   "subtitle": "Bosh miyaning qon aylanishi buzilishi, jarohatlari va operatsiyalari"
+  },
+  "neuro": {
+   "title": "Asab tizimi",
+   "subtitle": "Nevrologik kasalliklar"
+  },
+  "schwindel": {
+   "title": "Muvozanat va bosh aylanishi",
+   "subtitle": "Bosh aylanishi turlari va muvozanat buzilishlari"
+  },
+  "bewegung": {
+   "title": "Tayanch-harakat aʼzolari",
+   "subtitle": "Jismoniy cheklovlar va yordamchi vositalar"
+  },
+  "diabetes": {
+   "title": "Diabet / modda almashinuvi",
+   "subtitle": "Qandli diabet va qon shakarining pasayishi"
+  },
+  "organe": {
+   "title": "Ichki aʼzolar",
+   "subtitle": "Buyraklar, oʻpka va organ koʻchirish"
+  },
+  "schlaf": {
+   "title": "Uyqu va kunduzgi uyquchanlik",
+   "subtitle": "Epworth Sleepiness Scale (ESS) shkalasi bilan birga"
+  },
+  "psyche": {
+   "title": "Ruhiy sogʻliq",
+   "subtitle": "Ruhiy kasalliklar va xotira"
+  },
+  "substanzen": {
+   "title": "Alkogol, giyohvand moddalar va dorilar",
+   "subtitle": "Isteʼmol va doimiy dori qabul qilish"
+  },
+  "allgemein": {
+   "title": "Umumiy maʼlumotlar va rozilik",
+   "subtitle": "Qoʻshimcha maʼlumotlar va tasdiqlar"
+  }
+ },
+ "questions": {
+  "exam_occasion": {
+   "label": "Tibbiy koʻrik qaysi haydovchilik guvohnomasi uchun oʻtkazilmoqda?",
+   "options": {
+    "pkw": "Yengil avtomobil / boshqa toifa",
+    "lkw": "Yuk avtomobili (C, C1, CE, C1E)",
+    "bus": "Avtobus (D, D1, DE, D1E)",
+    "fahrgast": "Yoʻlovchi tashish (taksi, ijara avtomobili, bemorlarni tashish)"
+   }
+  },
+  "exam_kind": {
+   "label": "Bu birinchi marta berilishimi yoki muddatni uzaytirishmi?",
+   "options": {
+    "erst": "Birinchi marta berish",
+    "verlaengerung": "Muddatni uzaytirish"
+   }
+  },
+  "license_classes": {
+   "label": "Qaysi haydovchilik guvohnomasi toifalariga egasiz yoki ularni olish uchun ariza bermoqdasiz?",
+   "options": {
+    "AM": "AM",
+    "A1": "A1",
+    "A2": "A2",
+    "A": "A",
+    "B": "B",
+    "BE": "BE",
+    "C1": "C1",
+    "C1E": "C1E",
+    "C": "C",
+    "CE": "CE",
+    "D1": "D1",
+    "D": "D",
+    "DE": "DE",
+    "T": "T"
+   }
+  },
+  "license_years": {
+   "label": "Necha yildan beri haydovchilik guvohnomangiz bor?",
+   "options": {
+    "erstantrag": "Hali yoʻq (birinchi ariza)",
+    "unter3": "3 yildan kam",
+    "3bis10": "3 yildan 10 yilgacha",
+    "ueber10": "10 yildan koʻp"
+   }
+  },
+  "driving_hours": {
+   "label": "Kuniga oʻrtacha necha soat mashina haydaysiz?",
+   "options": {
+    "<1": "1 soatdan kam",
+    "1-2": "1 soatdan 2 soatgacha",
+    "2-4": "2 soatdan 4 soatgacha",
+    ">4": "4 soatdan koʻp"
+   }
+  },
+  "night_driving": {
+   "label": "Muntazam ravishda kechasi haydaysizmi?"
+  },
+  "accidents": {
+   "label": "Soʻnggi 24 oy ichida yoʻl harakatida baxtsiz hodisa yoki hodisaga yaqin holat boʻlganmi?",
+   "followup": "Nima sodir boʻlgan?"
+  },
+  "license_withdrawn": {
+   "label": "Sizni hech qachon haydovchilik guvohnomasidan mahrum qilishganmi yoki tibbiy-psixologik tekshiruvda (MPU – Germaniyadagi tibbiy-psixologik ekspertiza) qatnashishingiz kerak boʻlganmi?",
+   "followup": "Qachon va qaysi sababga koʻra?"
+  },
+  "psych_test_done": {
+   "label": "Ushbu haydovchilik guvohnomasi uchun psixologik qobiliyat testini (reaksiya, diqqatni jamlash va eʼtiborni tekshirish) allaqachon topshirganmisiz?",
+   "hint": "Avtobus toifalari va yoʻlovchi tashish uchun bu hujjat Anlage 5 FeV (Germaniyaning haydovchilik guvohnomasi toʻgʻrisidagi nizomi, 5-ilova) boʻyicha majburiy. Mavjud xulosani koʻrikka olib keling.",
+   "followup": "Test qachon va qayerda oʻtkazilgan?"
+  },
+  "has_conditions": {
+   "label": "Sizda maʻlum boʻlgan avvalgi kasallik, doimiy jismoniy cheklov bormi yoki muntazam shifokor davolashidamisiz?",
+   "hint": "Bunga ancha oldin oʻtkazilgan jiddiy kasalliklar ham kiradi (masalan, yurak, qandli diabet, asab, ruhiy holat). Agar yoʻq boʻlsa, soʻrovnoma sezilarli darajada qisqaradi."
+  },
+  "seizure_ever": {
+   "label": "Sizda hech qachon epileptik tutqanoq yoki talvasa boʻlganmi?",
+   "followup": "Oxirgi tutqanoq qachon boʻlgan, jami nechta tutqanoq boʻlgan va biror sababi boʻlganmi (masalan, uyqusizlik, isitma, alkogol)?"
+  },
+  "epilepsy": {
+   "label": "Sizga epilepsiya (tutqanoq kasalligi) tashxisi qoʻyilganmi?",
+   "followup": "Tutqanoqlar faqat uyquda boʻladimi? Muntazam nevrolog nazoratidamisiz?"
+  },
+  "seizure_free": {
+   "label": "Qancha vaqtdan beri tutqanoqsiz yuribsiz?",
+   "hint": "Yoʻriqnomalarga koʻra haydashga yaroqlilik aniq tutqanoqsiz davrlarga bogʻliq.",
+   "options": {
+    "unter3m": "3 oydan kam",
+    "3bis6m": "3 oydan 6 oygacha",
+    "6bis12m": "6 oydan 12 oygacha",
+    "1bis2j": "1 yildan 2 yilgacha",
+    "2bis5j": "2 yildan 5 yilgacha",
+    "ueber5j": "5 yildan koʻp"
+   }
+  },
+  "antiepileptics": {
+   "label": "Tutqanoqqa qarshi dorilar (antiepileptik dorilar) qabul qilasizmi?",
+   "options": {
+    "nie": "Yoʻq, hech qachon qabul qilmaganman",
+    "aktuell": "Ha, hozir qabul qilaman",
+    "reduktion": "Davolash hozir bosqichma-bosqich kamaytirilmoqda",
+    "ende_unter3m": "3 oydan kam vaqt oldin toʻxtatilgan",
+    "ende_ueber3m": "3 oydan koʻp vaqt oldin toʻxtatilgan"
+   }
+  },
+  "syncope": {
+   "label": "Hech qachon toʻsatdan hushdan ketganmisiz (qisqa muddatli hushni yoʻqotish)?",
+   "options": {
+    "nie": "Hech qachon",
+    "einmal": "Bir marta",
+    "mehrmals": "Bir necha marta"
+   }
+  },
+  "syncope_recent": {
+   "label": "Oxirgi hushdan ketishingiz 6 oydan kamroq vaqt oldin boʻlganmi?",
+   "followup": "Hushdan ketish qanday vaziyatda yuz bergan va sababi aniqlanganmi (masalan, qon aylanishi, yurak ritmi, siyish paytida)?"
+  },
+  "syncope_prodromi": {
+   "label": "Hushdan ketishdan oldin sizda ogohlantiruvchi belgilar boʻladimi (masalan, terlash, bosh aylanishi, koʻngil aynishi, yurak urishining kuchayishi)?"
+  },
+  "glasses": {
+   "label": "Haydash paytida koʻzoynak yoki kontakt linza taqasizmi?"
+  },
+  "eye_disease": {
+   "label": "Sizda koʻz kasalligi borligi maʼlummi (masalan, katarakta, glaukoma, toʻr parda kasalligi, koʻrish maydonining torayishi)?",
+   "followup": "Qaysi kasallik va koʻz shifokori nazoratidamisiz?"
+  },
+  "one_eyed": {
+   "label": "Bir koʻzingiz sezilarli darajada yomon koʻradimi yoki bir koʻzingizga koʻrmaysizmi?"
+  },
+  "night_vision": {
+   "label": "Gira-shira yorugʻlikda yoki qorongʻida koʻrishda muammolaringiz bormi yoki qarama-qarshi keluvchi transportning chirogʻi sizni kuchli koʻr qiladimi?",
+   "followup": "Muammolar qanday vaziyatlarda yuzaga keladi?"
+  },
+  "hearing_impaired": {
+   "label": "Sizda ogʻir darajada eshitish qobiliyatining pasayishi bormi yoki siz karmisiz?",
+   "followup": "Qachondan beri va quloq-tomoq-burun shifokori nazoratidamisiz?"
+  },
+  "hearing_aid": {
+   "label": "Eshitish apparati yoki koxlear implantdan foydalanasizmi?"
+  },
+  "heart_disease": {
+   "label": "Sizda yurak yoki qon tomir kasalligi borligi maʼlummi?",
+   "hint": "masalan, ritm buzilishi, yurak xuruji (infarkt), yurak yetishmovchiligi, klapan nuqsoni, qon aylanishi buzilishi",
+   "followup": "Qaysi kasallik(lar), qachondan beri va ular qanday davolanadi?"
+  },
+  "cardio_checkup": {
+   "label": "Shu sababli muntazam ravishda kardiolog nazoratidamisiz?",
+   "followup": "Oxirgi tekshiruv qachon boʻlgan?"
+  },
+  "heart_attack": {
+   "label": "Sizda hech qachon yurak xuruji (infarkt), stent qoʻyish yoki shuntlash (bypass) operatsiyasi boʻlganmi?",
+   "followup": "Hodisa yoki jarrohlik aralashuvi qachon boʻlgan va asoratlar boʻlganmi (masalan, yurakning nasos quvvati pasayishi)?"
+  },
+  "arrhythmia": {
+   "label": "Sizda yurak ritmi buzilishi borligi maʼlummi (masalan, yurakning toʻxtab-toʻxtab urishi, yurak tez urishi, sezilarli darajada sekin puls, boʻlmachalar fibrillatsiyasi, AV-blokada)?",
+   "followup": "Qaysi tashxis va u qanday davolanadi?"
+  },
+  "pacemaker_icd": {
+   "label": "Sizda yurak ritmini boshqaruvchi qurilma (kardiostimulyator) yoki defibrillator (ICD) bormi?",
+   "options": {
+    "nein": "Yoʻq",
+    "schrittmacher": "Kardiostimulyator",
+    "icd": "Defibrillator (ICD)"
+   },
+   "followup": "Qachon qoʻyilgan va oxirgi tekshiruv qachon boʻlgan?"
+  },
+  "icd_shock": {
+   "label": "Defibrillatoringiz soʻnggi 3 oy ichida razryad (shok) berganmi?",
+   "followup": "Qachon va kardiologingiz bu haqda nima dedi?"
+  },
+  "exertion_symptoms": {
+   "label": "Jismoniy zoʻriqishda nafas qisishi, koʻkrak ogʻrigʻi, yurakning toʻxtab-toʻxtab urishi yoki gʻayrioddiy holsizlik paydo boʻladimi?",
+   "hint": "NYHA bosqichlariga muvofiq oʻz-oʻzini baholash",
+   "options": {
+    "keine": "Yoʻq, kundalik zoʻriqishda shikoyat yoʻq",
+    "stark": "Kuchliroq zoʻriqishda (masalan, zinadan tez koʻtarilganda)",
+    "leicht": "Hatto yengil zoʻriqishda ham (masalan, sekin yurganda)",
+    "ruhe": "Hatto tinch holatda ham"
+   }
+  },
+  "hypertension": {
+   "label": "Sizda yuqori qon bosimi (gipertoniya) borligi maʼlummi?",
+   "followup": "Qachondan beri, qaysi dorilarni qabul qilasiz va odatda qanday koʻrsatkichlarni oʻlchaysiz?"
+  },
+  "bp_dizziness": {
+   "label": "Qon bosimi dorilari taʼsirida bosh aylanishi, holsizlik hissi yoki koʻz oldingiz qorongʻilashuvi kuzatiladimi?"
+  },
+  "heart_other": {
+   "label": "Sizda boshqa yurak yoki qon tomir kasalligi borligi maʼlummi: yurak klapani nuqsoni, tugʻma yurak nuqsoni, yurak mushagi kasalligi (kardiomiopatiya), irsiy ritm kasalligi (masalan, Long-QT), aorta anevrizmasi yoki uyqu arteriyasining torayishi?",
+   "followup": "Qaysi tashxis va u qanday nazorat qilinadi yoki davolanadi?"
+  },
+  "family_sudden_death": {
+   "label": "Eng yaqin oilangizda (ota-ona, aka-uka yoki opa-singil, farzandlar) toʻsatdan yurak oʻlimi boʻlganmi?"
+  },
+  "stroke": {
+   "label": "Sizda hech qachon insult, miyaga qon quyilishi yoki TIA (qisqa muddatli belgilar bilan kechadigan oʻtkinchi qon aylanishi buzilishi) boʻlganmi?",
+   "followup": "Hodisa qachon boʻlgan va reabilitatsiya yakunlanganmi?"
+  },
+  "stroke_residuals": {
+   "label": "Oʻshandan beri falajlik, nutq buzilishi, xotira muammolari yoki koʻrish maydonining cheklanishi kabi oqibatlar saqlanib qolganmi?",
+   "followup": "Hozir qanday shikoyatlar mavjud?"
+  },
+  "head_injury": {
+   "label": "Sizda hech qachon ogʻir bosh jarohati (hushdan ketish yoki kasalxonada yotish bilan) yoki bosh miya operatsiyasi boʻlganmi?",
+   "followup": "Qachon va nima davolangan?"
+  },
+  "head_injury_recent": {
+   "label": "Bu jarohat yoki operatsiya 3 oydan kamroq vaqt oldin boʻlganmi?",
+   "hint": "Yoʻriqnomaga koʻra, bosh miya jarohati yoki operatsiyasidan keyin odatda 3 oy davomida haydashga yaroqlilik boʻlmaydi."
+  },
+  "brain_residuals": {
+   "label": "Jarohat yoki operatsiyadan beri diqqatni jamlash yoki xotira buzilishi, xarakter oʻzgarishi yoki talvasalar kabi shikoyatlar bormi?",
+   "followup": "Qanday shikoyatlar va ular sizga qanday taʼsir qiladi?"
+  },
+  "parkinson": {
+   "label": "Sizga Parkinson kasalligi yoki boshqa harakat yoxud muvofiqlashtirish (koordinatsiya) buzilishi tashxisi qoʻyilganmi?",
+   "followup": "Qachondan beri, qanday davolanadi va oxirgi nevrologik tekshiruv qachon boʻlgan?"
+  },
+  "ms_spinal": {
+   "label": "Sizda tarqoq skleroz (multipl skleroz), orqa miya kasalligi yoki orqa miya jarohati borligi maʼlummi?",
+   "followup": "Qaysi tashxis va hozir qanday shikoyatlaringiz bor?"
+  },
+  "muscle_nerve": {
+   "label": "Sizda mushak yoki asab kasalligi borligi maʼlummi (masalan, mushaklar toʻlishmasligi, miasteniya, polineyropatiya)?",
+   "followup": "Qaysi tashxis va siz qanchalik cheklangansiz?"
+  },
+  "paralysis_attacks": {
+   "label": "Sizda xurujsimon falajlik yoki toʻsatdan kuchli mushak holsizligi kuzatiladimi?",
+   "followup": "Oxirgi xuruj qachon boʻlgan va u qanchalik tez boshlanadi?"
+  },
+  "motor_limits": {
+   "label": "Qoʻl yoki oyoqlaringizda transport vositasini boshqarishda sizni cheklashi mumkin boʻlgan falajlik, mushak holsizligi yoki sezuvchanlik buzilishi bormi?",
+   "followup": "Tananing qaysi qismlari zararlangan?"
+  },
+  "vertigo": {
+   "label": "Sizda bosh aylanishi yoki muvozanat buzilishi bormi (masalan, aylanish hissi, chayqalish, yurishda ishonchsizlik)?",
+   "followup": "Bosh aylanishi qanday his qilinadi, qanchalik tez-tez yuz beradi, bir xuruj qancha davom etadi va uni nima qoʻzgʻatadi?"
+  },
+  "vertigo_last": {
+   "label": "Oxirgi bosh aylanishi xuruji qancha vaqt oldin boʻlgan?",
+   "options": {
+    "unter3m": "3 oydan kam",
+    "3bis6m": "3 oydan 6 oygacha",
+    "6bis12m": "6 oydan 12 oygacha",
+    "1bis2j": "1 yildan 2 yilgacha",
+    "ueber2j": "2 yildan koʻp"
+   }
+  },
+  "vertigo_prodromi": {
+   "label": "Bosh aylanishi xurujlaridan oldin ogohlantiruvchi belgilar boʻladimi (masalan, quloqda bosim, quloqda shovqin, eshitishning pasayishi), shunda siz oʻz vaqtida toʻxtay olasizmi?",
+   "options": {
+    "immer": "Ha, doimo",
+    "manchmal": "Baʼzan",
+    "nie": "Yoʻq, ular ogohlantirishsiz keladi"
+   }
+  },
+  "vertigo_positional": {
+   "label": "Bosh aylanishi maʼlum bosh harakatlari yoki tana holatining oʻzgarishi bilan qoʻzgʻatiladimi (masalan, karavotda agʻdarilganda, engashganda)?"
+  },
+  "vertigo_ear": {
+   "label": "Bosh aylanishi eshitishning pasayishi, quloqdagi shovqin (tinnitus) yoki quloqdagi bosim hissi bilan birga yuz beradimi?"
+  },
+  "ear_disease": {
+   "label": "Sizda muvozanat aʼzosi yoki ichki quloq kasalligi aniqlanganmi (masalan, tana holatiga bogʻliq bosh aylanishi, Menyer kasalligi)?",
+   "followup": "Qaysi tashxis, qanday davolangan va oʻshandan beri shikoyatlaringiz yoʻqmi?"
+  },
+  "mobility_limits": {
+   "label": "Sizda qoʻl, oyoq, panja yoki umurtqa pogʻonasi harakatchanligining doimiy cheklanishi bormi (masalan, baxtsiz hodisa, operatsiya yoki amputatsiyadan keyin)?",
+   "followup": "Tananing qaysi qismlari zararlangan va qachondan beri?"
+  },
+  "prosthesis": {
+   "label": "Protez taqasizmi yoki ortopedik yordamchi vositalardan foydalanasizmi?",
+   "followup": "Qanday yordamchi vositalar va uzoq muddatli zoʻriqishda shikoyatlaringiz bormi?"
+  },
+  "vehicle_modified": {
+   "label": "Transport vositangiz jismoniy cheklov tufayli oʻzgartirilganmi (masalan, qoʻl bilan boshqarish, rul kuchaytirgichi)?",
+   "followup": "Qanday oʻzgartirishlar va ular haydovchilik guvohnomasida qayd etilganmi?"
+  },
+  "diabetes_type": {
+   "label": "Sizda qandli diabet (shakar kasalligi) borligi maʼlummi?",
+   "options": {
+    "none": "Yoʻq",
+    "type1": "Ha, 1-tur",
+    "type2": "Ha, 2-tur",
+    "other": "Ha, boshqa yoki aniq boʻlmagan tur"
+   }
+  },
+  "diabetes_therapy": {
+   "label": "Diabetingiz hozir qanday davolanmoqda?",
+   "options": {
+    "lifestyle": "Faqat parhez / turmush tarzi",
+    "tabl_low": "Qon shakarining pasayish xavfi past tabletkalar (masalan, metformin)",
+    "tabl_high": "Qon shakarining pasayish xavfi bor tabletkalar (sulfonilmochevina hosilalari, glinidlar)",
+    "insulin": "Insulin",
+    "unknown": "Aniq bilmayman"
+   }
+  },
+  "hypoglycemia": {
+   "label": "Soʻnggi 12 oy ichida sizda ogʻir gipoglikemiya (qon shakarining keskin pasayishi) boʻlganmi, unda boshqa odamning yordamiga muhtoj boʻlgansizmi?",
+   "followup": "Necha marta, oxirgi holat qachon boʻlgan va u uygʻoq holatdami yoki uyqudami yuz bergan?"
+  },
+  "hypo_awareness": {
+   "label": "Qon shakarining pasayishini oʻz vaqtida oʻzingiz sezmagan holatlar boʻlganmi (ogohlantiruvchi belgilarning yoʻqligi)?",
+   "followup": "Oxirgi marta qachon va biror chora koʻrilganmi (masalan, maxsus mashgʻulot, davolashni oʻzgartirish)?"
+  },
+  "glucose_monitoring": {
+   "label": "Qon shakaringizni muntazam ravishda oʻzingiz oʻlchaysizmi (yoki glyukoza sensori taqasizmi)?",
+   "options": {
+    "2x": "Ha, kuniga kamida ikki marta",
+    "seltener": "Ha, lekin kamroq",
+    "nein": "Yoʻq",
+    "keine_med": "Menga tegishli emas (qon shakarini pasaytiruvchi dorilarni qabul qilmayman)"
+   }
+  },
+  "diabetes_derailment": {
+   "label": "Soʻnggi oylarda davolash qaytadan sozlanganmi yoki modda almashinuvi izdan chiqqanmi (masalan, koʻrsatkichlarning izdan chiqishi tufayli kasalxonada davolanish)?",
+   "followup": "Nima sodir boʻlgan va qachon?"
+  },
+  "kidney_disease": {
+   "label": "Sizda surunkali buyrak kasalligi yoki buyrak yetishmovchiligi borligi maʼlummi?",
+   "followup": "Qaysi kasallik va buyrak shifokori (nefrolog) nazoratidamisiz?"
+  },
+  "dialysis": {
+   "label": "Siz muntazam ravishda dializ (qon tozalash) bilan davolanasizmi?",
+   "followup": "Qachondan beri va haftasiga necha marta? Muolajalar orasida oʻzingizni ish qobiliyatli his qilasizmi?"
+  },
+  "transplant": {
+   "label": "Sizga organ koʻchirib oʻtkazilganmi (masalan, buyrak, yurak, jigar, oʻpka)?",
+   "followup": "Qaysi organ, qachon va muntazam nazoratdamisiz?"
+  },
+  "lung_disease": {
+   "label": "Sizda surunkali oʻpka yoki bronx kasalligi bormi (masalan, COPD, astma, oʻpka fibrozi)?",
+   "followup": "Qaysi kasallik va u qanday davolanadi?"
+  },
+  "dyspnea": {
+   "label": "Yengil zoʻriqishda yoki tinch holatda nafasingiz qisiladimi yoki uzoq muddatli kislorod terapiyasiga muhtojmisiz?"
+  },
+  "cough_syncope": {
+   "label": "Kuchli yoʻtal xurujlarida bosh aylanishi, koʻz oldi qorongʻilashuvi yoki qisqa muddatli hushdan ketish boʻlganmi?"
+  },
+  "daytime_sleepiness": {
+   "label": "Kunduzi hushyor va diqqatli qolish sizga qiyinmi – ayniqsa bir xil, zerikarli vaziyatlarda (masalan, oʻqiyotganda, majlislarda, uzoq avtomobil safarlarida)?"
+  },
+  "microsleep": {
+   "label": "Soʻnggi oylarda beixtiyor uxlab qolganmisiz yoki soniyalik uyqu holati boʻlganmi?",
+   "followup": "Qanday vaziyatlarda? Bu rul ortida ham sodir boʻlganmi?"
+  },
+  "snoring": {
+   "label": "Sizga baland ovozda va notekis xurraklashingiz yoki kechasi nafas toʻxtashlaringiz borligi aytilganmi?"
+  },
+  "osas": {
+   "label": "Sizda uyqu apnoesi sindromi (kechasi nafas toʻxtashlari) aniqlanganmi?",
+   "followup": "Tashxis qachon qoʻyilgan va qaysi ogʻirlik darajasi yoki AHI koʻrsatkichi aniqlangan (agar maʼlum boʻlsa)?"
+  },
+  "cpap": {
+   "label": "Uyqu apnoesi tufayli davolanasizmi (masalan, CPAP nafas niqobi bilan)?",
+   "options": {
+    "regelmaessig": "Ha, muntazam (deyarli har kecha)",
+    "unregelmaessig": "Ha, lekin muntazam emas",
+    "abgebrochen": "Davolash toʻxtatilgan",
+    "keine": "Yoʻq, davolanmayman"
+   }
+  },
+  "psychiatric": {
+   "label": "Sizga ruhiy kasallik tashxisi qoʻyilganmi (masalan, depressiya, xavotir buzilishi, bipolyar buzilish)?",
+   "followup": "Qaysi kasallik va u qanday davolanadi?"
+  },
+  "psychiatric_severe": {
+   "label": "Shu sababli hech qachon shifoxonada yotib davolanganmisiz, maniakal davrni boshdan kechirganmisiz yoki oʻz joniga qasd qilish fikrlari boʻlganmi?",
+   "followup": "Bu oxirgi marta qachon boʻlgan?"
+  },
+  "psychosis": {
+   "label": "Sizga hech qachon shizofreniya yoki boshqa psixoz tashxisi qoʻyilganmi (alahlash yoki gallyutsinatsiyalar bilan kechadigan kasallik)?",
+   "followup": "Nechta oʻtkir davr boʻlgan, oxirgisi qachon boʻlgan va mutaxassis shifokor nazoratidamisiz?"
+  },
+  "memory_problems": {
+   "label": "Siz oʻzingiz yoki yaqinlaringiz soʻnggi paytda sizda xotira yoki moʻljal olish muammolari kuchayganini sezdingizmi?",
+   "followup": "Qachondan beri va ular kundalik hayotga qanday taʼsir qiladi?"
+  },
+  "concentration": {
+   "label": "Sizda diqqatni jamlash yoki eʼtibor bilan bogʻliq muammolar bormi?"
+  },
+  "alcohol": {
+   "label": "Qanchalik tez-tez spirtli ichimlik ichasiz?",
+   "options": {
+    "nie": "Hech qachon",
+    "selten": "Kamdan-kam (oyiga koʻpi bilan 1 marta)",
+    "woechentlich": "Haftasiga 1–2 marta",
+    "mehrmals": "Haftasiga bir necha marta",
+    "taeglich": "Har kuni yoki deyarli har kuni"
+   }
+  },
+  "alcohol_control": {
+   "label": "Moʻljallaganingizdan koʻproq ichgan yoki isteʼmol ustidan nazoratni yoʻqotgan holatlaringiz boʻlganmi?"
+  },
+  "alcohol_traffic": {
+   "label": "Yoʻl harakatida hech qachon alkogol taʼsirida qoʻlga tushganmisiz (masalan, mast holda haydash, jarima, MPU – tibbiy-psixologik ekspertiza)?",
+   "followup": "Qachon va qanday promille koʻrsatkichi aniqlangan (agar maʼlum boʻlsa)?"
+  },
+  "alcohol_dependence": {
+   "label": "Sizda hech qachon alkogolga qaramlik aniqlanganmi yoki siz zaharsizlantirish (detoksikatsiya) yoxud qaramlikdan xalos qilish davolanishini oʻtganmisiz?",
+   "followup": "Davolash qachon yakunlangan va qachondan beri spirtli ichimlik ichmaysiz?"
+  },
+  "drugs": {
+   "label": "Hozir giyohvand moddalar qabul qilasizmi (masalan, kanabis, kokain, amfetaminlar) yoki ilgari muntazam ravishda giyohvand modda isteʼmol qilganmisiz?",
+   "followup": "Qaysi moddalar, qanchalik tez-tez va oxirgi marta qachon?"
+  },
+  "cannabis": {
+   "label": "Qanchalik tez-tez kanabis isteʼmol qilasiz?",
+   "options": {
+    "nie": "Hech qachon",
+    "gelegentlich": "Baʼzan (muntazam emas)",
+    "regelmaessig": "Muntazam (har kuni yoki odat tusida)"
+   }
+  },
+  "substitution": {
+   "label": "Siz oʻrnini bosuvchi (substitutsion) davolanish olasizmi (masalan, metadon)?",
+   "followup": "Qachondan beri?"
+  },
+  "regular_meds": {
+   "label": "Muntazam ravishda dori qabul qilasizmi?",
+   "followup": "Qaysi dorilar va nimaga qarshi?"
+  },
+  "sedating_meds": {
+   "label": "Ular orasida uyquni keltiruvchi yoki reaksiya qobiliyatiga taʼsir qilishi mumkin boʻlgan dorilar bormi (masalan, kuchli ogʻriq qoldiruvchilar/opioidlar, uyqu yoki tinchlantiruvchi dorilar, antidepressantlar, tutqanoqqa qarshi dorilar, allergiyaga qarshi dorilar)?",
+   "followup": "Qaysi dorilar va qanday dozada?"
+  },
+  "med_side_effects": {
+   "label": "Dorilaringiz taʼsirida charchoq, sustlashish, diqqatning buzilishi yoki bosh aylanishi kabi nojoʻya taʼsirlarni sezasizmi?",
+   "followup": "Qanday nojoʻya taʼsirlar va ular qanchalik kuchli?"
+  },
+  "med_recent_change": {
+   "label": "Soʻnggi haftalarda shunday dori yangidan tayinlanganmi yoki uning dozasi sezilarli darajada oʻzgartirilganmi?",
+   "followup": "Qaysi dori va qachon?"
+  },
+  "benzo_regular": {
+   "label": "Bir necha oydan beri muntazam ravishda – hatto faqat kechqurun oz miqdorda boʻlsa ham – uyqu yoki tinchlantiruvchi dorilar (masalan, benzodiazepinlar) qabul qilasizmi?",
+   "followup": "Qaysi dori, qancha vaqtdan beri va uni qabul qilmaganingizda abstinensiya (dorini tashlash) belgilarini sezasizmi?"
+  },
+  "multiple_conditions": {
+   "label": "Sizda bir vaqtning oʻzida bir nechta kasallik yoki sogʻliq bilan bogʻliq cheklovlar bormi?",
+   "hint": "Bir nechta chetlanish yigʻilib haydashga yaroqlilik uchun ahamiyatli boʻlishi mumkin, hatto ularning har biri alohida xavfsiz boʻlsa ham (yoʻriqnomalar, 2.7-bob).",
+   "followup": "Iltimos, barcha maʼlum kasalliklarni qisqacha sanab oʻting."
+  },
+  "other_conditions": {
+   "label": "Hozirgacha aytilmagan boshqa kasalliklar, shikoyatlar yoki oʻtkazilgan operatsiyalar bormi?",
+   "followup": "Qaysilari?"
+  },
+  "driving_adaptation": {
+   "label": "Sogʻligʻingizdagi cheklovlar tufayli baʼzi safarlardan ataylab voz kechasizmi (masalan, qorongʻida, uzoq masofalarga, avtomagistralda)?",
+   "followup": "Qaysi safarlardan va nima uchun?"
+  },
+  "consent_truth": {
+   "label": "Maʼlumotlarim toʻliq va haqiqatga mos ekanligini tasdiqlayman.",
+   "error": "Iltimos, maʼlumotlaringiz toʻliqligini tasdiqlang."
+  },
+  "consent_privacy": {
+   "label": "Men maʼlumotlar himoyasi haqidagi maʼlumotni oʻqidim va maʼlumotlarimning haydovchilik tibbiyoti maqsadlarida qayta ishlanishiga roziman.",
+   "error": "Iltimos, maʼlumotlar himoyasi haqidagi maʼlumotni qabul qiling."
+  }
+ },
+ "ess_items": {
+  "ess_1": "Oʻtirib kitob oʻqiyotganda",
+  "ess_2": "Televizor koʻrayotganda",
+  "ess_3": "Jamoat joyida harakatsiz oʻtirganda (masalan, teatrda yoki majlisda)",
+  "ess_4": "Avtomobilda yoʻlovchi sifatida bir soatlik toʻxtovsiz safar davomida",
+  "ess_5": "Tushdan keyin dam olish uchun yotganingizda",
+  "ess_6": "Oʻtirib kimdir bilan suhbatlashayotganda",
+  "ess_7": "Tushlikdan keyin (alkogolsiz) tinch oʻtirganda",
+  "ess_8": "Avtomobil haydovchisi sifatida yoʻl harakati tufayli bir necha daqiqa toʻxtab turishga majbur boʻlganda"
+ }
+}

@@ -1,0 +1,585 @@
+{
+ "_meta": {
+  "language": "it",
+  "name": "Italiano",
+  "machine_translated": true
+ },
+ "ui": {
+  "header_title": "Questionario di medicina del traffico",
+  "header_subtitle": "La preghiamo di rispondere a tutte le domande",
+  "language_label": "Lingua",
+  "loading": "Caricamento del questionario …",
+  "not_found_title": "Questionario non trovato",
+  "to_start": "Alla pagina iniziale",
+  "back": "Indietro",
+  "next": "Avanti",
+  "skip": "Salta",
+  "submit": "Invia",
+  "sending": "Invio in corso…",
+  "question_of": "Domanda {current} di {total}",
+  "answer_placeholder": "La Sua risposta…",
+  "required_error": "La preghiamo di rispondere a questa domanda.",
+  "yes": "Sì",
+  "no": "No",
+  "consent_title": "Consenso",
+  "followup_hint": "Informazione aggiuntiva facoltativa – aiuta nella valutazione medica.",
+  "ess_question": "Quanto è probabile che Lei si appisoli in questa situazione?",
+  "ess_sum": "Somma attuale",
+  "ess_opt_0": "0 – Non mi appisolerei mai",
+  "ess_opt_1": "1 – Scarsa probabilità",
+  "ess_opt_2": "2 – Media probabilità",
+  "ess_opt_3": "3 – Alta probabilità",
+  "privacy_button": "Mostra informativa sulla protezione dei dati",
+  "privacy_title": "Informativa sulla protezione dei dati",
+  "privacy_subtitle": "Informazioni sul trattamento dei Suoi dati ai sensi dell'Art. 13 DSGVO (GDPR)",
+  "privacy_controller": "Titolare del trattamento: Dr. med. Björn Micka, medicina del lavoro · medicina d'urgenza, Christoph-Dassler-Str. 22, 91074 Herzogenaurach",
+  "privacy_purpose": "Finalità del trattamento: le informazioni fornite in questo questionario (compresi i dati sulla salute) vengono utilizzate esclusivamente per preparare ed effettuare la Sua visita di medicina del traffico (idoneità alla guida).",
+  "privacy_legal": "Base giuridica: il Suo consenso (Art. 6 Abs. 1 lit. a, Art. 9 Abs. 2 lit. a DSGVO – GDPR). Può revocare il consenso in qualsiasi momento con effetto per il futuro.",
+  "privacy_storage": "Conservazione: il risultato viene inserito nella Sua documentazione medica ed è soggetto ai termini di conservazione previsti per la documentazione sanitaria. L'accesso online tramite il Suo link personale scade al termine della validità; i dati di questo questionario online vengono poi cancellati di routine.",
+  "privacy_rights": "I Suoi diritti: ha il diritto di accesso, rettifica, cancellazione e limitazione del trattamento, nonché il diritto di presentare reclamo all'autorità di controllo competente per la protezione dei dati.",
+  "privacy_secrecy": "Tutte le informazioni sono coperte dal segreto medico.",
+  "success_title": "Grazie mille!",
+  "success_text": "Il Suo questionario è stato inviato con successo.",
+  "success_result": "Risultato ESS",
+  "success_doctor_note": "La preghiamo di discutere il risultato con il Suo medico. La valutazione finale spetta a un medico specialista.",
+  "success_pdf": "Scarica il riepilogo in PDF",
+  "success_close": "Ora può chiudere questa finestra.",
+  "band_normal": "Normale (0–9)",
+  "band_elevated": "Elevato (10–15)",
+  "band_severe": "Marcato (≥16)",
+  "submit_error": "Errore durante l'invio. La preghiamo di verificare le Sue risposte."
+ },
+ "sections": {
+  "anlass": {
+   "title": "Motivo & profilo di guida",
+   "subtitle": "Informazioni sulla visita e sulla Sua attività di guida"
+  },
+  "gesundheit": {
+   "title": "Stato di salute",
+   "subtitle": "Una domanda preliminare"
+  },
+  "anfaelle": {
+   "title": "Crisi & perdita di coscienza",
+   "subtitle": "Rischio di malore improvviso – crisi epilettiche e svenimenti"
+  },
+  "sehen_hoeren": {
+   "title": "Vista & udito",
+   "subtitle": "Funzione visiva e uditiva"
+  },
+  "herz": {
+   "title": "Cuore & circolazione",
+   "subtitle": "Malattie cardiache e vascolari"
+  },
+  "gehirn": {
+   "title": "Ictus & cervello",
+   "subtitle": "Disturbi circolatori, lesioni e operazioni del cervello"
+  },
+  "neuro": {
+   "title": "Sistema nervoso",
+   "subtitle": "Malattie neurologiche"
+  },
+  "schwindel": {
+   "title": "Equilibrio & vertigini",
+   "subtitle": "Forme di vertigine e disturbi dell'equilibrio"
+  },
+  "bewegung": {
+   "title": "Apparato locomotore",
+   "subtitle": "Limitazioni fisiche e ausili"
+  },
+  "diabetes": {
+   "title": "Diabete / metabolismo",
+   "subtitle": "Diabete e ipoglicemie"
+  },
+  "organe": {
+   "title": "Organi interni",
+   "subtitle": "Reni, polmoni e trapianti"
+  },
+  "schlaf": {
+   "title": "Sonno & sonnolenza diurna",
+   "subtitle": "Inclusa la Epworth Sleepiness Scale (ESS)"
+  },
+  "psyche": {
+   "title": "Salute mentale",
+   "subtitle": "Malattie psichiche e memoria"
+  },
+  "substanzen": {
+   "title": "Alcol, droghe & farmaci",
+   "subtitle": "Consumo e terapia continuativa"
+  },
+  "allgemein": {
+   "title": "Informazioni generali & consenso",
+   "subtitle": "Ulteriori indicazioni e dichiarazioni"
+  }
+ },
+ "questions": {
+  "exam_occasion": {
+   "label": "Per quale patente di guida si svolge la visita?",
+   "options": {
+    "pkw": "Automobile / altra categoria",
+    "lkw": "Camion (C, C1, CE, C1E)",
+    "bus": "Autobus (D, D1, DE, D1E)",
+    "fahrgast": "Trasporto di persone (taxi, auto a noleggio con conducente, trasporto sanitario)"
+   }
+  },
+  "exam_kind": {
+   "label": "Si tratta di un primo rilascio o di un rinnovo?",
+   "options": {
+    "erst": "Primo rilascio",
+    "verlaengerung": "Rinnovo"
+   }
+  },
+  "license_classes": {
+   "label": "Quali categorie di patente possiede o sta richiedendo?",
+   "options": {
+    "AM": "AM",
+    "A1": "A1",
+    "A2": "A2",
+    "A": "A",
+    "B": "B",
+    "BE": "BE",
+    "C1": "C1",
+    "C1E": "C1E",
+    "C": "C",
+    "CE": "CE",
+    "D1": "D1",
+    "D": "D",
+    "DE": "DE",
+    "T": "T"
+   }
+  },
+  "license_years": {
+   "label": "Da quanti anni possiede una patente di guida?",
+   "options": {
+    "erstantrag": "Nessuna finora (prima richiesta)",
+    "unter3": "Meno di 3 anni",
+    "3bis10": "Da 3 a 10 anni",
+    "ueber10": "Più di 10 anni"
+   }
+  },
+  "driving_hours": {
+   "label": "Quante ore guida in media al giorno?",
+   "options": {
+    "<1": "Meno di 1 ora",
+    "1-2": "Da 1 a 2 ore",
+    "2-4": "Da 2 a 4 ore",
+    ">4": "Più di 4 ore"
+   }
+  },
+  "night_driving": {
+   "label": "Guida regolarmente di notte?"
+  },
+  "accidents": {
+   "label": "Negli ultimi 24 mesi ha avuto incidenti o quasi-incidenti nel traffico stradale?",
+   "followup": "Che cosa è successo?"
+  },
+  "license_withdrawn": {
+   "label": "Le è già stata ritirata la patente di guida, o ha già dovuto sottoporsi a un esame medico-psicologico (MPU)?",
+   "followup": "Quando e per quale motivo?"
+  },
+  "psych_test_done": {
+   "label": "Ha già svolto, per questa patente, un test psicologico delle prestazioni (test di reazione, concentrazione e attenzione)?",
+   "hint": "Per le categorie autobus e per il trasporto di persone questa attestazione è obbligatoria secondo l'Anlage 5 FeV (allegato 5 del regolamento tedesco sulla patente di guida). Porti alla visita un'eventuale perizia già esistente.",
+   "followup": "Quando e dove è stato effettuato il test?"
+  },
+  "has_conditions": {
+   "label": "Ha una patologia preesistente nota, una limitazione fisica permanente, oppure è in trattamento medico regolare?",
+   "hint": "Rientrano anche malattie gravi risalenti a molto tempo fa (ad es. cuore, diabete, nervi, psiche). In caso negativo, il questionario si riduce notevolmente."
+  },
+  "seizure_ever": {
+   "label": "Ha mai avuto una crisi epilettica o una crisi convulsiva?",
+   "followup": "Quando è stata l'ultima crisi, quante ne ha avute in totale, e c'era un fattore scatenante (ad es. mancanza di sonno, febbre, alcol)?"
+  },
+  "epilepsy": {
+   "label": "Le è stata diagnosticata un'epilessia?",
+   "followup": "Le crisi si verificano esclusivamente durante il sonno? È in cura neurologica regolare?"
+  },
+  "seizure_free": {
+   "label": "Da quanto tempo è ormai libero/a da crisi?",
+   "hint": "Le linee guida legano l'idoneità alla guida a periodi precisi senza crisi.",
+   "options": {
+    "unter3m": "Meno di 3 mesi",
+    "3bis6m": "Da 3 a 6 mesi",
+    "6bis12m": "Da 6 a 12 mesi",
+    "1bis2j": "Da 1 a 2 anni",
+    "2bis5j": "Da 2 a 5 anni",
+    "ueber5j": "Più di 5 anni"
+   }
+  },
+  "antiepileptics": {
+   "label": "Assume farmaci contro le crisi (antiepilettici)?",
+   "options": {
+    "nie": "No, mai assunti",
+    "aktuell": "Sì, attualmente",
+    "reduktion": "La terapia viene attualmente ridotta gradualmente",
+    "ende_unter3m": "Terminata da meno di 3 mesi",
+    "ende_ueber3m": "Terminata da più di 3 mesi"
+   }
+  },
+  "syncope": {
+   "label": "È mai svenuto/a improvvisamente (breve perdita di coscienza)?",
+   "options": {
+    "nie": "Mai",
+    "einmal": "Una volta",
+    "mehrmals": "Più volte"
+   }
+  },
+  "syncope_recent": {
+   "label": "Il Suo ultimo svenimento risale a meno di 6 mesi fa?",
+   "followup": "In quale situazione si è verificato lo svenimento, ed è stata trovata una causa (ad es. circolazione, ritmo cardiaco, durante la minzione)?"
+  },
+  "syncope_prodromi": {
+   "label": "Lo svenimento si preannuncia in Lei in anticipo (ad es. sudorazione, capogiri, nausea, palpitazioni)?"
+  },
+  "glasses": {
+   "label": "Porta occhiali o lenti a contatto quando guida?"
+  },
+  "eye_disease": {
+   "label": "Le è nota una malattia degli occhi (ad es. cataratta, glaucoma, malattia della retina, riduzione del campo visivo)?",
+   "followup": "Quale malattia, ed è in cura presso un oculista?"
+  },
+  "one_eyed": {
+   "label": "Vede nettamente peggio da un occhio, o è cieco/a da un occhio?"
+  },
+  "night_vision": {
+   "label": "Ha difficoltà a vedere al crepuscolo o al buio, o viene fortemente abbagliato/a dai veicoli che provengono in senso opposto?",
+   "followup": "In quali situazioni si presentano le difficoltà?"
+  },
+  "hearing_impaired": {
+   "label": "Soffre di una grave perdita dell'udito o è sordo/a?",
+   "followup": "Da quando, ed è in cura presso un otorinolaringoiatra?"
+  },
+  "hearing_aid": {
+   "label": "Porta un apparecchio acustico o un impianto cocleare?"
+  },
+  "heart_disease": {
+   "label": "Le è nota una malattia del cuore o dei vasi sanguigni?",
+   "hint": "ad es. disturbi del ritmo, infarto, insufficienza cardiaca, difetti delle valvole, disturbi circolatori",
+   "followup": "Quale/i malattia/e, da quando, e come vengono trattate?"
+  },
+  "cardio_checkup": {
+   "label": "Per questo motivo si sottopone a controlli regolari da un cardiologo?",
+   "followup": "Quando è stato l'ultimo controllo?"
+  },
+  "heart_attack": {
+   "label": "Ha mai avuto un infarto cardiaco, l'impianto di uno stent o un intervento di bypass?",
+   "followup": "Quando è avvenuto l'evento o l'intervento, e ci sono state complicazioni (ad es. capacità di pompa ridotta)?"
+  },
+  "arrhythmia": {
+   "label": "Le sono noti disturbi del ritmo cardiaco (ad es. battiti irregolari, tachicardia, polso insolitamente lento, fibrillazione atriale, blocco AV)?",
+   "followup": "Quale diagnosi, e come viene trattata?"
+  },
+  "pacemaker_icd": {
+   "label": "Porta un pacemaker o un defibrillatore (ICD)?",
+   "options": {
+    "nein": "No",
+    "schrittmacher": "Pacemaker",
+    "icd": "Defibrillatore (ICD)"
+   },
+   "followup": "Quando è stato impiantato, e quando è stato l'ultimo controllo?"
+  },
+  "icd_shock": {
+   "label": "Il Suo defibrillatore ha erogato uno shock negli ultimi 3 mesi?",
+   "followup": "Quando, e che cosa ha detto al riguardo il Suo cardiologo?"
+  },
+  "exertion_symptoms": {
+   "label": "Sotto sforzo Le capita di avere mancanza di fiato, dolori al petto, battiti irregolari o stanchezza insolita?",
+   "hint": "Autovalutazione secondo gli stadi NYHA",
+   "options": {
+    "keine": "No, nessun disturbo con gli sforzi quotidiani",
+    "stark": "Con sforzi più intensi (ad es. salire le scale velocemente)",
+    "leicht": "Già con sforzi leggeri (ad es. camminare lentamente)",
+    "ruhe": "Già a riposo"
+   }
+  },
+  "hypertension": {
+   "label": "Le è nota una pressione alta (ipertensione)?",
+   "followup": "Da quando, quali farmaci, e quali valori misura abitualmente?"
+  },
+  "bp_dizziness": {
+   "label": "Con i Suoi farmaci per la pressione Le capita di avere capogiri, sensazione di debolezza o un annebbiamento della vista (vista che si oscura)?"
+  },
+  "heart_other": {
+   "label": "Le è nota un'altra malattia cardiaca o vascolare: difetto delle valvole cardiache, cardiopatia congenita, malattia del muscolo cardiaco (cardiomiopatia), disturbo del ritmo ereditario (ad es. QT lungo), aneurisma dell'aorta o restringimento della carotide?",
+   "followup": "Quale diagnosi, e come viene controllata/trattata?"
+  },
+  "family_sudden_death": {
+   "label": "Nella Sua famiglia più stretta (genitori, fratelli e sorelle, figli) c'è stata una morte cardiaca improvvisa?"
+  },
+  "stroke": {
+   "label": "Ha mai avuto un ictus, un'emorragia cerebrale o un TIA (disturbo circolatorio passeggero con sintomi di breve durata)?",
+   "followup": "Quando è avvenuto l'evento, ed è stata completata una riabilitazione?"
+  },
+  "stroke_residuals": {
+   "label": "Da allora persistono conseguenze come paralisi, disturbi del linguaggio, problemi di memoria o limitazioni del campo visivo?",
+   "followup": "Quali disturbi sono ancora presenti attualmente?"
+  },
+  "head_injury": {
+   "label": "Ha mai avuto una grave lesione alla testa (con perdita di coscienza o ricovero in ospedale) o un'operazione al cervello?",
+   "followup": "Quando, e che cosa è stato trattato?"
+  },
+  "head_injury_recent": {
+   "label": "Questa lesione o operazione risale a meno di 3 mesi fa?",
+   "hint": "Secondo le linee guida, dopo una lesione o un'operazione al cervello non sussiste in generale idoneità alla guida per 3 mesi."
+  },
+  "brain_residuals": {
+   "label": "Dalla lesione/operazione sono presenti disturbi come difficoltà di concentrazione o di memoria, cambiamento della personalità o crisi convulsive?",
+   "followup": "Quali disturbi, e come si manifestano?"
+  },
+  "parkinson": {
+   "label": "Le è stata diagnosticata la malattia di Parkinson o un altro disturbo del movimento o della coordinazione?",
+   "followup": "Da quando, come viene trattata, e quando è stato l'ultimo controllo neurologico?"
+  },
+  "ms_spinal": {
+   "label": "Le è nota una sclerosi multipla, una malattia del midollo spinale o una lesione del midollo spinale?",
+   "followup": "Quale diagnosi, e quali disturbi ha attualmente?"
+  },
+  "muscle_nerve": {
+   "label": "Le è nota una malattia dei muscoli o dei nervi (ad es. atrofia muscolare, miastenia, polineuropatia)?",
+   "followup": "Quale diagnosi, e quanto è limitato/a?"
+  },
+  "paralysis_attacks": {
+   "label": "Le capitano paralisi ad attacchi o un'improvvisa e forte debolezza muscolare?",
+   "followup": "Quando si è verificato l'ultimo attacco, e con quale rapidità insorge?"
+  },
+  "motor_limits": {
+   "label": "Ha paralisi, debolezza muscolare o disturbi della sensibilità alle braccia o alle gambe che potrebbero limitarLa nella guida di un veicolo?",
+   "followup": "Quali parti del corpo sono interessate?"
+  },
+  "vertigo": {
+   "label": "Soffre di vertigini o disturbi dell'equilibrio (ad es. sensazione di rotazione, instabilità, insicurezza nel camminare)?",
+   "followup": "Come si manifesta la vertigine, con quale frequenza si presenta, quanto dura un attacco, e che cosa lo scatena?"
+  },
+  "vertigo_last": {
+   "label": "A quanto tempo fa risale il Suo ultimo attacco di vertigini?",
+   "options": {
+    "unter3m": "Meno di 3 mesi",
+    "3bis6m": "Da 3 a 6 mesi",
+    "6bis12m": "Da 6 a 12 mesi",
+    "1bis2j": "Da 1 a 2 anni",
+    "ueber2j": "Più di 2 anni"
+   }
+  },
+  "vertigo_prodromi": {
+   "label": "I Suoi attacchi di vertigini si preannunciano in anticipo (ad es. pressione nell'orecchio, rumori nell'orecchio, calo dell'udito), così da poterSi fermare in tempo?",
+   "options": {
+    "immer": "Sì, sempre",
+    "manchmal": "A volte",
+    "nie": "No, arrivano senza preavviso"
+   }
+  },
+  "vertigo_positional": {
+   "label": "La vertigine viene scatenata da determinati movimenti della testa o cambiamenti di posizione (ad es. girarsi nel letto, chinarsi)?"
+  },
+  "vertigo_ear": {
+   "label": "La vertigine si presenta insieme a calo dell'udito, rumori nell'orecchio (acufeni) o sensazione di pressione nell'orecchio?"
+  },
+  "ear_disease": {
+   "label": "Le è stata riscontrata una malattia dell'organo dell'equilibrio o dell'orecchio interno (ad es. vertigine posizionale, malattia di Menière)?",
+   "followup": "Quale diagnosi, come è stata trattata, e da allora è libero/a da disturbi?"
+  },
+  "mobility_limits": {
+   "label": "Ha una limitazione permanente della mobilità di braccia, gambe, mani o colonna vertebrale (ad es. dopo un incidente, un'operazione, un'amputazione)?",
+   "followup": "Quali parti del corpo sono interessate, e da quando?"
+  },
+  "prosthesis": {
+   "label": "Porta una protesi o utilizza ausili ortopedici?",
+   "followup": "Quali ausili, e ha disturbi in caso di sforzo prolungato?"
+  },
+  "vehicle_modified": {
+   "label": "Il Suo veicolo è stato adattato a causa di una limitazione fisica (ad es. comandi manuali, servosterzo speciale)?",
+   "followup": "Quali adattamenti, e sono annotati sulla patente?"
+  },
+  "diabetes_type": {
+   "label": "Le è noto un diabete mellito (malattia dello zucchero nel sangue)?",
+   "options": {
+    "none": "No",
+    "type1": "Sì, tipo 1",
+    "type2": "Sì, tipo 2",
+    "other": "Sì, altra forma / forma non chiara"
+   }
+  },
+  "diabetes_therapy": {
+   "label": "Come viene trattato attualmente il Suo diabete?",
+   "options": {
+    "lifestyle": "Solo alimentazione / stile di vita",
+    "tabl_low": "Compresse con basso rischio di ipoglicemia (calo dello zucchero nel sangue) (ad es. metformina)",
+    "tabl_high": "Compresse con rischio di ipoglicemia (sulfoniluree, glinidi)",
+    "insulin": "Insulina",
+    "unknown": "Non lo so con precisione"
+   }
+  },
+  "hypoglycemia": {
+   "label": "Negli ultimi 12 mesi ha avuto un'ipoglicemia grave (calo dello zucchero nel sangue) per la quale ha avuto bisogno dell'aiuto di un'altra persona?",
+   "followup": "Quante volte, quando è stato l'ultimo episodio, e si è verificato da sveglio/a o durante il sonno?"
+  },
+  "hypo_awareness": {
+   "label": "È capitato che non Si sia accorto/a in tempo da solo/a di un'ipoglicemia (mancanza di segnali di allarme)?",
+   "followup": "Quando l'ultima volta, ed è stato fatto qualcosa (ad es. addestramento, modifica della terapia)?"
+  },
+  "glucose_monitoring": {
+   "label": "Misura regolarmente da solo/a la Sua glicemia (o porta un sensore del glucosio)?",
+   "options": {
+    "2x": "Sì, almeno due volte al giorno",
+    "seltener": "Sì, ma più raramente",
+    "nein": "No",
+    "keine_med": "Non mi riguarda (nessun farmaco che abbassa la glicemia)"
+   }
+  },
+  "diabetes_derailment": {
+   "label": "Negli ultimi mesi c'è stato un nuovo aggiustamento della terapia o uno scompenso del metabolismo (ad es. ricovero in ospedale per valori fuori controllo)?",
+   "followup": "Che cosa è successo, e quando?"
+  },
+  "kidney_disease": {
+   "label": "Le è nota una malattia renale cronica o un'insufficienza renale?",
+   "followup": "Quale malattia, ed è in cura presso un nefrologo?"
+  },
+  "dialysis": {
+   "label": "Viene trattato/a regolarmente con la dialisi (depurazione del sangue)?",
+   "followup": "Da quando e quante volte alla settimana? Si sente in forze tra un trattamento e l'altro?"
+  },
+  "transplant": {
+   "label": "Le è stato trapiantato un organo (ad es. rene, cuore, fegato, polmone)?",
+   "followup": "Quale organo, quando, ed è seguito/a con controlli regolari?"
+  },
+  "lung_disease": {
+   "label": "Soffre di una malattia cronica dei polmoni o dei bronchi (ad es. BPCO, asma, fibrosi polmonare)?",
+   "followup": "Quale malattia, e come viene trattata?"
+  },
+  "dyspnea": {
+   "label": "Ha mancanza di fiato già con sforzi leggeri o a riposo, o ha bisogno di una ossigenoterapia a lungo termine?"
+  },
+  "cough_syncope": {
+   "label": "Durante forti attacchi di tosse Le è già capitato di avere capogiri, un oscuramento della vista o una breve perdita di coscienza?"
+  },
+  "daytime_sleepiness": {
+   "label": "Durante il giorno fa fatica a rimanere sveglio/a e attento/a – soprattutto in situazioni monotone (ad es. lettura, riunioni, viaggi in auto più lunghi)?"
+  },
+  "microsleep": {
+   "label": "Negli ultimi mesi Si è addormentato/a involontariamente o ha avuto colpi di sonno di pochi secondi?",
+   "followup": "In quali situazioni? È successo anche al volante?"
+  },
+  "snoring": {
+   "label": "Le è stato riferito che russa in modo forte e irregolare o che di notte ha pause respiratorie?"
+  },
+  "osas": {
+   "label": "Le è stata riscontrata una sindrome delle apnee del sonno (pause respiratorie notturne)?",
+   "followup": "Quando è stata posta la diagnosi, e quale grado di gravità o quale valore AHI è stato riscontrato (se noto)?"
+  },
+  "cpap": {
+   "label": "È in trattamento per l'apnea del sonno (ad es. maschera respiratoria CPAP)?",
+   "options": {
+    "regelmaessig": "Sì, regolarmente (quasi ogni notte)",
+    "unregelmaessig": "Sì, ma in modo irregolare",
+    "abgebrochen": "Il trattamento è stato interrotto",
+    "keine": "No, nessun trattamento"
+   }
+  },
+  "psychiatric": {
+   "label": "Le è stata diagnosticata una malattia psichica (ad es. depressione, disturbo d'ansia, disturbo bipolare)?",
+   "followup": "Quale malattia, e come viene trattata?"
+  },
+  "psychiatric_severe": {
+   "label": "Per questo motivo è già stato/a ricoverato/a, ha avuto una fase maniacale o pensieri di togliersi la vita?",
+   "followup": "Quando è stata l'ultima volta?"
+  },
+  "psychosis": {
+   "label": "Le è mai stata diagnosticata una schizofrenia o un'altra psicosi (malattia con deliri o allucinazioni)?",
+   "followup": "Quanti episodi acuti ha avuto, quando è stato l'ultimo, ed è in cura presso uno specialista?"
+  },
+  "memory_problems": {
+   "label": "Lei stesso/a o i Suoi familiari hanno notato di recente in Lei crescenti problemi di memoria o di orientamento?",
+   "followup": "Da quando, e come si ripercuotono nella vita quotidiana?"
+  },
+  "concentration": {
+   "label": "Ha problemi di concentrazione o di attenzione?"
+  },
+  "alcohol": {
+   "label": "Con quale frequenza beve alcolici?",
+   "options": {
+    "nie": "Mai",
+    "selten": "Raramente (al massimo 1 volta al mese)",
+    "woechentlich": "1–2 volte alla settimana",
+    "mehrmals": "Più volte alla settimana",
+    "taeglich": "Ogni giorno o quasi ogni giorno"
+   }
+  },
+  "alcohol_control": {
+   "label": "È capitato che abbia bevuto più del previsto o che abbia perso il controllo sul Suo consumo?"
+  },
+  "alcohol_traffic": {
+   "label": "È mai stato/a segnalato/a nel traffico stradale sotto l'effetto dell'alcol (ad es. guida in stato di ebbrezza, multa, MPU)?",
+   "followup": "Quando, e quale tasso alcolemico è stato riscontrato (se noto)?"
+  },
+  "alcohol_dependence": {
+   "label": "Le è mai stata riscontrata una dipendenza da alcol, o ha fatto una disintossicazione o un trattamento di disassuefazione?",
+   "followup": "Quando è stato concluso il trattamento, e da quando vive in astinenza?"
+  },
+  "drugs": {
+   "label": "Assume attualmente droghe (ad es. cannabis, cocaina, anfetamine) o ne ha consumate regolarmente in passato?",
+   "followup": "Quali sostanze, con quale frequenza, e quando l'ultima volta?"
+  },
+  "cannabis": {
+   "label": "Con quale frequenza consuma cannabis?",
+   "options": {
+    "nie": "Mai",
+    "gelegentlich": "Occasionalmente (non regolarmente)",
+    "regelmaessig": "Regolarmente (ogni giorno o per abitudine)"
+   }
+  },
+  "substitution": {
+   "label": "Riceve una terapia sostitutiva (ad es. metadone)?",
+   "followup": "Da quando?"
+  },
+  "regular_meds": {
+   "label": "Assume regolarmente farmaci?",
+   "followup": "Quali farmaci, e contro che cosa?"
+  },
+  "sedating_meds": {
+   "label": "Tra questi ci sono farmaci che possono causare stanchezza o influire sulla capacità di reazione (ad es. antidolorifici forti/oppioidi, sonniferi o tranquillanti, antidepressivi, antiepilettici, farmaci contro le allergie)?",
+   "followup": "Quali farmaci, e a quale dosaggio?"
+  },
+  "med_side_effects": {
+   "label": "Con i Suoi farmaci nota effetti collaterali come stanchezza, rallentamento, disturbi della concentrazione o capogiri?",
+   "followup": "Quali effetti collaterali, e di quale intensità?"
+  },
+  "med_recent_change": {
+   "label": "Nelle ultime settimane un farmaco di questo tipo è stato prescritto ex novo o la dose è stata modificata in modo rilevante?",
+   "followup": "Quale farmaco, e quando?"
+  },
+  "benzo_regular": {
+   "label": "Da diversi mesi assume regolarmente – anche solo la sera in piccole quantità – sonniferi o tranquillanti (ad es. benzodiazepine)?",
+   "followup": "Quale farmaco, da quanto tempo, e se lo sospende nota sintomi di astinenza?"
+  },
+  "multiple_conditions": {
+   "label": "Sono presenti in Lei più malattie o limitazioni di salute contemporaneamente?",
+   "hint": "Più anomalie possono, nel loro insieme, essere rilevanti per l'idoneità alla guida, anche se ognuna da sola sarebbe innocua (linee guida, cap. 2.7).",
+   "followup": "Elenchi per favore brevemente tutte le malattie note."
+  },
+  "other_conditions": {
+   "label": "Ci sono altre malattie, disturbi o operazioni precedenti non ancora menzionati?",
+   "followup": "Quali?"
+  },
+  "driving_adaptation": {
+   "label": "A causa di limitazioni di salute rinuncia consapevolmente a determinati viaggi (ad es. al buio, lunghe distanze, autostrada)?",
+   "followup": "A quali viaggi, e perché?"
+  },
+  "consent_truth": {
+   "label": "Confermo che le mie risposte sono complete e veritiere.",
+   "error": "Confermi per favore la completezza delle Sue risposte."
+  },
+  "consent_privacy": {
+   "label": "Ho letto l'informativa sulla protezione dei dati e acconsento al trattamento dei miei dati per finalità di medicina del traffico.",
+   "error": "Accetti per favore l'informativa sulla protezione dei dati."
+  }
+ },
+ "ess_items": {
+  "ess_1": "Seduto/a mentre legge",
+  "ess_2": "Mentre guarda la televisione",
+  "ess_3": "Seduto/a, inattivo/a, in un luogo pubblico (ad es. a teatro o in una riunione)",
+  "ess_4": "Come passeggero in auto durante un viaggio di un'ora senza pause",
+  "ess_5": "Sdraiato/a al pomeriggio per riposare",
+  "ess_6": "Seduto/a mentre parla con qualcuno",
+  "ess_7": "Seduto/a tranquillamente dopo pranzo (senza alcol)",
+  "ess_8": "In auto, come conducente, fermo/a per alcuni minuti nel traffico"
+ }
+}

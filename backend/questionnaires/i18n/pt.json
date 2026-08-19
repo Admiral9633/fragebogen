@@ -1,0 +1,585 @@
+{
+ "_meta": {
+  "language": "pt",
+  "name": "Português",
+  "machine_translated": true
+ },
+ "ui": {
+  "header_title": "Questionário de medicina de tráfego",
+  "header_subtitle": "Por favor, responda a todas as perguntas",
+  "language_label": "Idioma",
+  "loading": "A carregar o questionário …",
+  "not_found_title": "Questionário não encontrado",
+  "to_start": "Para a página inicial",
+  "back": "Voltar",
+  "next": "Seguinte",
+  "skip": "Saltar",
+  "submit": "Enviar",
+  "sending": "A enviar…",
+  "question_of": "Pergunta {current} de {total}",
+  "answer_placeholder": "A sua resposta…",
+  "required_error": "Por favor, responda a esta pergunta.",
+  "yes": "Sim",
+  "no": "Não",
+  "consent_title": "Consentimento",
+  "followup_hint": "Informação adicional facultativa – ajuda na avaliação médica.",
+  "ess_question": "Qual é a probabilidade de adormecer nesta situação?",
+  "ess_sum": "Soma até agora",
+  "ess_opt_0": "0 – Nunca adormeceria",
+  "ess_opt_1": "1 – Probabilidade baixa",
+  "ess_opt_2": "2 – Probabilidade média",
+  "ess_opt_3": "3 – Probabilidade alta",
+  "privacy_button": "Mostrar informações sobre proteção de dados",
+  "privacy_title": "Informações sobre proteção de dados",
+  "privacy_subtitle": "Informação sobre o tratamento dos seus dados nos termos do Art. 13 DSGVO (RGPD)",
+  "privacy_controller": "Responsável pelo tratamento: Dr. med. Björn Micka, medicina do trabalho · medicina de emergência, Christoph-Dassler-Str. 22, 91074 Herzogenaurach",
+  "privacy_purpose": "Finalidade do tratamento: as suas respostas neste questionário (incluindo dados de saúde) são utilizadas exclusivamente para preparar e realizar o seu exame de medicina de tráfego (aptidão para conduzir).",
+  "privacy_legal": "Base jurídica: o seu consentimento (Art. 6 Abs. 1 lit. a, Art. 9 Abs. 2 lit. a DSGVO – RGPD). Pode revogar o consentimento a qualquer momento, com efeitos para o futuro.",
+  "privacy_storage": "Conservação: o resultado é integrado no seu processo de exame e está sujeito aos prazos de conservação médicos. O acesso online através do seu link pessoal expira no fim da validade; os dados deste questionário online são depois eliminados por rotina.",
+  "privacy_rights": "Os seus direitos: tem direito de acesso, retificação, apagamento e limitação do tratamento, bem como o direito de apresentar reclamação à autoridade de controlo de proteção de dados competente.",
+  "privacy_secrecy": "Todas as informações estão sujeitas ao sigilo médico.",
+  "success_title": "Muito obrigado!",
+  "success_text": "O seu questionário foi enviado com sucesso.",
+  "success_result": "Resultado ESS",
+  "success_doctor_note": "Por favor, converse sobre o resultado com o seu médico. A avaliação final é feita por um médico especialista.",
+  "success_pdf": "Descarregar resumo em PDF",
+  "success_close": "Pode agora fechar esta janela.",
+  "band_normal": "Normal (0–9)",
+  "band_elevated": "Elevado (10–15)",
+  "band_severe": "Acentuado (≥16)",
+  "submit_error": "Erro ao enviar. Por favor, verifique as suas respostas."
+ },
+ "sections": {
+  "anlass": {
+   "title": "Motivo & perfil de condução",
+   "subtitle": "Dados sobre o exame e a sua atividade de condução"
+  },
+  "gesundheit": {
+   "title": "Estado de saúde",
+   "subtitle": "Uma pergunta prévia"
+  },
+  "anfaelle": {
+   "title": "Crises & perda de consciência",
+   "subtitle": "Risco de falha súbita – crises epiléticas e desmaios"
+  },
+  "sehen_hoeren": {
+   "title": "Visão & audição",
+   "subtitle": "Função visual e auditiva"
+  },
+  "herz": {
+   "title": "Coração & circulação",
+   "subtitle": "Doenças cardíacas e vasculares"
+  },
+  "gehirn": {
+   "title": "AVC & cérebro",
+   "subtitle": "Perturbações da circulação sanguínea, lesões e operações do cérebro"
+  },
+  "neuro": {
+   "title": "Sistema nervoso",
+   "subtitle": "Doenças neurológicas"
+  },
+  "schwindel": {
+   "title": "Equilíbrio & tonturas",
+   "subtitle": "Formas de tontura e perturbações do equilíbrio"
+  },
+  "bewegung": {
+   "title": "Aparelho locomotor",
+   "subtitle": "Limitações físicas e meios auxiliares"
+  },
+  "diabetes": {
+   "title": "Diabetes / metabolismo",
+   "subtitle": "Diabetes e hipoglicemias"
+  },
+  "organe": {
+   "title": "Órgãos internos",
+   "subtitle": "Rins, pulmões e transplantes"
+  },
+  "schlaf": {
+   "title": "Sono & sonolência diurna",
+   "subtitle": "Incluindo a escala de sonolência de Epworth (ESS)"
+  },
+  "psyche": {
+   "title": "Saúde mental",
+   "subtitle": "Doenças psíquicas e memória"
+  },
+  "substanzen": {
+   "title": "Álcool, drogas & medicamentos",
+   "subtitle": "Consumo e medicação permanente"
+  },
+  "allgemein": {
+   "title": "Geral & consentimento",
+   "subtitle": "Outras informações e declarações"
+  }
+ },
+ "questions": {
+  "exam_occasion": {
+   "label": "Para que carta de condução se realiza o exame?",
+   "options": {
+    "pkw": "Automóvel ligeiro / outra categoria",
+    "lkw": "Camião (C, C1, CE, C1E)",
+    "bus": "Autocarro (D, D1, DE, D1E)",
+    "fahrgast": "Transporte de passageiros (táxi, carro de aluguer com condutor, transporte de doentes)"
+   }
+  },
+  "exam_kind": {
+   "label": "Trata-se de uma primeira emissão ou de uma renovação?",
+   "options": {
+    "erst": "Primeira emissão",
+    "verlaengerung": "Renovação"
+   }
+  },
+  "license_classes": {
+   "label": "Que categorias de carta de condução possui ou está a requerer?",
+   "options": {
+    "AM": "AM",
+    "A1": "A1",
+    "A2": "A2",
+    "A": "A",
+    "B": "B",
+    "BE": "BE",
+    "C1": "C1",
+    "C1E": "C1E",
+    "C": "C",
+    "CE": "CE",
+    "D1": "D1",
+    "D": "D",
+    "DE": "DE",
+    "T": "T"
+   }
+  },
+  "license_years": {
+   "label": "Há quantos anos possui uma carta de condução?",
+   "options": {
+    "erstantrag": "Ainda nenhuma (primeiro pedido)",
+    "unter3": "Menos de 3 anos",
+    "3bis10": "3 a 10 anos",
+    "ueber10": "Mais de 10 anos"
+   }
+  },
+  "driving_hours": {
+   "label": "Quantas horas conduz em média por dia?",
+   "options": {
+    "<1": "Menos de 1 hora",
+    "1-2": "1 a 2 horas",
+    "2-4": "2 a 4 horas",
+    ">4": "Mais de 4 horas"
+   }
+  },
+  "night_driving": {
+   "label": "Conduz regularmente à noite?"
+  },
+  "accidents": {
+   "label": "Nos últimos 24 meses teve acidentes ou quase-acidentes no trânsito?",
+   "followup": "O que aconteceu?"
+  },
+  "license_withdrawn": {
+   "label": "Alguma vez lhe foi retirada a carta de condução, ou já teve de se submeter a um exame médico-psicológico (MPU)?",
+   "followup": "Quando e por que motivo?"
+  },
+  "psych_test_done": {
+   "label": "Já realizou, para esta carta de condução, um teste psicológico de desempenho (teste de reação, concentração e atenção)?",
+   "hint": "Para as categorias de autocarro e para o transporte de passageiros, este comprovativo é obrigatório segundo o Anlage 5 FeV (anexo 5 do regulamento alemão da carta de condução). Por favor, traga ao exame qualquer parecer já existente.",
+   "followup": "Quando e onde foi realizado o teste?"
+  },
+  "has_conditions": {
+   "label": "Tem alguma doença preexistente conhecida, uma limitação física permanente, ou está em tratamento médico regular?",
+   "hint": "Incluem-se também doenças graves ocorridas há muito tempo (p. ex. coração, diabetes, nervos, psique). Se não, o questionário torna-se consideravelmente mais curto."
+  },
+  "seizure_ever": {
+   "label": "Alguma vez teve uma crise epilética ou uma crise convulsiva?",
+   "followup": "Quando foi a última crise, quantas teve no total, e houve algum fator desencadeante (p. ex. falta de sono, febre, álcool)?"
+  },
+  "epilepsy": {
+   "label": "Foi-lhe diagnosticada epilepsia?",
+   "followup": "As crises ocorrem exclusivamente durante o sono? Está em acompanhamento neurológico regular?"
+  },
+  "seizure_free": {
+   "label": "Há quanto tempo está agora sem crises?",
+   "hint": "As diretrizes médicas ligam a aptidão para conduzir a períodos concretos sem crises.",
+   "options": {
+    "unter3m": "Menos de 3 meses",
+    "3bis6m": "3 a 6 meses",
+    "6bis12m": "6 a 12 meses",
+    "1bis2j": "1 a 2 anos",
+    "2bis5j": "2 a 5 anos",
+    "ueber5j": "Mais de 5 anos"
+   }
+  },
+  "antiepileptics": {
+   "label": "Toma medicamentos contra as crises (antiepiléticos)?",
+   "options": {
+    "nie": "Não, nunca tomei",
+    "aktuell": "Sim, atualmente",
+    "reduktion": "O tratamento está atualmente a ser reduzido gradualmente",
+    "ende_unter3m": "Terminado há menos de 3 meses",
+    "ende_ueber3m": "Terminado há mais de 3 meses"
+   }
+  },
+  "syncope": {
+   "label": "Alguma vez desmaiou de repente (breve perda de consciência)?",
+   "options": {
+    "nie": "Nunca",
+    "einmal": "Uma vez",
+    "mehrmals": "Várias vezes"
+   }
+  },
+  "syncope_recent": {
+   "label": "O seu último desmaio foi há menos de 6 meses?",
+   "followup": "Em que situação ocorreu o desmaio, e foi encontrada uma causa (p. ex. circulação, ritmo cardíaco, ao urinar)?"
+  },
+  "syncope_prodromi": {
+   "label": "Os desmaios anunciam-se antecipadamente (p. ex. suores, tonturas, náuseas, palpitações)?"
+  },
+  "glasses": {
+   "label": "Usa óculos ou lentes de contacto ao conduzir?"
+  },
+  "eye_disease": {
+   "label": "Tem alguma doença ocular conhecida (p. ex. catarata, glaucoma, doença da retina, redução do campo visual)?",
+   "followup": "Que doença, e está em acompanhamento com um oftalmologista?"
+  },
+  "one_eyed": {
+   "label": "Vê nitidamente pior de um olho, ou é cego de um olho?"
+  },
+  "night_vision": {
+   "label": "Tem dificuldade em ver ao anoitecer ou no escuro, ou fica fortemente encandeado pelos veículos em sentido contrário?",
+   "followup": "Em que situações surgem as dificuldades?"
+  },
+  "hearing_impaired": {
+   "label": "Tem uma perda de audição grave ou é surdo?",
+   "followup": "Desde quando, e está em acompanhamento com um médico otorrinolaringologista?"
+  },
+  "hearing_aid": {
+   "label": "Usa um aparelho auditivo ou um implante coclear?"
+  },
+  "heart_disease": {
+   "label": "Tem alguma doença conhecida do coração ou dos vasos sanguíneos?",
+   "hint": "p. ex. arritmias, enfarte, insuficiência cardíaca, defeitos das válvulas, perturbações da circulação",
+   "followup": "Que doença(s), desde quando, e como são tratadas?"
+  },
+  "cardio_checkup": {
+   "label": "Por esse motivo faz controlos regulares com um cardiologista?",
+   "followup": "Quando foi o último controlo?"
+  },
+  "heart_attack": {
+   "label": "Alguma vez teve um enfarte do miocárdio, a colocação de um stent ou uma operação de bypass?",
+   "followup": "Quando foi o evento ou a intervenção, e houve complicações (p. ex. capacidade de bombeamento reduzida)?"
+  },
+  "arrhythmia": {
+   "label": "Tem arritmias cardíacas conhecidas (p. ex. palpitações, coração acelerado, pulso invulgarmente lento, fibrilhação auricular, bloqueio AV)?",
+   "followup": "Que diagnóstico, e como é tratado?"
+  },
+  "pacemaker_icd": {
+   "label": "Usa um pacemaker ou um desfibrilhador (ICD)?",
+   "options": {
+    "nein": "Não",
+    "schrittmacher": "Pacemaker",
+    "icd": "Desfibrilhador (ICD)"
+   },
+   "followup": "Quando foi implantado, e quando foi o último controlo?"
+  },
+  "icd_shock": {
+   "label": "O seu desfibrilhador deu um choque nos últimos 3 meses?",
+   "followup": "Quando, e o que disse o seu cardiologista sobre isso?"
+  },
+  "exertion_symptoms": {
+   "label": "Com o esforço sente falta de ar, dores no peito, palpitações ou um cansaço invulgar?",
+   "hint": "Autoavaliação segundo os estádios NYHA",
+   "options": {
+    "keine": "Não, sem queixas nos esforços do dia a dia",
+    "stark": "Com esforços mais intensos (p. ex. subir escadas depressa)",
+    "leicht": "Já com esforços ligeiros (p. ex. andar devagar)",
+    "ruhe": "Já em repouso"
+   }
+  },
+  "hypertension": {
+   "label": "Tem tensão arterial alta conhecida?",
+   "followup": "Desde quando, que medicamentos, e que valores costuma medir?"
+  },
+  "bp_dizziness": {
+   "label": "Com os seus medicamentos para a tensão sente tonturas, sensação de fraqueza ou escurecimento da visão?"
+  },
+  "heart_other": {
+   "label": "Tem outra doença cardíaca ou vascular conhecida: defeito das válvulas cardíacas, cardiopatia congénita, doença do músculo cardíaco (cardiomiopatia), arritmia hereditária (p. ex. QT longo), aneurisma da aorta ou estreitamento da artéria carótida?",
+   "followup": "Que diagnóstico, e como é controlado/tratado?"
+  },
+  "family_sudden_death": {
+   "label": "Houve na sua família mais próxima (pais, irmãos, filhos) uma morte súbita cardíaca?"
+  },
+  "stroke": {
+   "label": "Alguma vez teve um AVC, uma hemorragia cerebral ou um AIT/TIA (perturbação passageira da circulação sanguínea com sintomas de curta duração)?",
+   "followup": "Quando foi o evento, e foi concluída uma reabilitação?"
+  },
+  "stroke_residuals": {
+   "label": "Desde então persistem sequelas como paralisias, perturbações da fala, problemas de memória ou limitações do campo visual?",
+   "followup": "Que queixas persistem atualmente?"
+  },
+  "head_injury": {
+   "label": "Alguma vez teve uma lesão grave na cabeça (com perda de consciência ou internamento hospitalar) ou uma operação ao cérebro?",
+   "followup": "Quando, e o que foi tratado?"
+  },
+  "head_injury_recent": {
+   "label": "Essa lesão ou operação foi há menos de 3 meses?",
+   "hint": "Segundo a diretriz, após uma lesão ou operação cerebral não existe em geral aptidão para conduzir durante 3 meses."
+  },
+  "brain_residuals": {
+   "label": "Desde a lesão/operação tem queixas como problemas de concentração ou de memória, alteração da personalidade ou crises convulsivas?",
+   "followup": "Que queixas, e como se manifestam?"
+  },
+  "parkinson": {
+   "label": "Foi-lhe diagnosticada a doença de Parkinson ou outra perturbação do movimento ou da coordenação?",
+   "followup": "Desde quando, como é tratada, e quando foi o último controlo neurológico?"
+  },
+  "ms_spinal": {
+   "label": "Tem esclerose múltipla, uma doença da medula espinhal ou uma lesão da medula espinhal conhecida?",
+   "followup": "Que diagnóstico, e que queixas tem atualmente?"
+  },
+  "muscle_nerve": {
+   "label": "Tem alguma doença muscular ou nervosa conhecida (p. ex. atrofia muscular, miastenia, polineuropatia)?",
+   "followup": "Que diagnóstico, e em que medida está limitado?"
+  },
+  "paralysis_attacks": {
+   "label": "Tem paralisias em forma de crises ou fraqueza muscular súbita e intensa?",
+   "followup": "Quando ocorreu a última crise, e com que rapidez se instala?"
+  },
+  "motor_limits": {
+   "label": "Tem paralisias, fraqueza muscular ou alterações da sensibilidade nos braços ou nas pernas que possam limitá-lo ao manobrar um veículo?",
+   "followup": "Que partes do corpo estão afetadas?"
+  },
+  "vertigo": {
+   "label": "Sofre de tonturas ou perturbações do equilíbrio (p. ex. sensação de rotação, oscilação, insegurança ao andar)?",
+   "followup": "Como é a tontura, com que frequência ocorre, quanto tempo dura uma crise, e o que a desencadeia?"
+  },
+  "vertigo_last": {
+   "label": "Há quanto tempo foi a sua última crise de tonturas?",
+   "options": {
+    "unter3m": "Menos de 3 meses",
+    "3bis6m": "3 a 6 meses",
+    "6bis12m": "6 a 12 meses",
+    "1bis2j": "1 a 2 anos",
+    "ueber2j": "Mais de 2 anos"
+   }
+  },
+  "vertigo_prodromi": {
+   "label": "As suas crises de tonturas anunciam-se antecipadamente (p. ex. pressão no ouvido, zumbidos, diminuição da audição), de modo a poder parar a tempo?",
+   "options": {
+    "immer": "Sim, sempre",
+    "manchmal": "Às vezes",
+    "nie": "Não, surgem sem aviso"
+   }
+  },
+  "vertigo_positional": {
+   "label": "A tontura é desencadeada por certos movimentos da cabeça ou mudanças de posição (p. ex. virar-se na cama, baixar-se)?"
+  },
+  "vertigo_ear": {
+   "label": "A tontura surge em conjunto com diminuição da audição, zumbidos (tinido) ou sensação de pressão no ouvido?"
+  },
+  "ear_disease": {
+   "label": "Foi-lhe diagnosticada uma doença do órgão do equilíbrio ou do ouvido interno (p. ex. vertigem posicional, doença de Menière)?",
+   "followup": "Que diagnóstico, como foi tratado, e está desde então sem queixas?"
+  },
+  "mobility_limits": {
+   "label": "Tem uma limitação permanente da mobilidade dos braços, das pernas, das mãos ou da coluna vertebral (p. ex. após acidente, operação, amputação)?",
+   "followup": "Que partes do corpo estão afetadas, e desde quando?"
+  },
+  "prosthesis": {
+   "label": "Usa uma prótese ou utiliza meios auxiliares ortopédicos?",
+   "followup": "Que meios auxiliares, e tem queixas com esforços prolongados?"
+  },
+  "vehicle_modified": {
+   "label": "O seu veículo foi adaptado devido a uma limitação física (p. ex. comandos manuais, ajuda à direção)?",
+   "followup": "Que adaptações, e estão averbadas na carta de condução?"
+  },
+  "diabetes_type": {
+   "label": "Tem diabetes mellitus (doença do açúcar) conhecida?",
+   "options": {
+    "none": "Não",
+    "type1": "Sim, tipo 1",
+    "type2": "Sim, tipo 2",
+    "other": "Sim, outra forma / forma não esclarecida"
+   }
+  },
+  "diabetes_therapy": {
+   "label": "Como é tratada atualmente a sua diabetes?",
+   "options": {
+    "lifestyle": "Apenas alimentação / estilo de vida",
+    "tabl_low": "Comprimidos com baixo risco de hipoglicemia (baixa de açúcar no sangue) (p. ex. metformina)",
+    "tabl_high": "Comprimidos com risco de hipoglicemia (sulfonilureias, glinidas)",
+    "insulin": "Insulina",
+    "unknown": "Não sei ao certo"
+   }
+  },
+  "hypoglycemia": {
+   "label": "Nos últimos 12 meses teve uma hipoglicemia grave (baixa de açúcar no sangue) em que precisou da ajuda de outra pessoa?",
+   "followup": "Quantas vezes, quando foi o último episódio, e ocorreu acordado ou durante o sono?"
+  },
+  "hypo_awareness": {
+   "label": "Já aconteceu não se aperceber a tempo, por si próprio, de uma hipoglicemia (ausência de sinais de aviso)?",
+   "followup": "Quando foi a última vez, e foi feito algo a respeito (p. ex. treino, ajuste da terapêutica)?"
+  },
+  "glucose_monitoring": {
+   "label": "Mede regularmente o seu açúcar no sangue (ou usa um sensor de glicose)?",
+   "options": {
+    "2x": "Sim, pelo menos duas vezes por dia",
+    "seltener": "Sim, mas com menos frequência",
+    "nein": "Não",
+    "keine_med": "Não se aplica a mim (sem medicamentos para baixar o açúcar)"
+   }
+  },
+  "diabetes_derailment": {
+   "label": "Nos últimos meses houve um reajuste da terapêutica ou um descontrolo metabólico (p. ex. tratamento hospitalar por valores descontrolados)?",
+   "followup": "O que aconteceu, e quando?"
+  },
+  "kidney_disease": {
+   "label": "Tem uma doença renal crónica ou insuficiência renal conhecida?",
+   "followup": "Que doença, e está em acompanhamento com um nefrologista?"
+  },
+  "dialysis": {
+   "label": "Faz regularmente tratamento de diálise (limpeza do sangue)?",
+   "followup": "Desde quando e quantas vezes por semana? Sente-se com energia entre os tratamentos?"
+  },
+  "transplant": {
+   "label": "Foi-lhe transplantado um órgão (p. ex. rim, coração, fígado, pulmão)?",
+   "followup": "Que órgão, quando, e tem acompanhamento regular?"
+  },
+  "lung_disease": {
+   "label": "Sofre de uma doença crónica dos pulmões ou dos brônquios (p. ex. DPOC, asma, fibrose pulmonar)?",
+   "followup": "Que doença, e como é tratada?"
+  },
+  "dyspnea": {
+   "label": "Tem falta de ar já com esforços ligeiros ou em repouso, ou precisa de oxigenoterapia de longa duração?"
+  },
+  "cough_syncope": {
+   "label": "Durante fortes ataques de tosse já teve tonturas, escurecimento da visão ou uma breve perda de consciência?"
+  },
+  "daytime_sleepiness": {
+   "label": "Durante o dia tem dificuldade em manter-se acordado e atento – sobretudo em situações monótonas (p. ex. leitura, reuniões, viagens de carro mais longas)?"
+  },
+  "microsleep": {
+   "label": "Nos últimos meses adormeceu involuntariamente ou teve episódios de microssono (adormecer por segundos)?",
+   "followup": "Em que situações? Também aconteceu ao volante?"
+  },
+  "snoring": {
+   "label": "Já lhe disseram que ressona alto e de forma irregular ou que tem pausas na respiração durante a noite?"
+  },
+  "osas": {
+   "label": "Foi-lhe diagnosticada uma síndrome de apneia do sono (pausas respiratórias noturnas)?",
+   "followup": "Quando foi feito o diagnóstico, e que grau de gravidade ou que valor AHI foi determinado (se conhecido)?"
+  },
+  "cpap": {
+   "label": "Está a ser tratado pela apneia do sono (p. ex. máscara respiratória CPAP)?",
+   "options": {
+    "regelmaessig": "Sim, regularmente (quase todas as noites)",
+    "unregelmaessig": "Sim, mas de forma irregular",
+    "abgebrochen": "O tratamento foi interrompido",
+    "keine": "Não, nenhum tratamento"
+   }
+  },
+  "psychiatric": {
+   "label": "Foi-lhe diagnosticada uma doença psíquica (p. ex. depressão, perturbação de ansiedade, perturbação bipolar)?",
+   "followup": "Que doença, e como é tratada?"
+  },
+  "psychiatric_severe": {
+   "label": "Por esse motivo já esteve internado, teve uma fase maníaca ou pensamentos de pôr fim à vida?",
+   "followup": "Quando foi a última vez?"
+  },
+  "psychosis": {
+   "label": "Alguma vez lhe foi diagnosticada esquizofrenia ou outra psicose (doença com delírios ou alucinações)?",
+   "followup": "Quantos episódios agudos teve, quando foi o último, e está em acompanhamento com um médico especialista?"
+  },
+  "memory_problems": {
+   "label": "Você ou os seus familiares notaram ultimamente em si problemas crescentes de memória ou de orientação?",
+   "followup": "Desde quando, e como se manifestam no dia a dia?"
+  },
+  "concentration": {
+   "label": "Tem problemas de concentração ou de atenção?"
+  },
+  "alcohol": {
+   "label": "Com que frequência bebe álcool?",
+   "options": {
+    "nie": "Nunca",
+    "selten": "Raramente (no máximo 1 vez por mês)",
+    "woechentlich": "1 a 2 vezes por semana",
+    "mehrmals": "Várias vezes por semana",
+    "taeglich": "Diariamente ou quase diariamente"
+   }
+  },
+  "alcohol_control": {
+   "label": "Já lhe aconteceu beber mais do que pretendia ou perder o controlo sobre o seu consumo?"
+  },
+  "alcohol_traffic": {
+   "label": "Alguma vez foi detetado no trânsito sob a influência de álcool (p. ex. condução sob embriaguez, multa, MPU)?",
+   "followup": "Quando, e que taxa de alcoolemia foi determinada (se conhecida)?"
+  },
+  "alcohol_dependence": {
+   "label": "Alguma vez lhe foi diagnosticada dependência de álcool, ou fez uma desintoxicação ou um tratamento de desabituação?",
+   "followup": "Quando terminou o tratamento, e desde quando vive abstinente?"
+  },
+  "drugs": {
+   "label": "Consome atualmente drogas (p. ex. canábis, cocaína, anfetaminas) ou consumiu drogas regularmente no passado?",
+   "followup": "Que substâncias, com que frequência, e quando foi a última vez?"
+  },
+  "cannabis": {
+   "label": "Com que frequência consome canábis?",
+   "options": {
+    "nie": "Nunca",
+    "gelegentlich": "Ocasionalmente (não regularmente)",
+    "regelmaessig": "Regularmente (diariamente ou por hábito)"
+   }
+  },
+  "substitution": {
+   "label": "Recebe um tratamento de substituição (p. ex. metadona)?",
+   "followup": "Desde quando?"
+  },
+  "regular_meds": {
+   "label": "Toma medicamentos regularmente?",
+   "followup": "Que medicamentos, e para quê?"
+  },
+  "sedating_meds": {
+   "label": "Entre eles há medicamentos que podem causar sonolência ou afetar a capacidade de reação (p. ex. analgésicos fortes/opioides, comprimidos para dormir ou calmantes, antidepressivos, antiepiléticos, medicamentos para alergias)?",
+   "followup": "Que medicamentos, e em que dose?"
+  },
+  "med_side_effects": {
+   "label": "Nota com os seus medicamentos efeitos secundários como cansaço, lentidão, problemas de concentração ou tonturas?",
+   "followup": "Que efeitos secundários, e com que intensidade?"
+  },
+  "med_recent_change": {
+   "label": "Nas últimas semanas foi-lhe receitado pela primeira vez um medicamento desse tipo, ou a dose foi alterada de forma significativa?",
+   "followup": "Que medicamento, e quando?"
+  },
+  "benzo_regular": {
+   "label": "Toma há vários meses regularmente – mesmo que só à noite em pequena quantidade – comprimidos para dormir ou calmantes (p. ex. benzodiazepinas)?",
+   "followup": "Que medicamento, há quanto tempo, e nota sintomas de abstinência quando o deixa?"
+  },
+  "multiple_conditions": {
+   "label": "Tem várias doenças ou limitações de saúde ao mesmo tempo?",
+   "hint": "Várias alterações podem, no seu conjunto, ser relevantes para a aptidão, mesmo que cada uma isoladamente fosse inofensiva (diretrizes, cap. 2.7).",
+   "followup": "Por favor, enumere brevemente todas as doenças conhecidas."
+  },
+  "other_conditions": {
+   "label": "Há outras doenças, queixas ou operações anteriores que ainda não foram mencionadas?",
+   "followup": "Quais?"
+  },
+  "driving_adaptation": {
+   "label": "Devido a limitações de saúde, renuncia conscientemente a certas viagens (p. ex. no escuro, longas distâncias, autoestrada)?",
+   "followup": "A que viagens, e porquê?"
+  },
+  "consent_truth": {
+   "label": "Confirmo que as minhas respostas são completas e verdadeiras.",
+   "error": "Por favor, confirme que as suas respostas estão completas."
+  },
+  "consent_privacy": {
+   "label": "Li as informações sobre proteção de dados e consinto no tratamento dos meus dados para fins de medicina de tráfego.",
+   "error": "Por favor, aceite as informações sobre proteção de dados."
+  }
+ },
+ "ess_items": {
+  "ess_1": "Sentado a ler",
+  "ess_2": "A ver televisão",
+  "ess_3": "Sentado, inativo, num lugar público (p. ex. no teatro ou numa reunião)",
+  "ess_4": "Como passageiro num carro, durante uma viagem de uma hora sem paragem",
+  "ess_5": "Deitado à tarde para descansar",
+  "ess_6": "Sentado a conversar com alguém",
+  "ess_7": "Sentado calmamente depois do almoço (sem álcool)",
+  "ess_8": "Num carro, como condutor, parado alguns minutos devido ao trânsito"
+ }
+}

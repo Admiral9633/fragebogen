@@ -1,0 +1,585 @@
+{
+ "_meta": {
+  "language": "fi",
+  "name": "Suomi",
+  "machine_translated": true
+ },
+ "ui": {
+  "header_title": "Liikennelääketieteellinen kyselylomake",
+  "header_subtitle": "Vastatkaa kaikkiin kysymyksiin",
+  "language_label": "Kieli",
+  "loading": "Ladataan kyselylomaketta …",
+  "not_found_title": "Kyselylomaketta ei löytynyt",
+  "to_start": "Aloitussivulle",
+  "back": "Takaisin",
+  "next": "Seuraava",
+  "skip": "Ohita",
+  "submit": "Lähetä",
+  "sending": "Lähetetään…",
+  "question_of": "Kysymys {current} / {total}",
+  "answer_placeholder": "Vastauksenne…",
+  "required_error": "Vastatkaa tähän kysymykseen.",
+  "yes": "Kyllä",
+  "no": "Ei",
+  "consent_title": "Suostumus",
+  "followup_hint": "Vapaaehtoinen lisätieto – auttaa lääkärin arvioinnissa.",
+  "ess_question": "Kuinka todennäköisesti torkahtaisitte tässä tilanteessa?",
+  "ess_sum": "Tähänastinen summa",
+  "ess_opt_0": "0 – En torkahtaisi koskaan",
+  "ess_opt_1": "1 – Pieni todennäköisyys",
+  "ess_opt_2": "2 – Keskinkertainen todennäköisyys",
+  "ess_opt_3": "3 – Suuri todennäköisyys",
+  "privacy_button": "Näytä tietosuojaseloste",
+  "privacy_title": "Tietosuojaseloste",
+  "privacy_subtitle": "Tietoa tietojenne käsittelystä DSGVO:n (EU:n yleinen tietosuoja-asetus) 13 artiklan mukaisesti",
+  "privacy_controller": "Rekisterinpitäjä: Dr. med. Björn Micka, työterveyslääketiede · ensihoitolääketiede, Christoph-Dassler-Str. 22, 91074 Herzogenaurach",
+  "privacy_purpose": "Käsittelyn tarkoitus: Tässä kyselylomakkeessa antamianne tietoja (mukaan lukien terveystiedot) käytetään yksinomaan liikennelääketieteellisen tarkastuksenne valmisteluun ja suorittamiseen.",
+  "privacy_legal": "Oikeusperuste: Suostumuksenne (DSGVO 6 artiklan 1 kohdan a alakohta, 9 artiklan 2 kohdan a alakohta). Voitte peruuttaa suostumuksen milloin tahansa siten, että peruutus vaikuttaa tulevaisuuteen.",
+  "privacy_storage": "Säilytys: Tulos siirretään tarkastusasiakirjoihinne, ja siihen sovelletaan lääkärintoimen säilytysaikoja. Henkilökohtaisen linkkinne kautta tapahtuva verkkokäyttöoikeus päättyy voimassaoloajan umpeuduttua; tämän verkkokyselyn tiedot poistetaan sen jälkeen rutiininomaisesti.",
+  "privacy_rights": "Oikeutenne: Teillä on oikeus saada pääsy tietoihin, oikeus tietojen oikaisuun ja poistamiseen sekä käsittelyn rajoittamiseen, samoin kuin oikeus tehdä valitus toimivaltaiselle tietosuojaviranomaiselle.",
+  "privacy_secrecy": "Kaikkia tietoja koskee lääkärin salassapitovelvollisuus.",
+  "success_title": "Kiitos paljon!",
+  "success_text": "Kyselylomakkeenne on lähetetty onnistuneesti.",
+  "success_result": "ESS-tulos",
+  "success_doctor_note": "Keskustelkaa tuloksesta lääkärinne kanssa. Lopullisen arvion tekee erikoislääkäri.",
+  "success_pdf": "Lataa PDF-yhteenveto",
+  "success_close": "Voitte nyt sulkea tämän ikkunan.",
+  "band_normal": "Normaali (0–9)",
+  "band_elevated": "Kohonnut (10–15)",
+  "band_severe": "Voimakas (≥16)",
+  "submit_error": "Virhe lähetyksessä. Tarkistakaa antamanne tiedot."
+ },
+ "sections": {
+  "anlass": {
+   "title": "Tarkastuksen syy ja ajoprofiili",
+   "subtitle": "Tiedot tarkastuksesta ja ajamisestanne"
+  },
+  "gesundheit": {
+   "title": "Terveydentila",
+   "subtitle": "Yksi kysymys aluksi"
+  },
+  "anfaelle": {
+   "title": "Kohtaukset ja tajuttomuus",
+   "subtitle": "Äkillisen toimintakyvyn menetyksen riski – epileptiset kohtaukset ja pyörtymiset"
+  },
+  "sehen_hoeren": {
+   "title": "Näkö ja kuulo",
+   "subtitle": "Näkö- ja kuulotoiminta"
+  },
+  "herz": {
+   "title": "Sydän ja verenkierto",
+   "subtitle": "Sydän- ja verisuonisairaudet"
+  },
+  "gehirn": {
+   "title": "Aivohalvaus ja aivot",
+   "subtitle": "Aivojen verenkiertohäiriöt, vammat ja leikkaukset"
+  },
+  "neuro": {
+   "title": "Hermosto",
+   "subtitle": "Neurologiset sairaudet"
+  },
+  "schwindel": {
+   "title": "Tasapaino ja huimaus",
+   "subtitle": "Huimauksen muodot ja tasapainohäiriöt"
+  },
+  "bewegung": {
+   "title": "Tuki- ja liikuntaelimistö",
+   "subtitle": "Fyysiset rajoitteet ja apuvälineet"
+  },
+  "diabetes": {
+   "title": "Diabetes / aineenvaihdunta",
+   "subtitle": "Sokeritauti ja liian matala verensokeri"
+  },
+  "organe": {
+   "title": "Sisäelimet",
+   "subtitle": "Munuaiset, keuhkot ja elinsiirrot"
+  },
+  "schlaf": {
+   "title": "Uni ja päiväaikainen väsymys",
+   "subtitle": "Sis. Epworth Sleepiness Scale (ESS)"
+  },
+  "psyche": {
+   "title": "Mielenterveys",
+   "subtitle": "Mielenterveyden häiriöt ja muisti"
+  },
+  "substanzen": {
+   "title": "Alkoholi, huumeet ja lääkkeet",
+   "subtitle": "Käyttö ja jatkuva lääkitys"
+  },
+  "allgemein": {
+   "title": "Yleistä ja suostumus",
+   "subtitle": "Muut tiedot ja vakuutukset"
+  }
+ },
+ "questions": {
+  "exam_occasion": {
+   "label": "Mitä ajo-oikeutta varten tarkastus tehdään?",
+   "options": {
+    "pkw": "Henkilöauto / muu luokka",
+    "lkw": "Kuorma-auto (C, C1, CE, C1E)",
+    "bus": "Linja-auto (D, D1, DE, D1E)",
+    "fahrgast": "Henkilöiden kuljetus (taksi, vuokra-auto, sairaankuljetus)"
+   }
+  },
+  "exam_kind": {
+   "label": "Onko kyseessä ensimmäinen myöntäminen vai uusiminen?",
+   "options": {
+    "erst": "Ensimmäinen myöntäminen",
+    "verlaengerung": "Uusiminen"
+   }
+  },
+  "license_classes": {
+   "label": "Mitkä ajokorttiluokat teillä on tai mitä haette?",
+   "options": {
+    "AM": "AM",
+    "A1": "A1",
+    "A2": "A2",
+    "A": "A",
+    "B": "B",
+    "BE": "BE",
+    "C1": "C1",
+    "C1E": "C1E",
+    "C": "C",
+    "CE": "CE",
+    "D1": "D1",
+    "D": "D",
+    "DE": "DE",
+    "T": "T"
+   }
+  },
+  "license_years": {
+   "label": "Kuinka monta vuotta teillä on ollut ajokortti?",
+   "options": {
+    "erstantrag": "Ei vielä lainkaan (ensimmäinen hakemus)",
+    "unter3": "Alle 3 vuotta",
+    "3bis10": "3–10 vuotta",
+    "ueber10": "Yli 10 vuotta"
+   }
+  },
+  "driving_hours": {
+   "label": "Kuinka monta tuntia ajatte keskimäärin päivässä?",
+   "options": {
+    "<1": "Alle 1 tunnin",
+    "1-2": "1–2 tuntia",
+    "2-4": "2–4 tuntia",
+    ">4": "Yli 4 tuntia"
+   }
+  },
+  "night_driving": {
+   "label": "Ajatteko säännöllisesti öisin?"
+  },
+  "accidents": {
+   "label": "Onko teille sattunut viimeisten 24 kuukauden aikana liikenteessä onnettomuuksia tai läheltä piti -tilanteita?",
+   "followup": "Mitä tapahtui?"
+  },
+  "license_withdrawn": {
+   "label": "Onko ajokorttinne joskus otettu pois tai onko teidän täytynyt osallistua lääketieteellis-psykologiseen tutkimukseen (MPU – saksalainen ajokyvyn soveltuvuusarvio)?",
+   "followup": "Milloin ja mistä syystä?"
+  },
+  "psych_test_done": {
+   "label": "Oletteko jo suorittaneet tätä ajo-oikeutta varten psykologisen suorituskykytestin (reaktio-, keskittymis- ja tarkkaavaisuustesti)?",
+   "hint": "Linja-autoluokissa ja henkilöiden kuljetuksessa tämä todistus on pakollinen FeV:n (Saksan ajokorttiasetus) liitteen 5 mukaan. Ottakaa mahdollinen jo olemassa oleva lausunto mukaan tarkastukseen.",
+   "followup": "Milloin ja missä testi tehtiin?"
+  },
+  "has_conditions": {
+   "label": "Onko teillä todettu perussairaus, pysyvä fyysinen rajoite, tai oletteko säännöllisessä lääkärin hoidossa?",
+   "hint": "Tähän luetaan myös kauan sitten sairastetut vakavat sairaudet (esim. sydän, diabetes, hermosto, mielenterveys). Jos ei, kyselylomake lyhenee huomattavasti."
+  },
+  "seizure_ever": {
+   "label": "Onko teillä koskaan ollut epileptistä kohtausta tai kouristuskohtausta?",
+   "followup": "Milloin viimeisin kohtaus oli, kuinka monta niitä on ollut yhteensä, ja oliko jokin laukaiseva tekijä (esim. univaje, kuume, alkoholi)?"
+  },
+  "epilepsy": {
+   "label": "Onko teillä todettu epilepsia?",
+   "followup": "Esiintyvätkö kohtaukset yksinomaan unen aikana? Oletteko säännöllisessä neurologisessa hoidossa?"
+  },
+  "seizure_free": {
+   "label": "Kuinka kauan olette nyt olleet kohtauksettomana?",
+   "hint": "Hoitosuositukset sitovat ajokelpoisuuden tiettyihin kohtauksettomiin ajanjaksoihin.",
+   "options": {
+    "unter3m": "Alle 3 kuukautta",
+    "3bis6m": "3–6 kuukautta",
+    "6bis12m": "6–12 kuukautta",
+    "1bis2j": "1–2 vuotta",
+    "2bis5j": "2–5 vuotta",
+    "ueber5j": "Yli 5 vuotta"
+   }
+  },
+  "antiepileptics": {
+   "label": "Käytättekö kohtauksia estäviä lääkkeitä (epilepsialääkkeitä)?",
+   "options": {
+    "nie": "En, en ole koskaan käyttänyt",
+    "aktuell": "Kyllä, tällä hetkellä",
+    "reduktion": "Hoitoa vähennetään parhaillaan asteittain",
+    "ende_unter3m": "Lopetettu alle 3 kuukautta sitten",
+    "ende_ueber3m": "Lopetettu yli 3 kuukautta sitten"
+   }
+  },
+  "syncope": {
+   "label": "Oletteko koskaan pyörtyneet äkillisesti (lyhyt tajuttomuus)?",
+   "options": {
+    "nie": "En koskaan",
+    "einmal": "Kerran",
+    "mehrmals": "Useita kertoja"
+   }
+  },
+  "syncope_recent": {
+   "label": "Onko viimeisimmästä pyörtymisestänne alle 6 kuukautta?",
+   "followup": "Missä tilanteessa pyörtyminen tapahtui, ja löytyikö sille syy (esim. verenkierto, sydämen rytmi, virtsaamisen yhteydessä)?"
+  },
+  "syncope_prodromi": {
+   "label": "Ilmeneekö teillä ennen pyörtymistä ennakko-oireita (esim. hikoilu, huimaus, pahoinvointi, sydämentykytys)?"
+  },
+  "glasses": {
+   "label": "Käytättekö ajaessanne silmälaseja tai piilolinssejä?"
+  },
+  "eye_disease": {
+   "label": "Onko teillä todettu silmäsairaus (esim. harmaakaihi, viherkaihi/glaukooma, verkkokalvosairaus, näkökentän rajoittuma)?",
+   "followup": "Mikä sairaus, ja oletteko silmälääkärin hoidossa?"
+  },
+  "one_eyed": {
+   "label": "Näettekö toisella silmällä selvästi huonommin tai oletteko toisesta silmästä sokea?"
+  },
+  "night_vision": {
+   "label": "Onko teillä ongelmia näkemisessä hämärässä tai pimeässä, tai häikäiseekö vastaantuleva liikenne teitä voimakkaasti?",
+   "followup": "Missä tilanteissa ongelmia esiintyy?"
+  },
+  "hearing_impaired": {
+   "label": "Oletteko vaikeasti huonokuuloinen tai kuuro?",
+   "followup": "Mistä lähtien, ja oletteko korva-, nenä- ja kurkkutautien lääkärin hoidossa?"
+  },
+  "hearing_aid": {
+   "label": "Käytättekö kuulokojetta tai sisäkorvaistutetta?"
+  },
+  "heart_disease": {
+   "label": "Onko teillä todettu sydän- tai verisuonisairaus?",
+   "hint": "esim. rytmihäiriöt, sydäninfarkti, sydämen vajaatoiminta, läppävika, verenkiertohäiriöt",
+   "followup": "Mikä sairaus / mitkä sairaudet, mistä lähtien, ja miten niitä hoidetaan?"
+  },
+  "cardio_checkup": {
+   "label": "Käyttekö tämän vuoksi säännöllisesti sydänlääkärin (kardiologin) seurannassa?",
+   "followup": "Milloin viimeisin kontrolli oli?"
+  },
+  "heart_attack": {
+   "label": "Onko teillä koskaan ollut sydäninfarktia, stenttihoitoa tai ohitusleikkausta?",
+   "followup": "Milloin tapahtuma tai toimenpide oli, ja esiintyikö komplikaatioita (esim. heikentynyt pumppausteho)?"
+  },
+  "arrhythmia": {
+   "label": "Onko teillä todettu sydämen rytmihäiriöitä (esim. lisälyöntejä, sydämentykytystä, huomattavan hidas pulssi, eteisvärinä, AV-katkos)?",
+   "followup": "Mikä diagnoosi, ja miten sitä hoidetaan?"
+  },
+  "pacemaker_icd": {
+   "label": "Onko teillä sydämentahdistin tai rytmihäiriötahdistin (ICD)?",
+   "options": {
+    "nein": "Ei",
+    "schrittmacher": "Sydämentahdistin",
+    "icd": "Rytmihäiriötahdistin (ICD)"
+   },
+   "followup": "Milloin se asennettiin, ja milloin viimeisin kontrolli oli?"
+  },
+  "icd_shock": {
+   "label": "Onko rytmihäiriötahdistimenne antanut iskun viimeisten 3 kuukauden aikana?",
+   "followup": "Milloin, ja mitä kardiologinne sanoi siitä?"
+  },
+  "exertion_symptoms": {
+   "label": "Tuleeko teille rasituksessa hengenahdistusta, rintakipua, lisälyöntejä tai epätavallista uupumusta?",
+   "hint": "Itsearviointi NYHA-luokituksen mukaisesti",
+   "options": {
+    "keine": "Ei, ei vaivoja arkipäivän rasituksessa",
+    "stark": "Voimakkaammassa rasituksessa (esim. ripeä portaiden nousu)",
+    "leicht": "Jo kevyessä rasituksessa (esim. hidas kävely)",
+    "ruhe": "Jo levossa"
+   }
+  },
+  "hypertension": {
+   "label": "Onko teillä todettu kohonnut verenpaine?",
+   "followup": "Mistä lähtien, mitä lääkkeitä, ja mitä arvoja mittaatte tavallisesti?"
+  },
+  "bp_dizziness": {
+   "label": "Esiintyykö teillä verenpainelääkkeidenne yhteydessä huimausta, heikotusta tai silmien mustenemista?"
+  },
+  "heart_other": {
+   "label": "Onko teillä todettu jokin muu sydän-/verisuonisairaus: sydänläppävika, synnynnäinen sydänvika, sydänlihassairaus (kardiomyopatia), perinnöllinen rytmihäiriösairaus (esim. pitkä QT-oireyhtymä), aortan aneurysma tai kaulavaltimon ahtauma?",
+   "followup": "Mikä diagnoosi, ja miten sitä seurataan/hoidetaan?"
+  },
+  "family_sudden_death": {
+   "label": "Onko lähimmässä suvussanne (vanhemmat, sisarukset, lapset) esiintynyt äkillistä sydänkuolemaa?"
+  },
+  "stroke": {
+   "label": "Onko teillä koskaan ollut aivohalvausta, aivoverenvuotoa tai TIA:ta (ohimenevä verenkiertohäiriö, johon liittyy lyhytkestoisia oireita)?",
+   "followup": "Milloin tapahtuma oli, ja saatiinko kuntoutus päätökseen?"
+  },
+  "stroke_residuals": {
+   "label": "Onko siitä lähtien jäänyt jälkiseurauksia, kuten halvauksia, puhehäiriöitä, muistiongelmia tai näkökentän rajoittumia?",
+   "followup": "Mitä vaivoja teillä on vielä tällä hetkellä?"
+  },
+  "head_injury": {
+   "label": "Onko teillä koskaan ollut vakavaa päävammaa (johon liittyi tajuttomuus tai sairaalahoito) tai aivoleikkausta?",
+   "followup": "Milloin, ja mitä hoidettiin?"
+  },
+  "head_injury_recent": {
+   "label": "Onko tästä vammasta tai leikkauksesta alle 3 kuukautta?",
+   "hint": "Aivovamman tai aivoleikkauksen jälkeen ajokelpoisuutta ei hoitosuosituksen mukaan yleensä ole 3 kuukauteen."
+  },
+  "brain_residuals": {
+   "label": "Onko teillä vamman/leikkauksen jälkeen vaivoja, kuten keskittymis- tai muistihäiriöitä, luonteen muuttumista tai kouristuskohtauksia?",
+   "followup": "Mitä vaivoja, ja miten ne vaikuttavat?"
+  },
+  "parkinson": {
+   "label": "Onko teillä todettu Parkinsonin tauti tai jokin muu liike- tai koordinaatiohäiriö?",
+   "followup": "Mistä lähtien, miten sitä hoidetaan, ja milloin viimeisin neurologinen kontrolli oli?"
+  },
+  "ms_spinal": {
+   "label": "Onko teillä todettu MS-tauti (multippeliskleroosi), selkäydinsairaus tai selkäydinvamma?",
+   "followup": "Mikä diagnoosi, ja mitä vaivoja teillä on tällä hetkellä?"
+  },
+  "muscle_nerve": {
+   "label": "Onko teillä todettu lihas- tai hermosairaus (esim. lihaskato, myastenia, polyneuropatia)?",
+   "followup": "Mikä diagnoosi, ja kuinka paljon se rajoittaa teitä?"
+  },
+  "paralysis_attacks": {
+   "label": "Esiintyykö teillä kohtauksittaisia halvauksia tai äkillistä voimakasta lihasheikkoutta?",
+   "followup": "Milloin viimeisin kohtaus ilmeni, ja kuinka nopeasti se alkaa?"
+  },
+  "motor_limits": {
+   "label": "Onko teillä käsivarsissa tai jaloissa halvauksia, lihasheikkoutta tai tuntohäiriöitä, jotka voisivat rajoittaa teitä ajoneuvon hallinnassa?",
+   "followup": "Mitkä kehon osat ovat kyseessä?"
+  },
+  "vertigo": {
+   "label": "Kärsittekö huimauksesta tai tasapainohäiriöistä (esim. kiertohuimaus, huojunta, epävarmuus kävellessä)?",
+   "followup": "Miltä huimaus tuntuu, kuinka usein sitä esiintyy, kuinka kauan kohtaus kestää, ja mikä sen laukaisee?"
+  },
+  "vertigo_last": {
+   "label": "Kuinka kauan sitten viimeisin huimauskohtauksenne oli?",
+   "options": {
+    "unter3m": "Alle 3 kuukautta",
+    "3bis6m": "3–6 kuukautta",
+    "6bis12m": "6–12 kuukautta",
+    "1bis2j": "1–2 vuotta",
+    "ueber2j": "Yli 2 vuotta"
+   }
+  },
+  "vertigo_prodromi": {
+   "label": "Ilmeneekö huimauskohtauksistanne ennakko-oireita (esim. painetta korvassa, korvien soimista, kuulon heikkenemistä), niin että ehtisitte pysähtyä ajoissa?",
+   "options": {
+    "immer": "Kyllä, aina",
+    "manchmal": "Joskus",
+    "nie": "Ei, ne tulevat ilman ennakkovaroitusta"
+   }
+  },
+  "vertigo_positional": {
+   "label": "Laukaisevatko tietyt pään liikkeet tai asennon muutokset huimauksen (esim. kääntyminen sängyssä, kumartuminen)?"
+  },
+  "vertigo_ear": {
+   "label": "Esiintyykö huimaus yhdessä kuulon heikkenemisen, korvien soimisen (tinnitus) tai korvan painetunteen kanssa?"
+  },
+  "ear_disease": {
+   "label": "Onko teillä todettu tasapainoelimen tai sisäkorvan sairaus (esim. hyvänlaatuinen asentohuimaus, Menièren tauti)?",
+   "followup": "Mikä diagnoosi, miten sitä hoidettiin, ja oletteko sen jälkeen ollut oireeton?"
+  },
+  "mobility_limits": {
+   "label": "Onko teillä pysyvä liikkuvuuden rajoittuma käsivarsissa, jaloissa, käsissä tai selkärangassa (esim. onnettomuuden, leikkauksen tai amputaation jälkeen)?",
+   "followup": "Mitkä kehon osat ovat kyseessä, ja mistä lähtien?"
+  },
+  "prosthesis": {
+   "label": "Käytättekö proteesia tai ortopedisiä apuvälineitä?",
+   "followup": "Mitä apuvälineitä, ja onko teillä vaivoja pitkäaikaisessa rasituksessa?"
+  },
+  "vehicle_modified": {
+   "label": "Onko ajoneuvoanne muutettu fyysisen rajoitteen vuoksi (esim. käsihallintalaitteet, ohjaustehostin)?",
+   "followup": "Mitä muutoksia, ja onko ne merkitty ajokorttiin?"
+  },
+  "diabetes_type": {
+   "label": "Onko teillä todettu diabetes mellitus (sokeritauti)?",
+   "options": {
+    "none": "Ei",
+    "type1": "Kyllä, tyyppi 1",
+    "type2": "Kyllä, tyyppi 2",
+    "other": "Kyllä, muu/epäselvä muoto"
+   }
+  },
+  "diabetes_therapy": {
+   "label": "Miten diabetestanne hoidetaan tällä hetkellä?",
+   "options": {
+    "lifestyle": "Vain ruokavalio / elämäntavat",
+    "tabl_low": "Tabletit, joihin liittyy pieni liian matalan verensokerin riski (esim. metformiini)",
+    "tabl_high": "Tabletit, joihin liittyy liian matalan verensokerin riski (sulfonyyliureat, glinidit)",
+    "insulin": "Insuliini",
+    "unknown": "En tiedä tarkkaan"
+   }
+  },
+  "hypoglycemia": {
+   "label": "Onko teillä ollut viimeisten 12 kuukauden aikana vaikea liian matala verensokeri, jonka takia tarvitsitte toisen henkilön apua?",
+   "followup": "Kuinka usein, milloin viimeisin jakso oli, ja tapahtuiko se hereillä ollessa vai unen aikana?"
+  },
+  "hypo_awareness": {
+   "label": "Onko käynyt niin, ettette itse huomannut liian matalaa verensokeria ajoissa (varoitusoireet puuttuivat)?",
+   "followup": "Milloin viimeksi, ja tehtiinkö asialle jotain (esim. koulutus, hoidon muutos)?"
+  },
+  "glucose_monitoring": {
+   "label": "Mittaatteko verensokerinne säännöllisesti itse (tai käytättekö glukoosisensoria)?",
+   "options": {
+    "2x": "Kyllä, vähintään kahdesti päivässä",
+    "seltener": "Kyllä, mutta harvemmin",
+    "nein": "En",
+    "keine_med": "Ei koske minua (ei verensokeria alentavia lääkkeitä)"
+   }
+  },
+  "diabetes_derailment": {
+   "label": "Onko viime kuukausien aikana tehty hoidon uudelleenasetus tai onko esiintynyt aineenvaihdunnan vakavaa häiriintymistä (esim. sairaalahoito täysin hallitsemattomien arvojen vuoksi)?",
+   "followup": "Mitä tapahtui, ja milloin?"
+  },
+  "kidney_disease": {
+   "label": "Onko teillä todettu krooninen munuaissairaus tai munuaisten vajaatoiminta?",
+   "followup": "Mikä sairaus, ja oletteko munuaislääkärin hoidossa?"
+  },
+  "dialysis": {
+   "label": "Saatteko säännöllisesti dialyysihoitoa (veren puhdistus)?",
+   "followup": "Mistä lähtien ja kuinka usein viikossa? Tunnetteko itsenne suorituskykyiseksi hoitojen välillä?"
+  },
+  "transplant": {
+   "label": "Onko teille siirretty jokin elin (esim. munuainen, sydän, maksa, keuhko)?",
+   "followup": "Mikä elin, milloin, ja käyttekö säännöllisessä jälkiseurannassa?"
+  },
+  "lung_disease": {
+   "label": "Sairastatteko kroonista keuhko- tai keuhkoputkisairautta (esim. keuhkoahtaumatauti COPD, astma, keuhkofibroosi)?",
+   "followup": "Mikä sairaus, ja miten sitä hoidetaan?"
+  },
+  "dyspnea": {
+   "label": "Onko teillä hengenahdistusta jo kevyessä rasituksessa tai levossa, tai tarvitsetteko pitkäaikaista happihoitoa?"
+  },
+  "cough_syncope": {
+   "label": "Onko voimakkaiden yskänkohtausten yhteydessä esiintynyt huimausta, silmien mustenemista tai lyhytkestoista tajuttomuutta?"
+  },
+  "daytime_sleepiness": {
+   "label": "Onko teidän vaikea pysyä päivällä hereillä ja tarkkaavaisena – etenkin yksitoikkoisissa tilanteissa (esim. lukiessa, kokouksissa, pidemmillä automatkoilla)?"
+  },
+  "microsleep": {
+   "label": "Oletteko viime kuukausien aikana nukahtaneet tahattomasti tai onko teillä ollut mikrounta?",
+   "followup": "Missä tilanteissa? Onko sitä tapahtunut myös ratin takana?"
+  },
+  "snoring": {
+   "label": "Onko teille kerrottu, että kuorsaatte kovaäänisesti ja epäsäännöllisesti tai että teillä on öisin hengityskatkoksia?"
+  },
+  "osas": {
+   "label": "Onko teillä todettu uniapneaoireyhtymä (yölliset hengityskatkokset)?",
+   "followup": "Milloin diagnoosi tehtiin, ja mikä vaikeusaste tai AHI-arvo todettiin (jos tiedossa)?"
+  },
+  "cpap": {
+   "label": "Saatteko hoitoa uniapnean vuoksi (esim. CPAP-hengitysmaski)?",
+   "options": {
+    "regelmaessig": "Kyllä, säännöllisesti (lähes joka yö)",
+    "unregelmaessig": "Kyllä, mutta epäsäännöllisesti",
+    "abgebrochen": "Hoito keskeytettiin",
+    "keine": "Ei, ei hoitoa"
+   }
+  },
+  "psychiatric": {
+   "label": "Onko teillä todettu mielenterveyden häiriö (esim. masennus, ahdistuneisuushäiriö, kaksisuuntainen mielialahäiriö)?",
+   "followup": "Mikä sairaus, ja miten sitä hoidetaan?"
+  },
+  "psychiatric_severe": {
+   "label": "Oletteko olleet tämän vuoksi joskus sairaalahoidossa, onko teillä ollut maaninen jakso tai itsemurha-ajatuksia?",
+   "followup": "Milloin se oli viimeksi?"
+  },
+  "psychosis": {
+   "label": "Onko teillä koskaan todettu skitsofrenia tai muu psykoosi (sairaus, johon liittyy harhaluuloja tai aistiharhoja)?",
+   "followup": "Kuinka monta akuuttia jaksoa teillä on ollut, milloin viimeisin oli, ja oletteko erikoislääkärin hoidossa?"
+  },
+  "memory_problems": {
+   "label": "Oletteko te itse tai omaisenne viime aikoina huomanneet teillä lisääntyviä muisti- tai suunnistautumisongelmia?",
+   "followup": "Mistä lähtien, ja miten ne vaikuttavat arjessa?"
+  },
+  "concentration": {
+   "label": "Onko teillä keskittymis- tai tarkkaavaisuusongelmia?"
+  },
+  "alcohol": {
+   "label": "Kuinka usein juotte alkoholia?",
+   "options": {
+    "nie": "En koskaan",
+    "selten": "Harvoin (korkeintaan kerran kuukaudessa)",
+    "woechentlich": "1–2 kertaa viikossa",
+    "mehrmals": "Useita kertoja viikossa",
+    "taeglich": "Päivittäin tai lähes päivittäin"
+   }
+  },
+  "alcohol_control": {
+   "label": "Onko käynyt niin, että olette juoneet enemmän kuin aioitte tai menettäneet hallinnan käyttönne suhteen?"
+  },
+  "alcohol_traffic": {
+   "label": "Oletteko koskaan jääneet liikenteessä kiinni alkoholin vaikutuksen alaisena (esim. rattijuopumus, sakko, MPU – saksalainen lääketieteellis-psykologinen soveltuvuusarvio)?",
+   "followup": "Milloin, ja mikä promilleluku todettiin (jos tiedossa)?"
+  },
+  "alcohol_dependence": {
+   "label": "Onko teillä koskaan todettu alkoholiriippuvuutta tai oletteko olleet katkaisu- tai vieroitushoidossa?",
+   "followup": "Milloin hoito päättyi, ja mistä lähtien olette eläneet raittiina?"
+  },
+  "drugs": {
+   "label": "Käytättekö tällä hetkellä huumeita (esim. kannabista, kokaiinia, amfetamiinia) tai oletteko aiemmin käyttäneet huumeita säännöllisesti?",
+   "followup": "Mitä aineita, kuinka usein, ja milloin viimeksi?"
+  },
+  "cannabis": {
+   "label": "Kuinka usein käytätte kannabista?",
+   "options": {
+    "nie": "En koskaan",
+    "gelegentlich": "Satunnaisesti (ei säännöllisesti)",
+    "regelmaessig": "Säännöllisesti (päivittäin tai tapana)"
+   }
+  },
+  "substitution": {
+   "label": "Saatteko korvaushoitoa (esim. metadoni)?",
+   "followup": "Mistä lähtien?"
+  },
+  "regular_meds": {
+   "label": "Käytättekö säännöllisesti lääkkeitä?",
+   "followup": "Mitä lääkkeitä, ja mihin vaivaan?"
+  },
+  "sedating_meds": {
+   "label": "Onko niiden joukossa lääkkeitä, jotka voivat väsyttää tai vaikuttaa reaktiokykyyn (esim. vahvat kipulääkkeet/opioidit, uni- tai rauhoittavat lääkkeet, masennuslääkkeet, epilepsialääkkeet, allergialääkkeet)?",
+   "followup": "Mitä lääkkeitä, ja millä annostuksella?"
+  },
+  "med_side_effects": {
+   "label": "Huomaatteko lääkkeidenne yhteydessä haittavaikutuksia, kuten väsymystä, hidastumista, keskittymishäiriöitä tai huimausta?",
+   "followup": "Mitä haittavaikutuksia, ja kuinka voimakkaita?"
+  },
+  "med_recent_change": {
+   "label": "Onko viime viikkoina aloitettu tällainen lääke uutena tai muutettu sen annosta merkittävästi?",
+   "followup": "Mikä lääke, ja milloin?"
+  },
+  "benzo_regular": {
+   "label": "Oletteko käyttäneet useiden kuukausien ajan säännöllisesti uni- tai rauhoittavia lääkkeitä (esim. bentsodiatsepiineja) – myös vain iltaisin pieninä määrinä?",
+   "followup": "Mitä lääkettä, kuinka kauan jo, ja huomaatteko vieroitusoireita, jos jätätte sen pois?"
+  },
+  "multiple_conditions": {
+   "label": "Onko teillä useita sairauksia tai terveydellisiä rajoitteita samanaikaisesti?",
+   "hint": "Useat löydökset voivat yhdessä olla merkityksellisiä ajokelpoisuuden kannalta, vaikka jokainen yksittäinen olisi vaaraton (hoitosuositukset luku 2.7).",
+   "followup": "Luetelkaa lyhyesti kaikki tiedossa olevat sairaudet."
+  },
+  "other_conditions": {
+   "label": "Onko muita sairauksia, vaivoja tai aiempia leikkauksia, joita ei ole tähän mennessä mainittu?",
+   "followup": "Mitä?"
+  },
+  "driving_adaptation": {
+   "label": "Vältättekö tietoisesti tiettyjä ajomatkoja terveydellisten rajoitteiden vuoksi (esim. pimeällä, pitkät matkat, moottoritie)?",
+   "followup": "Mitä ajomatkoja, ja miksi?"
+  },
+  "consent_truth": {
+   "label": "Vahvistan, että antamani tiedot ovat täydelliset ja totuudenmukaiset.",
+   "error": "Vahvistakaa tietojenne täydellisyys."
+  },
+  "consent_privacy": {
+   "label": "Olen lukenut tietosuojaselosteen ja suostun tietojeni käsittelyyn liikennelääketieteellisiin tarkoituksiin.",
+   "error": "Hyväksykää tietosuojaseloste."
+  }
+ },
+ "ess_items": {
+  "ess_1": "Istuessanne ja lukiessanne",
+  "ess_2": "Katsoessanne televisiota",
+  "ess_3": "Istuessanne passiivisena julkisella paikalla (esim. teatterissa tai kokouksessa)",
+  "ess_4": "Matkustajana autossa tunnin kestävällä matkalla ilman taukoa",
+  "ess_5": "Kun olette käyneet iltapäivällä pitkällenne lepäämään",
+  "ess_6": "Istuessanne ja keskustellessanne jonkun kanssa",
+  "ess_7": "Kun istutte rauhassa lounaan jälkeen (ilman alkoholia)",
+  "ess_8": "Kun joudutte auton kuljettajana pysähtymään muutamaksi minuutiksi liikenteen vuoksi"
+ }
+}
