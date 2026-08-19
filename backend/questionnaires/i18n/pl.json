@@ -1,0 +1,585 @@
+{
+ "_meta": {
+  "language": "pl",
+  "name": "Polski",
+  "machine_translated": true
+ },
+ "ui": {
+  "header_title": "Kwestionariusz medycyny ruchu drogowego",
+  "header_subtitle": "Prosimy o udzielenie odpowiedzi na wszystkie pytania",
+  "language_label": "Język",
+  "loading": "Wczytywanie kwestionariusza …",
+  "not_found_title": "Nie znaleziono kwestionariusza",
+  "to_start": "Do strony startowej",
+  "back": "Wstecz",
+  "next": "Dalej",
+  "skip": "Pomiń",
+  "submit": "Wyślij",
+  "sending": "Wysyłanie…",
+  "question_of": "Pytanie {current} z {total}",
+  "answer_placeholder": "Pana/Pani odpowiedź…",
+  "required_error": "Proszę odpowiedzieć na to pytanie.",
+  "yes": "Tak",
+  "no": "Nie",
+  "consent_title": "Zgoda",
+  "followup_hint": "Dobrowolna informacja dodatkowa – pomaga w ocenie lekarskiej.",
+  "ess_question": "Jak duże jest prawdopodobieństwo, że zdrzemnąłby się Pan / zdrzemnęłaby się Pani w tej sytuacji?",
+  "ess_sum": "Dotychczasowa suma",
+  "ess_opt_0": "0 – nigdy bym się nie zdrzemnął/zdrzemnęła",
+  "ess_opt_1": "1 – małe prawdopodobieństwo",
+  "ess_opt_2": "2 – średnie prawdopodobieństwo",
+  "ess_opt_3": "3 – duże prawdopodobieństwo",
+  "privacy_button": "Pokaż informacje o ochronie danych",
+  "privacy_title": "Informacje o ochronie danych",
+  "privacy_subtitle": "Informacja o przetwarzaniu Pana/Pani danych zgodnie z Art. 13 DSGVO (RODO)",
+  "privacy_controller": "Administrator danych: Dr. med. Björn Micka, medycyna pracy · medycyna ratunkowa, Christoph-Dassler-Str. 22, 91074 Herzogenaurach",
+  "privacy_purpose": "Cel przetwarzania: Pana/Pani odpowiedzi w tym kwestionariuszu (w tym dane dotyczące zdrowia) są wykorzystywane wyłącznie do przygotowania i przeprowadzenia badania z zakresu medycyny ruchu drogowego.",
+  "privacy_legal": "Podstawa prawna: Pana/Pani zgoda (Art. 6 Abs. 1 lit. a, Art. 9 Abs. 2 lit. a DSGVO – RODO). Zgodę można w każdej chwili wycofać ze skutkiem na przyszłość.",
+  "privacy_storage": "Przechowywanie: Wynik zostaje włączony do dokumentacji badania i podlega lekarskim okresom przechowywania. Dostęp online przez Pana/Pani osobisty link wygasa po upływie ważności; dane tego kwestionariusza online są następnie rutynowo usuwane.",
+  "privacy_rights": "Pana/Pani prawa: przysługuje Panu/Pani prawo dostępu do danych, ich sprostowania, usunięcia i ograniczenia przetwarzania oraz prawo wniesienia skargi do właściwego organu nadzorczego ds. ochrony danych.",
+  "privacy_secrecy": "Wszystkie informacje objęte są lekarską tajemnicą zawodową.",
+  "success_title": "Dziękujemy!",
+  "success_text": "Pana/Pani kwestionariusz został pomyślnie przesłany.",
+  "success_result": "Wynik ESS",
+  "success_doctor_note": "Proszę omówić wynik z lekarzem. Ostatecznej oceny dokonuje lekarz specjalista.",
+  "success_pdf": "Pobierz podsumowanie PDF",
+  "success_close": "Może Pan/Pani teraz zamknąć to okno.",
+  "band_normal": "W normie (0–9)",
+  "band_elevated": "Podwyższony (10–15)",
+  "band_severe": "Wyraźnie podwyższony (≥16)",
+  "submit_error": "Błąd podczas wysyłania. Proszę sprawdzić swoje odpowiedzi."
+ },
+ "sections": {
+  "anlass": {
+   "title": "Powód badania i profil jazdy",
+   "subtitle": "Informacje o badaniu i Pana/Pani aktywności za kierownicą"
+  },
+  "gesundheit": {
+   "title": "Stan zdrowia",
+   "subtitle": "Najpierw jedno pytanie"
+  },
+  "anfaelle": {
+   "title": "Napady i utrata przytomności",
+   "subtitle": "Ryzyko nagłej niezdolności – napady padaczkowe i omdlenia"
+  },
+  "sehen_hoeren": {
+   "title": "Wzrok i słuch",
+   "subtitle": "Funkcja wzroku i słuchu"
+  },
+  "herz": {
+   "title": "Serce i układ krążenia",
+   "subtitle": "Choroby serca i naczyń"
+  },
+  "gehirn": {
+   "title": "Udar i mózg",
+   "subtitle": "Zaburzenia ukrwienia, urazy i operacje mózgu"
+  },
+  "neuro": {
+   "title": "Układ nerwowy",
+   "subtitle": "Choroby neurologiczne"
+  },
+  "schwindel": {
+   "title": "Równowaga i zawroty głowy",
+   "subtitle": "Rodzaje zawrotów głowy i zaburzenia równowagi"
+  },
+  "bewegung": {
+   "title": "Narząd ruchu",
+   "subtitle": "Ograniczenia fizyczne i pomoce ortopedyczne"
+  },
+  "diabetes": {
+   "title": "Cukrzyca / przemiana materii",
+   "subtitle": "Cukrzyca i niedocukrzenia"
+  },
+  "organe": {
+   "title": "Narządy wewnętrzne",
+   "subtitle": "Nerki, płuca i przeszczepy"
+  },
+  "schlaf": {
+   "title": "Sen i senność w ciągu dnia",
+   "subtitle": "W tym skala senności Epworth (ESS)"
+  },
+  "psyche": {
+   "title": "Zdrowie psychiczne",
+   "subtitle": "Choroby psychiczne i pamięć"
+  },
+  "substanzen": {
+   "title": "Alkohol, narkotyki i leki",
+   "subtitle": "Spożycie i leki przyjmowane na stałe"
+  },
+  "allgemein": {
+   "title": "Informacje ogólne i zgoda",
+   "subtitle": "Pozostałe informacje i oświadczenia"
+  }
+ },
+ "questions": {
+  "exam_occasion": {
+   "label": "Jakiego prawa jazdy dotyczy badanie?",
+   "options": {
+    "pkw": "Samochód osobowy / inna kategoria",
+    "lkw": "Samochód ciężarowy (C, C1, CE, C1E)",
+    "bus": "Autobus (D, D1, DE, D1E)",
+    "fahrgast": "Przewóz osób (taksówka, wynajem samochodu z kierowcą, transport chorych)"
+   }
+  },
+  "exam_kind": {
+   "label": "Czy chodzi o pierwsze wydanie, czy o przedłużenie?",
+   "options": {
+    "erst": "Pierwsze wydanie",
+    "verlaengerung": "Przedłużenie"
+   }
+  },
+  "license_classes": {
+   "label": "Jakie kategorie prawa jazdy Pan/Pani posiada lub o jakie się ubiega?",
+   "options": {
+    "AM": "AM",
+    "A1": "A1",
+    "A2": "A2",
+    "A": "A",
+    "B": "B",
+    "BE": "BE",
+    "C1": "C1",
+    "C1E": "C1E",
+    "C": "C",
+    "CE": "CE",
+    "D1": "D1",
+    "D": "D",
+    "DE": "DE",
+    "T": "T"
+   }
+  },
+  "license_years": {
+   "label": "Od ilu lat posiada Pan/Pani prawo jazdy?",
+   "options": {
+    "erstantrag": "Jeszcze nie posiadam (pierwszy wniosek)",
+    "unter3": "Mniej niż 3 lata",
+    "3bis10": "3 do 10 lat",
+    "ueber10": "Ponad 10 lat"
+   }
+  },
+  "driving_hours": {
+   "label": "Ile godzin dziennie średnio Pan/Pani prowadzi?",
+   "options": {
+    "<1": "Mniej niż 1 godzinę",
+    "1-2": "1 do 2 godzin",
+    "2-4": "2 do 4 godzin",
+    ">4": "Ponad 4 godziny"
+   }
+  },
+  "night_driving": {
+   "label": "Czy regularnie jeździ Pan/Pani nocą?"
+  },
+  "accidents": {
+   "label": "Czy w ciągu ostatnich 24 miesięcy miał(a) Pan/Pani wypadki lub sytuacje bliskie wypadku w ruchu drogowym?",
+   "followup": "Co się wydarzyło?"
+  },
+  "license_withdrawn": {
+   "label": "Czy kiedykolwiek odebrano Panu/Pani prawo jazdy lub musiał(a) Pan/Pani przystąpić do badania medyczno-psychologicznego (MPU)?",
+   "followup": "Kiedy i z jakiego powodu?"
+  },
+  "psych_test_done": {
+   "label": "Czy dla tego prawa jazdy wykonał(a) Pan/Pani już psychologiczny test sprawności (test reakcji, koncentracji i uwagi)?",
+   "hint": "Dla kategorii autobusowych i przewozu osób ten dowód jest wymagany zgodnie z Anlage 5 FeV (niemieckie rozporządzenie o prawie jazdy). Proszę przynieść posiadaną opinię na badanie.",
+   "followup": "Kiedy i gdzie przeprowadzono test?"
+  },
+  "has_conditions": {
+   "label": "Czy ma Pan/Pani rozpoznaną wcześniejszą chorobę, trwałe ograniczenie sprawności fizycznej, lub czy pozostaje Pan/Pani pod stałą opieką lekarską?",
+   "hint": "Zalicza się do tego również poważne choroby przebyte dawniej (np. serce, cukrzyca, układ nerwowy, psychika). Jeśli nie, kwestionariusz będzie znacznie krótszy."
+  },
+  "seizure_ever": {
+   "label": "Czy kiedykolwiek miał(a) Pan/Pani napad padaczkowy lub drgawki?",
+   "followup": "Kiedy był ostatni napad, ile ich było łącznie i czy był czynnik wyzwalający (np. brak snu, gorączka, alkohol)?"
+  },
+  "epilepsy": {
+   "label": "Czy rozpoznano u Pana/Pani padaczkę?",
+   "followup": "Czy napady występują wyłącznie we śnie? Czy jest Pan/Pani pod stałą opieką neurologa?"
+  },
+  "seizure_free": {
+   "label": "Od jak dawna nie ma Pan/Pani napadów?",
+   "hint": "Wytyczne uzależniają zdolność do prowadzenia pojazdów od konkretnych okresów bez napadów.",
+   "options": {
+    "unter3m": "Mniej niż 3 miesiące",
+    "3bis6m": "3 do 6 miesięcy",
+    "6bis12m": "6 do 12 miesięcy",
+    "1bis2j": "1 do 2 lat",
+    "2bis5j": "2 do 5 lat",
+    "ueber5j": "Ponad 5 lat"
+   }
+  },
+  "antiepileptics": {
+   "label": "Czy przyjmuje Pan/Pani leki przeciw napadom (leki przeciwpadaczkowe)?",
+   "options": {
+    "nie": "Nie, nigdy nie przyjmowałem/przyjmowałam",
+    "aktuell": "Tak, obecnie",
+    "reduktion": "Leczenie jest obecnie stopniowo zmniejszane",
+    "ende_unter3m": "Zakończone mniej niż 3 miesiące temu",
+    "ende_ueber3m": "Zakończone ponad 3 miesiące temu"
+   }
+  },
+  "syncope": {
+   "label": "Czy kiedykolwiek nagle Pan/Pani zemdlał(a) (krótka utrata przytomności)?",
+   "options": {
+    "nie": "Nigdy",
+    "einmal": "Raz",
+    "mehrmals": "Kilka razy"
+   }
+  },
+  "syncope_recent": {
+   "label": "Czy ostatnie omdlenie miało miejsce mniej niż 6 miesięcy temu?",
+   "followup": "W jakiej sytuacji doszło do omdlenia i czy znaleziono przyczynę (np. krążenie, rytm serca, podczas oddawania moczu)?"
+  },
+  "syncope_prodromi": {
+   "label": "Czy omdlenie zapowiada się u Pana/Pani wcześniej (np. pocenie się, zawroty głowy, nudności, kołatanie serca)?"
+  },
+  "glasses": {
+   "label": "Czy podczas jazdy nosi Pan/Pani okulary lub soczewki kontaktowe?"
+  },
+  "eye_disease": {
+   "label": "Czy stwierdzono u Pana/Pani chorobę oczu (np. zaćmę, jaskrę, chorobę siatkówki, ograniczenie pola widzenia)?",
+   "followup": "Jaka to choroba i czy jest Pan/Pani pod opieką okulisty?"
+  },
+  "one_eyed": {
+   "label": "Czy jednym okiem widzi Pan/Pani wyraźnie gorzej lub jest Pan/Pani niewidomy(a) na jedno oko?"
+  },
+  "night_vision": {
+   "label": "Czy ma Pan/Pani problemy z widzeniem o zmierzchu lub w ciemności, albo czy pojazdy z naprzeciwka silnie Pana/Panią oślepiają?",
+   "followup": "W jakich sytuacjach występują te problemy?"
+  },
+  "hearing_impaired": {
+   "label": "Czy ma Pan/Pani znaczny niedosłuch lub jest Pan/Pani osobą niesłyszącą?",
+   "followup": "Od kiedy i czy jest Pan/Pani pod opieką laryngologa?"
+  },
+  "hearing_aid": {
+   "label": "Czy nosi Pan/Pani aparat słuchowy lub implant ślimakowy?"
+  },
+  "heart_disease": {
+   "label": "Czy stwierdzono u Pana/Pani chorobę serca lub naczyń?",
+   "hint": "np. zaburzenia rytmu, zawał serca, niewydolność serca, wada zastawki, zaburzenia ukrwienia",
+   "followup": "Jaka choroba (choroby), od kiedy i jak są leczone?"
+  },
+  "cardio_checkup": {
+   "label": "Czy z tego powodu jest Pan/Pani regularnie kontrolowany(a) przez kardiologa?",
+   "followup": "Kiedy była ostatnia kontrola?"
+  },
+  "heart_attack": {
+   "label": "Czy przebył(a) Pan/Pani zawał serca, wszczepienie stentu lub operację pomostowania (bajpasy)?",
+   "followup": "Kiedy miało miejsce zdarzenie lub zabieg i czy wystąpiły powikłania (np. osłabiona funkcja pompowania serca)?"
+  },
+  "arrhythmia": {
+   "label": "Czy stwierdzono u Pana/Pani zaburzenia rytmu serca (np. uczucie „potykania się” serca, kołatanie, wyraźnie wolny puls, migotanie przedsionków, blok AV)?",
+   "followup": "Jakie rozpoznanie i jak jest leczone?"
+  },
+  "pacemaker_icd": {
+   "label": "Czy ma Pan/Pani wszczepiony rozrusznik serca lub defibrylator (ICD)?",
+   "options": {
+    "nein": "Nie",
+    "schrittmacher": "Rozrusznik serca",
+    "icd": "Defibrylator (ICD)"
+   },
+   "followup": "Kiedy wszczepiono i kiedy była ostatnia kontrola?"
+  },
+  "icd_shock": {
+   "label": "Czy Pana/Pani defibrylator w ciągu ostatnich 3 miesięcy oddał wyładowanie (szok)?",
+   "followup": "Kiedy i co powiedział na to Pana/Pani kardiolog?"
+  },
+  "exertion_symptoms": {
+   "label": "Czy przy wysiłku występuje u Pana/Pani duszność, ból w klatce piersiowej, kołatanie serca lub niezwykłe wyczerpanie?",
+   "hint": "Samoocena według stopni NYHA",
+   "options": {
+    "keine": "Nie, brak dolegliwości przy codziennym wysiłku",
+    "stark": "Przy większym wysiłku (np. szybkie wchodzenie po schodach)",
+    "leicht": "Już przy lekkim wysiłku (np. powolne chodzenie)",
+    "ruhe": "Już w spoczynku"
+   }
+  },
+  "hypertension": {
+   "label": "Czy stwierdzono u Pana/Pani nadciśnienie tętnicze?",
+   "followup": "Od kiedy, jakie leki i jakie wartości zwykle Pan/Pani mierzy?"
+  },
+  "bp_dizziness": {
+   "label": "Czy przy lekach na nadciśnienie występują u Pana/Pani zawroty głowy, uczucie osłabienia lub ciemność przed oczami?"
+  },
+  "heart_other": {
+   "label": "Czy stwierdzono u Pana/Pani inną chorobę serca lub naczyń: wadę zastawki serca, wrodzoną wadę serca, chorobę mięśnia sercowego (kardiomiopatię), dziedziczną chorobę rytmu (np. zespół długiego QT), tętniaka aorty lub zwężenie tętnicy szyjnej?",
+   "followup": "Jakie rozpoznanie i jak jest kontrolowane/leczone?"
+  },
+  "family_sudden_death": {
+   "label": "Czy w Pana/Pani najbliższej rodzinie (rodzice, rodzeństwo, dzieci) wystąpił nagły zgon sercowy?"
+  },
+  "stroke": {
+   "label": "Czy przebył(a) Pan/Pani kiedykolwiek udar mózgu, krwotok mózgowy lub TIA (przemijające zaburzenie ukrwienia z krótkotrwałymi objawami)?",
+   "followup": "Kiedy miało miejsce zdarzenie i czy zakończono rehabilitację?"
+  },
+  "stroke_residuals": {
+   "label": "Czy od tego czasu utrzymują się następstwa, takie jak porażenia, zaburzenia mowy, problemy z pamięcią lub ograniczenia pola widzenia?",
+   "followup": "Jakie dolegliwości utrzymują się obecnie?"
+  },
+  "head_injury": {
+   "label": "Czy doznał(a) Pan/Pani kiedykolwiek ciężkiego urazu głowy (z utratą przytomności lub pobytem w szpitalu) albo przebył(a) operację mózgu?",
+   "followup": "Kiedy i co leczono?"
+  },
+  "head_injury_recent": {
+   "label": "Czy ten uraz lub operacja miały miejsce mniej niż 3 miesiące temu?",
+   "hint": "Po urazie lub operacji mózgu zgodnie z wytycznymi z reguły przez 3 miesiące nie ma zdolności do prowadzenia pojazdów."
+  },
+  "brain_residuals": {
+   "label": "Czy od urazu/operacji występują dolegliwości, takie jak zaburzenia koncentracji lub pamięci, zmiana osobowości lub napady drgawkowe?",
+   "followup": "Jakie dolegliwości i jak się objawiają?"
+  },
+  "parkinson": {
+   "label": "Czy rozpoznano u Pana/Pani chorobę Parkinsona lub inne zaburzenie ruchu bądź koordynacji?",
+   "followup": "Od kiedy, jak jest leczone i kiedy była ostatnia kontrola neurologiczna?"
+  },
+  "ms_spinal": {
+   "label": "Czy stwierdzono u Pana/Pani stwardnienie rozsiane, chorobę rdzenia kręgowego lub uraz rdzenia kręgowego?",
+   "followup": "Jakie rozpoznanie i jakie dolegliwości ma Pan/Pani obecnie?"
+  },
+  "muscle_nerve": {
+   "label": "Czy stwierdzono u Pana/Pani chorobę mięśni lub nerwów (np. zanik mięśni, miastenię, polineuropatię)?",
+   "followup": "Jakie rozpoznanie i jak duże są ograniczenia?"
+  },
+  "paralysis_attacks": {
+   "label": "Czy występują u Pana/Pani napadowe porażenia lub nagłe silne osłabienie mięśni?",
+   "followup": "Kiedy wystąpił ostatni napad i jak szybko się zaczyna?"
+  },
+  "motor_limits": {
+   "label": "Czy ma Pan/Pani porażenia, osłabienie mięśni lub zaburzenia czucia w rękach lub nogach, które mogłyby ograniczać obsługę pojazdu?",
+   "followup": "Które części ciała są dotknięte?"
+  },
+  "vertigo": {
+   "label": "Czy cierpi Pan/Pani na zawroty głowy lub zaburzenia równowagi (np. uczucie wirowania, chwianie się, niepewność przy chodzeniu)?",
+   "followup": "Jak odczuwany jest zawrót głowy, jak często występuje, jak długo trwa napad i co go wywołuje?"
+  },
+  "vertigo_last": {
+   "label": "Ile czasu minęło od ostatniego napadu zawrotów głowy?",
+   "options": {
+    "unter3m": "Mniej niż 3 miesiące",
+    "3bis6m": "3 do 6 miesięcy",
+    "6bis12m": "6 do 12 miesięcy",
+    "1bis2j": "1 do 2 lat",
+    "ueber2j": "Ponad 2 lata"
+   }
+  },
+  "vertigo_prodromi": {
+   "label": "Czy napady zawrotów głowy zapowiadają się wcześniej (np. uczucie ucisku w uchu, szumy uszne, pogorszenie słuchu), tak że mógłby Pan / mogłaby Pani w porę się zatrzymać?",
+   "options": {
+    "immer": "Tak, zawsze",
+    "manchmal": "Czasami",
+    "nie": "Nie, przychodzą bez ostrzeżenia"
+   }
+  },
+  "vertigo_positional": {
+   "label": "Czy zawroty głowy są wywoływane przez określone ruchy głowy lub zmiany pozycji (np. obracanie się w łóżku, schylanie)?"
+  },
+  "vertigo_ear": {
+   "label": "Czy zawroty głowy występują razem z pogorszeniem słuchu, szumami usznymi (tinnitus) lub uczuciem ucisku w uchu?"
+  },
+  "ear_disease": {
+   "label": "Czy stwierdzono u Pana/Pani chorobę narządu równowagi lub ucha wewnętrznego (np. położeniowe zawroty głowy, chorobę Ménière'a)?",
+   "followup": "Jakie rozpoznanie, jak leczono i czy od tego czasu jest Pan/Pani bez dolegliwości?"
+  },
+  "mobility_limits": {
+   "label": "Czy ma Pan/Pani trwałe ograniczenie ruchomości rąk, nóg, dłoni lub kręgosłupa (np. po wypadku, operacji, amputacji)?",
+   "followup": "Które części ciała są dotknięte i od kiedy?"
+  },
+  "prosthesis": {
+   "label": "Czy nosi Pan/Pani protezę lub korzysta z pomocy ortopedycznych?",
+   "followup": "Jakie pomoce i czy ma Pan/Pani dolegliwości przy dłuższym obciążeniu?"
+  },
+  "vehicle_modified": {
+   "label": "Czy Pana/Pani pojazd jest przystosowany z powodu ograniczenia fizycznego (np. obsługa ręczna, wspomaganie kierowania)?",
+   "followup": "Jakie przeróbki i czy są wpisane w prawie jazdy?"
+  },
+  "diabetes_type": {
+   "label": "Czy stwierdzono u Pana/Pani cukrzycę (diabetes mellitus)?",
+   "options": {
+    "none": "Nie",
+    "type1": "Tak, typu 1",
+    "type2": "Tak, typu 2",
+    "other": "Tak, inna/niejasna postać"
+   }
+  },
+  "diabetes_therapy": {
+   "label": "Jak obecnie leczona jest Pana/Pani cukrzyca?",
+   "options": {
+    "lifestyle": "Tylko dieta / styl życia",
+    "tabl_low": "Tabletki o niskim ryzyku niedocukrzenia (np. metformina)",
+    "tabl_high": "Tabletki z ryzykiem niedocukrzenia (pochodne sulfonylomocznika, glinidy)",
+    "insulin": "Insulina",
+    "unknown": "Nie wiem dokładnie"
+   }
+  },
+  "hypoglycemia": {
+   "label": "Czy w ciągu ostatnich 12 miesięcy miał(a) Pan/Pani ciężkie niedocukrzenie (hipoglikemię), przy którym potrzebna była pomoc innych osób?",
+   "followup": "Jak często, kiedy był ostatni epizod i czy wystąpił na jawie, czy we śnie?"
+  },
+  "hypo_awareness": {
+   "label": "Czy zdarzyło się, że nie zauważył(a) Pan/Pani niedocukrzenia w porę (brak objawów ostrzegawczych)?",
+   "followup": "Kiedy ostatnio i czy coś podjęto (np. szkolenie, zmiana terapii)?"
+  },
+  "glucose_monitoring": {
+   "label": "Czy regularnie samodzielnie mierzy Pan/Pani poziom cukru we krwi (lub nosi sensor glukozy)?",
+   "options": {
+    "2x": "Tak, co najmniej dwa razy dziennie",
+    "seltener": "Tak, ale rzadziej",
+    "nein": "Nie",
+    "keine_med": "Nie dotyczy mnie (nie przyjmuję leków obniżających poziom cukru)"
+   }
+  },
+  "diabetes_derailment": {
+   "label": "Czy w ostatnich miesiącach doszło do nowego ustawienia terapii lub rozchwiania cukrzycy (np. leczenie szpitalne z powodu rozchwianych wartości)?",
+   "followup": "Co się wydarzyło i kiedy?"
+  },
+  "kidney_disease": {
+   "label": "Czy stwierdzono u Pana/Pani przewlekłą chorobę nerek lub niewydolność nerek?",
+   "followup": "Jaka choroba i czy jest Pan/Pani pod opieką nefrologa?"
+  },
+  "dialysis": {
+   "label": "Czy jest Pan/Pani regularnie leczony(a) dializami (oczyszczanie krwi)?",
+   "followup": "Od kiedy i ile razy w tygodniu? Czy między zabiegami czuje się Pan/Pani sprawny(a)?"
+  },
+  "transplant": {
+   "label": "Czy przeszczepiono Panu/Pani narząd (np. nerkę, serce, wątrobę, płuco)?",
+   "followup": "Jaki narząd, kiedy i czy jest Pan/Pani pod regularną opieką kontrolną?"
+  },
+  "lung_disease": {
+   "label": "Czy choruje Pan/Pani na przewlekłą chorobę płuc lub oskrzeli (np. POChP, astmę, zwłóknienie płuc)?",
+   "followup": "Jaka choroba i jak jest leczona?"
+  },
+  "dyspnea": {
+   "label": "Czy ma Pan/Pani duszność już przy lekkim wysiłku lub w spoczynku, albo czy wymaga Pan/Pani długotrwałej tlenoterapii?"
+  },
+  "cough_syncope": {
+   "label": "Czy przy silnych napadach kaszlu dochodziło już do zawrotów głowy, ciemności przed oczami lub krótkiej utraty przytomności?"
+  },
+  "daytime_sleepiness": {
+   "label": "Czy trudno jest Panu/Pani w ciągu dnia pozostać czujnym(ą) i uważnym(ą) – zwłaszcza w monotonnych sytuacjach (np. czytanie, zebrania, dłuższe jazdy samochodem)?"
+  },
+  "microsleep": {
+   "label": "Czy w ostatnich miesiącach zdarzyło się Panu/Pani niezamierzone zaśnięcie lub tzw. mikrosen (sekundowe zaśnięcie)?",
+   "followup": "W jakich sytuacjach? Czy zdarzyło się to także za kierownicą?"
+  },
+  "snoring": {
+   "label": "Czy mówiono Panu/Pani, że głośno i nieregularnie Pan/Pani chrapie lub ma w nocy przerwy w oddychaniu?"
+  },
+  "osas": {
+   "label": "Czy stwierdzono u Pana/Pani zespół bezdechu sennego (nocne przerwy w oddychaniu)?",
+   "followup": "Kiedy postawiono rozpoznanie i jaki stwierdzono stopień ciężkości lub wartość AHI (jeśli znana)?"
+  },
+  "cpap": {
+   "label": "Czy jest Pan/Pani leczony(a) z powodu bezdechu sennego (np. maska oddechowa CPAP)?",
+   "options": {
+    "regelmaessig": "Tak, regularnie (prawie każdej nocy)",
+    "unregelmaessig": "Tak, ale nieregularnie",
+    "abgebrochen": "Leczenie zostało przerwane",
+    "keine": "Nie, brak leczenia"
+   }
+  },
+  "psychiatric": {
+   "label": "Czy rozpoznano u Pana/Pani chorobę psychiczną (np. depresję, zaburzenia lękowe, chorobę afektywną dwubiegunową)?",
+   "followup": "Jaka choroba i jak jest leczona?"
+  },
+  "psychiatric_severe": {
+   "label": "Czy był(a) Pan/Pani z tego powodu w leczeniu szpitalnym, miał(a) Pan/Pani fazę maniakalną lub myśli samobójcze?",
+   "followup": "Kiedy było to ostatnio?"
+  },
+  "psychosis": {
+   "label": "Czy kiedykolwiek rozpoznano u Pana/Pani schizofrenię lub inną psychozę (chorobę z urojeniami lub omamami)?",
+   "followup": "Ile było ostrych epizodów, kiedy był ostatni i czy jest Pan/Pani pod opieką lekarza specjalisty?"
+  },
+  "memory_problems": {
+   "label": "Czy Pan/Pani sam(a) lub Pana/Pani bliscy zauważyli ostatnio narastające problemy z pamięcią lub orientacją?",
+   "followup": "Od kiedy i jak wpływają na codzienne życie?"
+  },
+  "concentration": {
+   "label": "Czy ma Pan/Pani problemy z koncentracją lub uwagą?"
+  },
+  "alcohol": {
+   "label": "Jak często pije Pan/Pani alkohol?",
+   "options": {
+    "nie": "Nigdy",
+    "selten": "Rzadko (najwyżej raz w miesiącu)",
+    "woechentlich": "1–2 razy w tygodniu",
+    "mehrmals": "Kilka razy w tygodniu",
+    "taeglich": "Codziennie lub prawie codziennie"
+   }
+  },
+  "alcohol_control": {
+   "label": "Czy zdarzyło się, że wypił(a) Pan/Pani więcej niż zamierzał(a) lub stracił(a) kontrolę nad piciem?"
+  },
+  "alcohol_traffic": {
+   "label": "Czy kiedykolwiek został(a) Pan/Pani zatrzymany(a) w ruchu drogowym pod wpływem alkoholu (np. jazda po alkoholu, grzywna, MPU – badanie medyczno-psychologiczne)?",
+   "followup": "Kiedy i jaki poziom promili stwierdzono (jeśli znany)?"
+  },
+  "alcohol_dependence": {
+   "label": "Czy kiedykolwiek stwierdzono u Pana/Pani uzależnienie od alkoholu lub przeszedł/przeszła Pan/Pani detoksykację bądź leczenie odwykowe?",
+   "followup": "Kiedy zakończono leczenie i od kiedy żyje Pan/Pani w abstynencji?"
+  },
+  "drugs": {
+   "label": "Czy obecnie zażywa Pan/Pani narkotyki (np. konopie/cannabis, kokainę, amfetaminę) lub czy wcześniej regularnie Pan/Pani je zażywał(a)?",
+   "followup": "Jakie substancje, jak często i kiedy ostatnio?"
+  },
+  "cannabis": {
+   "label": "Jak często używa Pan/Pani konopi (cannabis)?",
+   "options": {
+    "nie": "Nigdy",
+    "gelegentlich": "Okazjonalnie (nieregularnie)",
+    "regelmaessig": "Regularnie (codziennie lub nawykowo)"
+   }
+  },
+  "substitution": {
+   "label": "Czy otrzymuje Pan/Pani leczenie substytucyjne (np. metadon)?",
+   "followup": "Od kiedy?"
+  },
+  "regular_meds": {
+   "label": "Czy regularnie przyjmuje Pan/Pani leki?",
+   "followup": "Jakie leki i na co?"
+  },
+  "sedating_meds": {
+   "label": "Czy są wśród nich leki, które mogą powodować senność lub wpływać na zdolność reakcji (np. silne leki przeciwbólowe/opioidy, leki nasenne lub uspokajające, leki przeciwdepresyjne, przeciwpadaczkowe, leki na alergię)?",
+   "followup": "Jakie leki i w jakiej dawce?"
+  },
+  "med_side_effects": {
+   "label": "Czy przy swoich lekach zauważa Pan/Pani działania niepożądane, takie jak zmęczenie, spowolnienie, zaburzenia koncentracji lub zawroty głowy?",
+   "followup": "Jakie działania niepożądane i jak silne?"
+  },
+  "med_recent_change": {
+   "label": "Czy w ostatnich tygodniach rozpoczęto podawanie takiego leku lub wyraźnie zmieniono jego dawkę?",
+   "followup": "Jaki lek i kiedy?"
+  },
+  "benzo_regular": {
+   "label": "Czy od kilku miesięcy regularnie – choćby tylko wieczorem w małej ilości – przyjmuje Pan/Pani leki nasenne lub uspokajające (np. benzodiazepiny)?",
+   "followup": "Jaki środek, od jak dawna i czy przy odstawieniu zauważa Pan/Pani objawy odstawienne?"
+  },
+  "multiple_conditions": {
+   "label": "Czy występuje u Pana/Pani jednocześnie kilka chorób lub ograniczeń zdrowotnych?",
+   "hint": "Kilka nieprawidłowości może łącznie mieć znaczenie dla zdolności do prowadzenia pojazdów, nawet jeśli każda z osobna byłaby niegroźna (wytyczne, rozdz. 2.7).",
+   "followup": "Proszę krótko wymienić wszystkie znane choroby."
+  },
+  "other_conditions": {
+   "label": "Czy istnieją inne choroby, dolegliwości lub wcześniejsze operacje, które nie zostały dotąd wymienione?",
+   "followup": "Jakie?"
+  },
+  "driving_adaptation": {
+   "label": "Czy z powodu ograniczeń zdrowotnych świadomie rezygnuje Pan/Pani z niektórych jazd (np. po ciemku, długie trasy, autostrada)?",
+   "followup": "Z jakich jazd i dlaczego?"
+  },
+  "consent_truth": {
+   "label": "Potwierdzam, że moje odpowiedzi są kompletne i zgodne z prawdą.",
+   "error": "Proszę potwierdzić kompletność swoich odpowiedzi."
+  },
+  "consent_privacy": {
+   "label": "Zapoznałem/zapoznałam się z informacjami o ochronie danych i wyrażam zgodę na przetwarzanie moich danych do celów medycyny ruchu drogowego.",
+   "error": "Proszę zaakceptować informacje o ochronie danych."
+  }
+ },
+ "ess_items": {
+  "ess_1": "Siedząc i czytając",
+  "ess_2": "Oglądając telewizję",
+  "ess_3": "Siedząc bezczynnie w miejscu publicznym (np. w teatrze lub na zebraniu)",
+  "ess_4": "Jako pasażer w samochodzie podczas godzinnej jazdy bez przerwy",
+  "ess_5": "Leżąc po południu, aby odpocząć",
+  "ess_6": "Siedząc i rozmawiając z kimś",
+  "ess_7": "Siedząc spokojnie po obiedzie (bez alkoholu)",
+  "ess_8": "Jako kierowca samochodu, gdy musi Pan/Pani zatrzymać się na kilka minut z powodu ruchu drogowego"
+ }
+}

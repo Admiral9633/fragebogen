@@ -1,0 +1,585 @@
+{
+ "_meta": {
+  "language": "nl",
+  "name": "Nederlands",
+  "machine_translated": true
+ },
+ "ui": {
+  "header_title": "Verkeersgeneeskundige vragenlijst",
+  "header_subtitle": "Beantwoord alstublieft alle vragen",
+  "language_label": "Taal",
+  "loading": "Vragenlijst wordt geladen …",
+  "not_found_title": "Vragenlijst niet gevonden",
+  "to_start": "Naar de startpagina",
+  "back": "Terug",
+  "next": "Verder",
+  "skip": "Overslaan",
+  "submit": "Versturen",
+  "sending": "Bezig met versturen…",
+  "question_of": "Vraag {current} van {total}",
+  "answer_placeholder": "Uw antwoord…",
+  "required_error": "Beantwoord alstublieft deze vraag.",
+  "yes": "Ja",
+  "no": "Nee",
+  "consent_title": "Toestemming",
+  "followup_hint": "Vrijwillige aanvullende informatie – helpt bij de medische beoordeling.",
+  "ess_question": "Hoe groot is de kans dat u in deze situatie indommelt?",
+  "ess_sum": "Som tot nu toe",
+  "ess_opt_0": "0 – Zou nooit indommelen",
+  "ess_opt_1": "1 – Kleine kans",
+  "ess_opt_2": "2 – Gemiddelde kans",
+  "ess_opt_3": "3 – Grote kans",
+  "privacy_button": "Privacyverklaring tonen",
+  "privacy_title": "Privacyverklaring",
+  "privacy_subtitle": "Informatie over de verwerking van uw gegevens volgens Art. 13 DSGVO (AVG)",
+  "privacy_controller": "Verwerkingsverantwoordelijke: Dr. med. Björn Micka, bedrijfsgeneeskunde · spoedeisende geneeskunde, Christoph-Dassler-Str. 22, 91074 Herzogenaurach",
+  "privacy_purpose": "Doel van de verwerking: uw antwoorden in deze vragenlijst (inclusief gezondheidsgegevens) worden uitsluitend gebruikt voor de voorbereiding en uitvoering van uw verkeersgeneeskundig onderzoek.",
+  "privacy_legal": "Rechtsgrondslag: uw toestemming (Art. 6 Abs. 1 lit. a, Art. 9 Abs. 2 lit. a DSGVO – AVG). U kunt uw toestemming te allen tijde intrekken, met werking voor de toekomst.",
+  "privacy_storage": "Bewaring: het resultaat wordt opgenomen in uw onderzoeksdossier en valt onder de medische bewaartermijnen. De onlinetoegang via uw persoonlijke link vervalt na afloop van de geldigheid; de gegevens van deze onlinevragenlijst worden daarna routinematig gewist.",
+  "privacy_rights": "Uw rechten: u heeft recht op inzage, rectificatie, wissing en beperking van de verwerking, en het recht om een klacht in te dienen bij de bevoegde toezichthouder voor gegevensbescherming.",
+  "privacy_secrecy": "Alle gegevens vallen onder het medisch beroepsgeheim.",
+  "success_title": "Hartelijk dank!",
+  "success_text": "Uw vragenlijst is met succes verzonden.",
+  "success_result": "ESS-resultaat",
+  "success_doctor_note": "Bespreek het resultaat alstublieft met uw arts. De definitieve beoordeling gebeurt door een medisch specialist.",
+  "success_pdf": "PDF-samenvatting downloaden",
+  "success_close": "U kunt dit venster nu sluiten.",
+  "band_normal": "Normaal (0–9)",
+  "band_elevated": "Verhoogd (10–15)",
+  "band_severe": "Sterk verhoogd (≥16)",
+  "submit_error": "Fout bij het versturen. Controleer alstublieft uw gegevens."
+ },
+ "sections": {
+  "anlass": {
+   "title": "Aanleiding & rijprofiel",
+   "subtitle": "Gegevens over het onderzoek en uw rijactiviteit"
+  },
+  "gesundheit": {
+   "title": "Gezondheidstoestand",
+   "subtitle": "Eerst één vraag"
+  },
+  "anfaelle": {
+   "title": "Aanvallen & bewusteloosheid",
+   "subtitle": "Risico op plotselinge uitval – epileptische aanvallen en flauwvallen"
+  },
+  "sehen_hoeren": {
+   "title": "Zien & horen",
+   "subtitle": "Gezichts- en gehoorfunctie"
+  },
+  "herz": {
+   "title": "Hart & bloedsomloop",
+   "subtitle": "Hart- en vaatziekten"
+  },
+  "gehirn": {
+   "title": "Beroerte & hersenen",
+   "subtitle": "Doorbloedingsstoornissen, letsel en operaties van de hersenen"
+  },
+  "neuro": {
+   "title": "Zenuwstelsel",
+   "subtitle": "Neurologische aandoeningen"
+  },
+  "schwindel": {
+   "title": "Evenwicht & duizeligheid",
+   "subtitle": "Vormen van duizeligheid en evenwichtsstoornissen"
+  },
+  "bewegung": {
+   "title": "Bewegingsapparaat",
+   "subtitle": "Lichamelijke beperkingen en hulpmiddelen"
+  },
+  "diabetes": {
+   "title": "Diabetes / stofwisseling",
+   "subtitle": "Suikerziekte en te lage bloedsuikers (hypo's)"
+  },
+  "organe": {
+   "title": "Inwendige organen",
+   "subtitle": "Nieren, longen en transplantaties"
+  },
+  "schlaf": {
+   "title": "Slaap & slaperigheid overdag",
+   "subtitle": "Incl. Epworth Sleepiness Scale (ESS)"
+  },
+  "psyche": {
+   "title": "Psychische gezondheid",
+   "subtitle": "Psychische aandoeningen en geheugen"
+  },
+  "substanzen": {
+   "title": "Alcohol, drugs & medicijnen",
+   "subtitle": "Gebruik en langdurige medicatie"
+  },
+  "allgemein": {
+   "title": "Algemeen & toestemming",
+   "subtitle": "Overige gegevens en verklaringen"
+  }
+ },
+ "questions": {
+  "exam_occasion": {
+   "label": "Voor welk rijbewijs vindt het onderzoek plaats?",
+   "options": {
+    "pkw": "Personenauto / andere categorie",
+    "lkw": "Vrachtwagen (C, C1, CE, C1E)",
+    "bus": "Bus (D, D1, DE, D1E)",
+    "fahrgast": "Personenvervoer (taxi, huurauto met chauffeur, ziekenvervoer)"
+   }
+  },
+  "exam_kind": {
+   "label": "Gaat het om een eerste afgifte of een verlenging?",
+   "options": {
+    "erst": "Eerste afgifte",
+    "verlaengerung": "Verlenging"
+   }
+  },
+  "license_classes": {
+   "label": "Welke rijbewijscategorieën bezit u of vraagt u aan?",
+   "options": {
+    "AM": "AM",
+    "A1": "A1",
+    "A2": "A2",
+    "A": "A",
+    "B": "B",
+    "BE": "BE",
+    "C1": "C1",
+    "C1E": "C1E",
+    "C": "C",
+    "CE": "CE",
+    "D1": "D1",
+    "D": "D",
+    "DE": "DE",
+    "T": "T"
+   }
+  },
+  "license_years": {
+   "label": "Sinds hoeveel jaar bezit u een rijbewijs?",
+   "options": {
+    "erstantrag": "Nog geen (eerste aanvraag)",
+    "unter3": "Minder dan 3 jaar",
+    "3bis10": "3 tot 10 jaar",
+    "ueber10": "Meer dan 10 jaar"
+   }
+  },
+  "driving_hours": {
+   "label": "Hoeveel uur rijdt u gemiddeld per dag?",
+   "options": {
+    "<1": "Minder dan 1 uur",
+    "1-2": "1 tot 2 uur",
+    "2-4": "2 tot 4 uur",
+    ">4": "Meer dan 4 uur"
+   }
+  },
+  "night_driving": {
+   "label": "Rijdt u regelmatig 's nachts?"
+  },
+  "accidents": {
+   "label": "Heeft u in de afgelopen 24 maanden ongevallen of bijna-ongevallen in het verkeer gehad?",
+   "followup": "Wat is er gebeurd?"
+  },
+  "license_withdrawn": {
+   "label": "Is uw rijbewijs ooit ingetrokken, of heeft u ooit moeten deelnemen aan een medisch-psychologisch onderzoek (MPU)?",
+   "followup": "Wanneer en om welke reden?"
+  },
+  "psych_test_done": {
+   "label": "Heeft u voor dit rijbewijs al een psychologische prestatietest (reactie-, concentratie- en aandachtstest) afgelegd?",
+   "hint": "Voor buscategorieën en personenvervoer is dit bewijs volgens Anlage 5 FeV (bijlage 5 van de Duitse rijbewijsverordening) verplicht. Neem een bestaand rapport alstublieft mee naar het onderzoek.",
+   "followup": "Wanneer en waar is de test afgenomen?"
+  },
+  "has_conditions": {
+   "label": "Heeft u een bekende bestaande aandoening, een blijvende lichamelijke beperking, of bent u onder regelmatige medische behandeling?",
+   "hint": "Hieronder vallen ook ernstige ziekten van langer geleden (bijv. hart, diabetes, zenuwen, psyche). Zo niet, dan wordt de vragenlijst aanzienlijk korter."
+  },
+  "seizure_ever": {
+   "label": "Heeft u ooit een epileptische aanval of stuipaanval gehad?",
+   "followup": "Wanneer was de laatste aanval, hoeveel heeft u er in totaal gehad, en was er een uitlokkende factor (bijv. slaaptekort, koorts, alcohol)?"
+  },
+  "epilepsy": {
+   "label": "Is bij u epilepsie vastgesteld?",
+   "followup": "Treden de aanvallen uitsluitend tijdens de slaap op? Bent u onder regelmatige neurologische behandeling?"
+  },
+  "seizure_free": {
+   "label": "Hoe lang bent u inmiddels aanvalsvrij?",
+   "hint": "De richtlijnen koppelen de rijgeschiktheid aan concrete aanvalsvrije periodes.",
+   "options": {
+    "unter3m": "Minder dan 3 maanden",
+    "3bis6m": "3 tot 6 maanden",
+    "6bis12m": "6 tot 12 maanden",
+    "1bis2j": "1 tot 2 jaar",
+    "2bis5j": "2 tot 5 jaar",
+    "ueber5j": "Meer dan 5 jaar"
+   }
+  },
+  "antiepileptics": {
+   "label": "Neemt u medicijnen tegen aanvallen (anti-epileptica)?",
+   "options": {
+    "nie": "Nee, nooit gebruikt",
+    "aktuell": "Ja, momenteel",
+    "reduktion": "De behandeling wordt momenteel stapsgewijs afgebouwd",
+    "ende_unter3m": "Minder dan 3 maanden geleden gestopt",
+    "ende_ueber3m": "Meer dan 3 maanden geleden gestopt"
+   }
+  },
+  "syncope": {
+   "label": "Bent u ooit plotseling flauwgevallen (korte bewusteloosheid)?",
+   "options": {
+    "nie": "Nog nooit",
+    "einmal": "Eén keer",
+    "mehrmals": "Meerdere keren"
+   }
+  },
+  "syncope_recent": {
+   "label": "Is uw laatste flauwvallen minder dan 6 maanden geleden?",
+   "followup": "In welke situatie trad het flauwvallen op, en is er een oorzaak gevonden (bijv. bloedsomloop, hartritme, bij het plassen)?"
+  },
+  "syncope_prodromi": {
+   "label": "Kondigt flauwvallen zich bij u van tevoren aan (bijv. zweten, duizeligheid, misselijkheid, hartkloppingen)?"
+  },
+  "glasses": {
+   "label": "Draagt u tijdens het rijden een bril of contactlenzen?"
+  },
+  "eye_disease": {
+   "label": "Is bij u een oogaandoening bekend (bijv. staar/cataract, glaucoom, netvliesaandoening, beperking van het gezichtsveld)?",
+   "followup": "Welke aandoening, en bent u onder behandeling van een oogarts?"
+  },
+  "one_eyed": {
+   "label": "Ziet u met één oog duidelijk slechter, of bent u aan één oog blind?"
+  },
+  "night_vision": {
+   "label": "Heeft u problemen met zien in de schemering of het donker, of wordt u sterk verblind door tegenliggers?",
+   "followup": "In welke situaties treden de problemen op?"
+  },
+  "hearing_impaired": {
+   "label": "Bent u ernstig slechthorend of doof?",
+   "followup": "Sinds wanneer, en bent u onder behandeling van een KNO-arts?"
+  },
+  "hearing_aid": {
+   "label": "Draagt u een hoortoestel of cochleair implantaat?"
+  },
+  "heart_disease": {
+   "label": "Is bij u een hart- of vaatziekte bekend?",
+   "hint": "bijv. ritmestoornissen, hartinfarct, hartfalen, klepafwijkingen, doorbloedingsstoornissen",
+   "followup": "Welke aandoening(en), sinds wanneer, en hoe worden ze behandeld?"
+  },
+  "cardio_checkup": {
+   "label": "Bent u daarvoor regelmatig onder controle bij een cardioloog?",
+   "followup": "Wanneer was de laatste controle?"
+  },
+  "heart_attack": {
+   "label": "Heeft u ooit een hartinfarct, een stentbehandeling of een bypassoperatie gehad?",
+   "followup": "Wanneer was de gebeurtenis of de ingreep, en waren er complicaties (bijv. verminderde pompfunctie)?"
+  },
+  "arrhythmia": {
+   "label": "Zijn bij u hartritmestoornissen bekend (bijv. hartoverslagen, hartkloppingen, opvallend langzame pols, boezemfibrilleren, AV-blok)?",
+   "followup": "Welke diagnose, en hoe wordt behandeld?"
+  },
+  "pacemaker_icd": {
+   "label": "Draagt u een pacemaker of defibrillator (ICD)?",
+   "options": {
+    "nein": "Nee",
+    "schrittmacher": "Pacemaker",
+    "icd": "Defibrillator (ICD)"
+   },
+   "followup": "Wanneer geplaatst, en wanneer was de laatste controle?"
+  },
+  "icd_shock": {
+   "label": "Heeft uw defibrillator in de afgelopen 3 maanden een schok afgegeven?",
+   "followup": "Wanneer, en wat zei uw cardioloog daarover?"
+  },
+  "exertion_symptoms": {
+   "label": "Krijgt u bij inspanning kortademigheid, pijn op de borst, hartoverslagen of ongewone uitputting?",
+   "hint": "Zelfinschatting volgens de NYHA-stadia",
+   "options": {
+    "keine": "Nee, geen klachten bij dagelijkse inspanning",
+    "stark": "Bij zwaardere inspanning (bijv. vlot traplopen)",
+    "leicht": "Al bij lichte inspanning (bijv. langzaam lopen)",
+    "ruhe": "Al in rust"
+   }
+  },
+  "hypertension": {
+   "label": "Is bij u een hoge bloeddruk bekend?",
+   "followup": "Sinds wanneer, welke medicijnen, en welke waarden meet u gewoonlijk?"
+  },
+  "bp_dizziness": {
+   "label": "Krijgt u onder uw bloeddrukmedicijnen last van duizeligheid, een zwak gevoel of zwart worden voor de ogen?"
+  },
+  "heart_other": {
+   "label": "Is bij u nog een andere hart-/vaatziekte bekend: hartklepafwijking, aangeboren hartafwijking, hartspierziekte (cardiomyopathie), erfelijke ritmestoornis (bijv. lang-QT), aorta-aneurysma of vernauwde halsslagader?",
+   "followup": "Welke diagnose, en hoe wordt die gecontroleerd/behandeld?"
+  },
+  "family_sudden_death": {
+   "label": "Is er in uw naaste familie (ouders, broers en zussen, kinderen) een plotselinge hartdood voorgekomen?"
+  },
+  "stroke": {
+   "label": "Heeft u ooit een beroerte, een hersenbloeding of een TIA (voorbijgaande doorbloedingsstoornis met kortdurende uitvalsverschijnselen) gehad?",
+   "followup": "Wanneer was de gebeurtenis, en is er een revalidatie afgerond?"
+  },
+  "stroke_residuals": {
+   "label": "Bestaan er sindsdien nog gevolgen zoals verlammingen, spraakstoornissen, geheugenproblemen of beperkingen van het gezichtsveld?",
+   "followup": "Welke klachten bestaan er op dit moment nog?"
+  },
+  "head_injury": {
+   "label": "Heeft u ooit een ernstig hoofdletsel (met bewusteloosheid of ziekenhuisopname) of een operatie aan de hersenen gehad?",
+   "followup": "Wanneer, en wat is er behandeld?"
+  },
+  "head_injury_recent": {
+   "label": "Is dit letsel of deze operatie minder dan 3 maanden geleden?",
+   "hint": "Na hersenletsel of een hersenoperatie bestaat er volgens de richtlijn in het algemeen gedurende 3 maanden geen rijgeschiktheid."
+  },
+  "brain_residuals": {
+   "label": "Bestaan er sinds het letsel/de operatie klachten zoals concentratie- of geheugenstoornissen, persoonlijkheidsverandering of stuipaanvallen?",
+   "followup": "Welke klachten, en welke invloed hebben ze?"
+  },
+  "parkinson": {
+   "label": "Is bij u de ziekte van Parkinson of een andere bewegings- of coördinatiestoornis vastgesteld?",
+   "followup": "Sinds wanneer, hoe wordt behandeld, en wanneer was de laatste neurologische controle?"
+  },
+  "ms_spinal": {
+   "label": "Is bij u multiple sclerose, een ruggenmergaandoening of een ruggenmergletsel bekend?",
+   "followup": "Welke diagnose, en welke klachten heeft u op dit moment?"
+  },
+  "muscle_nerve": {
+   "label": "Is bij u een spier- of zenuwaandoening bekend (bijv. spierdystrofie, myasthenie, polyneuropathie)?",
+   "followup": "Welke diagnose, en hoe sterk bent u beperkt?"
+  },
+  "paralysis_attacks": {
+   "label": "Heeft u aanvalsgewijze verlammingen of plotselinge ernstige spierzwakte?",
+   "followup": "Wanneer trad de laatste aanval op, en hoe snel zet die in?"
+  },
+  "motor_limits": {
+   "label": "Heeft u verlammingen, spierzwakte of gevoelsstoornissen in armen of benen die u bij het bedienen van een voertuig zouden kunnen beperken?",
+   "followup": "Welke lichaamsdelen zijn aangedaan?"
+  },
+  "vertigo": {
+   "label": "Heeft u last van duizeligheid of evenwichtsstoornissen (bijv. draaierigheid, wankelen, onzekerheid bij het lopen)?",
+   "followup": "Hoe voelt de duizeligheid aan, hoe vaak treedt die op, hoe lang duurt een aanval, en waardoor wordt die uitgelokt?"
+  },
+  "vertigo_last": {
+   "label": "Hoe lang geleden was uw laatste duizeligheidsaanval?",
+   "options": {
+    "unter3m": "Minder dan 3 maanden",
+    "3bis6m": "3 tot 6 maanden",
+    "6bis12m": "6 tot 12 maanden",
+    "1bis2j": "1 tot 2 jaar",
+    "ueber2j": "Meer dan 2 jaar"
+   }
+  },
+  "vertigo_prodromi": {
+   "label": "Kondigen uw duizeligheidsaanvallen zich van tevoren aan (bijv. druk op het oor, oorsuizen, gehoorvermindering), zodat u op tijd zou kunnen stoppen?",
+   "options": {
+    "immer": "Ja, altijd",
+    "manchmal": "Soms",
+    "nie": "Nee, ze komen zonder waarschuwing"
+   }
+  },
+  "vertigo_positional": {
+   "label": "Wordt de duizeligheid uitgelokt door bepaalde hoofdbewegingen of houdingsveranderingen (bijv. omdraaien in bed, bukken)?"
+  },
+  "vertigo_ear": {
+   "label": "Treedt de duizeligheid op samen met gehoorvermindering, oorgeluiden (tinnitus) of een drukgevoel in het oor?"
+  },
+  "ear_disease": {
+   "label": "Is bij u een aandoening van het evenwichtsorgaan of binnenoor vastgesteld (bijv. positieduizeligheid (BPPD), ziekte van Menière)?",
+   "followup": "Welke diagnose, hoe is behandeld, en bent u sindsdien klachtenvrij?"
+  },
+  "mobility_limits": {
+   "label": "Heeft u een blijvende beperking van de beweeglijkheid van armen, benen, handen of de wervelkolom (bijv. na een ongeval, operatie, amputatie)?",
+   "followup": "Welke lichaamsdelen zijn aangedaan, en sinds wanneer?"
+  },
+  "prosthesis": {
+   "label": "Draagt u een prothese of gebruikt u orthopedische hulpmiddelen?",
+   "followup": "Welke hulpmiddelen, en heeft u klachten bij langere belasting?"
+  },
+  "vehicle_modified": {
+   "label": "Is uw voertuig vanwege een lichamelijke beperking aangepast (bijv. handbediening, stuurhulp)?",
+   "followup": "Welke aanpassingen, en staan ze op uw rijbewijs vermeld?"
+  },
+  "diabetes_type": {
+   "label": "Is bij u diabetes mellitus (suikerziekte) bekend?",
+   "options": {
+    "none": "Nee",
+    "type1": "Ja, type 1",
+    "type2": "Ja, type 2",
+    "other": "Ja, andere/onduidelijke vorm"
+   }
+  },
+  "diabetes_therapy": {
+   "label": "Hoe wordt uw diabetes momenteel behandeld?",
+   "options": {
+    "lifestyle": "Alleen voeding / leefstijl",
+    "tabl_low": "Tabletten met een laag risico op een hypo (te lage bloedsuiker) (bijv. metformine)",
+    "tabl_high": "Tabletten met risico op een hypo (sulfonylureumderivaten, gliniden)",
+    "insulin": "Insuline",
+    "unknown": "Weet ik niet precies"
+   }
+  },
+  "hypoglycemia": {
+   "label": "Heeft u in de afgelopen 12 maanden een ernstige hypo (te lage bloedsuiker) gehad waarbij u op hulp van anderen aangewezen was?",
+   "followup": "Hoe vaak, wanneer was de laatste episode, en trad die op terwijl u wakker was of tijdens de slaap?"
+  },
+  "hypo_awareness": {
+   "label": "Is het voorgekomen dat u een hypo niet op tijd zelf heeft opgemerkt (ontbrekende waarschuwingssignalen)?",
+   "followup": "Wanneer voor het laatst, en is er iets ondernomen (bijv. training, aanpassing van de behandeling)?"
+  },
+  "glucose_monitoring": {
+   "label": "Meet u regelmatig zelf uw bloedsuiker (of draagt u een glucosesensor)?",
+   "options": {
+    "2x": "Ja, minstens twee keer per dag",
+    "seltener": "Ja, maar minder vaak",
+    "nein": "Nee",
+    "keine_med": "Geldt niet voor mij (geen bloedsuikerverlagende medicijnen)"
+   }
+  },
+  "diabetes_derailment": {
+   "label": "Is er in de afgelopen maanden een nieuwe instelling van de behandeling geweest of een ontregeling van de stofwisseling (bijv. ziekenhuisbehandeling wegens ontregelde waarden)?",
+   "followup": "Wat is er gebeurd, en wanneer?"
+  },
+  "kidney_disease": {
+   "label": "Is bij u een chronische nierziekte of verminderde nierfunctie bekend?",
+   "followup": "Welke aandoening, en bent u onder behandeling van een nierspecialist (nefroloog)?"
+  },
+  "dialysis": {
+   "label": "Wordt u regelmatig behandeld met dialyse (bloedspoeling)?",
+   "followup": "Sinds wanneer en hoe vaak per week? Voelt u zich tussen de behandelingen fit?"
+  },
+  "transplant": {
+   "label": "Is bij u een orgaan getransplanteerd (bijv. nier, hart, lever, long)?",
+   "followup": "Welk orgaan, wanneer, en bent u onder regelmatige nacontrole?"
+  },
+  "lung_disease": {
+   "label": "Lijdt u aan een chronische long- of luchtwegaandoening (bijv. COPD, astma, longfibrose)?",
+   "followup": "Welke aandoening, en hoe wordt die behandeld?"
+  },
+  "dyspnea": {
+   "label": "Heeft u al bij lichte inspanning of in rust last van kortademigheid, of heeft u langdurige zuurstoftherapie nodig?"
+  },
+  "cough_syncope": {
+   "label": "Is het bij hevige hoestbuien al eens gekomen tot duizeligheid, zwart worden voor de ogen of korte bewusteloosheid?"
+  },
+  "daytime_sleepiness": {
+   "label": "Valt het u overdag zwaar om wakker en alert te blijven – vooral in eentonige situaties (bijv. lezen, vergaderingen, langere autoritten)?"
+  },
+  "microsleep": {
+   "label": "Bent u in de afgelopen maanden ongewild in slaap gevallen of heeft u secondeslaap gehad?",
+   "followup": "In welke situaties? Is het ook achter het stuur gebeurd?"
+  },
+  "snoring": {
+   "label": "Is u verteld dat u luid en onregelmatig snurkt of 's nachts adempauzes heeft?"
+  },
+  "osas": {
+   "label": "Is bij u een slaapapneusyndroom (nachtelijke ademstops) vastgesteld?",
+   "followup": "Wanneer is de diagnose gesteld, en welke ernstgraad of AHI-waarde is vastgesteld (indien bekend)?"
+  },
+  "cpap": {
+   "label": "Wordt u voor de slaapapneu behandeld (bijv. CPAP-ademmasker)?",
+   "options": {
+    "regelmaessig": "Ja, regelmatig (bijna elke nacht)",
+    "unregelmaessig": "Ja, maar onregelmatig",
+    "abgebrochen": "De behandeling is gestaakt",
+    "keine": "Nee, geen behandeling"
+   }
+  },
+  "psychiatric": {
+   "label": "Is bij u een psychische aandoening vastgesteld (bijv. depressie, angststoornis, bipolaire stoornis)?",
+   "followup": "Welke aandoening, en hoe wordt die behandeld?"
+  },
+  "psychiatric_severe": {
+   "label": "Bent u daarvoor ooit opgenomen geweest, heeft u een manische fase gehad of gedachten aan zelfdoding?",
+   "followup": "Wanneer was dat voor het laatst?"
+  },
+  "psychosis": {
+   "label": "Is bij u ooit schizofrenie of een andere psychose vastgesteld (aandoening met waanideeën of hallucinaties)?",
+   "followup": "Hoeveel acute episodes heeft u gehad, wanneer was de laatste, en bent u onder behandeling van een specialist?"
+  },
+  "memory_problems": {
+   "label": "Heeft u zelf of hebben uw naasten de laatste tijd toenemende geheugen- of oriëntatieproblemen bij u opgemerkt?",
+   "followup": "Sinds wanneer, en welke invloed hebben ze in het dagelijks leven?"
+  },
+  "concentration": {
+   "label": "Heeft u concentratie- of aandachtsproblemen?"
+  },
+  "alcohol": {
+   "label": "Hoe vaak drinkt u alcohol?",
+   "options": {
+    "nie": "Nooit",
+    "selten": "Zelden (hoogstens 1 keer per maand)",
+    "woechentlich": "1 à 2 keer per week",
+    "mehrmals": "Meerdere keren per week",
+    "taeglich": "Dagelijks of bijna dagelijks"
+   }
+  },
+  "alcohol_control": {
+   "label": "Is het voorgekomen dat u meer dronk dan de bedoeling was of de controle over uw gebruik verloor?"
+  },
+  "alcohol_traffic": {
+   "label": "Bent u ooit in het verkeer opgevallen onder invloed van alcohol (bijv. rijden onder invloed, boete, MPU)?",
+   "followup": "Wanneer, en welk promillage is vastgesteld (indien bekend)?"
+  },
+  "alcohol_dependence": {
+   "label": "Is bij u ooit een alcoholverslaving vastgesteld, of heeft u een ontgifting of ontwenningsbehandeling gedaan?",
+   "followup": "Wanneer is de behandeling afgerond, en sinds wanneer leeft u abstinent?"
+  },
+  "drugs": {
+   "label": "Gebruikt u momenteel drugs (bijv. cannabis, cocaïne, amfetaminen) of heeft u vroeger regelmatig drugs gebruikt?",
+   "followup": "Welke middelen, hoe vaak, en wanneer voor het laatst?"
+  },
+  "cannabis": {
+   "label": "Hoe vaak gebruikt u cannabis?",
+   "options": {
+    "nie": "Nooit",
+    "gelegentlich": "Af en toe (niet regelmatig)",
+    "regelmaessig": "Regelmatig (dagelijks of uit gewoonte)"
+   }
+  },
+  "substitution": {
+   "label": "Krijgt u een substitutiebehandeling (bijv. methadon)?",
+   "followup": "Sinds wanneer?"
+  },
+  "regular_meds": {
+   "label": "Neemt u regelmatig medicijnen in?",
+   "followup": "Welke medicijnen, en waartegen?"
+  },
+  "sedating_meds": {
+   "label": "Zitten daar medicijnen bij die moe maken of het reactievermogen kunnen beïnvloeden (bijv. sterke pijnstillers/opioïden, slaap- of kalmeringsmiddelen, antidepressiva, anti-epileptica, allergiemedicijnen)?",
+   "followup": "Welke medicijnen, in welke dosering?"
+  },
+  "med_side_effects": {
+   "label": "Merkt u onder uw medicijnen bijwerkingen zoals moeheid, vertraging, concentratiestoornissen of duizeligheid?",
+   "followup": "Welke bijwerkingen, en hoe sterk?"
+  },
+  "med_recent_change": {
+   "label": "Is er in de afgelopen weken zo'n medicijn nieuw gestart of is de dosis duidelijk veranderd?",
+   "followup": "Welk medicijn, en wanneer?"
+  },
+  "benzo_regular": {
+   "label": "Neemt u al meerdere maanden regelmatig – ook al is het alleen 's avonds in kleine hoeveelheid – slaap- of kalmeringsmiddelen (bijv. benzodiazepinen) in?",
+   "followup": "Welk middel, hoe lang al, en merkt u ontwenningsverschijnselen als u het weglaat?"
+  },
+  "multiple_conditions": {
+   "label": "Heeft u meerdere aandoeningen of gezondheidsbeperkingen tegelijk?",
+   "hint": "Meerdere afwijkingen kunnen samen relevant zijn voor de rijgeschiktheid, ook als elke afzonderlijk onschuldig zou zijn (richtlijnen hoofdstuk 2.7).",
+   "followup": "Som alstublieft alle bekende aandoeningen kort op."
+  },
+  "other_conditions": {
+   "label": "Zijn er nog andere aandoeningen, klachten of eerdere operaties die nog niet genoemd zijn?",
+   "followup": "Welke?"
+  },
+  "driving_adaptation": {
+   "label": "Ziet u vanwege gezondheidsbeperkingen bewust af van bepaalde ritten (bijv. in het donker, lange afstanden, snelweg)?",
+   "followup": "Van welke ritten, en waarom?"
+  },
+  "consent_truth": {
+   "label": "Ik bevestig dat mijn antwoorden volledig en naar waarheid zijn.",
+   "error": "Bevestig alstublieft de volledigheid van uw antwoorden."
+  },
+  "consent_privacy": {
+   "label": "Ik heb de privacyverklaring gelezen en stem in met de verwerking van mijn gegevens voor verkeersgeneeskundige doeleinden.",
+   "error": "Accepteer alstublieft de privacyverklaring."
+  }
+ },
+ "ess_items": {
+  "ess_1": "Zittend lezen",
+  "ess_2": "Tv-kijken",
+  "ess_3": "Passief zitten op een openbare plek (bijv. in het theater of bij een vergadering)",
+  "ess_4": "Als passagier in een auto tijdens een rit van een uur zonder pauze",
+  "ess_5": "Als u 's middags bent gaan liggen om uit te rusten",
+  "ess_6": "Zittend met iemand praten",
+  "ess_7": "Rustig zitten na de lunch (zonder alcohol)",
+  "ess_8": "In een auto, als bestuurder, terwijl u door het verkeer enkele minuten moet stilstaan"
+ }
+}

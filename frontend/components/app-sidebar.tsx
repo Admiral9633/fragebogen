@@ -60,7 +60,7 @@ export function AppSidebar({ onLogout, ...props }: AppSidebarProps) {
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
               <a href="/admin">
-                <ShieldIcon className="h-5 w-5" />
+                <ShieldIcon className="size-5" />
                 <span className="text-base font-semibold">Fragebogen Admin</span>
               </a>
             </SidebarMenuButton>

@@ -20,8 +20,13 @@ out/
 db.sqlite3
 
 # Environment
+.env
 .env.local
 .env.*.local
+
+# GDT-Bridge: lokale Konfiguration & Laufzeit-Status (enthalten Secrets/Patientendaten)
+gdt_bridge/config.ini
+gdt_bridge/pending.json
 
 # IDEs
 .vscode/

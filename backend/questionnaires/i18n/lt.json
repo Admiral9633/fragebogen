@@ -1,0 +1,585 @@
+{
+ "_meta": {
+  "language": "lt",
+  "name": "Lietuvių",
+  "machine_translated": true
+ },
+ "ui": {
+  "header_title": "Transporto medicinos klausimynas",
+  "header_subtitle": "Prašome atsakyti į visus klausimus",
+  "language_label": "Kalba",
+  "loading": "Įkeliamas klausimynas …",
+  "not_found_title": "Klausimynas nerastas",
+  "to_start": "Į pradžios puslapį",
+  "back": "Atgal",
+  "next": "Toliau",
+  "skip": "Praleisti",
+  "submit": "Pateikti",
+  "sending": "Siunčiama…",
+  "question_of": "Klausimas {current} iš {total}",
+  "answer_placeholder": "Jūsų atsakymas…",
+  "required_error": "Prašome atsakyti į šį klausimą.",
+  "yes": "Taip",
+  "no": "Ne",
+  "consent_title": "Sutikimas",
+  "followup_hint": "Neprivaloma papildoma informacija – padeda gydytojui įvertinti būklę.",
+  "ess_question": "Kokia tikimybė, kad tokioje situacijoje užsnūstumėte?",
+  "ess_sum": "Iki šiol surinkta suma",
+  "ess_opt_0": "0 – Niekada neužsnūsčiau",
+  "ess_opt_1": "1 – Maža tikimybė",
+  "ess_opt_2": "2 – Vidutinė tikimybė",
+  "ess_opt_3": "3 – Didelė tikimybė",
+  "privacy_button": "Rodyti duomenų apsaugos informaciją",
+  "privacy_title": "Duomenų apsaugos informacija",
+  "privacy_subtitle": "Informacija apie Jūsų duomenų tvarkymą pagal DSGVO 13 str. (ES Bendrasis duomenų apsaugos reglamentas)",
+  "privacy_controller": "Duomenų valdytojas: Dr. med. Björn Micka, darbo medicina · skubioji medicina, Christoph-Dassler-Str. 22, 91074 Herzogenaurach",
+  "privacy_purpose": "Tvarkymo tikslas: Jūsų šiame klausimyne pateikti duomenys (įskaitant sveikatos duomenis) naudojami išimtinai Jūsų transporto medicinos tyrimui parengti ir atlikti.",
+  "privacy_legal": "Teisinis pagrindas: Jūsų sutikimas (DSGVO 6 str. 1 d. a punktas, 9 str. 2 d. a punktas). Sutikimą galite bet kada atšaukti; atšaukimas galioja ateičiai.",
+  "privacy_storage": "Saugojimas: Rezultatas perkeliamas į Jūsų tyrimo dokumentus ir jam taikomi medicininių dokumentų saugojimo terminai. Prieiga internetu per Jūsų asmeninę nuorodą baigiasi pasibaigus galiojimo laikui; po to šio internetinio klausimyno duomenys įprasta tvarka ištrinami.",
+  "privacy_rights": "Jūsų teisės: Turite teisę susipažinti su duomenimis, juos ištaisyti, ištrinti ir apriboti jų tvarkymą, taip pat teisę pateikti skundą kompetentingai duomenų apsaugos priežiūros institucijai.",
+  "privacy_secrecy": "Visiems duomenims taikoma gydytojo paslaptis.",
+  "success_title": "Labai ačiū!",
+  "success_text": "Jūsų klausimynas sėkmingai pateiktas.",
+  "success_result": "ESS rezultatas",
+  "success_doctor_note": "Prašome aptarti rezultatą su savo gydytoju. Galutinį įvertinimą atlieka gydytojas specialistas.",
+  "success_pdf": "Atsisiųsti PDF santrauką",
+  "success_close": "Dabar galite uždaryti šį langą.",
+  "band_normal": "Normalus (0–9)",
+  "band_elevated": "Padidėjęs (10–15)",
+  "band_severe": "Ryškus (≥16)",
+  "submit_error": "Klaida siunčiant. Prašome patikrinti savo duomenis."
+ },
+ "sections": {
+  "anlass": {
+   "title": "Tyrimo priežastis ir vairavimo pobūdis",
+   "subtitle": "Duomenys apie tyrimą ir Jūsų vairavimą"
+  },
+  "gesundheit": {
+   "title": "Sveikatos būklė",
+   "subtitle": "Pirmiausia vienas klausimas"
+  },
+  "anfaelle": {
+   "title": "Priepuoliai ir sąmonės netekimas",
+   "subtitle": "Staigaus veiklos sutrikimo rizika – epilepsijos priepuoliai ir alpimai"
+  },
+  "sehen_hoeren": {
+   "title": "Regėjimas ir klausa",
+   "subtitle": "Regos ir klausos funkcija"
+  },
+  "herz": {
+   "title": "Širdis ir kraujotaka",
+   "subtitle": "Širdies ir kraujagyslių ligos"
+  },
+  "gehirn": {
+   "title": "Insultas ir smegenys",
+   "subtitle": "Smegenų kraujotakos sutrikimai, sužalojimai ir operacijos"
+  },
+  "neuro": {
+   "title": "Nervų sistema",
+   "subtitle": "Neurologinės ligos"
+  },
+  "schwindel": {
+   "title": "Pusiausvyra ir galvos svaigimas",
+   "subtitle": "Galvos svaigimo formos ir pusiausvyros sutrikimai"
+  },
+  "bewegung": {
+   "title": "Judamasis aparatas",
+   "subtitle": "Fiziniai apribojimai ir pagalbinės priemonės"
+  },
+  "diabetes": {
+   "title": "Diabetas / medžiagų apykaita",
+   "subtitle": "Cukrinis diabetas ir hipoglikemija (per mažas cukraus kiekis kraujyje)"
+  },
+  "organe": {
+   "title": "Vidaus organai",
+   "subtitle": "Inkstai, plaučiai ir transplantacijos"
+  },
+  "schlaf": {
+   "title": "Miegas ir mieguistumas dieną",
+   "subtitle": "Įsk. Epworth Sleepiness Scale (ESS)"
+  },
+  "psyche": {
+   "title": "Psichikos sveikata",
+   "subtitle": "Psichikos ligos ir atmintis"
+  },
+  "substanzen": {
+   "title": "Alkoholis, narkotikai ir vaistai",
+   "subtitle": "Vartojimas ir nuolatinis vaistų vartojimas"
+  },
+  "allgemein": {
+   "title": "Bendra informacija ir sutikimas",
+   "subtitle": "Kiti duomenys ir patvirtinimai"
+  }
+ },
+ "questions": {
+  "exam_occasion": {
+   "label": "Kuriai vairavimo teisei atliekamas tyrimas?",
+   "options": {
+    "pkw": "Lengvasis automobilis / kita kategorija",
+    "lkw": "Sunkvežimis (C, C1, CE, C1E)",
+    "bus": "Autobusas (D, D1, DE, D1E)",
+    "fahrgast": "Keleivių vežimas (taksi, nuomojamas automobilis, ligonių pervežimas)"
+   }
+  },
+  "exam_kind": {
+   "label": "Ar tai pirmasis išdavimas, ar pratęsimas?",
+   "options": {
+    "erst": "Pirmasis išdavimas",
+    "verlaengerung": "Pratęsimas"
+   }
+  },
+  "license_classes": {
+   "label": "Kurias vairuotojo pažymėjimo kategorijas turite arba dėl kurių kreipiatės?",
+   "options": {
+    "AM": "AM",
+    "A1": "A1",
+    "A2": "A2",
+    "A": "A",
+    "B": "B",
+    "BE": "BE",
+    "C1": "C1",
+    "C1E": "C1E",
+    "C": "C",
+    "CE": "CE",
+    "D1": "D1",
+    "D": "D",
+    "DE": "DE",
+    "T": "T"
+   }
+  },
+  "license_years": {
+   "label": "Kiek metų turite vairuotojo pažymėjimą?",
+   "options": {
+    "erstantrag": "Dar neturiu (pirmas prašymas)",
+    "unter3": "Mažiau nei 3 metus",
+    "3bis10": "Nuo 3 iki 10 metų",
+    "ueber10": "Daugiau nei 10 metų"
+   }
+  },
+  "driving_hours": {
+   "label": "Kiek valandų vidutiniškai vairuojate per dieną?",
+   "options": {
+    "<1": "Mažiau nei 1 valandą",
+    "1-2": "Nuo 1 iki 2 valandų",
+    "2-4": "Nuo 2 iki 4 valandų",
+    ">4": "Daugiau nei 4 valandas"
+   }
+  },
+  "night_driving": {
+   "label": "Ar reguliariai vairuojate naktį?"
+  },
+  "accidents": {
+   "label": "Ar per pastaruosius 24 mėnesius patyrėte eismo įvykių arba vos neįvykusių avarijų?",
+   "followup": "Kas nutiko?"
+  },
+  "license_withdrawn": {
+   "label": "Ar Jums kada nors buvo atimtas vairuotojo pažymėjimas arba ar turėjote dalyvauti medicininiame-psichologiniame tyrime (MPU – Vokietijos tinkamumo vairuoti vertinimas)?",
+   "followup": "Kada ir dėl kokios priežasties?"
+  },
+  "psych_test_done": {
+   "label": "Ar dėl šios vairavimo teisės jau atlikote psichologinį darbingumo testą (reakcijos, susikaupimo ir dėmesio testą)?",
+   "hint": "Autobusų kategorijoms ir keleivių vežimui šis dokumentas privalomas pagal FeV (Vokietijos vairuotojo pažymėjimų nuostatai) 5 priedą. Jei turite išvadą, prašome ją atsinešti į tyrimą.",
+   "followup": "Kada ir kur testas buvo atliktas?"
+  },
+  "has_conditions": {
+   "label": "Ar sergate žinoma ankstesne liga, ar turite nuolatinį fizinį apribojimą, ar reguliariai gydotės pas gydytoją?",
+   "hint": "Tam priskiriamos ir seniau persirgtos sunkios ligos (pvz., širdies, cukrinis diabetas, nervų, psichikos). Jei ne, klausimynas gerokai sutrumpės."
+  },
+  "seizure_ever": {
+   "label": "Ar kada nors esate patyręs epilepsijos ar traukulių priepuolį?",
+   "followup": "Kada buvo paskutinis priepuolis, kiek jų iš viso turėjote ir ar buvo koks nors provokuojantis veiksnys (pvz., miego trūkumas, karščiavimas, alkoholis)?"
+  },
+  "epilepsy": {
+   "label": "Ar Jums diagnozuota epilepsija?",
+   "followup": "Ar priepuoliai ištinka tik miego metu? Ar reguliariai gydotės pas neurologą?"
+  },
+  "seizure_free": {
+   "label": "Kiek laiko jau neturite priepuolių?",
+   "hint": "Gairėse tinkamumas vairuoti siejamas su konkrečiais laikotarpiais be priepuolių.",
+   "options": {
+    "unter3m": "Mažiau nei 3 mėnesius",
+    "3bis6m": "Nuo 3 iki 6 mėnesių",
+    "6bis12m": "Nuo 6 iki 12 mėnesių",
+    "1bis2j": "Nuo 1 iki 2 metų",
+    "2bis5j": "Nuo 2 iki 5 metų",
+    "ueber5j": "Daugiau nei 5 metus"
+   }
+  },
+  "antiepileptics": {
+   "label": "Ar vartojate vaistus nuo priepuolių (vaistus nuo epilepsijos)?",
+   "options": {
+    "nie": "Ne, niekada nevartojau",
+    "aktuell": "Taip, šiuo metu",
+    "reduktion": "Šiuo metu gydymas palaipsniui mažinamas",
+    "ende_unter3m": "Baigtas mažiau nei prieš 3 mėnesius",
+    "ende_ueber3m": "Baigtas daugiau nei prieš 3 mėnesius"
+   }
+  },
+  "syncope": {
+   "label": "Ar kada nors staiga apalpote (trumpas sąmonės netekimas)?",
+   "options": {
+    "nie": "Niekada",
+    "einmal": "Vieną kartą",
+    "mehrmals": "Kelis kartus"
+   }
+  },
+  "syncope_recent": {
+   "label": "Ar nuo paskutinio apalpimo praėjo mažiau nei 6 mėnesiai?",
+   "followup": "Kokioje situacijoje ištiko apalpimas ir ar buvo nustatyta priežastis (pvz., kraujotakos, širdies ritmo, šlapinantis)?"
+  },
+  "syncope_prodromi": {
+   "label": "Ar apalpimą Jums iš anksto paskelbia požymiai (pvz., prakaitavimas, galvos svaigimas, pykinimas, širdies plakimas)?"
+  },
+  "glasses": {
+   "label": "Ar vairuodami nešiojate akinius arba kontaktinius lęšius?"
+  },
+  "eye_disease": {
+   "label": "Ar Jums nustatyta akių liga (pvz., katarakta, glaukoma, tinklainės liga, regėjimo lauko susiaurėjimas)?",
+   "followup": "Kokia liga ir ar gydotės pas akių gydytoją?"
+  },
+  "one_eyed": {
+   "label": "Ar viena akimi matote žymiai blogiau arba ar viena akimi esate aklas?"
+  },
+  "night_vision": {
+   "label": "Ar turite problemų matydami prieblandoje ar tamsoje, arba ar Jus stipriai akina priešpriešiais važiuojantis transportas?",
+   "followup": "Kokiose situacijose kyla problemų?"
+  },
+  "hearing_impaired": {
+   "label": "Ar turite sunkų klausos sutrikimą arba esate kurčias?",
+   "followup": "Nuo kada ir ar gydotės pas ausų, nosies ir gerklės gydytoją?"
+  },
+  "hearing_aid": {
+   "label": "Ar nešiojate klausos aparatą arba kochlearinį implantą?"
+  },
+  "heart_disease": {
+   "label": "Ar Jums nustatyta širdies ar kraujagyslių liga?",
+   "hint": "pvz., ritmo sutrikimai, miokardo infarktas, širdies nepakankamumas, vožtuvų yda, kraujotakos sutrikimai",
+   "followup": "Kokia liga (ligos), nuo kada ir kaip ji gydoma?"
+  },
+  "cardio_checkup": {
+   "label": "Ar dėl to reguliariai tikrinatės pas širdies gydytoją (kardiologą)?",
+   "followup": "Kada buvo paskutinis patikrinimas?"
+  },
+  "heart_attack": {
+   "label": "Ar kada nors patyrėte miokardo infarktą, ar Jums buvo įdėtas stentas, ar atlikta šuntavimo operacija?",
+   "followup": "Kada įvyko įvykis ar procedūra ir ar buvo komplikacijų (pvz., sumažėjusi širdies siurbimo funkcija)?"
+  },
+  "arrhythmia": {
+   "label": "Ar Jums nustatyti širdies ritmo sutrikimai (pvz., širdies suklupimai/ekstrasistolės, dažnas širdies plakimas, ryškiai lėtas pulsas, prieširdžių virpėjimas, AV blokada)?",
+   "followup": "Kokia diagnozė ir kaip gydoma?"
+  },
+  "pacemaker_icd": {
+   "label": "Ar turite širdies stimuliatorių ar defibriliatorių (ICD)?",
+   "options": {
+    "nein": "Ne",
+    "schrittmacher": "Širdies stimuliatorius",
+    "icd": "Defibriliatorius (ICD)"
+   },
+   "followup": "Kada įdėtas ir kada buvo paskutinis patikrinimas?"
+  },
+  "icd_shock": {
+   "label": "Ar Jūsų defibriliatorius per pastaruosius 3 mėnesius davė smūgį?",
+   "followup": "Kada ir ką dėl to pasakė Jūsų kardiologas?"
+  },
+  "exertion_symptoms": {
+   "label": "Ar fizinio krūvio metu Jums pasireiškia dusulys, krūtinės skausmas, širdies suklupimai ar neįprastas išsekimas?",
+   "hint": "Savęs vertinimas pagal NYHA stadijas",
+   "options": {
+    "keine": "Ne, kasdienio krūvio metu nusiskundimų nėra",
+    "stark": "Esant didesniam krūviui (pvz., greitai lipant laiptais)",
+    "leicht": "Jau esant nedideliam krūviui (pvz., lėtai einant)",
+    "ruhe": "Jau ramybės būsenoje"
+   }
+  },
+  "hypertension": {
+   "label": "Ar Jums nustatytas padidėjęs kraujospūdis?",
+   "followup": "Nuo kada, kokie vaistai ir kokius rodmenis paprastai išmatuojate?"
+  },
+  "bp_dizziness": {
+   "label": "Ar vartojant kraujospūdį mažinančius vaistus Jums pasireiškia galvos svaigimas, silpnumo pojūtis ar patamsėjimas akyse?"
+  },
+  "heart_other": {
+   "label": "Ar Jums nustatyta kita širdies ar kraujagyslių liga: širdies vožtuvo yda, įgimta širdies yda, širdies raumens liga (kardiomiopatija), paveldima ritmo liga (pvz., ilgo QT sindromas), aortos aneurizma ar susiaurėjusi miego arterija?",
+   "followup": "Kokia diagnozė ir kaip ji stebima / gydoma?"
+  },
+  "family_sudden_death": {
+   "label": "Ar Jūsų artimiausioje šeimoje (tėvai, broliai ir seserys, vaikai) buvo staigios širdies mirties atvejų?"
+  },
+  "stroke": {
+   "label": "Ar kada nors patyrėte insultą, smegenų kraujavimą ar TIA (praeinantį kraujotakos sutrikimą su trumpalaikiais funkcijos sutrikimais)?",
+   "followup": "Kada įvyko įvykis ir ar reabilitacija buvo baigta?"
+  },
+  "stroke_residuals": {
+   "label": "Ar nuo to laiko išliko pasekmių, tokių kaip paralyžius, kalbos sutrikimai, atminties problemos ar regėjimo lauko apribojimai?",
+   "followup": "Kokie nusiskundimai išlieka šiuo metu?"
+  },
+  "head_injury": {
+   "label": "Ar kada nors patyrėte sunkų galvos sužalojimą (su sąmonės netekimu ar gydymu ligoninėje) arba smegenų operaciją?",
+   "followup": "Kada ir kas buvo gydoma?"
+  },
+  "head_injury_recent": {
+   "label": "Ar nuo šio sužalojimo ar operacijos praėjo mažiau nei 3 mėnesiai?",
+   "hint": "Po smegenų sužalojimo ar smegenų operacijos pagal gaires paprastai 3 mėnesius tinkamumo vairuoti nėra."
+  },
+  "brain_residuals": {
+   "label": "Ar po sužalojimo / operacijos yra nusiskundimų, tokių kaip susikaupimo ar atminties sutrikimai, charakterio pokyčiai ar traukulių priepuoliai?",
+   "followup": "Kokie nusiskundimai ir kaip jie pasireiškia?"
+  },
+  "parkinson": {
+   "label": "Ar Jums diagnozuota Parkinsono liga arba kitas judesių ar koordinacijos sutrikimas?",
+   "followup": "Nuo kada, kaip gydoma ir kada buvo paskutinis neurologo patikrinimas?"
+  },
+  "ms_spinal": {
+   "label": "Ar Jums nustatyta išsėtinė sklerozė, nugaros smegenų liga ar nugaros smegenų sužalojimas?",
+   "followup": "Kokia diagnozė ir kokie nusiskundimai Jums yra šiuo metu?"
+  },
+  "muscle_nerve": {
+   "label": "Ar Jums nustatyta raumenų ar nervų liga (pvz., raumenų nykimas, miastenija, polineuropatija)?",
+   "followup": "Kokia diagnozė ir kiek stipriai esate apribotas?"
+  },
+  "paralysis_attacks": {
+   "label": "Ar Jums pasireiškia priepuolinis paralyžius arba staigus stiprus raumenų silpnumas?",
+   "followup": "Kada buvo paskutinis priepuolis ir kaip greitai jis prasideda?"
+  },
+  "motor_limits": {
+   "label": "Ar turite paralyžių, raumenų silpnumą arba jutimo sutrikimų rankose ar kojose, kurie galėtų apriboti Jus valdant transporto priemonę?",
+   "followup": "Kurios kūno dalys yra paveiktos?"
+  },
+  "vertigo": {
+   "label": "Ar kenčiate nuo galvos svaigimo ar pusiausvyros sutrikimų (pvz., sukimosi pojūtis, svyravimas, netikrumas einant)?",
+   "followup": "Kaip jaučiamas galvos svaigimas, kaip dažnai jis pasireiškia, kiek trunka priepuolis ir kas jį sukelia?"
+  },
+  "vertigo_last": {
+   "label": "Kiek laiko praėjo nuo paskutinio galvos svaigimo priepuolio?",
+   "options": {
+    "unter3m": "Mažiau nei 3 mėnesiai",
+    "3bis6m": "Nuo 3 iki 6 mėnesių",
+    "6bis12m": "Nuo 6 iki 12 mėnesių",
+    "1bis2j": "Nuo 1 iki 2 metų",
+    "ueber2j": "Daugiau nei 2 metai"
+   }
+  },
+  "vertigo_prodromi": {
+   "label": "Ar galvos svaigimo priepuolius iš anksto paskelbia požymiai (pvz., spaudimas ausyje, ūžesys ausyse, klausos susilpnėjimas), kad galėtumėte laiku sustoti?",
+   "options": {
+    "immer": "Taip, visada",
+    "manchmal": "Kartais",
+    "nie": "Ne, jie prasideda be įspėjimo"
+   }
+  },
+  "vertigo_positional": {
+   "label": "Ar galvos svaigimą sukelia tam tikri galvos judesiai ar padėties pakeitimai (pvz., apsivertimas lovoje, pasilenkimas)?"
+  },
+  "vertigo_ear": {
+   "label": "Ar galvos svaigimas pasireiškia kartu su klausos susilpnėjimu, ūžesiu ausyse (tinitu) ar spaudimo pojūčiu ausyje?"
+  },
+  "ear_disease": {
+   "label": "Ar Jums nustatyta pusiausvyros organo ar vidinės ausies liga (pvz., gerybinis padėties galvos svaigimas, Menjero liga)?",
+   "followup": "Kokia diagnozė, kaip buvo gydoma ir ar nuo to laiko nusiskundimų nebeturite?"
+  },
+  "mobility_limits": {
+   "label": "Ar turite nuolatinį rankų, kojų, plaštakų ar stuburo judrumo apribojimą (pvz., po nelaimingo atsitikimo, operacijos, amputacijos)?",
+   "followup": "Kurios kūno dalys yra paveiktos ir nuo kada?"
+  },
+  "prosthesis": {
+   "label": "Ar nešiojate protezą arba naudojate ortopedines pagalbines priemones?",
+   "followup": "Kokias pagalbines priemones ir ar ilgiau apkrovus jaučiate nusiskundimų?"
+  },
+  "vehicle_modified": {
+   "label": "Ar Jūsų transporto priemonė pritaikyta dėl fizinio apribojimo (pvz., rankinis valdymas, vairo stiprintuvas)?",
+   "followup": "Kokie pakeitimai ir ar jie įrašyti vairuotojo pažymėjime?"
+  },
+  "diabetes_type": {
+   "label": "Ar Jums nustatytas cukrinis diabetas (cukraligė)?",
+   "options": {
+    "none": "Ne",
+    "type1": "Taip, 1 tipo",
+    "type2": "Taip, 2 tipo",
+    "other": "Taip, kita / neaiški forma"
+   }
+  },
+  "diabetes_therapy": {
+   "label": "Kaip šiuo metu gydomas Jūsų diabetas?",
+   "options": {
+    "lifestyle": "Tik mityba / gyvensena",
+    "tabl_low": "Tabletės su maža hipoglikemijos (per mažo cukraus kiekio) rizika (pvz., metforminas)",
+    "tabl_high": "Tabletės su hipoglikemijos rizika (sulfonilkarbamidai, glinidai)",
+    "insulin": "Insulinas",
+    "unknown": "Tiksliai nežinau"
+   }
+  },
+  "hypoglycemia": {
+   "label": "Ar per pastaruosius 12 mėnesių patyrėte sunkią hipoglikemiją (per mažą cukraus kiekį kraujyje), kai Jums prireikė kito žmogaus pagalbos?",
+   "followup": "Kaip dažnai, kada buvo paskutinis epizodas ir ar jis įvyko būdraujant, ar miegant?"
+  },
+  "hypo_awareness": {
+   "label": "Ar yra buvę, kad patys laiku nepajutote hipoglikemijos (nebuvo įspėjamųjų požymių)?",
+   "followup": "Kada paskutinį kartą ir ar buvo kas nors daroma (pvz., mokymai, gydymo keitimas)?"
+  },
+  "glucose_monitoring": {
+   "label": "Ar reguliariai patys matuojate cukraus kiekį kraujyje (arba nešiojate gliukozės jutiklį)?",
+   "options": {
+    "2x": "Taip, ne rečiau kaip du kartus per dieną",
+    "seltener": "Taip, bet rečiau",
+    "nein": "Ne",
+    "keine_med": "Man netaikoma (nevartoju cukraus kiekį mažinančių vaistų)"
+   }
+  },
+  "diabetes_derailment": {
+   "label": "Ar per pastaruosius mėnesius buvo iš naujo keičiamas gydymas arba pasireiškė medžiagų apykaitos sutrikimas (pvz., gydymas ligoninėje dėl labai nukrypusių rodiklių)?",
+   "followup": "Kas nutiko ir kada?"
+  },
+  "kidney_disease": {
+   "label": "Ar Jums nustatyta lėtinė inkstų liga ar inkstų nepakankamumas?",
+   "followup": "Kokia liga ir ar gydotės pas inkstų gydytoją (nefrologą)?"
+  },
+  "dialysis": {
+   "label": "Ar reguliariai gydotės dialize (kraujo valymu)?",
+   "followup": "Nuo kada ir kiek kartų per savaitę? Ar tarp procedūrų jaučiatės darbingas?"
+  },
+  "transplant": {
+   "label": "Ar Jums buvo persodintas organas (pvz., inkstas, širdis, kepenys, plautis)?",
+   "followup": "Koks organas, kada ir ar reguliariai lankotės tolesnės priežiūros patikrose?"
+  },
+  "lung_disease": {
+   "label": "Ar sergate lėtine plaučių ar bronchų liga (pvz., LOPL, astma, plaučių fibroze)?",
+   "followup": "Kokia liga ir kaip ji gydoma?"
+  },
+  "dyspnea": {
+   "label": "Ar jaučiate dusulį jau esant nedideliam krūviui ar ramybėje, arba ar Jums reikalinga ilgalaikė deguonies terapija?"
+  },
+  "cough_syncope": {
+   "label": "Ar stiprių kosulio priepuolių metu Jums pasireiškė galvos svaigimas, patamsėjimas akyse ar trumpas sąmonės netekimas?"
+  },
+  "daytime_sleepiness": {
+   "label": "Ar Jums sunku dieną išlikti budriam ir dėmesingam – ypač monotoniškose situacijose (pvz., skaitant, per pasitarimus, ilgesnių kelionių automobiliu metu)?"
+  },
+  "microsleep": {
+   "label": "Ar per pastaruosius mėnesius netyčia užmigote arba patyrėte kelių sekundžių miegą?",
+   "followup": "Kokiose situacijose? Ar tai atsitiko ir prie vairo?"
+  },
+  "snoring": {
+   "label": "Ar Jums buvo sakyta, kad garsiai ir nereguliariai knarkiate arba naktį trumpam nustojate kvėpuoti?"
+  },
+  "osas": {
+   "label": "Ar Jums nustatytas miego apnėjos sindromas (kvėpavimo sustojimai naktį)?",
+   "followup": "Kada buvo nustatyta diagnozė ir koks sunkumo laipsnis ar AHI rodiklis nustatytas (jei žinoma)?"
+  },
+  "cpap": {
+   "label": "Ar gydotės dėl miego apnėjos (pvz., CPAP kvėpavimo kauke)?",
+   "options": {
+    "regelmaessig": "Taip, reguliariai (beveik kiekvieną naktį)",
+    "unregelmaessig": "Taip, bet nereguliariai",
+    "abgebrochen": "Gydymas buvo nutrauktas",
+    "keine": "Ne, negydoma"
+   }
+  },
+  "psychiatric": {
+   "label": "Ar Jums diagnozuota psichikos liga (pvz., depresija, nerimo sutrikimas, bipolinis sutrikimas)?",
+   "followup": "Kokia liga ir kaip ji gydoma?"
+  },
+  "psychiatric_severe": {
+   "label": "Ar dėl to kada nors buvote gydytas ligoninėje, ar turėjote manijos epizodą ar minčių apie savižudybę?",
+   "followup": "Kada tai buvo paskutinį kartą?"
+  },
+  "psychosis": {
+   "label": "Ar Jums kada nors buvo diagnozuota šizofrenija ar kita psichozė (liga su kliedesiais ar haliucinacijomis)?",
+   "followup": "Kiek ūminių epizodų turėjote, kada buvo paskutinis ir ar gydotės pas gydytoją specialistą?"
+  },
+  "memory_problems": {
+   "label": "Ar pastaruoju metu Jūs patys arba Jūsų artimieji pastebėjo, kad Jums didėja atminties ar orientacijos problemos?",
+   "followup": "Nuo kada ir kaip jos pasireiškia kasdieniame gyvenime?"
+  },
+  "concentration": {
+   "label": "Ar turite susikaupimo ar dėmesio problemų?"
+  },
+  "alcohol": {
+   "label": "Kaip dažnai vartojate alkoholį?",
+   "options": {
+    "nie": "Niekada",
+    "selten": "Retai (ne dažniau kaip 1 kartą per mėnesį)",
+    "woechentlich": "1–2 kartus per savaitę",
+    "mehrmals": "Kelis kartus per savaitę",
+    "taeglich": "Kasdien arba beveik kasdien"
+   }
+  },
+  "alcohol_control": {
+   "label": "Ar yra buvę, kad išgėrėte daugiau, nei ketinote, arba praradote savo vartojimo kontrolę?"
+  },
+  "alcohol_traffic": {
+   "label": "Ar kada nors buvote sulaikytas kelyje neblaivus (pvz., vairavimas išgėrus, bauda, MPU – Vokietijos medicininis-psichologinis tinkamumo vertinimas)?",
+   "followup": "Kada ir koks promilių rodmuo buvo nustatytas (jei žinoma)?"
+  },
+  "alcohol_dependence": {
+   "label": "Ar Jums kada nors buvo nustatyta priklausomybė nuo alkoholio arba ar esate atlikęs detoksikaciją ar atpratinimo gydymą?",
+   "followup": "Kada gydymas buvo baigtas ir nuo kada gyvenate blaiviai?"
+  },
+  "drugs": {
+   "label": "Ar šiuo metu vartojate narkotikus (pvz., kanapes, kokainą, amfetaminus) arba ar anksčiau reguliariai vartojote narkotikus?",
+   "followup": "Kokias medžiagas, kaip dažnai ir kada paskutinį kartą?"
+  },
+  "cannabis": {
+   "label": "Kaip dažnai vartojate kanapes?",
+   "options": {
+    "nie": "Niekada",
+    "gelegentlich": "Retkarčiais (nereguliariai)",
+    "regelmaessig": "Reguliariai (kasdien arba įpratus)"
+   }
+  },
+  "substitution": {
+   "label": "Ar gaunate pakaitinį gydymą (pvz., metadonu)?",
+   "followup": "Nuo kada?"
+  },
+  "regular_meds": {
+   "label": "Ar reguliariai vartojate vaistus?",
+   "followup": "Kokius vaistus ir nuo ko?"
+  },
+  "sedating_meds": {
+   "label": "Ar tarp jų yra vaistų, kurie gali sukelti mieguistumą arba paveikti reakcijos greitį (pvz., stiprūs skausmą malšinantys vaistai / opioidai, migdomieji ar raminamieji vaistai, antidepresantai, vaistai nuo epilepsijos, vaistai nuo alergijos)?",
+   "followup": "Kokie vaistai ir kokia doze?"
+  },
+  "med_side_effects": {
+   "label": "Ar vartodami vaistus pastebite šalutinį poveikį, tokį kaip nuovargis, sulėtėjimas, susikaupimo sutrikimai ar galvos svaigimas?",
+   "followup": "Koks šalutinis poveikis ir kaip stipriai reiškiasi?"
+  },
+  "med_recent_change": {
+   "label": "Ar per pastarąsias savaites toks vaistas buvo paskirtas iš naujo arba jo dozė žymiai pakeista?",
+   "followup": "Koks vaistas ir kada?"
+  },
+  "benzo_regular": {
+   "label": "Ar jau kelis mėnesius reguliariai – nors ir tik vakarais nedideliais kiekiais – vartojate migdomuosius ar raminamuosius vaistus (pvz., benzodiazepinus)?",
+   "followup": "Kokį vaistą, kiek laiko jau ir ar nustoję jį vartoti pastebite abstinencijos požymių?"
+  },
+  "multiple_conditions": {
+   "label": "Ar tuo pačiu metu sergate keliomis ligomis arba turite kelis sveikatos apribojimus?",
+   "hint": "Keli nukrypimai kartu gali turėti reikšmės tinkamumui vairuoti, net jei kiekvienas atskirai būtų nepavojingas (gairių 2.7 skyrius).",
+   "followup": "Prašome trumpai išvardyti visas žinomas ligas."
+  },
+  "other_conditions": {
+   "label": "Ar yra kitų ligų, nusiskundimų ar anksčiau atliktų operacijų, kurios iki šiol nebuvo paminėtos?",
+   "followup": "Kokios?"
+  },
+  "driving_adaptation": {
+   "label": "Ar dėl sveikatos apribojimų sąmoningai atsisakote tam tikrų kelionių (pvz., tamsiu paros metu, ilgų atstumų, greitkelio)?",
+   "followup": "Kokių kelionių ir kodėl?"
+  },
+  "consent_truth": {
+   "label": "Patvirtinu, kad mano pateikti duomenys yra išsamūs ir teisingi.",
+   "error": "Prašome patvirtinti savo duomenų išsamumą."
+  },
+  "consent_privacy": {
+   "label": "Perskaičiau duomenų apsaugos informaciją ir sutinku, kad mano duomenys būtų tvarkomi transporto medicinos tikslais.",
+   "error": "Prašome sutikti su duomenų apsaugos informacija."
+  }
+ },
+ "ess_items": {
+  "ess_1": "Sėdint ir skaitant",
+  "ess_2": "Žiūrint televizorių",
+  "ess_3": "Sėdint pasyviai viešoje vietoje (pvz., teatre ar per pasitarimą)",
+  "ess_4": "Kaip keleivis automobilyje valandos trukmės kelionės be pertraukos metu",
+  "ess_5": "Kai po pietų atsigulėte pailsėti",
+  "ess_6": "Kai sėdite ir su kuo nors kalbatės",
+  "ess_7": "Kai po pietų (be alkoholio) ramiai sėdite",
+  "ess_8": "Kai vairuodami automobilį dėl eismo turite kelias minutes stovėti"
+ }
+}

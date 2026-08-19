@@ -1,0 +1,585 @@
+{
+ "_meta": {
+  "language": "lv",
+  "name": "Latviešu",
+  "machine_translated": true
+ },
+ "ui": {
+  "header_title": "Satiksmes medicīnas anketa",
+  "header_subtitle": "Lūdzu, atbildiet uz visiem jautājumiem",
+  "language_label": "Valoda",
+  "loading": "Notiek anketas ielāde …",
+  "not_found_title": "Anketa nav atrasta",
+  "to_start": "Uz sākumlapu",
+  "back": "Atpakaļ",
+  "next": "Tālāk",
+  "skip": "Izlaist",
+  "submit": "Nosūtīt",
+  "sending": "Notiek nosūtīšana…",
+  "question_of": "Jautājums {current} no {total}",
+  "answer_placeholder": "Jūsu atbilde…",
+  "required_error": "Lūdzu, atbildiet uz šo jautājumu.",
+  "yes": "Jā",
+  "no": "Nē",
+  "consent_title": "Piekrišana",
+  "followup_hint": "Brīvprātīga papildu informācija – palīdz ārstam veikt izvērtējumu.",
+  "ess_question": "Cik liela ir iespējamība, ka šādā situācijā Jūs iesnaustos?",
+  "ess_sum": "Līdzšinējā summa",
+  "ess_opt_0": "0 – Nekad neiesnaustos",
+  "ess_opt_1": "1 – Neliela iespējamība",
+  "ess_opt_2": "2 – Vidēja iespējamība",
+  "ess_opt_3": "3 – Liela iespējamība",
+  "privacy_button": "Rādīt datu aizsardzības informāciju",
+  "privacy_title": "Datu aizsardzības informācija",
+  "privacy_subtitle": "Informācija par Jūsu datu apstrādi saskaņā ar DSGVO 13. pantu (ES Vispārīgā datu aizsardzības regula)",
+  "privacy_controller": "Pārzinis: Dr. med. Björn Micka, arodmedicīna · neatliekamā medicīna, Christoph-Dassler-Str. 22, 91074 Herzogenaurach",
+  "privacy_purpose": "Apstrādes mērķis: Jūsu šajā anketā sniegtā informācija (tostarp veselības dati) tiek izmantota vienīgi Jūsu satiksmes medicīnas izmeklēšanas sagatavošanai un veikšanai.",
+  "privacy_legal": "Juridiskais pamats: Jūsu piekrišana (DSGVO 6. panta 1. punkta a) apakšpunkts, 9. panta 2. punkta a) apakšpunkts). Piekrišanu Jūs jebkurā laikā varat atsaukt ar spēku uz nākotni.",
+  "privacy_storage": "Glabāšana: Rezultāts tiek iekļauts Jūsu izmeklēšanas dokumentos, un uz to attiecas ārstniecības dokumentu glabāšanas termiņi. Tiešsaistes piekļuve caur Jūsu personīgo saiti beidzas pēc derīguma termiņa beigām; pēc tam šīs tiešsaistes anketas dati tiek regulāri dzēsti.",
+  "privacy_rights": "Jūsu tiesības: Jums ir tiesības piekļūt datiem, tos labot, dzēst un ierobežot to apstrādi, kā arī tiesības iesniegt sūdzību kompetentajā datu aizsardzības uzraudzības iestādē.",
+  "privacy_secrecy": "Uz visu sniegto informāciju attiecas ārsta konfidencialitātes pienākums.",
+  "success_title": "Liels paldies!",
+  "success_text": "Jūsu anketa ir veiksmīgi nosūtīta.",
+  "success_result": "ESS rezultāts",
+  "success_doctor_note": "Lūdzu, pārrunājiet rezultātu ar savu ārstu. Galīgo izvērtējumu veic ārsts speciālists.",
+  "success_pdf": "Lejupielādēt PDF kopsavilkumu",
+  "success_close": "Tagad Jūs varat aizvērt šo logu.",
+  "band_normal": "Normāls (0–9)",
+  "band_elevated": "Paaugstināts (10–15)",
+  "band_severe": "Izteikts (≥16)",
+  "submit_error": "Kļūda nosūtīšanas laikā. Lūdzu, pārbaudiet savas atbildes."
+ },
+ "sections": {
+  "anlass": {
+   "title": "Izmeklēšanas iemesls un braukšanas profils",
+   "subtitle": "Informācija par izmeklēšanu un Jūsu braukšanu"
+  },
+  "gesundheit": {
+   "title": "Veselības stāvoklis",
+   "subtitle": "Vispirms viens jautājums"
+  },
+  "anfaelle": {
+   "title": "Lēkmes un samaņas zudums",
+   "subtitle": "Pēkšņas darbspējas zuduma risks – epilepsijas lēkmes un ģībonis"
+  },
+  "sehen_hoeren": {
+   "title": "Redze un dzirde",
+   "subtitle": "Redzes un dzirdes funkcija"
+  },
+  "herz": {
+   "title": "Sirds un asinsrite",
+   "subtitle": "Sirds un asinsvadu slimības"
+  },
+  "gehirn": {
+   "title": "Insults un smadzenes",
+   "subtitle": "Smadzeņu asinsrites traucējumi, traumas un operācijas"
+  },
+  "neuro": {
+   "title": "Nervu sistēma",
+   "subtitle": "Neiroloģiskās slimības"
+  },
+  "schwindel": {
+   "title": "Līdzsvars un reibonis",
+   "subtitle": "Reiboņa veidi un līdzsvara traucējumi"
+  },
+  "bewegung": {
+   "title": "Balsta un kustību aparāts",
+   "subtitle": "Fiziski ierobežojumi un palīglīdzekļi"
+  },
+  "diabetes": {
+   "title": "Diabēts / vielmaiņa",
+   "subtitle": "Cukura diabēts un pazemināts cukura līmenis asinīs"
+  },
+  "organe": {
+   "title": "Iekšējie orgāni",
+   "subtitle": "Nieres, plaušas un transplantācijas"
+  },
+  "schlaf": {
+   "title": "Miegs un miegainība dienā",
+   "subtitle": "Iesk. Epworth Sleepiness Scale (ESS)"
+  },
+  "psyche": {
+   "title": "Psihiskā veselība",
+   "subtitle": "Psihiskās slimības un atmiņa"
+  },
+  "substanzen": {
+   "title": "Alkohols, narkotikas un medikamenti",
+   "subtitle": "Lietošana un pastāvīgā medikamentu terapija"
+  },
+  "allgemein": {
+   "title": "Vispārīga informācija un piekrišana",
+   "subtitle": "Papildu informācija un apliecinājumi"
+  }
+ },
+ "questions": {
+  "exam_occasion": {
+   "label": "Kurām transportlīdzekļa vadīšanas tiesībām tiek veikta izmeklēšana?",
+   "options": {
+    "pkw": "Vieglais automobilis / cita kategorija",
+    "lkw": "Kravas automobilis (C, C1, CE, C1E)",
+    "bus": "Autobuss (D, D1, DE, D1E)",
+    "fahrgast": "Pasažieru pārvadāšana (taksometrs, nomas automobilis, pacientu pārvadāšana)"
+   }
+  },
+  "exam_kind": {
+   "label": "Vai tā ir pirmreizēja izsniegšana vai pagarināšana?",
+   "options": {
+    "erst": "Pirmreizēja izsniegšana",
+    "verlaengerung": "Pagarināšana"
+   }
+  },
+  "license_classes": {
+   "label": "Kuras vadītāja apliecības kategorijas Jums ir vai kuras Jūs pieprasāt?",
+   "options": {
+    "AM": "AM",
+    "A1": "A1",
+    "A2": "A2",
+    "A": "A",
+    "B": "B",
+    "BE": "BE",
+    "C1": "C1",
+    "C1E": "C1E",
+    "C": "C",
+    "CE": "CE",
+    "D1": "D1",
+    "D": "D",
+    "DE": "DE",
+    "T": "T"
+   }
+  },
+  "license_years": {
+   "label": "Cik gadus Jums ir vadītāja apliecība?",
+   "options": {
+    "erstantrag": "Vēl nav (pirmais pieteikums)",
+    "unter3": "Mazāk nekā 3 gadus",
+    "3bis10": "No 3 līdz 10 gadiem",
+    "ueber10": "Vairāk nekā 10 gadus"
+   }
+  },
+  "driving_hours": {
+   "label": "Cik stundas Jūs vidēji braucat dienā?",
+   "options": {
+    "<1": "Mazāk nekā 1 stundu",
+    "1-2": "No 1 līdz 2 stundām",
+    "2-4": "No 2 līdz 4 stundām",
+    ">4": "Vairāk nekā 4 stundas"
+   }
+  },
+  "night_driving": {
+   "label": "Vai Jūs regulāri braucat naktī?"
+  },
+  "accidents": {
+   "label": "Vai pēdējo 24 mēnešu laikā Jums ir bijuši ceļu satiksmes negadījumi vai gandrīz notikuši negadījumi?",
+   "followup": "Kas notika?"
+  },
+  "license_withdrawn": {
+   "label": "Vai Jums kādreiz ir atņemta vadītāja apliecība vai Jums ir bijis jāpiedalās medicīniski psiholoģiskā izmeklēšanā (MPU – Vācijas piemērotības vadīt transportlīdzekli novērtējums)?",
+   "followup": "Kad un kāda iemesla dēļ?"
+  },
+  "psych_test_done": {
+   "label": "Vai šīm vadīšanas tiesībām Jūs jau esat izgājis psiholoģisko darbaspēju testu (reakcijas, koncentrēšanās un uzmanības testu)?",
+   "hint": "Autobusu kategorijām un pasažieru pārvadāšanai šis apliecinājums ir obligāts saskaņā ar FeV (Vācijas vadītāja apliecību noteikumi) 5. pielikumu. Ja Jums ir atzinums, lūdzu, ņemiet to līdzi uz izmeklēšanu.",
+   "followup": "Kad un kur tests tika veikts?"
+  },
+  "has_conditions": {
+   "label": "Vai Jums ir zināma iepriekšēja saslimšana, pastāvīgs fizisks ierobežojums, vai arī Jūs regulāri ārstējaties pie ārsta?",
+   "hint": "Pie tām pieder arī sen pārciestas nopietnas slimības (piem., sirds, cukura diabēts, nervi, psihe). Ja nē, anketa būtiski saīsinās."
+  },
+  "seizure_ever": {
+   "label": "Vai Jums kādreiz ir bijusi epilepsijas lēkme vai krampju lēkme?",
+   "followup": "Kad bija pēdējā lēkme, cik daudz to kopumā ir bijis, un vai bija kāds izraisītājs (piem., miega trūkums, drudzis, alkohols)?"
+  },
+  "epilepsy": {
+   "label": "Vai Jums ir diagnosticēta epilepsija?",
+   "followup": "Vai lēkmes rodas tikai miega laikā? Vai Jūs regulāri ārstējaties pie neirologa?"
+  },
+  "seizure_free": {
+   "label": "Cik ilgi Jums jau nav bijis lēkmju?",
+   "hint": "Vadlīnijas piemērotību vadīt transportlīdzekli saista ar konkrētiem periodiem bez lēkmēm.",
+   "options": {
+    "unter3m": "Mazāk nekā 3 mēnešus",
+    "3bis6m": "No 3 līdz 6 mēnešiem",
+    "6bis12m": "No 6 līdz 12 mēnešiem",
+    "1bis2j": "No 1 līdz 2 gadiem",
+    "2bis5j": "No 2 līdz 5 gadiem",
+    "ueber5j": "Vairāk nekā 5 gadus"
+   }
+  },
+  "antiepileptics": {
+   "label": "Vai Jūs lietojat medikamentus pret lēkmēm (pretepilepsijas līdzekļus)?",
+   "options": {
+    "nie": "Nē, nekad neesmu lietojis",
+    "aktuell": "Jā, pašlaik",
+    "reduktion": "Ārstēšana pašlaik tiek pakāpeniski samazināta",
+    "ende_unter3m": "Pabeigta pirms mazāk nekā 3 mēnešiem",
+    "ende_ueber3m": "Pabeigta pirms vairāk nekā 3 mēnešiem"
+   }
+  },
+  "syncope": {
+   "label": "Vai Jūs kādreiz esat pēkšņi noģībis (īss samaņas zudums)?",
+   "options": {
+    "nie": "Nekad",
+    "einmal": "Vienreiz",
+    "mehrmals": "Vairākas reizes"
+   }
+  },
+  "syncope_recent": {
+   "label": "Vai kopš Jūsu pēdējā ģīboņa ir pagājuši mazāk nekā 6 mēneši?",
+   "followup": "Kādā situācijā ģībonis notika, un vai tika atrasts iemesls (piem., asinsrite, sirds ritms, urinēšanas laikā)?"
+  },
+  "syncope_prodromi": {
+   "label": "Vai ģībonis Jums iepriekš pieteicas (piem., svīšana, reibonis, slikta dūša, sirdsklauves)?"
+  },
+  "glasses": {
+   "label": "Vai braukšanas laikā Jūs lietojat brilles vai kontaktlēcas?"
+  },
+  "eye_disease": {
+   "label": "Vai Jums ir zināma acu slimība (piem., katarakta, glaukoma, tīklenes slimība, redzes lauka sašaurinājums)?",
+   "followup": "Kāda slimība, un vai Jūs ārstējaties pie acu ārsta?"
+  },
+  "one_eyed": {
+   "label": "Vai ar vienu aci Jūs redzat ievērojami sliktāk vai vienā acī esat neredzīgs?"
+  },
+  "night_vision": {
+   "label": "Vai Jums ir grūtības redzēt krēslā vai tumsā, vai arī pretimbraucošais transports Jūs stipri apžilbina?",
+   "followup": "Kādās situācijās rodas grūtības?"
+  },
+  "hearing_impaired": {
+   "label": "Vai Jums ir smagi dzirdes traucējumi vai Jūs esat nedzirdīgs?",
+   "followup": "Kopš kura laika, un vai Jūs ārstējaties pie ausu, kakla un deguna ārsta?"
+  },
+  "hearing_aid": {
+   "label": "Vai Jūs lietojat dzirdes aparātu vai kohleāro implantu?"
+  },
+  "heart_disease": {
+   "label": "Vai Jums ir zināma sirds vai asinsvadu slimība?",
+   "hint": "piem., ritma traucējumi, miokarda infarkts, sirds mazspēja, vārstuļu kaite, asinsrites traucējumi",
+   "followup": "Kāda slimība (slimības), kopš kura laika, un kā tā tiek ārstēta?"
+  },
+  "cardio_checkup": {
+   "label": "Vai Jūs tāpēc regulāri apmeklējat kardiologu kontroles vizītēs?",
+   "followup": "Kad bija pēdējā kontrole?"
+  },
+  "heart_attack": {
+   "label": "Vai Jums kādreiz ir bijis miokarda infarkts, stenta ievietošana vai šuntēšanas operācija?",
+   "followup": "Kad notika notikums vai iejaukšanās, un vai bija sarežģījumi (piem., samazināta sirds sūknēšanas spēja)?"
+  },
+  "arrhythmia": {
+   "label": "Vai Jums ir zināmi sirds ritma traucējumi (piem., sirds paklupšana/ekstrasistoles, sirdsklauves ar ātru pulsu, izteikti lēns pulss, priekškambaru mirdzēšana, AV blokāde)?",
+   "followup": "Kāda diagnoze, un kā tā tiek ārstēta?"
+  },
+  "pacemaker_icd": {
+   "label": "Vai Jums ir elektrokardiostimulators vai defibrilators (ICD)?",
+   "options": {
+    "nein": "Nē",
+    "schrittmacher": "Elektrokardiostimulators",
+    "icd": "Defibrilators (ICD)"
+   },
+   "followup": "Kad tas tika ievietots, un kad bija pēdējā kontrole?"
+  },
+  "icd_shock": {
+   "label": "Vai Jūsu defibrilators pēdējo 3 mēnešu laikā ir devis triecienu?",
+   "followup": "Kad, un ko par to teica Jūsu kardiologs?"
+  },
+  "exertion_symptoms": {
+   "label": "Vai slodzes laikā Jums rodas elpas trūkums, sāpes krūtīs, sirds paklupšana vai neparasts nogurums?",
+   "hint": "Pašnovērtējums atbilstoši NYHA stadijām",
+   "options": {
+    "keine": "Nē, ikdienas slodzes laikā sūdzību nav",
+    "stark": "Lielākas slodzes laikā (piem., strauji kāpjot pa kāpnēm)",
+    "leicht": "Jau nelielas slodzes laikā (piem., lēni ejot)",
+    "ruhe": "Jau miera stāvoklī"
+   }
+  },
+  "hypertension": {
+   "label": "Vai Jums ir zināms paaugstināts asinsspiediens?",
+   "followup": "Kopš kura laika, kādi medikamenti, un kādus rādītājus Jūs parasti mērāt?"
+  },
+  "bp_dizziness": {
+   "label": "Vai, lietojot asinsspiediena medikamentus, Jums rodas reibonis, vājuma sajūta vai tumšums acu priekšā?"
+  },
+  "heart_other": {
+   "label": "Vai Jums ir zināma vēl kāda sirds vai asinsvadu slimība: sirds vārstuļa kaite, iedzimta sirdskaite, sirds muskuļa slimība (kardiomiopātija), iedzimta ritma slimība (piem., garā QT sindroms), aortas aneirisma vai sašaurināta miega artērija?",
+   "followup": "Kāda diagnoze, un kā tā tiek kontrolēta/ārstēta?"
+  },
+  "family_sudden_death": {
+   "label": "Vai Jūsu tuvākajā ģimenē (vecāki, brāļi un māsas, bērni) ir bijis pēkšņas sirds nāves gadījums?"
+  },
+  "stroke": {
+   "label": "Vai Jums kādreiz ir bijis insults, smadzeņu asiņošana vai TIA (pārejošs asinsrites traucējums ar īslaicīgiem funkciju zudumiem)?",
+   "followup": "Kad notika notikums, un vai rehabilitācija tika pabeigta?"
+  },
+  "stroke_residuals": {
+   "label": "Vai kopš tā laika ir saglabājušās sekas, piemēram, paralīze, runas traucējumi, atmiņas problēmas vai redzes lauka ierobežojumi?",
+   "followup": "Kādas sūdzības pastāv pašlaik?"
+  },
+  "head_injury": {
+   "label": "Vai Jums kādreiz ir bijusi smaga galvas trauma (ar samaņas zudumu vai ārstēšanos slimnīcā) vai smadzeņu operācija?",
+   "followup": "Kad, un kas tika ārstēts?"
+  },
+  "head_injury_recent": {
+   "label": "Vai kopš šīs traumas vai operācijas ir pagājuši mazāk nekā 3 mēneši?",
+   "hint": "Pēc smadzeņu traumas vai smadzeņu operācijas saskaņā ar vadlīnijām parasti 3 mēnešus nav piemērotības vadīt transportlīdzekli."
+  },
+  "brain_residuals": {
+   "label": "Vai kopš traumas/operācijas Jums ir sūdzības, piemēram, koncentrēšanās vai atmiņas traucējumi, rakstura izmaiņas vai krampju lēkmes?",
+   "followup": "Kādas sūdzības, un kā tās izpaužas?"
+  },
+  "parkinson": {
+   "label": "Vai Jums ir diagnosticēta Parkinsona slimība vai cits kustību vai koordinācijas traucējums?",
+   "followup": "Kopš kura laika, kā tā tiek ārstēta, un kad bija pēdējā neirologa kontrole?"
+  },
+  "ms_spinal": {
+   "label": "Vai Jums ir zināma multiplā skleroze, muguras smadzeņu slimība vai muguras smadzeņu trauma?",
+   "followup": "Kāda diagnoze, un kādas sūdzības Jums ir pašlaik?"
+  },
+  "muscle_nerve": {
+   "label": "Vai Jums ir zināma muskuļu vai nervu slimība (piem., muskuļu distrofija, miastēnija, polineiropātija)?",
+   "followup": "Kāda diagnoze, un cik stipri Jūs esat ierobežots?"
+  },
+  "paralysis_attacks": {
+   "label": "Vai Jums rodas lēkmjveida paralīze vai pēkšņs izteikts muskuļu vājums?",
+   "followup": "Kad bija pēdējā lēkme, un cik ātri tā sākas?"
+  },
+  "motor_limits": {
+   "label": "Vai Jums ir paralīze, muskuļu vājums vai jušanas traucējumi rokās vai kājās, kas varētu Jūs ierobežot transportlīdzekļa vadīšanā?",
+   "followup": "Kuras ķermeņa daļas ir skartas?"
+  },
+  "vertigo": {
+   "label": "Vai Jūs ciešat no reiboņa vai līdzsvara traucējumiem (piem., griešanās sajūta, šūpošanās, nedrošība ejot)?",
+   "followup": "Kā reibonis ir jūtams, cik bieži tas rodas, cik ilgi ilgst lēkme, un kas to izraisa?"
+  },
+  "vertigo_last": {
+   "label": "Cik sen bija Jūsu pēdējā reiboņa lēkme?",
+   "options": {
+    "unter3m": "Mazāk nekā 3 mēnešus",
+    "3bis6m": "No 3 līdz 6 mēnešiem",
+    "6bis12m": "No 6 līdz 12 mēnešiem",
+    "1bis2j": "No 1 līdz 2 gadiem",
+    "ueber2j": "Vairāk nekā 2 gadus"
+   }
+  },
+  "vertigo_prodromi": {
+   "label": "Vai Jūsu reiboņa lēkmes iepriekš pieteicas (piem., spiediens ausī, troksnis ausīs, dzirdes pasliktināšanās), tā ka Jūs varētu laikus apstāties?",
+   "options": {
+    "immer": "Jā, vienmēr",
+    "manchmal": "Dažreiz",
+    "nie": "Nē, tās sākas bez brīdinājuma"
+   }
+  },
+  "vertigo_positional": {
+   "label": "Vai reiboni izraisa noteiktas galvas kustības vai ķermeņa stāvokļa maiņa (piem., apgriešanās gultā, noliekšanās)?"
+  },
+  "vertigo_ear": {
+   "label": "Vai reibonis rodas kopā ar dzirdes pasliktināšanos, troksni ausīs (tinnītu) vai spiediena sajūtu ausī?"
+  },
+  "ear_disease": {
+   "label": "Vai Jums ir konstatēta līdzsvara orgāna vai iekšējās auss slimība (piem., labdabīgs pozicionālais reibonis, Menjēra slimība)?",
+   "followup": "Kāda diagnoze, kā tā tika ārstēta, un vai kopš tā laika Jums nav sūdzību?"
+  },
+  "mobility_limits": {
+   "label": "Vai Jums ir pastāvīgs roku, kāju, plaukstu vai mugurkaula kustīguma ierobežojums (piem., pēc negadījuma, operācijas, amputācijas)?",
+   "followup": "Kuras ķermeņa daļas ir skartas, un kopš kura laika?"
+  },
+  "prosthesis": {
+   "label": "Vai Jūs lietojat protēzi vai ortopēdiskos palīglīdzekļus?",
+   "followup": "Kādus palīglīdzekļus, un vai ilgākas slodzes laikā Jums rodas sūdzības?"
+  },
+  "vehicle_modified": {
+   "label": "Vai Jūsu transportlīdzeklis ir pārbūvēts fiziska ierobežojuma dēļ (piem., roku vadība, stūres pastiprinātājs)?",
+   "followup": "Kādi pārbūves risinājumi, un vai tie ir ierakstīti vadītāja apliecībā?"
+  },
+  "diabetes_type": {
+   "label": "Vai Jums ir zināms cukura diabēts (diabetes mellitus)?",
+   "options": {
+    "none": "Nē",
+    "type1": "Jā, 1. tips",
+    "type2": "Jā, 2. tips",
+    "other": "Jā, cita/neskaidra forma"
+   }
+  },
+  "diabetes_therapy": {
+   "label": "Kā Jūsu diabēts pašlaik tiek ārstēts?",
+   "options": {
+    "lifestyle": "Tikai uzturs / dzīvesveids",
+    "tabl_low": "Tabletes ar zemu pazemināta cukura līmeņa risku (piem., metformīns)",
+    "tabl_high": "Tabletes ar pazemināta cukura līmeņa risku (sulfonilurīnvielas atvasinājumi, glinīdi)",
+    "insulin": "Insulīns",
+    "unknown": "Precīzi nezinu"
+   }
+  },
+  "hypoglycemia": {
+   "label": "Vai pēdējo 12 mēnešu laikā Jums ir bijusi smaga hipoglikēmija (pazemināts cukura līmenis asinīs), kuras laikā Jums bija nepieciešama citas personas palīdzība?",
+   "followup": "Cik bieži, kad bija pēdējā epizode, un vai tā notika nomodā vai miega laikā?"
+  },
+  "hypo_awareness": {
+   "label": "Vai ir gadījies, ka Jūs pats laikus nepamanījāt pazeminātu cukura līmeni (trūka brīdinājuma pazīmju)?",
+   "followup": "Kad pēdējo reizi, un vai tika kaut kas darīts (piem., apmācība, terapijas maiņa)?"
+  },
+  "glucose_monitoring": {
+   "label": "Vai Jūs regulāri pats mērāt cukura līmeni asinīs (vai valkājat glikozes sensoru)?",
+   "options": {
+    "2x": "Jā, vismaz divas reizes dienā",
+    "seltener": "Jā, bet retāk",
+    "nein": "Nē",
+    "keine_med": "Uz mani neattiecas (nelietoju cukura līmeni pazeminošus medikamentus)"
+   }
+  },
+  "diabetes_derailment": {
+   "label": "Vai pēdējo mēnešu laikā ir bijusi terapijas pielāgošana no jauna vai vielmaiņas izsviešana no līdzsvara (piem., ārstēšana slimnīcā stipri novirzījušos rādītāju dēļ)?",
+   "followup": "Kas notika, un kad?"
+  },
+  "kidney_disease": {
+   "label": "Vai Jums ir zināma hroniska nieru slimība vai nieru mazspēja?",
+   "followup": "Kāda slimība, un vai Jūs ārstējaties pie nieru ārsta (nefrologa)?"
+  },
+  "dialysis": {
+   "label": "Vai Jūs regulāri saņemat dialīzi (asins attīrīšanu)?",
+   "followup": "Kopš kura laika un cik reizes nedēļā? Vai starp procedūrām Jūs jūtaties darbspējīgs?"
+  },
+  "transplant": {
+   "label": "Vai Jums ir transplantēts kāds orgāns (piem., niere, sirds, aknas, plauša)?",
+   "followup": "Kurš orgāns, kad, un vai Jūs regulāri apmeklējat pēcaprūpes vizītes?"
+  },
+  "lung_disease": {
+   "label": "Vai Jūs ciešat no hroniskas plaušu vai bronhu slimības (piem., HOPS, astma, plaušu fibroze)?",
+   "followup": "Kāda slimība, un kā tā tiek ārstēta?"
+  },
+  "dyspnea": {
+   "label": "Vai Jums ir elpas trūkums jau nelielas slodzes laikā vai miera stāvoklī, vai arī Jums ir nepieciešama ilgstoša skābekļa terapija?"
+  },
+  "cough_syncope": {
+   "label": "Vai spēcīgu klepus lēkmju laikā Jums ir bijis reibonis, tumšums acu priekšā vai īss samaņas zudums?"
+  },
+  "daytime_sleepiness": {
+   "label": "Vai Jums ir grūti dienā saglabāt nomodu un uzmanību – it īpaši vienmuļās situācijās (piem., lasot, sanāksmēs, garākos braucienos ar automašīnu)?"
+  },
+  "microsleep": {
+   "label": "Vai pēdējo mēnešu laikā Jūs esat neviļus aizmidzis vai Jums ir bijis sekunžu miegs?",
+   "followup": "Kādās situācijās? Vai tas ir noticis arī pie stūres?"
+  },
+  "snoring": {
+   "label": "Vai Jums ir teikts, ka Jūs skaļi un neregulāri krācat vai ka naktī Jums ir elpošanas pauzes?"
+  },
+  "osas": {
+   "label": "Vai Jums ir konstatēts miega apnojas sindroms (elpošanas apstāšanās naktī)?",
+   "followup": "Kad tika noteikta diagnoze, un kāda smaguma pakāpe vai AHI rādītājs tika konstatēts (ja zināms)?"
+  },
+  "cpap": {
+   "label": "Vai Jūs saņemat ārstēšanu miega apnojas dēļ (piem., CPAP elpošanas masku)?",
+   "options": {
+    "regelmaessig": "Jā, regulāri (gandrīz katru nakti)",
+    "unregelmaessig": "Jā, bet neregulāri",
+    "abgebrochen": "Ārstēšana tika pārtraukta",
+    "keine": "Nē, ārstēšanas nav"
+   }
+  },
+  "psychiatric": {
+   "label": "Vai Jums ir diagnosticēta psihiska slimība (piem., depresija, trauksmes traucējumi, bipolāri traucējumi)?",
+   "followup": "Kāda slimība, un kā tā tiek ārstēta?"
+  },
+  "psychiatric_severe": {
+   "label": "Vai Jūs tāpēc kādreiz esat ārstējies stacionārā, vai Jums ir bijusi mānijas fāze vai domas par pašnāvību?",
+   "followup": "Kad tas bija pēdējo reizi?"
+  },
+  "psychosis": {
+   "label": "Vai Jums kādreiz ir diagnosticēta šizofrēnija vai cita psihoze (slimība ar murgiem vai halucinācijām)?",
+   "followup": "Cik akūtu epizožu Jums ir bijis, kad bija pēdējā, un vai Jūs ārstējaties pie ārsta speciālista?"
+  },
+  "memory_problems": {
+   "label": "Vai Jūs pats vai Jūsu tuvinieki pēdējā laikā esat pamanījuši, ka Jums pieaug atmiņas vai orientēšanās problēmas?",
+   "followup": "Kopš kura laika, un kā tās izpaužas ikdienā?"
+  },
+  "concentration": {
+   "label": "Vai Jums ir koncentrēšanās vai uzmanības problēmas?"
+  },
+  "alcohol": {
+   "label": "Cik bieži Jūs lietojat alkoholu?",
+   "options": {
+    "nie": "Nekad",
+    "selten": "Reti (ne biežāk kā 1 reizi mēnesī)",
+    "woechentlich": "1–2 reizes nedēļā",
+    "mehrmals": "Vairākas reizes nedēļā",
+    "taeglich": "Katru dienu vai gandrīz katru dienu"
+   }
+  },
+  "alcohol_control": {
+   "label": "Vai ir gadījies, ka Jūs esat izdzēris vairāk, nekā bijāt paredzējis, vai zaudējis kontroli pār savu lietošanu?"
+  },
+  "alcohol_traffic": {
+   "label": "Vai Jūs kādreiz esat pieķerts ceļu satiksmē alkohola reibumā (piem., braukšana dzērumā, naudas sods, MPU – Vācijas medicīniski psiholoģiskais piemērotības novērtējums)?",
+   "followup": "Kad, un kāds promiļu rādītājs tika konstatēts (ja zināms)?"
+  },
+  "alcohol_dependence": {
+   "label": "Vai Jums kādreiz ir konstatēta atkarība no alkohola vai Jūs esat izgājis detoksikāciju vai atradināšanas ārstēšanu?",
+   "followup": "Kad ārstēšana tika pabeigta, un kopš kura laika Jūs dzīvojat atturīgi?"
+  },
+  "drugs": {
+   "label": "Vai Jūs pašlaik lietojat narkotikas (piem., kaņepes, kokaīnu, amfetamīnus) vai agrāk regulāri esat lietojis narkotikas?",
+   "followup": "Kādas vielas, cik bieži, un kad pēdējo reizi?"
+  },
+  "cannabis": {
+   "label": "Cik bieži Jūs lietojat kaņepes?",
+   "options": {
+    "nie": "Nekad",
+    "gelegentlich": "Laiku pa laikam (neregulāri)",
+    "regelmaessig": "Regulāri (katru dienu vai pēc ieraduma)"
+   }
+  },
+  "substitution": {
+   "label": "Vai Jūs saņemat aizstājterapiju (piem., ar metadonu)?",
+   "followup": "Kopš kura laika?"
+  },
+  "regular_meds": {
+   "label": "Vai Jūs regulāri lietojat medikamentus?",
+   "followup": "Kādus medikamentus, un pret ko?"
+  },
+  "sedating_meds": {
+   "label": "Vai to vidū ir medikamenti, kas var izraisīt miegainību vai ietekmēt reakcijas spēju (piem., spēcīgi pretsāpju līdzekļi/opioīdi, miega vai nomierinoši līdzekļi, antidepresanti, pretepilepsijas līdzekļi, pretalerģijas līdzekļi)?",
+   "followup": "Kādi medikamenti un kādā devā?"
+  },
+  "med_side_effects": {
+   "label": "Vai, lietojot savus medikamentus, Jūs pamanāt blakusparādības, piemēram, nogurumu, palēninātību, koncentrēšanās traucējumus vai reiboni?",
+   "followup": "Kādas blakusparādības, un cik izteiktas?"
+  },
+  "med_recent_change": {
+   "label": "Vai pēdējo nedēļu laikā šāds medikaments ir no jauna nozīmēts vai tā deva ir būtiski mainīta?",
+   "followup": "Kurš medikaments, un kad?"
+  },
+  "benzo_regular": {
+   "label": "Vai Jūs jau vairākus mēnešus regulāri – kaut vai tikai vakaros nelielā daudzumā – lietojat miega vai nomierinošus līdzekļus (piem., benzodiazepīnus)?",
+   "followup": "Kādu līdzekli, cik ilgi jau, un vai, to pārtraucot, Jūs pamanāt abstinences pazīmes?"
+  },
+  "multiple_conditions": {
+   "label": "Vai Jums vienlaikus ir vairākas slimības vai veselības ierobežojumi?",
+   "hint": "Vairākas novirzes kopumā var būt nozīmīgas piemērotībai vadīt transportlīdzekli, pat ja katra atsevišķi būtu nekaitīga (vadlīniju 2.7. nodaļa).",
+   "followup": "Lūdzu, īsi uzskaitiet visas zināmās slimības."
+  },
+  "other_conditions": {
+   "label": "Vai ir vēl citas slimības, sūdzības vai agrākas operācijas, kas līdz šim nav minētas?",
+   "followup": "Kādas?"
+  },
+  "driving_adaptation": {
+   "label": "Vai veselības ierobežojumu dēļ Jūs apzināti atsakāties no noteiktiem braucieniem (piem., tumsā, gari attālumi, automaģistrāle)?",
+   "followup": "No kādiem braucieniem, un kāpēc?"
+  },
+  "consent_truth": {
+   "label": "Apliecinu, ka mana sniegtā informācija ir pilnīga un patiesa.",
+   "error": "Lūdzu, apstipriniet savas informācijas pilnīgumu."
+  },
+  "consent_privacy": {
+   "label": "Esmu izlasījis datu aizsardzības informāciju un piekrītu savu datu apstrādei satiksmes medicīnas nolūkos.",
+   "error": "Lūdzu, piekrītiet datu aizsardzības informācijai."
+  }
+ },
+ "ess_items": {
+  "ess_1": "Sēžot un lasot",
+  "ess_2": "Skatoties televizoru",
+  "ess_3": "Pasīvi sēžot sabiedriskā vietā (piem., teātrī vai sanāksmē)",
+  "ess_4": "Kā pasažierim automašīnā stundu ilgā braucienā bez pārtraukuma",
+  "ess_5": "Kad pēcpusdienā esat apgūlies atpūsties",
+  "ess_6": "Kad sēžat un ar kādu sarunājaties",
+  "ess_7": "Kad pēc pusdienām (bez alkohola) mierīgi sēžat",
+  "ess_8": "Kad kā automašīnas vadītājam satiksmes dēļ ir jāapstājas uz dažām minūtēm"
+ }
+}

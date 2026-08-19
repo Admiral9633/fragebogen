@@ -1,0 +1,585 @@
+{
+ "_meta": {
+  "language": "is",
+  "name": "Íslenska",
+  "machine_translated": true
+ },
+ "ui": {
+  "header_title": "Umferðarlæknisfræðilegur spurningalisti",
+  "header_subtitle": "Vinsamlegast svarið öllum spurningum",
+  "language_label": "Tungumál",
+  "loading": "Hleð spurningalista …",
+  "not_found_title": "Spurningalisti fannst ekki",
+  "to_start": "Á upphafssíðu",
+  "back": "Til baka",
+  "next": "Áfram",
+  "skip": "Sleppa",
+  "submit": "Senda",
+  "sending": "Sendi…",
+  "question_of": "Spurning {current} af {total}",
+  "answer_placeholder": "Svarið þitt…",
+  "required_error": "Vinsamlegast svaraðu þessari spurningu.",
+  "yes": "Já",
+  "no": "Nei",
+  "consent_title": "Samþykki",
+  "followup_hint": "Valfrjálsar viðbótarupplýsingar – hjálpa við læknisfræðilegt mat.",
+  "ess_question": "Hversu líklegt er að þú myndir dotta í þessum aðstæðum?",
+  "ess_sum": "Samtala hingað til",
+  "ess_opt_0": "0 – Myndi aldrei dotta",
+  "ess_opt_1": "1 – Litlar líkur",
+  "ess_opt_2": "2 – Miðlungs líkur",
+  "ess_opt_3": "3 – Miklar líkur",
+  "privacy_button": "Sýna persónuverndarupplýsingar",
+  "privacy_title": "Persónuverndarupplýsingar",
+  "privacy_subtitle": "Upplýsingar um vinnslu gagna þinna samkvæmt Art. 13 DSGVO (persónuverndarreglugerð ESB)",
+  "privacy_controller": "Ábyrgðaraðili: Dr. med. Björn Micka, atvinnulækningar · bráðalækningar, Christoph-Dassler-Str. 22, 91074 Herzogenaurach",
+  "privacy_purpose": "Tilgangur vinnslunnar: Upplýsingar þínar í þessum spurningalista (þar á meðal heilsufarsupplýsingar) eru eingöngu notaðar til undirbúnings og framkvæmdar umferðarlæknisfræðilegrar skoðunar þinnar.",
+  "privacy_legal": "Lagagrundvöllur: Samþykki þitt (Art. 6 Abs. 1 lit. a, Art. 9 Abs. 2 lit. a DSGVO). Þú getur afturkallað samþykkið hvenær sem er með áhrifum til framtíðar.",
+  "privacy_storage": "Geymsla: Niðurstaðan verður hluti af skoðunargögnum þínum og fellur undir lögbundna geymsluskyldu lækna. Netaðgangurinn um persónulega hlekkinn þinn rennur út að gildistíma loknum; gögnum þessa netspurningalista er að því loknu eytt með reglubundnum hætti.",
+  "privacy_rights": "Réttindi þín: Þú átt rétt á aðgangi, leiðréttingu, eyðingu og takmörkun vinnslu, auk réttar til að leggja fram kvörtun hjá lögbæru persónuverndaryfirvaldi.",
+  "privacy_secrecy": "Allar upplýsingar falla undir þagnarskyldu lækna.",
+  "success_title": "Kærar þakkir!",
+  "success_text": "Spurningalistinn þinn hefur verið sendur.",
+  "success_result": "ESS-niðurstaða",
+  "success_doctor_note": "Vinsamlegast ræddu niðurstöðuna við lækninn þinn. Endanlegt mat er í höndum sérfræðilæknis.",
+  "success_pdf": "Sækja PDF-samantekt",
+  "success_close": "Þú mátt nú loka þessum glugga.",
+  "band_normal": "Eðlilegt (0–9)",
+  "band_elevated": "Hækkað (10–15)",
+  "band_severe": "Verulegt (≥16)",
+  "submit_error": "Villa við sendingu. Vinsamlegast athugaðu svörin þín."
+ },
+ "sections": {
+  "anlass": {
+   "title": "Tilefni og aksturssnið",
+   "subtitle": "Upplýsingar um skoðunina og akstur þinn"
+  },
+  "gesundheit": {
+   "title": "Heilsufar",
+   "subtitle": "Ein spurning fyrst"
+  },
+  "anfaelle": {
+   "title": "Flog og meðvitundarleysi",
+   "subtitle": "Hætta á skyndilegri óstarfhæfni – flogaköst og yfirlið"
+  },
+  "sehen_hoeren": {
+   "title": "Sjón og heyrn",
+   "subtitle": "Sjón- og heyrnarstarfsemi"
+  },
+  "herz": {
+   "title": "Hjarta og blóðrás",
+   "subtitle": "Hjarta- og æðasjúkdómar"
+  },
+  "gehirn": {
+   "title": "Heilablóðfall og heili",
+   "subtitle": "Blóðrásartruflanir, áverkar og aðgerðir á heila"
+  },
+  "neuro": {
+   "title": "Taugakerfi",
+   "subtitle": "Taugasjúkdómar"
+  },
+  "schwindel": {
+   "title": "Jafnvægi og svimi",
+   "subtitle": "Tegundir svima og jafnvægistruflanir"
+  },
+  "bewegung": {
+   "title": "Stoðkerfi",
+   "subtitle": "Líkamlegar takmarkanir og hjálpartæki"
+  },
+  "diabetes": {
+   "title": "Sykursýki / efnaskipti",
+   "subtitle": "Sykursýki og blóðsykursföll"
+  },
+  "organe": {
+   "title": "Innri líffæri",
+   "subtitle": "Nýru, lungu og líffæraígræðslur"
+  },
+  "schlaf": {
+   "title": "Svefn og dagsyfja",
+   "subtitle": "Þar á meðal Epworth Sleepiness Scale (ESS)"
+  },
+  "psyche": {
+   "title": "Geðheilsa",
+   "subtitle": "Geðsjúkdómar og minni"
+  },
+  "substanzen": {
+   "title": "Áfengi, fíkniefni og lyf",
+   "subtitle": "Neysla og föst lyfjameðferð"
+  },
+  "allgemein": {
+   "title": "Almennt og samþykki",
+   "subtitle": "Frekari upplýsingar og yfirlýsingar"
+  }
+ },
+ "questions": {
+  "exam_occasion": {
+   "label": "Fyrir hvaða ökuréttindi fer skoðunin fram?",
+   "options": {
+    "pkw": "Fólksbíll / annar flokkur",
+    "lkw": "Vörubíll (C, C1, CE, C1E)",
+    "bus": "Hópbifreið (D, D1, DE, D1E)",
+    "fahrgast": "Farþegaflutningar (leigubíll, bílaleigubíll með bílstjóra, sjúkraflutningar)"
+   }
+  },
+  "exam_kind": {
+   "label": "Er um að ræða fyrstu útgáfu eða endurnýjun?",
+   "options": {
+    "erst": "Fyrsta útgáfa",
+    "verlaengerung": "Endurnýjun"
+   }
+  },
+  "license_classes": {
+   "label": "Hvaða ökuréttindaflokka hefur þú eða sækir þú um?",
+   "options": {
+    "AM": "AM",
+    "A1": "A1",
+    "A2": "A2",
+    "A": "A",
+    "B": "B",
+    "BE": "BE",
+    "C1": "C1",
+    "C1E": "C1E",
+    "C": "C",
+    "CE": "CE",
+    "D1": "D1",
+    "D": "D",
+    "DE": "DE",
+    "T": "T"
+   }
+  },
+  "license_years": {
+   "label": "Í hve mörg ár hefur þú haft ökuréttindi?",
+   "options": {
+    "erstantrag": "Engin enn (fyrsta umsókn)",
+    "unter3": "Skemur en 3 ár",
+    "3bis10": "3 til 10 ár",
+    "ueber10": "Lengur en 10 ár"
+   }
+  },
+  "driving_hours": {
+   "label": "Hve margar klukkustundir ekur þú að meðaltali á dag?",
+   "options": {
+    "<1": "Skemur en 1 klukkustund",
+    "1-2": "1 til 2 klukkustundir",
+    "2-4": "2 til 4 klukkustundir",
+    ">4": "Meira en 4 klukkustundir"
+   }
+  },
+  "night_driving": {
+   "label": "Ekur þú reglulega að nóttu til?"
+  },
+  "accidents": {
+   "label": "Hefur þú lent í umferðarslysum eða næstum-slysum síðustu 24 mánuði?",
+   "followup": "Hvað gerðist?"
+  },
+  "license_withdrawn": {
+   "label": "Hefur þú einhvern tíma verið sviptur ökuréttindum eða þurft að gangast undir læknisfræðilega-sálfræðilega skoðun (MPU)?",
+   "followup": "Hvenær og af hvaða ástæðu?"
+  },
+  "psych_test_done": {
+   "label": "Hefur þú þegar lokið sálfræðilegu hæfnisprófi (viðbragðs-, einbeitingar- og athyglisprófi) vegna þessara ökuréttinda?",
+   "hint": "Fyrir hópbifreiðaflokka og farþegaflutninga er þessi staðfesting skylda samkvæmt Anlage 5 FeV (þýsk ökuréttindareglugerð). Vinsamlegast taktu fyrirliggjandi vottorð með í skoðunina.",
+   "followup": "Hvenær og hvar var prófið gert?"
+  },
+  "has_conditions": {
+   "label": "Ertu með þekktan undirliggjandi sjúkdóm, varanlega líkamlega skerðingu, eða ertu í reglulegri læknismeðferð?",
+   "hint": "Undir þetta falla einnig alvarleg veikindi sem komu upp fyrir löngu (t.d. hjarta, sykursýki, taugar, geðheilsa). Ef nei styttist spurningalistinn umtalsvert."
+  },
+  "seizure_ever": {
+   "label": "Hefur þú einhvern tíma fengið flogakast eða krampakast?",
+   "followup": "Hvenær var síðasta kast, hve mörg hefur þú fengið alls, og var einhver kveikja (t.d. svefnskortur, hiti, áfengi)?"
+  },
+  "epilepsy": {
+   "label": "Hefur þú verið greindur með flogaveiki?",
+   "followup": "Koma köstin eingöngu í svefni? Ert þú í reglulegri meðferð hjá taugalækni?"
+  },
+  "seizure_free": {
+   "label": "Hve lengi hefur þú nú verið án floga?",
+   "hint": "Leiðbeiningarnar tengja ökuhæfni við tiltekin tímabil án floga.",
+   "options": {
+    "unter3m": "Skemur en 3 mánuðir",
+    "3bis6m": "3 til 6 mánuðir",
+    "6bis12m": "6 til 12 mánuðir",
+    "1bis2j": "1 til 2 ár",
+    "2bis5j": "2 til 5 ár",
+    "ueber5j": "Lengur en 5 ár"
+   }
+  },
+  "antiepileptics": {
+   "label": "Tekur þú lyf gegn flogum (flogaveikilyf)?",
+   "options": {
+    "nie": "Nei, hef aldrei tekið",
+    "aktuell": "Já, sem stendur",
+    "reduktion": "Meðferðin er nú minnkuð í skrefum",
+    "ende_unter3m": "Hætt fyrir minna en 3 mánuðum",
+    "ende_ueber3m": "Hætt fyrir meira en 3 mánuðum"
+   }
+  },
+  "syncope": {
+   "label": "Hefur þú einhvern tíma fallið skyndilega í yfirlið (stutt meðvitundarleysi)?",
+   "options": {
+    "nie": "Aldrei",
+    "einmal": "Einu sinni",
+    "mehrmals": "Oftar en einu sinni"
+   }
+  },
+  "syncope_recent": {
+   "label": "Er skemur en 6 mánuðir síðan þú féllst síðast í yfirlið?",
+   "followup": "Í hvaða aðstæðum kom yfirliðið, og fannst orsök (t.d. blóðrás, hjartsláttartruflun, við þvaglát)?"
+  },
+  "syncope_prodromi": {
+   "label": "Finnur þú fyrirboða áður en þú fellur í yfirlið (t.d. svita, svima, ógleði, hjartslátt)?"
+  },
+  "glasses": {
+   "label": "Notar þú gleraugu eða snertilinsur við akstur?"
+  },
+  "eye_disease": {
+   "label": "Er vitað um augnsjúkdóm hjá þér (t.d. ský á auga, gláku, sjónhimnusjúkdóm, skert sjónsvið)?",
+   "followup": "Hvaða sjúkdómur, og ert þú í meðferð hjá augnlækni?"
+  },
+  "one_eyed": {
+   "label": "Sérð þú áberandi verr með öðru auganu eða ert þú blindur á öðru auga?"
+  },
+  "night_vision": {
+   "label": "Átt þú í erfiðleikum með að sjá í rökkri eða myrkri, eða blindar umferð á móti þig verulega?",
+   "followup": "Í hvaða aðstæðum koma vandamálin fram?"
+  },
+  "hearing_impaired": {
+   "label": "Ert þú með verulega skerta heyrn eða heyrnarlaus?",
+   "followup": "Síðan hvenær, og ert þú í meðferð hjá háls-, nef- og eyrnalækni?"
+  },
+  "hearing_aid": {
+   "label": "Notar þú heyrnartæki eða kuðungsígræðslu?"
+  },
+  "heart_disease": {
+   "label": "Er vitað um hjarta- eða æðasjúkdóm hjá þér?",
+   "hint": "t.d. hjartsláttartruflanir, hjartaáfall, hjartabilun, hjartalokugallar, blóðrásartruflanir",
+   "followup": "Hvaða sjúkdómur/sjúkdómar, síðan hvenær, og hvernig eru þeir meðhöndlaðir?"
+  },
+  "cardio_checkup": {
+   "label": "Ert þú af þeim sökum í reglulegu eftirliti hjá hjartalækni?",
+   "followup": "Hvenær var síðasta eftirlit?"
+  },
+  "heart_attack": {
+   "label": "Hefur þú einhvern tíma fengið hjartaáfall, stoðnetsmeðferð (stent) eða hjáveituaðgerð?",
+   "followup": "Hvenær var atvikið eða aðgerðin, og komu fram fylgikvillar (t.d. skert dælugeta hjartans)?"
+  },
+  "arrhythmia": {
+   "label": "Er vitað um hjartsláttartruflanir hjá þér (t.d. aukaslög, hjartsláttarköst, áberandi hægur púls, gáttatif, AV-leiðslurof)?",
+   "followup": "Hvaða greining, og hvernig er meðhöndlað?"
+  },
+  "pacemaker_icd": {
+   "label": "Ert þú með gangráð eða bjargráð (ICD)?",
+   "options": {
+    "nein": "Nei",
+    "schrittmacher": "Gangráður",
+    "icd": "Bjargráður (ICD)"
+   },
+   "followup": "Hvenær var hann settur, og hvenær var síðasta eftirlit?"
+  },
+  "icd_shock": {
+   "label": "Hefur bjargráðurinn þinn gefið rafstuð síðustu 3 mánuði?",
+   "followup": "Hvenær, og hvað sagði hjartalæknirinn þinn um það?"
+  },
+  "exertion_symptoms": {
+   "label": "Færð þú mæði, brjóstverk, aukaslög eða óvenjulega þreytu við áreynslu?",
+   "hint": "Sjálfsmat samkvæmt NYHA-stigum",
+   "options": {
+    "keine": "Nei, engin einkenni við daglega áreynslu",
+    "stark": "Við meiri áreynslu (t.d. röskan stigagang)",
+    "leicht": "Þegar við létta áreynslu (t.d. hægan gang)",
+    "ruhe": "Þegar í hvíld"
+   }
+  },
+  "hypertension": {
+   "label": "Er vitað um háþrýsting hjá þér?",
+   "followup": "Síðan hvenær, hvaða lyf, og hvaða gildi mælir þú venjulega?"
+  },
+  "bp_dizziness": {
+   "label": "Verður þú var við svima, máttleysistilfinningu eða að sortni fyrir augum af blóðþrýstingslyfjunum þínum?"
+  },
+  "heart_other": {
+   "label": "Er vitað um annan hjarta-/æðasjúkdóm hjá þér: hjartalokugalla, meðfæddan hjartagalla, hjartavöðvasjúkdóm (kardíómýópatíu), arfgengan hjartsláttarsjúkdóm (t.d. langt QT-heilkenni), ósæðargúlp eða þrengda hálsslagæð?",
+   "followup": "Hvaða greining, og hvernig er henni fylgt eftir eða hún meðhöndluð?"
+  },
+  "family_sudden_death": {
+   "label": "Hefur skyndilegur hjartadauði komið fyrir í nánustu fjölskyldu þinni (foreldrar, systkini, börn)?"
+  },
+  "stroke": {
+   "label": "Hefur þú einhvern tíma fengið heilablóðfall, heilablæðingu eða TIA (tímabundna blóðrásartruflun með skammvinnum einkennum)?",
+   "followup": "Hvenær var atvikið, og var endurhæfingu lokið?"
+  },
+  "stroke_residuals": {
+   "label": "Eru enn til staðar eftirstöðvar eins og lamanir, taltruflanir, minnisvandamál eða skert sjónsvið?",
+   "followup": "Hvaða einkenni eru enn til staðar?"
+  },
+  "head_injury": {
+   "label": "Hefur þú einhvern tíma fengið alvarlegan höfuðáverka (með meðvitundarleysi eða sjúkrahúslegu) eða gengist undir aðgerð á heila?",
+   "followup": "Hvenær, og hvað var meðhöndlað?"
+  },
+  "head_injury_recent": {
+   "label": "Er skemur en 3 mánuðir síðan þessi áverki eða aðgerð átti sér stað?",
+   "hint": "Eftir heilaáverka eða heilaaðgerð er samkvæmt leiðbeiningum almennt engin ökuhæfni í 3 mánuði."
+  },
+  "brain_residuals": {
+   "label": "Hafa frá áverkanum/aðgerðinni verið til staðar einkenni eins og einbeitingar- eða minnistruflanir, persónuleikabreyting eða krampaköst?",
+   "followup": "Hvaða einkenni, og hvernig hafa þau áhrif?"
+  },
+  "parkinson": {
+   "label": "Hefur þú verið greindur með Parkinsonsveiki eða aðra hreyfi- eða samhæfingartruflun?",
+   "followup": "Síðan hvenær, hvernig er meðhöndlað, og hvenær var síðasta eftirlit hjá taugalækni?"
+  },
+  "ms_spinal": {
+   "label": "Er vitað um MS-sjúkdóm (heila- og mænusigg), mænusjúkdóm eða mænuáverka hjá þér?",
+   "followup": "Hvaða greining, og hvaða einkenni hefur þú nú?"
+  },
+  "muscle_nerve": {
+   "label": "Er vitað um vöðva- eða taugasjúkdóm hjá þér (t.d. vöðvarýrnun, vöðvaslensfár, fjöltaugakvilla)?",
+   "followup": "Hvaða greining, og hversu mikið ert þú takmarkaður?"
+  },
+  "paralysis_attacks": {
+   "label": "Færð þú lamanir í köstum eða skyndilegt verulegt vöðvamáttleysi?",
+   "followup": "Hvenær kom síðasta kast, og hversu hratt kemur það á?"
+  },
+  "motor_limits": {
+   "label": "Ert þú með lamanir, vöðvamáttleysi eða skyntruflanir í handleggjum eða fótleggjum sem gætu takmarkað þig við stjórn ökutækis?",
+   "followup": "Hvaða líkamshlutar eru fyrir áhrifum?"
+  },
+  "vertigo": {
+   "label": "Þjáist þú af svima eða jafnvægistruflunum (t.d. snúningstilfinningu, riðu, óöryggi við gang)?",
+   "followup": "Hvernig lýsir sviminn sér, hve oft kemur hann, hve lengi varir kast, og hvað kallar hann fram?"
+  },
+  "vertigo_last": {
+   "label": "Hve langt er síðan síðasta svimakast?",
+   "options": {
+    "unter3m": "Skemur en 3 mánuðir",
+    "3bis6m": "3 til 6 mánuðir",
+    "6bis12m": "6 til 12 mánuðir",
+    "1bis2j": "1 til 2 ár",
+    "ueber2j": "Lengur en 2 ár"
+   }
+  },
+  "vertigo_prodromi": {
+   "label": "Gera svimaköstin boð á undan sér (t.d. þrýstingur í eyra, eyrnasuð, heyrnarskerðing), þannig að þú gætir stöðvað í tæka tíð?",
+   "options": {
+    "immer": "Já, alltaf",
+    "manchmal": "Stundum",
+    "nie": "Nei, þau koma án fyrirvara"
+   }
+  },
+  "vertigo_positional": {
+   "label": "Kallast sviminn fram af ákveðnum höfuðhreyfingum eða stöðubreytingum (t.d. að snúa sér í rúminu, beygja sig fram)?"
+  },
+  "vertigo_ear": {
+   "label": "Kemur sviminn samhliða heyrnarskerðingu, eyrnasuði (tinnitus) eða þrýstingstilfinningu í eyra?"
+  },
+  "ear_disease": {
+   "label": "Hefur greinst sjúkdómur í jafnvægiskerfi eða innra eyra hjá þér (t.d. góðkynja stöðusvimi, Menière-sjúkdómur)?",
+   "followup": "Hvaða greining, hvernig var meðhöndlað, og hefur þú verið einkennalaus síðan?"
+  },
+  "mobility_limits": {
+   "label": "Ert þú með varanlega skerta hreyfigetu í handleggjum, fótleggjum, höndum eða hrygg (t.d. eftir slys, aðgerð, aflimun)?",
+   "followup": "Hvaða líkamshlutar eru fyrir áhrifum, og síðan hvenær?"
+  },
+  "prosthesis": {
+   "label": "Notar þú gervilim eða bæklunarhjálpartæki?",
+   "followup": "Hvaða hjálpartæki, og finnur þú fyrir óþægindum við langvarandi álag?"
+  },
+  "vehicle_modified": {
+   "label": "Hefur ökutækinu þínu verið breytt vegna líkamlegrar skerðingar (t.d. handstjórntæki, stýrishjálp)?",
+   "followup": "Hvaða breytingar, og eru þær skráðar í ökuskírteinið?"
+  },
+  "diabetes_type": {
+   "label": "Er vitað um sykursýki (diabetes mellitus) hjá þér?",
+   "options": {
+    "none": "Nei",
+    "type1": "Já, tegund 1",
+    "type2": "Já, tegund 2",
+    "other": "Já, önnur/óljós tegund"
+   }
+  },
+  "diabetes_therapy": {
+   "label": "Hvernig er sykursýkin þín meðhöndluð sem stendur?",
+   "options": {
+    "lifestyle": "Aðeins mataræði / lífsstíll",
+    "tabl_low": "Töflur með lítilli hættu á blóðsykursfalli (t.d. metformín)",
+    "tabl_high": "Töflur með hættu á blóðsykursfalli (súlfónýlúrealyf, glíníð)",
+    "insulin": "Insúlín",
+    "unknown": "Veit ekki nákvæmlega"
+   }
+  },
+  "hypoglycemia": {
+   "label": "Hefur þú fengið alvarlegt blóðsykursfall síðustu 12 mánuði þar sem þú þurftir hjálp annarra?",
+   "followup": "Hve oft, hvenær var síðasta tilvik, og kom það í vöku eða svefni?"
+  },
+  "hypo_awareness": {
+   "label": "Hefur það komið fyrir að þú tókst ekki sjálfur eftir blóðsykursfalli í tæka tíð (viðvörunareinkenni vantaði)?",
+   "followup": "Hvenær síðast, og var eitthvað gert (t.d. þjálfun, breyting á meðferð)?"
+  },
+  "glucose_monitoring": {
+   "label": "Mælir þú blóðsykurinn þinn reglulega sjálfur (eða notar þú sykurnema)?",
+   "options": {
+    "2x": "Já, að minnsta kosti tvisvar á dag",
+    "seltener": "Já, en sjaldnar",
+    "nein": "Nei",
+    "keine_med": "Á ekki við um mig (engin blóðsykurslækkandi lyf)"
+   }
+  },
+  "diabetes_derailment": {
+   "label": "Hefur meðferðin verið endurstillt síðustu mánuði eða hefur orðið alvarleg efnaskiptatruflun (t.d. sjúkrahúsmeðferð vegna óstöðugra gilda)?",
+   "followup": "Hvað gerðist, og hvenær?"
+  },
+  "kidney_disease": {
+   "label": "Er vitað um langvinnan nýrnasjúkdóm eða skerta nýrnastarfsemi hjá þér?",
+   "followup": "Hvaða sjúkdómur, og ert þú í meðferð hjá nýrnalækni?"
+  },
+  "dialysis": {
+   "label": "Ert þú reglulega í skilunarmeðferð (blóðskilun)?",
+   "followup": "Síðan hvenær og hve oft í viku? Finnst þér þú vera vel á þig kominn milli meðferða?"
+  },
+  "transplant": {
+   "label": "Hefur líffæri verið grætt í þig (t.d. nýra, hjarta, lifur, lunga)?",
+   "followup": "Hvaða líffæri, hvenær, og ert þú í reglulegu eftirliti?"
+  },
+  "lung_disease": {
+   "label": "Þjáist þú af langvinnum lungna- eða berkjusjúkdómi (t.d. langvinnri lungnateppu (COPD), astma, lungnatrefjun)?",
+   "followup": "Hvaða sjúkdómur, og hvernig er hann meðhöndlaður?"
+  },
+  "dyspnea": {
+   "label": "Færð þú andþyngsli þegar við létta áreynslu eða í hvíld, eða þarft þú langtímameðferð með súrefni?"
+  },
+  "cough_syncope": {
+   "label": "Hefur við mikil hóstaköst komið fyrir að þig svimaði, sortnaði fyrir augum eða þú misstir meðvitund stutta stund?"
+  },
+  "daytime_sleepiness": {
+   "label": "Átt þú erfitt með að halda þér vakandi og athugulum yfir daginn – sérstaklega í einhæfum aðstæðum (t.d. við lestur, á fundum, í lengri bílferðum)?"
+  },
+  "microsleep": {
+   "label": "Hefur þú síðustu mánuði sofnað óviljandi eða fengið örsvefn (sekúndusvefn)?",
+   "followup": "Í hvaða aðstæðum? Hefur það líka gerst undir stýri?"
+  },
+  "snoring": {
+   "label": "Hefur þér verið sagt að þú hrjótir hátt og óreglulega eða hafir öndunarhlé á nóttunni?"
+  },
+  "osas": {
+   "label": "Hefur kæfisvefn (öndunarhlé í svefni) verið greindur hjá þér?",
+   "followup": "Hvenær var greiningin gerð, og hvaða alvarleikastig eða AHI-gildi mældist (ef vitað)?"
+  },
+  "cpap": {
+   "label": "Ert þú í meðferð vegna kæfisvefnsins (t.d. CPAP-öndunargríma)?",
+   "options": {
+    "regelmaessig": "Já, reglulega (nánast hverja nótt)",
+    "unregelmaessig": "Já, en óreglulega",
+    "abgebrochen": "Meðferðinni var hætt",
+    "keine": "Nei, engin meðferð"
+   }
+  },
+  "psychiatric": {
+   "label": "Hefur þú verið greindur með geðsjúkdóm (t.d. þunglyndi, kvíðaröskun, geðhvarfasýki)?",
+   "followup": "Hvaða sjúkdómur, og hvernig er hann meðhöndlaður?"
+  },
+  "psychiatric_severe": {
+   "label": "Hefur þú af þeim sökum verið lagður inn á sjúkrahús, fengið örlyndislotu (maníu) eða haft sjálfsvígshugsanir?",
+   "followup": "Hvenær var það síðast?"
+  },
+  "psychosis": {
+   "label": "Hefur þú einhvern tíma verið greindur með geðklofa eða annað geðrof (sjúkdóm með ranghugmyndum eða ofskynjunum)?",
+   "followup": "Hve margar bráðar lotur hefur þú fengið, hvenær var sú síðasta, og ert þú í meðferð hjá sérfræðilækni?"
+  },
+  "memory_problems": {
+   "label": "Hafa þú sjálfur eða aðstandendur þínir tekið eftir vaxandi minnis- eða áttunarvandamálum hjá þér að undanförnu?",
+   "followup": "Síðan hvenær, og hvernig koma þau fram í daglegu lífi?"
+  },
+  "concentration": {
+   "label": "Átt þú við einbeitingar- eða athyglisvandamál að stríða?"
+  },
+  "alcohol": {
+   "label": "Hve oft drekkur þú áfengi?",
+   "options": {
+    "nie": "Aldrei",
+    "selten": "Sjaldan (mest 1 sinni í mánuði)",
+    "woechentlich": "1–2 sinnum í viku",
+    "mehrmals": "Nokkrum sinnum í viku",
+    "taeglich": "Daglega eða nánast daglega"
+   }
+  },
+  "alcohol_control": {
+   "label": "Hefur það komið fyrir að þú hafir drukkið meira en þú ætlaðir eða misst stjórn á neyslu þinni?"
+  },
+  "alcohol_traffic": {
+   "label": "Hefur þú einhvern tíma verið tekinn í umferðinni undir áhrifum áfengis (t.d. ölvunarakstur, sekt, MPU – læknisfræðileg-sálfræðileg skoðun)?",
+   "followup": "Hvenær, og hvaða prómillgildi mældist (ef vitað)?"
+  },
+  "alcohol_dependence": {
+   "label": "Hefur áfengissýki einhvern tíma verið greind hjá þér, eða hefur þú farið í afeitrun eða áfengismeðferð?",
+   "followup": "Hvenær lauk meðferðinni, og hve lengi hefur þú lifað án áfengis?"
+  },
+  "drugs": {
+   "label": "Notar þú nú fíkniefni (t.d. kannabis, kókaín, amfetamín) eða hefur þú áður notað fíkniefni reglulega?",
+   "followup": "Hvaða efni, hve oft, og hvenær síðast?"
+  },
+  "cannabis": {
+   "label": "Hve oft notar þú kannabis?",
+   "options": {
+    "nie": "Aldrei",
+    "gelegentlich": "Stöku sinnum (ekki reglulega)",
+    "regelmaessig": "Reglulega (daglega eða að staðaldri)"
+   }
+  },
+  "substitution": {
+   "label": "Færð þú viðhaldsmeðferð við fíkn (t.d. metadón)?",
+   "followup": "Síðan hvenær?"
+  },
+  "regular_meds": {
+   "label": "Tekur þú lyf að staðaldri?",
+   "followup": "Hvaða lyf, og við hverju?"
+  },
+  "sedating_meds": {
+   "label": "Eru þar á meðal lyf sem geta valdið syfju eða haft áhrif á viðbragðsflýti (t.d. sterk verkjalyf/ópíóíðar, svefn- eða róandi lyf, þunglyndislyf, flogaveikilyf, ofnæmislyf)?",
+   "followup": "Hvaða lyf, og í hvaða skömmtum?"
+  },
+  "med_side_effects": {
+   "label": "Verður þú var við aukaverkanir af lyfjunum þínum, svo sem þreytu, hæglæti, einbeitingartruflanir eða svima?",
+   "followup": "Hvaða aukaverkanir, og hversu miklar?"
+  },
+  "med_recent_change": {
+   "label": "Hefur slíkt lyf verið sett inn nýtt síðustu vikur eða skammtur þess breyst verulega?",
+   "followup": "Hvaða lyf, og hvenær?"
+  },
+  "benzo_regular": {
+   "label": "Hefur þú í nokkra mánuði tekið reglulega – jafnvel aðeins á kvöldin í litlu magni – svefn- eða róandi lyf (t.d. benzódíazepín)?",
+   "followup": "Hvaða lyf, hve lengi, og finnur þú fráhvarfseinkenni þegar þú sleppir því?"
+  },
+  "multiple_conditions": {
+   "label": "Ert þú með fleiri en einn sjúkdóm eða heilsufarslega skerðingu samtímis?",
+   "hint": "Nokkur frávik geta samanlagt skipt máli fyrir ökuhæfni, jafnvel þótt hvert um sig væri skaðlaust (leiðbeiningar, kafli 2.7).",
+   "followup": "Vinsamlegast teldu stuttlega upp alla þekkta sjúkdóma."
+  },
+  "other_conditions": {
+   "label": "Eru aðrir sjúkdómar, einkenni eða fyrri aðgerðir sem ekki hafa verið nefnd hingað til?",
+   "followup": "Hver?"
+  },
+  "driving_adaptation": {
+   "label": "Sleppir þú meðvitað ákveðnum ferðum vegna heilsufarslegra takmarkana (t.d. í myrkri, löngum leiðum, hraðbraut)?",
+   "followup": "Hvaða ferðum, og hvers vegna?"
+  },
+  "consent_truth": {
+   "label": "Ég staðfesti að upplýsingar mínar eru tæmandi og sannleikanum samkvæmar.",
+   "error": "Vinsamlegast staðfestu að upplýsingar þínar séu tæmandi."
+  },
+  "consent_privacy": {
+   "label": "Ég hef lesið persónuverndarupplýsingarnar og samþykki vinnslu gagna minna í umferðarlæknisfræðilegum tilgangi.",
+   "error": "Vinsamlegast samþykktu persónuverndarupplýsingarnar."
+  }
+ },
+ "ess_items": {
+  "ess_1": "Þegar þú situr og lest",
+  "ess_2": "Þegar þú horfir á sjónvarp",
+  "ess_3": "Þegar þú situr aðgerðalaus á almannafæri (t.d. í leikhúsi eða á fundi)",
+  "ess_4": "Sem farþegi í bíl í klukkustundar akstri án hlés",
+  "ess_5": "Þegar þú hefur lagt þig eftir hádegi til að hvílast",
+  "ess_6": "Þegar þú situr og talar við einhvern",
+  "ess_7": "Þegar þú situr rólegur eftir hádegismat (án áfengis)",
+  "ess_8": "Þegar þú sem ökumaður þarft að stöðva í nokkrar mínútur vegna umferðar"
+ }
+}

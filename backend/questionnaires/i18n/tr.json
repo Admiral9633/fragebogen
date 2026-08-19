@@ -1,0 +1,585 @@
+{
+ "_meta": {
+  "language": "tr",
+  "name": "Türkçe",
+  "machine_translated": true
+ },
+ "ui": {
+  "header_title": "Trafik tıbbı anketi",
+  "header_subtitle": "Lütfen tüm soruları yanıtlayın",
+  "language_label": "Dil",
+  "loading": "Anket yükleniyor …",
+  "not_found_title": "Anket bulunamadı",
+  "to_start": "Başlangıç sayfasına",
+  "back": "Geri",
+  "next": "İleri",
+  "skip": "Atla",
+  "submit": "Gönder",
+  "sending": "Gönderiliyor…",
+  "question_of": "Soru {current} / {total}",
+  "answer_placeholder": "Yanıtınız…",
+  "required_error": "Lütfen bu soruyu yanıtlayın.",
+  "yes": "Evet",
+  "no": "Hayır",
+  "consent_title": "Onay",
+  "followup_hint": "Gönüllü ek bilgi – tıbbi değerlendirmeye yardımcı olur.",
+  "ess_question": "Bu durumda uyuklamanız ne kadar olasıdır?",
+  "ess_sum": "Şu ana kadarki toplam",
+  "ess_opt_0": "0 – Hiçbir zaman uyuklamam",
+  "ess_opt_1": "1 – Düşük olasılık",
+  "ess_opt_2": "2 – Orta olasılık",
+  "ess_opt_3": "3 – Yüksek olasılık",
+  "privacy_button": "Veri koruma bilgilerini göster",
+  "privacy_title": "Veri koruma bilgileri",
+  "privacy_subtitle": "Verilerinizin işlenmesi hakkında bilgi – Art. 13 DSGVO (AB Genel Veri Koruma Tüzüğü) uyarınca",
+  "privacy_controller": "Sorumlu: Dr. med. Björn Micka, Betriebsmedizin · Notfallmedizin, Christoph-Dassler-Str. 22, 91074 Herzogenaurach",
+  "privacy_purpose": "İşlemenin amacı: Bu anketteki bilgileriniz (sağlık verileri dahil) yalnızca trafik tıbbı muayenenizin hazırlanması ve yürütülmesi için kullanılır.",
+  "privacy_legal": "Hukuki dayanak: Onayınız (Art. 6 Abs. 1 lit. a, Art. 9 Abs. 2 lit. a DSGVO). Onayınızı istediğiniz zaman, ileriye dönük olarak geri alabilirsiniz.",
+  "privacy_storage": "Saklama: Sonuç, muayene evraklarınıza aktarılır ve hekimlikteki saklama sürelerine tabidir. Kişisel bağlantınız üzerinden çevrimiçi erişim, geçerlilik süresi dolduğunda sona erer; bu çevrimiçi anketin verileri ardından rutin olarak silinir.",
+  "privacy_rights": "Haklarınız: Bilgi alma, düzeltme, silme ve işlemenin kısıtlanması haklarına ve yetkili veri koruma denetim makamına şikâyette bulunma hakkına sahipsiniz.",
+  "privacy_secrecy": "Tüm bilgiler hekimin sır saklama yükümlülüğü kapsamındadır.",
+  "success_title": "Teşekkür ederiz!",
+  "success_text": "Anketiniz başarıyla iletildi.",
+  "success_result": "ESS sonucu",
+  "success_doctor_note": "Lütfen sonucu hekiminizle görüşün. Nihai değerlendirme bir uzman hekim tarafından yapılır.",
+  "success_pdf": "PDF özetini indir",
+  "success_close": "Bu pencereyi şimdi kapatabilirsiniz.",
+  "band_normal": "Normal (0–9)",
+  "band_elevated": "Yüksek (10–15)",
+  "band_severe": "Belirgin (≥16)",
+  "submit_error": "Gönderme sırasında hata oluştu. Lütfen bilgilerinizi kontrol edin."
+ },
+ "sections": {
+  "anlass": {
+   "title": "Muayene nedeni ve sürüş profili",
+   "subtitle": "Muayeneye ve sürüş faaliyetinize ilişkin bilgiler"
+  },
+  "gesundheit": {
+   "title": "Sağlık durumu",
+   "subtitle": "Önce bir soru"
+  },
+  "anfaelle": {
+   "title": "Nöbetler ve bilinç kaybı",
+   "subtitle": "Ani yeti kaybı riski – epileptik nöbetler ve bayılmalar"
+  },
+  "sehen_hoeren": {
+   "title": "Görme ve işitme",
+   "subtitle": "Görme ve işitme işlevi"
+  },
+  "herz": {
+   "title": "Kalp ve dolaşım",
+   "subtitle": "Kalp ve damar hastalıkları"
+  },
+  "gehirn": {
+   "title": "İnme ve beyin",
+   "subtitle": "Beyindeki dolaşım bozuklukları, yaralanmalar ve ameliyatlar"
+  },
+  "neuro": {
+   "title": "Sinir sistemi",
+   "subtitle": "Nörolojik hastalıklar"
+  },
+  "schwindel": {
+   "title": "Denge ve baş dönmesi",
+   "subtitle": "Baş dönmesi türleri ve denge bozuklukları"
+  },
+  "bewegung": {
+   "title": "Hareket sistemi",
+   "subtitle": "Bedensel kısıtlılıklar ve yardımcı araçlar"
+  },
+  "diabetes": {
+   "title": "Diyabet / metabolizma",
+   "subtitle": "Şeker hastalığı ve kan şekeri düşmeleri"
+  },
+  "organe": {
+   "title": "İç organlar",
+   "subtitle": "Böbrekler, akciğerler ve organ nakilleri"
+  },
+  "schlaf": {
+   "title": "Uyku ve gündüz uykululuğu",
+   "subtitle": "Epworth Sleepiness Scale (ESS) dahil"
+  },
+  "psyche": {
+   "title": "Ruh sağlığı",
+   "subtitle": "Ruhsal hastalıklar ve bellek"
+  },
+  "substanzen": {
+   "title": "Alkol, uyuşturucu ve ilaçlar",
+   "subtitle": "Kullanım ve sürekli ilaç tedavisi"
+  },
+  "allgemein": {
+   "title": "Genel bilgiler ve onay",
+   "subtitle": "Diğer bilgiler ve beyanlar"
+  }
+ },
+ "questions": {
+  "exam_occasion": {
+   "label": "Muayene hangi sürücü belgesi için yapılıyor?",
+   "options": {
+    "pkw": "Otomobil / diğer sınıf",
+    "lkw": "Kamyon (C, C1, CE, C1E)",
+    "bus": "Otobüs (D, D1, DE, D1E)",
+    "fahrgast": "Yolcu taşımacılığı (taksi, kiralık araç, hasta nakli)"
+   }
+  },
+  "exam_kind": {
+   "label": "Bu bir ilk verme mi yoksa uzatma mı?",
+   "options": {
+    "erst": "İlk verme",
+    "verlaengerung": "Uzatma"
+   }
+  },
+  "license_classes": {
+   "label": "Hangi sürücü belgesi sınıflarına sahipsiniz veya hangileri için başvuruyorsunuz?",
+   "options": {
+    "AM": "AM",
+    "A1": "A1",
+    "A2": "A2",
+    "A": "A",
+    "B": "B",
+    "BE": "BE",
+    "C1": "C1",
+    "C1E": "C1E",
+    "C": "C",
+    "CE": "CE",
+    "D1": "D1",
+    "D": "D",
+    "DE": "DE",
+    "T": "T"
+   }
+  },
+  "license_years": {
+   "label": "Kaç yıldır sürücü belgesine sahipsiniz?",
+   "options": {
+    "erstantrag": "Henüz yok (ilk başvuru)",
+    "unter3": "3 yıldan az",
+    "3bis10": "3 ila 10 yıl",
+    "ueber10": "10 yıldan fazla"
+   }
+  },
+  "driving_hours": {
+   "label": "Günde ortalama kaç saat araç kullanıyorsunuz?",
+   "options": {
+    "<1": "1 saatten az",
+    "1-2": "1 ila 2 saat",
+    "2-4": "2 ila 4 saat",
+    ">4": "4 saatten fazla"
+   }
+  },
+  "night_driving": {
+   "label": "Düzenli olarak gece araç kullanıyor musunuz?"
+  },
+  "accidents": {
+   "label": "Son 24 ay içinde trafikte kaza ya da ramak kala olay yaşadınız mı?",
+   "followup": "Ne oldu?"
+  },
+  "license_withdrawn": {
+   "label": "Sürücü belgeniz daha önce hiç geri alındı mı ya da tıbbi-psikolojik muayeneye (MPU) katılmak zorunda kaldınız mı?",
+   "followup": "Ne zaman ve hangi nedenle?"
+  },
+  "psych_test_done": {
+   "label": "Bu sürücü belgesi için daha önce psikolojik performans testi (tepki, konsantrasyon ve dikkat testi) yaptırdınız mı?",
+   "hint": "Otobüs sınıflarında ve yolcu taşımacılığında bu belge Anlage 5 FeV (Alman Sürücü Belgesi Yönetmeliği) uyarınca zorunludur. Elinizde bir rapor varsa lütfen muayeneye getirin.",
+   "followup": "Test ne zaman ve nerede yapıldı?"
+  },
+  "has_conditions": {
+   "label": "Bilinen bir önceden mevcut hastalığınız, kalıcı bir bedensel kısıtlılığınız var mı ya da düzenli tıbbi tedavi görüyor musunuz?",
+   "hint": "Buna uzun süre önce geçirilmiş ciddi hastalıklar da dahildir (örn. kalp, diyabet, sinir sistemi, ruh sağlığı). Hayır ise, anket belirgin şekilde kısalır."
+  },
+  "seizure_ever": {
+   "label": "Hiç epileptik nöbet ya da kasılma nöbeti geçirdiniz mi?",
+   "followup": "Son nöbet ne zamandı, toplam kaç nöbet geçirdiniz ve bir tetikleyici var mıydı (ör. uykusuzluk, ateş, alkol)?"
+  },
+  "epilepsy": {
+   "label": "Size epilepsi (sara) teşhisi kondu mu?",
+   "followup": "Nöbetler yalnızca uykuda mı oluyor? Düzenli nörolojik tedavi görüyor musunuz?"
+  },
+  "seizure_free": {
+   "label": "Ne kadar zamandır nöbet geçirmiyorsunuz?",
+   "hint": "Kılavuzlar, araç kullanma yeterliliğini belirli nöbetsiz sürelere bağlar.",
+   "options": {
+    "unter3m": "3 aydan az",
+    "3bis6m": "3 ila 6 ay",
+    "6bis12m": "6 ila 12 ay",
+    "1bis2j": "1 ila 2 yıl",
+    "2bis5j": "2 ila 5 yıl",
+    "ueber5j": "5 yıldan fazla"
+   }
+  },
+  "antiepileptics": {
+   "label": "Nöbetlere karşı ilaç (antiepileptik) kullanıyor musunuz?",
+   "options": {
+    "nie": "Hayır, hiç kullanmadım",
+    "aktuell": "Evet, şu anda",
+    "reduktion": "Tedavi şu anda kademeli olarak azaltılıyor",
+    "ende_unter3m": "3 aydan kısa süre önce sonlandırıldı",
+    "ende_ueber3m": "3 aydan uzun süre önce sonlandırıldı"
+   }
+  },
+  "syncope": {
+   "label": "Hiç aniden bayıldınız mı (kısa süreli bilinç kaybı)?",
+   "options": {
+    "nie": "Hiç",
+    "einmal": "Bir kez",
+    "mehrmals": "Birkaç kez"
+   }
+  },
+  "syncope_recent": {
+   "label": "Son bayılmanızın üzerinden 6 aydan az mı geçti?",
+   "followup": "Bayılma hangi durumda oldu ve bir nedeni bulundu mu (ör. dolaşım, kalp ritmi, idrar yaparken)?"
+  },
+  "syncope_prodromi": {
+   "label": "Bayılma sizde önceden belirti veriyor mu (ör. terleme, baş dönmesi, bulantı, çarpıntı)?"
+  },
+  "glasses": {
+   "label": "Araç kullanırken gözlük veya kontakt lens takıyor musunuz?"
+  },
+  "eye_disease": {
+   "label": "Bilinen bir göz hastalığınız var mı (ör. katarakt/göz perdesi, glokom/göz tansiyonu, ağ tabaka hastalığı, görme alanı daralması)?",
+   "followup": "Hangi hastalık ve göz doktoru tedavisi görüyor musunuz?"
+  },
+  "one_eyed": {
+   "label": "Bir gözünüzle belirgin şekilde daha kötü mü görüyorsunuz ya da bir gözünüz kör mü?"
+  },
+  "night_vision": {
+   "label": "Alacakaranlıkta veya karanlıkta görme sorunu yaşıyor musunuz ya da karşıdan gelen araçların ışığı sizi çok fazla kamaştırıyor mu?",
+   "followup": "Sorunlar hangi durumlarda ortaya çıkıyor?"
+  },
+  "hearing_impaired": {
+   "label": "İleri derecede işitme kaybınız var mı ya da işitme engelli misiniz?",
+   "followup": "Ne zamandan beri ve kulak burun boğaz doktoru tedavisi görüyor musunuz?"
+  },
+  "hearing_aid": {
+   "label": "İşitme cihazı veya koklear implant kullanıyor musunuz?"
+  },
+  "heart_disease": {
+   "label": "Bilinen bir kalp veya damar hastalığınız var mı?",
+   "hint": "ör. ritim bozuklukları, kalp krizi, kalp yetmezliği, kapak hastalığı, dolaşım bozuklukları",
+   "followup": "Hangi hastalık(lar), ne zamandan beri ve nasıl tedavi ediliyor?"
+  },
+  "cardio_checkup": {
+   "label": "Bu nedenle düzenli olarak kardiyoloğa (kalp doktoruna) kontrole gidiyor musunuz?",
+   "followup": "Son kontrol ne zamandı?"
+  },
+  "heart_attack": {
+   "label": "Hiç kalp krizi geçirdiniz mi, stent takıldı mı ya da bypass ameliyatı oldunuz mu?",
+   "followup": "Olay ya da müdahale ne zamandı ve komplikasyon oldu mu (ör. kalbin pompalama gücünde azalma)?"
+  },
+  "arrhythmia": {
+   "label": "Bilinen kalp ritim bozukluğunuz var mı (ör. kalpte tekleme, çarpıntı, belirgin şekilde yavaş nabız, atriyal fibrilasyon, AV blok)?",
+   "followup": "Hangi teşhis ve nasıl tedavi ediliyor?"
+  },
+  "pacemaker_icd": {
+   "label": "Kalp pili veya defibrilatör (ICD) taşıyor musunuz?",
+   "options": {
+    "nein": "Hayır",
+    "schrittmacher": "Kalp pili",
+    "icd": "Defibrilatör (ICD)"
+   },
+   "followup": "Ne zaman takıldı ve son kontrol ne zamandı?"
+  },
+  "icd_shock": {
+   "label": "Defibrilatörünüz son 3 ay içinde şok verdi mi?",
+   "followup": "Ne zaman ve kardiyoloğunuz bu konuda ne söyledi?"
+  },
+  "exertion_symptoms": {
+   "label": "Eforda nefes darlığı, göğüs ağrısı, çarpıntı veya olağan dışı yorgunluk oluyor mu?",
+   "hint": "NYHA evrelerine göre kendi değerlendirmeniz",
+   "options": {
+    "keine": "Hayır, günlük efor sırasında şikâyetim yok",
+    "stark": "Daha ağır eforda (ör. hızlı merdiven çıkma)",
+    "leicht": "Hafif eforda bile (ör. yavaş yürüme)",
+    "ruhe": "Dinlenme halinde bile"
+   }
+  },
+  "hypertension": {
+   "label": "Bilinen yüksek tansiyonunuz var mı?",
+   "followup": "Ne zamandan beri, hangi ilaçları kullanıyorsunuz ve genellikle hangi değerleri ölçüyorsunuz?"
+  },
+  "bp_dizziness": {
+   "label": "Tansiyon ilaçlarınız nedeniyle baş dönmesi, halsizlik hissi veya gözlerinizin kararması oluyor mu?"
+  },
+  "heart_other": {
+   "label": "Başka bir kalp/damar hastalığınız var mı: kalp kapağı hastalığı, doğuştan kalp kusuru, kalp kası hastalığı (kardiyomiyopati), kalıtsal ritim hastalığı (ör. Long-QT), aort anevrizması veya boyun atardamarında darlık?",
+   "followup": "Hangi teşhis ve nasıl kontrol ediliyor/tedavi ediliyor?"
+  },
+  "family_sudden_death": {
+   "label": "En yakın ailenizde (anne-baba, kardeşler, çocuklar) ani kalp ölümü yaşandı mı?"
+  },
+  "stroke": {
+   "label": "Hiç inme (felç), beyin kanaması ya da TIA (kısa süreli belirtilerle seyreden geçici dolaşım bozukluğu) geçirdiniz mi?",
+   "followup": "Olay ne zamandı ve rehabilitasyon tamamlandı mı?"
+  },
+  "stroke_residuals": {
+   "label": "O zamandan beri felç, konuşma bozukluğu, bellek sorunları veya görme alanı kısıtlılığı gibi kalıcı etkiler var mı?",
+   "followup": "Şu anda hangi şikâyetler devam ediyor?"
+  },
+  "head_injury": {
+   "label": "Hiç ağır kafa yaralanması (bilinç kaybı veya hastanede yatış ile) ya da beyin ameliyatı geçirdiniz mi?",
+   "followup": "Ne zaman ve ne tedavi edildi?"
+  },
+  "head_injury_recent": {
+   "label": "Bu yaralanma veya ameliyatın üzerinden 3 aydan az mı geçti?",
+   "hint": "Kılavuza göre beyin yaralanması veya beyin ameliyatından sonra genel olarak 3 ay boyunca araç kullanma yeterliliği yoktur."
+  },
+  "brain_residuals": {
+   "label": "Yaralanmadan/ameliyattan bu yana konsantrasyon veya bellek bozukluğu, kişilik değişikliği ya da kasılma nöbeti gibi şikâyetler var mı?",
+   "followup": "Hangi şikâyetler ve sizi nasıl etkiliyor?"
+  },
+  "parkinson": {
+   "label": "Size Parkinson hastalığı ya da başka bir hareket veya koordinasyon bozukluğu teşhisi kondu mu?",
+   "followup": "Ne zamandan beri, nasıl tedavi ediliyor ve son nörolojik kontrol ne zamandı?"
+  },
+  "ms_spinal": {
+   "label": "Bilinen multipl skleroz, omurilik hastalığı veya omurilik yaralanmanız var mı?",
+   "followup": "Hangi teşhis ve şu anda hangi şikâyetleriniz var?"
+  },
+  "muscle_nerve": {
+   "label": "Bilinen bir kas veya sinir hastalığınız var mı (ör. kas erimesi, miyasteni, polinöropati)?",
+   "followup": "Hangi teşhis ve ne kadar kısıtlısınız?"
+  },
+  "paralysis_attacks": {
+   "label": "Sizde nöbet şeklinde felçler veya ani şiddetli kas güçsüzlüğü oluyor mu?",
+   "followup": "Son atak ne zaman oldu ve ne kadar hızlı başlıyor?"
+  },
+  "motor_limits": {
+   "label": "Kollarınızda veya bacaklarınızda, araç kullanırken sizi kısıtlayabilecek felç, kas güçsüzlüğü veya his bozukluğu var mı?",
+   "followup": "Hangi vücut bölümleri etkileniyor?"
+  },
+  "vertigo": {
+   "label": "Baş dönmesi veya denge bozukluğu yaşıyor musunuz (ör. dönme hissi, sallanma hissi, yürürken dengesizlik)?",
+   "followup": "Baş dönmesi nasıl hissediliyor, ne sıklıkla oluyor, bir atak ne kadar sürüyor ve neyle tetikleniyor?"
+  },
+  "vertigo_last": {
+   "label": "Son baş dönmesi atağınızın üzerinden ne kadar zaman geçti?",
+   "options": {
+    "unter3m": "3 aydan az",
+    "3bis6m": "3 ila 6 ay",
+    "6bis12m": "6 ila 12 ay",
+    "1bis2j": "1 ila 2 yıl",
+    "ueber2j": "2 yıldan fazla"
+   }
+  },
+  "vertigo_prodromi": {
+   "label": "Baş dönmesi ataklarınız önceden belirti veriyor mu (ör. kulakta basınç, kulak çınlaması, işitmede azalma), böylece zamanında durabilir misiniz?",
+   "options": {
+    "immer": "Evet, her zaman",
+    "manchmal": "Bazen",
+    "nie": "Hayır, uyarı vermeden geliyor"
+   }
+  },
+  "vertigo_positional": {
+   "label": "Baş dönmesi belirli baş hareketleri veya pozisyon değişiklikleriyle mi tetikleniyor (ör. yatakta dönme, eğilme)?"
+  },
+  "vertigo_ear": {
+   "label": "Baş dönmesi, işitmede azalma, kulak çınlaması (tinnitus) veya kulakta basınç hissiyle birlikte mi oluyor?"
+  },
+  "ear_disease": {
+   "label": "Sizde denge organı veya iç kulak hastalığı saptandı mı (ör. pozisyonel baş dönmesi, Menière hastalığı)?",
+   "followup": "Hangi teşhis, nasıl tedavi edildi ve o zamandan beri şikâyetiniz yok mu?"
+  },
+  "mobility_limits": {
+   "label": "Kollarınızın, bacaklarınızın, ellerinizin veya omurganızın hareketinde kalıcı bir kısıtlılık var mı (ör. kaza, ameliyat, ampütasyon sonrası)?",
+   "followup": "Hangi vücut bölümleri etkileniyor ve ne zamandan beri?"
+  },
+  "prosthesis": {
+   "label": "Protez veya ortopedik yardımcı araç kullanıyor musunuz?",
+   "followup": "Hangi yardımcı araçlar ve uzun süreli zorlanmada şikâyetiniz oluyor mu?"
+  },
+  "vehicle_modified": {
+   "label": "Aracınız bedensel bir kısıtlılık nedeniyle tadil edildi mi (ör. el kumandası, direksiyon yardımı)?",
+   "followup": "Hangi tadilatlar ve sürücü belgenize işlendi mi?"
+  },
+  "diabetes_type": {
+   "label": "Bilinen diyabetes mellitusunuz (şeker hastalığı) var mı?",
+   "options": {
+    "none": "Hayır",
+    "type1": "Evet, tip 1",
+    "type2": "Evet, tip 2",
+    "other": "Evet, başka/belirsiz bir tür"
+   }
+  },
+  "diabetes_therapy": {
+   "label": "Diyabetiniz şu anda nasıl tedavi ediliyor?",
+   "options": {
+    "lifestyle": "Sadece beslenme / yaşam tarzı",
+    "tabl_low": "Kan şekeri düşme riski düşük olan haplar (ör. metformin)",
+    "tabl_high": "Kan şekeri düşme riski olan haplar (sülfonilüreler, glinidler)",
+    "insulin": "İnsülin",
+    "unknown": "Tam olarak bilmiyorum"
+   }
+  },
+  "hypoglycemia": {
+   "label": "Son 12 ay içinde, başkasının yardımına ihtiyaç duyduğunuz ağır bir kan şekeri düşmesi yaşadınız mı?",
+   "followup": "Ne sıklıkla, son atak ne zamandı ve uyanıkken mi yoksa uykuda mı oldu?"
+  },
+  "hypo_awareness": {
+   "label": "Bir kan şekeri düşmesini zamanında kendiniz fark edemediğiniz oldu mu (uyarı belirtilerinin olmaması)?",
+   "followup": "En son ne zaman ve bir şey yapıldı mı (ör. eğitim, tedavi değişikliği)?"
+  },
+  "glucose_monitoring": {
+   "label": "Kan şekerinizi düzenli olarak kendiniz ölçüyor musunuz (ya da bir glukoz sensörü taşıyor musunuz)?",
+   "options": {
+    "2x": "Evet, günde en az iki kez",
+    "seltener": "Evet, ama daha seyrek",
+    "nein": "Hayır",
+    "keine_med": "Beni ilgilendirmiyor (kan şekeri düşürücü ilaç kullanmıyorum)"
+   }
+  },
+  "diabetes_derailment": {
+   "label": "Son aylarda tedavide yeni bir ayarlama ya da metabolizmanın kontrolden çıkması oldu mu (ör. bozulmuş değerler nedeniyle hastane tedavisi)?",
+   "followup": "Ne oldu ve ne zaman?"
+  },
+  "kidney_disease": {
+   "label": "Bilinen kronik böbrek hastalığınız veya böbrek yetmezliğiniz var mı?",
+   "followup": "Hangi hastalık ve nefroloji (böbrek doktoru) tedavisi görüyor musunuz?"
+  },
+  "dialysis": {
+   "label": "Düzenli olarak diyaliz (kan temizleme) tedavisi görüyor musunuz?",
+   "followup": "Ne zamandan beri ve haftada kaç kez? Tedaviler arasında kendinizi güçlü hissediyor musunuz?"
+  },
+  "transplant": {
+   "label": "Size organ nakli yapıldı mı (ör. böbrek, kalp, karaciğer, akciğer)?",
+   "followup": "Hangi organ, ne zaman ve düzenli takip altında mısınız?"
+  },
+  "lung_disease": {
+   "label": "Kronik akciğer veya bronş hastalığınız var mı (ör. KOAH, astım, akciğer fibrozu)?",
+   "followup": "Hangi hastalık ve nasıl tedavi ediliyor?"
+  },
+  "dyspnea": {
+   "label": "Hafif eforda veya dinlenme halinde bile nefes darlığınız var mı ya da uzun süreli oksijen tedavisine ihtiyaç duyuyor musunuz?"
+  },
+  "cough_syncope": {
+   "label": "Şiddetli öksürük nöbetlerinde baş dönmesi, gözlerin kararması veya kısa süreli bilinç kaybı oldu mu?"
+  },
+  "daytime_sleepiness": {
+   "label": "Gündüzleri uyanık ve dikkatli kalmakta zorlanıyor musunuz – özellikle tekdüze durumlarda (ör. okurken, toplantılarda, uzun araba yolculuklarında)?"
+  },
+  "microsleep": {
+   "label": "Son aylarda istemeden uyuyakaldınız mı ya da mikro uyku (saniyelik uyku) yaşadınız mı?",
+   "followup": "Hangi durumlarda? Direksiyon başında da oldu mu?"
+  },
+  "snoring": {
+   "label": "Yüksek sesle ve düzensiz horladığınız ya da geceleri nefes durmaları yaşadığınız size söylendi mi?"
+  },
+  "osas": {
+   "label": "Sizde uyku apnesi sendromu (gece nefes durmaları) saptandı mı?",
+   "followup": "Teşhis ne zaman kondu ve hangi şiddet derecesi ya da hangi AHI değeri saptandı (biliyorsanız)?"
+  },
+  "cpap": {
+   "label": "Uyku apnesi nedeniyle tedavi görüyor musunuz (ör. CPAP solunum maskesi)?",
+   "options": {
+    "regelmaessig": "Evet, düzenli olarak (neredeyse her gece)",
+    "unregelmaessig": "Evet, ama düzensiz",
+    "abgebrochen": "Tedavi yarıda bırakıldı",
+    "keine": "Hayır, tedavi yok"
+   }
+  },
+  "psychiatric": {
+   "label": "Size ruhsal bir hastalık teşhisi kondu mu (ör. depresyon, anksiyete bozukluğu, bipolar bozukluk)?",
+   "followup": "Hangi hastalık ve nasıl tedavi ediliyor?"
+  },
+  "psychiatric_severe": {
+   "label": "Bu nedenle hiç hastanede yatarak tedavi gördünüz mü, manik dönem ya da intihar düşünceleriniz oldu mu?",
+   "followup": "En son ne zamandı?"
+  },
+  "psychosis": {
+   "label": "Size hiç şizofreni veya başka bir psikoz teşhisi kondu mu (sanrılar veya halüsinasyonlarla seyreden hastalık)?",
+   "followup": "Kaç akut dönem geçirdiniz, sonuncusu ne zamandı ve uzman hekim tedavisi görüyor musunuz?"
+  },
+  "memory_problems": {
+   "label": "Siz ya da yakınlarınız son zamanlarda sizde artan bellek veya yön bulma sorunları fark ettiniz mi?",
+   "followup": "Ne zamandan beri ve günlük yaşamda nasıl etkiliyor?"
+  },
+  "concentration": {
+   "label": "Konsantrasyon veya dikkat sorunlarınız var mı?"
+  },
+  "alcohol": {
+   "label": "Ne sıklıkla alkol içiyorsunuz?",
+   "options": {
+    "nie": "Hiç",
+    "selten": "Nadiren (ayda en fazla 1 kez)",
+    "woechentlich": "Haftada 1-2 kez",
+    "mehrmals": "Haftada birkaç kez",
+    "taeglich": "Her gün veya neredeyse her gün"
+   }
+  },
+  "alcohol_control": {
+   "label": "Amaçladığınızdan fazla içtiğiniz ya da tüketiminiz üzerindeki kontrolü kaybettiğiniz oldu mu?"
+  },
+  "alcohol_traffic": {
+   "label": "Trafikte hiç alkolün etkisi altında yakalandınız mı (ör. alkollü araç kullanma, para cezası, MPU – tıbbi-psikolojik muayene)?",
+   "followup": "Ne zaman ve hangi promil değeri saptandı (biliyorsanız)?"
+  },
+  "alcohol_dependence": {
+   "label": "Size hiç alkol bağımlılığı tanısı kondu mu ya da bir arındırma (detoks) veya bağımlılıktan kurtulma tedavisi gördünüz mü?",
+   "followup": "Tedavi ne zaman tamamlandı ve ne zamandan beri alkol almıyorsunuz?"
+  },
+  "drugs": {
+   "label": "Şu anda uyuşturucu kullanıyor musunuz (ör. esrar, kokain, amfetamin) ya da geçmişte düzenli olarak uyuşturucu kullandınız mı?",
+   "followup": "Hangi maddeler, ne sıklıkla ve en son ne zaman?"
+  },
+  "cannabis": {
+   "label": "Ne sıklıkla esrar kullanıyorsunuz?",
+   "options": {
+    "nie": "Hiç",
+    "gelegentlich": "Ara sıra (düzenli değil)",
+    "regelmaessig": "Düzenli (her gün veya alışkanlık halinde)"
+   }
+  },
+  "substitution": {
+   "label": "Yerine koyma (substitüsyon) tedavisi alıyor musunuz (ör. metadon)?",
+   "followup": "Ne zamandan beri?"
+  },
+  "regular_meds": {
+   "label": "Düzenli olarak ilaç kullanıyor musunuz?",
+   "followup": "Hangi ilaçlar ve neye karşı?"
+  },
+  "sedating_meds": {
+   "label": "Bunların arasında uyku hali yapabilecek veya tepki verme yeteneğini etkileyebilecek ilaçlar var mı (ör. güçlü ağrı kesiciler/opioidler, uyku veya sakinleştirici ilaçlar, antidepresanlar, antiepileptikler, alerji ilaçları)?",
+   "followup": "Hangi ilaçlar, hangi dozda?"
+  },
+  "med_side_effects": {
+   "label": "İlaçlarınız nedeniyle yorgunluk, yavaşlama, konsantrasyon bozukluğu veya baş dönmesi gibi yan etkiler fark ediyor musunuz?",
+   "followup": "Hangi yan etkiler ve ne kadar şiddetli?"
+  },
+  "med_recent_change": {
+   "label": "Son haftalarda böyle bir ilaç yeni başlandı mı ya da dozu belirgin şekilde değiştirildi mi?",
+   "followup": "Hangi ilaç ve ne zaman?"
+  },
+  "benzo_regular": {
+   "label": "Birkaç aydır düzenli olarak – sadece akşamları az miktarda olsa bile – uyku veya sakinleştirici ilaç (ör. benzodiazepin) kullanıyor musunuz?",
+   "followup": "Hangi ilaç, ne kadar zamandır ve bıraktığınızda yoksunluk belirtileri fark ediyor musunuz?"
+  },
+  "multiple_conditions": {
+   "label": "Sizde aynı anda birden fazla hastalık veya sağlık kısıtlılığı var mı?",
+   "hint": "Birden fazla bulgu, tek tek bakıldığında sorunsuz olsa bile, toplamda araç kullanma yeterliliği açısından önem taşıyabilir (Kılavuzlar bölüm 2.7).",
+   "followup": "Lütfen bilinen tüm hastalıkları kısaca sayın."
+  },
+  "other_conditions": {
+   "label": "Şimdiye kadar belirtilmeyen başka hastalık, şikâyet veya geçirilmiş ameliyat var mı?",
+   "followup": "Hangileri?"
+  },
+  "driving_adaptation": {
+   "label": "Sağlık kısıtlılıkları nedeniyle bazı yolculuklardan bilinçli olarak vazgeçiyor musunuz (ör. karanlıkta, uzun mesafe, otoyol)?",
+   "followup": "Hangi yolculuklardan ve neden?"
+  },
+  "consent_truth": {
+   "label": "Verdiğim bilgilerin eksiksiz ve doğru olduğunu onaylıyorum.",
+   "error": "Lütfen bilgilerinizin eksiksiz olduğunu onaylayın."
+  },
+  "consent_privacy": {
+   "label": "Veri koruma bilgilerini okudum ve verilerimin trafik tıbbı amaçlarla işlenmesine onay veriyorum.",
+   "error": "Lütfen veri koruma bilgilerini kabul edin."
+  }
+ },
+ "ess_items": {
+  "ess_1": "Otururken kitap okurken",
+  "ess_2": "Televizyon izlerken",
+  "ess_3": "Toplum içinde hareketsiz otururken (ör. tiyatroda veya bir toplantıda)",
+  "ess_4": "Arabada yolcu olarak, ara vermeden bir saatlik yolculuk sırasında",
+  "ess_5": "Öğleden sonra dinlenmek için uzandığınızda",
+  "ess_6": "Oturup biriyle sohbet ederken",
+  "ess_7": "Öğle yemeğinden sonra (alkolsüz) sakince otururken",
+  "ess_8": "Araba kullanırken trafik nedeniyle birkaç dakika durmak zorunda kaldığınızda"
+ }
+}

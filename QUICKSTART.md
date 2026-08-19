@@ -3,6 +3,9 @@
 ## Option 1: Docker Compose (Schnellster Start)
 
 ```bash
+# Einmalig: .env anlegen (DJANGO_SECRET_KEY und ADMIN_API_KEY sind Pflicht)
+cp .env.example .env
+
 # Alle Services starten
 docker-compose up --build
 

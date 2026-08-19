@@ -2,7 +2,7 @@ r"""
 GDT Bridge – Windows Service
 =============================
 Überwacht einen lokalen GDT-Eingangsordner (aus SAMAS),
-sendet Patientendaten per HTTPS an den Django-Server,
+sendet Patientendaten per HTTP(S) an den Django-Server,
 und schreibt Ergebnis-GDT-Dateien zurück wenn der Fragebogen
 ausgefüllt wurde.
 
@@ -31,11 +31,11 @@ import configparser
 import json
 import logging
 import os
-import re
 import sys
 import threading
 import time
-from datetime import datetime
+from datetime import datetime, timedelta
+from logging.handlers import RotatingFileHandler
 from pathlib import Path
 
 import requests
@@ -54,13 +54,16 @@ PENDING_FILE = SERVICE_DIR / "pending.json"  # offene Sessions die noch auf Erge
 
 
 # ──────────────────────────────────────────────────────────────────────────────
-# Logging
+# Logging  (rotierend: max. 1 MB pro Datei, 3 Backups)
 # ──────────────────────────────────────────────────────────────────────────────
+_file_handler = RotatingFileHandler(
+    str(LOG_FILE), maxBytes=1_000_000, backupCount=3, encoding="utf-8"
+)
 logging.basicConfig(
-    filename=str(LOG_FILE),
     level=logging.INFO,
     format="%(asctime)s  %(levelname)-8s  %(message)s",
     datefmt="%Y-%m-%d %H:%M:%S",
+    handlers=[_file_handler],
 )
 log = logging.getLogger("gdt_bridge")
 
@@ -75,16 +78,17 @@ def load_config() -> configparser.ConfigParser:
 
 
 # ──────────────────────────────────────────────────────────────────────────────
-# GDT-Parser  (GDT 2.1, Windows-1252)
+# GDT-Parser  (GDT 2.1, Encoding konfigurierbar – siehe gdt_encoding in config.ini)
 # ──────────────────────────────────────────────────────────────────────────────
-def parse_gdt(path: Path) -> dict:
+def parse_gdt(path: Path, encoding: str = "cp1252") -> dict:
     """
-    Liest eine GDT-Datei (Satz 6310 – Anforderung) und gibt ein dict zurück.
+    Liest eine GDT-Datei (Satz 6310 – Daten einer Untersuchung übermitteln)
+    und gibt ein dict zurück.
     Zeilenformat:  LLLFFFFFWert  (LLL = 3-stellige Länge, FFFFF = 5-stellige Feldkennung)
     """
     fields: dict[str, list[str]] = {}
     try:
-        with open(path, encoding="cp1252", errors="replace") as fh:
+        with open(path, encoding=encoding, errors="replace") as fh:
             for raw in fh:
                 line = raw.rstrip("\r\n")
                 if len(line) < 8:
@@ -109,12 +113,12 @@ def parse_gdt(path: Path) -> dict:
 
     return {
         "gdt_patient_id":     first("3000"),
-        "patient_last_name":  first("3102"),
-        "patient_first_name": first("3101"),
+        "patient_last_name":  first("3101"),   # FK 3101 = Name (Nachname)
+        "patient_first_name": first("3102"),   # FK 3102 = Vorname
         "patient_birth_date": birth_date_iso,
         "patient_email":      first("3121"),   # E-Mail (GDT-Erweiterungsfeld)
         "gdt_request_id":     first("8315"),
-        "record_type":        first("8000"),  # 6310 = Anforderung
+        "record_type":        first("8000"),  # 6310 = Daten einer Untersuchung übermitteln
     }
 
 
@@ -129,7 +133,8 @@ def _gdt_line(field_id: str, value: str) -> str:
     return f"{length:03d}{content}\r\n"
 
 
-def write_link_gdt(path: Path, patient: dict, questionnaire_url: str) -> None:
+def write_link_gdt(path: Path, patient: dict, questionnaire_url: str,
+                   encoding: str = "cp1252") -> None:
     """
     Schreibt sofortige Antwort an SAMAS: Fragebogen-Link als GDT-Satz 6311.
     SAMAS zeigt diesen Befundtext in der Patientenakte an.
@@ -142,8 +147,8 @@ def write_link_gdt(path: Path, patient: dict, questionnaire_url: str) -> None:
         _gdt_line("8100", "Fragebogen"),    # Gerätename (muss in SAMAS konfiguriert sein)
         _gdt_line("8315", patient.get("gdt_request_id", "")),
         _gdt_line("3000", patient.get("gdt_patient_id", "")),
-        _gdt_line("3101", patient.get("patient_first_name", "")),
-        _gdt_line("3102", patient.get("patient_last_name", "")),
+        _gdt_line("3101", patient.get("patient_last_name", "")),   # FK 3101 = Name
+        _gdt_line("3102", patient.get("patient_first_name", "")),  # FK 3102 = Vorname
     ]
     if patient.get("patient_birth_date"):
         # Zurück zu DDMMYYYY
@@ -161,12 +166,14 @@ def write_link_gdt(path: Path, patient: dict, questionnaire_url: str) -> None:
     ]
 
     path.parent.mkdir(parents=True, exist_ok=True)
-    with open(path, "w", encoding="cp1252", errors="replace") as fh:
+    # newline="" verhindert, dass Python das \r\n aus _gdt_line nochmals übersetzt
+    with open(path, "w", encoding=encoding, errors="replace", newline="") as fh:
         fh.writelines(lines)
     log.info("Link-GDT geschrieben: %s", path)
 
 
-def write_result_gdt(path: Path, patient: dict, result: dict) -> None:
+def write_result_gdt(path: Path, patient: dict, result: dict,
+                     encoding: str = "cp1252") -> None:
     """
     Schreibt finales Ergebnis an SAMAS wenn Fragebogen ausgefüllt wurde.
     Enthält ESS-Score und Befundtext.
@@ -185,8 +192,8 @@ def write_result_gdt(path: Path, patient: dict, result: dict) -> None:
         _gdt_line("8100", "Fragebogen"),
         _gdt_line("8315", patient.get("gdt_request_id", "")),
         _gdt_line("3000", patient.get("gdt_patient_id", "")),
-        _gdt_line("3101", patient.get("patient_first_name", "")),
-        _gdt_line("3102", patient.get("patient_last_name", "")),
+        _gdt_line("3101", patient.get("patient_last_name", "")),   # FK 3101 = Name
+        _gdt_line("3102", patient.get("patient_first_name", "")),  # FK 3102 = Vorname
     ]
     if patient.get("patient_birth_date"):
         bd = patient["patient_birth_date"]
@@ -204,7 +211,8 @@ def write_result_gdt(path: Path, patient: dict, result: dict) -> None:
     ]
 
     path.parent.mkdir(parents=True, exist_ok=True)
-    with open(path, "w", encoding="cp1252", errors="replace") as fh:
+    # newline="" verhindert, dass Python das \r\n aus _gdt_line nochmals übersetzt
+    with open(path, "w", encoding=encoding, errors="replace", newline="") as fh:
         fh.writelines(lines)
     log.info("Ergebnis-GDT geschrieben: %s", path)
 
@@ -236,10 +244,13 @@ class GdtBridge:
         s = cfg["bridge"]
         self.inbox        = Path(s["gdt_inbox"])
         self.outbox       = Path(s["gdt_outbox"])
-        self.processed    = self.inbox / "processed"
+        self.processing   = self.inbox / "processing"   # Staging während der Verarbeitung
+        self.processed    = self.inbox / "processed"    # erfolgreich verarbeitet
+        self.failed       = self.inbox / "failed"       # fehlgeschlagen (manuell prüfen)
         self.api_url      = s["api_url"].rstrip("/")
         self.api_key      = s["api_key"]
         self.template_slug = s.get("template_slug", "")
+        self.gdt_encoding = s.get("gdt_encoding", "cp1252")
         self.poll_inbox_secs  = int(s.get("poll_inbox_seconds",  "5"))
         self.poll_result_secs = int(s.get("poll_result_seconds", "30"))
         self.session          = requests.Session()
@@ -247,21 +258,58 @@ class GdtBridge:
             "Authorization": f"Bearer {self.api_key}",
             "Content-Type":  "application/json",
         })
+        self.processing.mkdir(parents=True, exist_ok=True)
         self.processed.mkdir(parents=True, exist_ok=True)
+        self.failed.mkdir(parents=True, exist_ok=True)
         self.outbox.mkdir(parents=True, exist_ok=True)
+
+    # ── Hilfsfunktion: Datei kollisionssicher verschieben ──────────────────
+    @staticmethod
+    def _move_to(src: Path, dest_dir: Path) -> Path:
+        """Verschiebt src nach dest_dir (Timestamp-Suffix bei Namenskollision)."""
+        dest = dest_dir / src.name
+        if dest.exists():
+            ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+            dest = dest_dir / f"{src.stem}_{ts}{src.suffix}"
+        src.rename(dest)
+        return dest
+
+    def _move_to_failed(self, staging: Path) -> None:
+        """Verschiebt eine fehlgeschlagene Datei nach failed/ (nicht zurück in die Inbox)."""
+        try:
+            dest = self._move_to(staging, self.failed)
+            log.error("Datei nach failed/ verschoben: %s", dest.name)
+        except OSError as exc:
+            log.error("Konnte %s nicht nach failed/ verschieben: %s", staging.name, exc)
 
     # ── Eingang verarbeiten ────────────────────────────────────────────────
     def process_inbox(self) -> None:
         for gdt_file in sorted(self.inbox.glob("*.gdt")):
+            # Datei ZUERST ins Staging-Verzeichnis verschieben:
+            # - rename schlägt fehl, solange SAMAS die Datei noch geöffnet hat
+            #   → halb geschriebene Dateien werden übersprungen (nächster Poll)
+            # - verhindert doppelte POSTs, falls nach dem POST ein Fehler auftritt
+            try:
+                staging = self._move_to(gdt_file, self.processing)
+            except OSError as exc:
+                log.info("Datei %s noch gesperrt, wird übersprungen (%s)", gdt_file.name, exc)
+                continue
+
             log.info("Neue GDT-Datei gefunden: %s", gdt_file.name)
             try:
-                patient = parse_gdt(gdt_file)
+                patient = parse_gdt(staging, encoding=self.gdt_encoding)
+                # Datenschutz: keine Patientennamen ins Log – nur GDT-ID und Dateiname
                 log.info(
-                    "Patient: %s %s, GDT-ID: %s",
-                    patient["patient_first_name"],
-                    patient["patient_last_name"],
+                    "GDT-ID: %s (Datei: %s)",
                     patient["gdt_patient_id"],
+                    gdt_file.name,
                 )
+                if patient["record_type"] != "6310":
+                    log.warning(
+                        "Unerwartete Satzart %r in %s (erwartet 6310) – wird trotzdem verarbeitet",
+                        patient["record_type"],
+                        gdt_file.name,
+                    )
 
                 # Session beim Django-Server anlegen
                 payload = {
@@ -288,7 +336,8 @@ class GdtBridge:
 
                 # Sofort Link-GDT für SAMAS schreiben
                 out_name = gdt_file.stem + ".gdt"
-                write_link_gdt(self.outbox / out_name, patient, url)
+                write_link_gdt(self.outbox / out_name, patient, url,
+                               encoding=self.gdt_encoding)
 
                 # In pending-Liste eintragen (auf Ergebnis warten)
                 pending = load_pending()
@@ -300,17 +349,19 @@ class GdtBridge:
                 })
                 save_pending(pending)
 
-                # Datei verschieben (Timestamp-Suffix bei Namenskollision)
-                dest = self.processed / gdt_file.name
-                if dest.exists():
-                    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-                    dest = self.processed / f"{gdt_file.stem}_{ts}{gdt_file.suffix}"
-                gdt_file.rename(dest)
+                # Erfolgreich verarbeitet → nach processed/ verschieben
+                self._move_to(staging, self.processed)
 
             except requests.HTTPError as exc:
-                log.error("HTTP-Fehler beim Erstellen der Session: %s – %s", exc, exc.response.text if exc.response else "")
+                log.error(
+                    "HTTP-Fehler beim Erstellen der Session: %s – %s",
+                    exc,
+                    exc.response.text if exc.response is not None else "",
+                )
+                self._move_to_failed(staging)
             except Exception as exc:
                 log.error("Fehler bei %s: %s", gdt_file.name, exc)
+                self._move_to_failed(staging)
 
     # ── Pending-Sessions auf Ergebnis prüfen ──────────────────────────────
     def check_pending(self) -> None:
@@ -322,6 +373,20 @@ class GdtBridge:
         for entry in pending:
             token   = entry["token"]
             patient = entry["patient"]
+
+            # Abgelaufene Einträge entfernen (Fragebogen wurde nie ausgefüllt)
+            created_raw = entry.get("created_at", "")
+            try:
+                created_at = datetime.fromisoformat(created_raw)
+            except ValueError:
+                created_at = None
+            if created_at is not None and datetime.now() - created_at > timedelta(days=15):
+                log.info(
+                    "Pending-Eintrag abgelaufen, verworfen: token=%s (erstellt %s)",
+                    token, created_raw,
+                )
+                continue
+
             try:
                 resp = self.session.get(
                     f"{self.api_url}/gdt/result/{token}/",
@@ -337,16 +402,20 @@ class GdtBridge:
 
                 if result.get("completed"):
                     out_path = self.outbox / f"{entry['out_stem']}_result.gdt"
-                    write_result_gdt(out_path, patient, result)
+                    write_result_gdt(out_path, patient, result,
+                                     encoding=self.gdt_encoding)
                     log.info("Ergebnis erhalten und GDT geschrieben für token=%s", token)
                     # Nicht mehr in pending aufnehmen → fertig
                 else:
                     still_pending.append(entry)
 
             except requests.HTTPError as exc:
-                if exc.response is not None and exc.response.status_code == 404:
-                    log.warning("Session nicht gefunden (404), wird aus pending entfernt: %s", token)
-                    # Nicht in still_pending aufnehmen → verworfen
+                if exc.response is not None and exc.response.status_code in (404, 410):
+                    # 404 = Session gelöscht, 410 = abgelaufen → aus pending entfernen
+                    log.warning(
+                        "Session nicht (mehr) verfügbar (%s), wird aus pending entfernt: %s",
+                        exc.response.status_code, token,
+                    )
                 else:
                     log.error("HTTP-Fehler beim Abfragen von %s: %s", token, exc)
                     still_pending.append(entry)

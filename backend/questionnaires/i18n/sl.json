@@ -1,0 +1,585 @@
+{
+ "_meta": {
+  "language": "sl",
+  "name": "Slovenščina",
+  "machine_translated": true
+ },
+ "ui": {
+  "header_title": "Prometnomedicinski vprašalnik",
+  "header_subtitle": "Prosimo, odgovorite na vsa vprašanja",
+  "language_label": "Jezik",
+  "loading": "Nalaganje vprašalnika …",
+  "not_found_title": "Vprašalnika ni bilo mogoče najti",
+  "to_start": "Na začetno stran",
+  "back": "Nazaj",
+  "next": "Naprej",
+  "skip": "Preskoči",
+  "submit": "Pošlji",
+  "sending": "Pošiljanje…",
+  "question_of": "Vprašanje {current} od {total}",
+  "answer_placeholder": "Vaš odgovor…",
+  "required_error": "Prosimo, odgovorite na to vprašanje.",
+  "yes": "Da",
+  "no": "Ne",
+  "consent_title": "Privolitev",
+  "followup_hint": "Prostovoljen dodatni podatek – pomaga pri zdravniški presoji.",
+  "ess_question": "Kako verjetno je, da bi v tem položaju zadremali?",
+  "ess_sum": "Dosedanja vsota",
+  "ess_opt_0": "0 – Nikoli ne bi zadremal/-a",
+  "ess_opt_1": "1 – Majhna verjetnost",
+  "ess_opt_2": "2 – Srednja verjetnost",
+  "ess_opt_3": "3 – Velika verjetnost",
+  "privacy_button": "Prikaži informacije o varstvu podatkov",
+  "privacy_title": "Informacije o varstvu podatkov",
+  "privacy_subtitle": "Informacije o obdelavi vaših podatkov v skladu s čl. 13 DSGVO (Splošna uredba EU o varstvu podatkov)",
+  "privacy_controller": "Upravljavec: Dr. med. Björn Micka, Betriebsmedizin · Notfallmedizin (medicina dela · urgentna medicina), Christoph-Dassler-Str. 22, 91074 Herzogenaurach",
+  "privacy_purpose": "Namen obdelave: Vaši podatki v tem vprašalniku (vključno z zdravstvenimi podatki) se uporabljajo izključno za pripravo in izvedbo vašega prometnomedicinskega pregleda.",
+  "privacy_legal": "Pravna podlaga: Vaša privolitev (čl. 6 odst. 1 tč. a, čl. 9 odst. 2 tč. a DSGVO). Privolitev lahko kadar koli prekličete z učinkom za naprej.",
+  "privacy_storage": "Hramba: Rezultat se prevzame v vašo dokumentacijo o pregledu in zanj veljajo zdravniški roki hrambe. Spletni dostop prek vaše osebne povezave preneha po izteku veljavnosti; podatki tega spletnega vprašalnika se nato rutinsko izbrišejo.",
+  "privacy_rights": "Vaše pravice: Imate pravico do dostopa do podatkov, popravka, izbrisa in omejitve obdelave ter pravico do pritožbe pri pristojnem nadzornem organu za varstvo podatkov.",
+  "privacy_secrecy": "Za vse podatke velja zdravniška molčečnost.",
+  "success_title": "Najlepša hvala!",
+  "success_text": "Vaš vprašalnik je bil uspešno poslan.",
+  "success_result": "Rezultat ESS",
+  "success_doctor_note": "Prosimo, da se o rezultatu pogovorite s svojim zdravnikom. Končno oceno poda zdravnik specialist.",
+  "success_pdf": "Prenesi povzetek v obliki PDF",
+  "success_close": "To okno lahko zdaj zaprete.",
+  "band_normal": "Normalno (0–9)",
+  "band_elevated": "Povišano (10–15)",
+  "band_severe": "Izrazito (≥16)",
+  "submit_error": "Napaka pri pošiljanju. Prosimo, preverite svoje podatke."
+ },
+ "sections": {
+  "anlass": {
+   "title": "Razlog pregleda in profil vožnje",
+   "subtitle": "Podatki o pregledu in o vaši vozniški dejavnosti"
+  },
+  "gesundheit": {
+   "title": "Zdravstveno stanje",
+   "subtitle": "Najprej eno vprašanje"
+  },
+  "anfaelle": {
+   "title": "Napadi in nezavest",
+   "subtitle": "Tveganje nenadne nezmožnosti – epileptični napadi in omedlevice"
+  },
+  "sehen_hoeren": {
+   "title": "Vid in sluh",
+   "subtitle": "Delovanje vida in sluha"
+  },
+  "herz": {
+   "title": "Srce in krvni obtok",
+   "subtitle": "Bolezni srca in žil"
+  },
+  "gehirn": {
+   "title": "Možganska kap in možgani",
+   "subtitle": "Motnje prekrvavitve, poškodbe in operacije možganov"
+  },
+  "neuro": {
+   "title": "Živčevje",
+   "subtitle": "Nevrološke bolezni"
+  },
+  "schwindel": {
+   "title": "Ravnotežje in vrtoglavica",
+   "subtitle": "Oblike vrtoglavice in motnje ravnotežja"
+  },
+  "bewegung": {
+   "title": "Gibala",
+   "subtitle": "Telesne omejitve in pripomočki"
+  },
+  "diabetes": {
+   "title": "Sladkorna bolezen / presnova",
+   "subtitle": "Sladkorna bolezen in hipoglikemije (nizek krvni sladkor)"
+  },
+  "organe": {
+   "title": "Notranji organi",
+   "subtitle": "Ledvice, pljuča in presaditve"
+  },
+  "schlaf": {
+   "title": "Spanje in dnevna zaspanost",
+   "subtitle": "Vključno z Epworthovo lestvico zaspanosti (ESS)"
+  },
+  "psyche": {
+   "title": "Duševno zdravje",
+   "subtitle": "Duševne bolezni in spomin"
+  },
+  "substanzen": {
+   "title": "Alkohol, droge in zdravila",
+   "subtitle": "Uživanje in trajno jemanje zdravil"
+  },
+  "allgemein": {
+   "title": "Splošno in privolitev",
+   "subtitle": "Dodatni podatki in izjave"
+  }
+ },
+ "questions": {
+  "exam_occasion": {
+   "label": "Za katero vozniško dovoljenje poteka pregled?",
+   "options": {
+    "pkw": "Osebno vozilo / druga kategorija",
+    "lkw": "Tovorno vozilo (C, C1, CE, C1E)",
+    "bus": "Avtobus (D, D1, DE, D1E)",
+    "fahrgast": "Prevoz potnikov (taksi, najeto vozilo z voznikom, reševalni prevoz)"
+   }
+  },
+  "exam_kind": {
+   "label": "Ali gre za prvo izdajo ali za podaljšanje?",
+   "options": {
+    "erst": "Prva izdaja",
+    "verlaengerung": "Podaljšanje"
+   }
+  },
+  "license_classes": {
+   "label": "Katere kategorije vozniškega dovoljenja imate ali zanje vlagate vlogo?",
+   "options": {
+    "AM": "AM",
+    "A1": "A1",
+    "A2": "A2",
+    "A": "A",
+    "B": "B",
+    "BE": "BE",
+    "C1": "C1",
+    "C1E": "C1E",
+    "C": "C",
+    "CE": "CE",
+    "D1": "D1",
+    "D": "D",
+    "DE": "DE",
+    "T": "T"
+   }
+  },
+  "license_years": {
+   "label": "Koliko let že imate vozniško dovoljenje?",
+   "options": {
+    "erstantrag": "Še ga nimam (prva vloga)",
+    "unter3": "Manj kot 3 leta",
+    "3bis10": "3 do 10 let",
+    "ueber10": "Več kot 10 let"
+   }
+  },
+  "driving_hours": {
+   "label": "Koliko ur povprečno vozite na dan?",
+   "options": {
+    "<1": "Manj kot 1 uro",
+    "1-2": "1 do 2 uri",
+    "2-4": "2 do 4 ure",
+    ">4": "Več kot 4 ure"
+   }
+  },
+  "night_driving": {
+   "label": "Ali redno vozite ponoči?"
+  },
+  "accidents": {
+   "label": "Ali ste imeli v zadnjih 24 mesecih prometne nesreče ali skoraj nesreče v cestnem prometu?",
+   "followup": "Kaj se je zgodilo?"
+  },
+  "license_withdrawn": {
+   "label": "Ali vam je bilo že kdaj odvzeto vozniško dovoljenje ali ste morali opraviti medicinsko-psihološki pregled (MPU)?",
+   "followup": "Kdaj in iz katerega razloga?"
+  },
+  "psych_test_done": {
+   "label": "Ali ste za to vozniško dovoljenje že opravili psihološki test zmogljivosti (test reakcije, koncentracije in pozornosti)?",
+   "hint": "Za kategorije avtobusa in za prevoz potnikov je to dokazilo predpisano v skladu s Prilogo 5 FeV (nemški pravilnik o vozniških dovoljenjih). Prosimo, obstoječe izvedensko mnenje prinesite s seboj na pregled.",
+   "followup": "Kdaj in kje je bil test opravljen?"
+  },
+  "has_conditions": {
+   "label": "Ali imate znano predhodno bolezen, trajno telesno omejitev, ali ste v rednem zdravniškem zdravljenju?",
+   "hint": "Sem sodijo tudi resne bolezni iz daljne preteklosti (npr. srce, sladkorna bolezen, živci, psiha). Če ne, se vprašalnik bistveno skrajša."
+  },
+  "seizure_ever": {
+   "label": "Ali ste kdaj imeli epileptični napad ali krčni napad?",
+   "followup": "Kdaj je bil zadnji napad, koliko ste jih imeli skupaj in ali je obstajal sprožilec (npr. pomanjkanje spanja, vročina, alkohol)?"
+  },
+  "epilepsy": {
+   "label": "Ali vam je bila diagnosticirana epilepsija?",
+   "followup": "Ali se napadi pojavljajo izključno med spanjem? Ali ste v rednem nevrološkem zdravljenju?"
+  },
+  "seizure_free": {
+   "label": "Kako dolgo ste doslej brez napadov?",
+   "hint": "Smernice vežejo zmožnost za vožnjo na natančno določena obdobja brez napadov.",
+   "options": {
+    "unter3m": "Manj kot 3 mesece",
+    "3bis6m": "3 do 6 mesecev",
+    "6bis12m": "6 do 12 mesecev",
+    "1bis2j": "1 do 2 leti",
+    "2bis5j": "2 do 5 let",
+    "ueber5j": "Več kot 5 let"
+   }
+  },
+  "antiepileptics": {
+   "label": "Ali jemljete zdravila proti napadom (antiepileptike)?",
+   "options": {
+    "nie": "Ne, nikoli jih nisem jemal/-a",
+    "aktuell": "Da, trenutno",
+    "reduktion": "Zdravljenje se trenutno postopno zmanjšuje",
+    "ende_unter3m": "Končano pred manj kot 3 meseci",
+    "ende_ueber3m": "Končano pred več kot 3 meseci"
+   }
+  },
+  "syncope": {
+   "label": "Ali ste že kdaj nenadoma omedleli (kratkotrajna nezavest)?",
+   "options": {
+    "nie": "Še nikoli",
+    "einmal": "Enkrat",
+    "mehrmals": "Večkrat"
+   }
+  },
+  "syncope_recent": {
+   "label": "Ali je od vaše zadnje omedlevice minilo manj kot 6 mesecev?",
+   "followup": "V kakšnem položaju je do omedlevice prišlo in ali je bil ugotovljen vzrok (npr. krvni obtok, srčni ritem, med uriniranjem)?"
+  },
+  "syncope_prodromi": {
+   "label": "Ali se omedlevica pri vas prej napove (npr. potenje, vrtoglavica, slabost, razbijanje srca)?"
+  },
+  "glasses": {
+   "label": "Ali med vožnjo nosite očala ali kontaktne leče?"
+  },
+  "eye_disease": {
+   "label": "Ali je pri vas znana očesna bolezen (npr. siva mrena, zelena mrena/glavkom, bolezen mrežnice, zoženo vidno polje)?",
+   "followup": "Katera bolezen in ali ste v zdravljenju pri okulistu (očesnem zdravniku)?"
+  },
+  "one_eyed": {
+   "label": "Ali na enem očesu vidite občutno slabše ali ste na enem očesu slepi?"
+  },
+  "night_vision": {
+   "label": "Ali imate težave z vidom v mraku ali temi ali vas luči vozil iz nasprotne smeri močno zaslepijo?",
+   "followup": "V katerih položajih se težave pojavljajo?"
+  },
+  "hearing_impaired": {
+   "label": "Ali ste močno naglušni ali gluhi?",
+   "followup": "Od kdaj in ali ste v zdravljenju pri otorinolaringologu (zdravniku za ušesa, nos in grlo)?"
+  },
+  "hearing_aid": {
+   "label": "Ali nosite slušni aparat ali polžev vsadek (kohlearni implantat)?"
+  },
+  "heart_disease": {
+   "label": "Ali je pri vas znana bolezen srca ali žil?",
+   "hint": "npr. motnje srčnega ritma, srčni infarkt, srčno popuščanje, napaka srčne zaklopke, motnje prekrvavitve",
+   "followup": "Katera bolezen oziroma katere bolezni, od kdaj in kako se zdravijo?"
+  },
+  "cardio_checkup": {
+   "label": "Ali ste zaradi tega redno na kontrolah pri kardiologu?",
+   "followup": "Kdaj je bila zadnja kontrola?"
+  },
+  "heart_attack": {
+   "label": "Ali ste že kdaj imeli srčni infarkt, vstavitev opornice (stenta) ali obvodno operacijo (bypass)?",
+   "followup": "Kdaj sta bila dogodek oziroma poseg in ali je prišlo do zapletov (npr. zmanjšana črpalna zmogljivost srca)?"
+  },
+  "arrhythmia": {
+   "label": "Ali so pri vas znane motnje srčnega ritma (npr. preskakovanje srca, hitro bitje srca, izrazito počasen pulz, atrijska fibrilacija, AV-blok)?",
+   "followup": "Katera diagnoza in kako se zdravi?"
+  },
+  "pacemaker_icd": {
+   "label": "Ali imate vstavljen srčni spodbujevalnik ali defibrilator (ICD)?",
+   "options": {
+    "nein": "Ne",
+    "schrittmacher": "Srčni spodbujevalnik",
+    "icd": "Defibrilator (ICD)"
+   },
+   "followup": "Kdaj je bil vstavljen in kdaj je bila zadnja kontrola?"
+  },
+  "icd_shock": {
+   "label": "Ali je vaš defibrilator v zadnjih 3 mesecih sprožil elektrošok?",
+   "followup": "Kdaj in kaj je o tem rekel vaš kardiolog?"
+  },
+  "exertion_symptoms": {
+   "label": "Ali se vam ob naporu pojavijo težko dihanje, bolečine v prsih, preskakovanje srca ali nenavadna izčrpanost?",
+   "hint": "Samoocena po stopnjah NYHA",
+   "options": {
+    "keine": "Ne, pri vsakodnevnem naporu nimam težav",
+    "stark": "Pri večjem naporu (npr. hitra hoja po stopnicah)",
+    "leicht": "Že pri lažjem naporu (npr. počasna hoja)",
+    "ruhe": "Že v mirovanju"
+   }
+  },
+  "hypertension": {
+   "label": "Ali je pri vas znan visok krvni tlak?",
+   "followup": "Od kdaj, katera zdravila jemljete in kakšne vrednosti običajno izmerite?"
+  },
+  "bp_dizziness": {
+   "label": "Ali se ob vaših zdravilih za krvni tlak pojavljajo vrtoglavica, občutek slabosti ali temnenje pred očmi?"
+  },
+  "heart_other": {
+   "label": "Ali je pri vas znana še kakšna druga bolezen srca ali žil: napaka srčne zaklopke, prirojena srčna napaka, bolezen srčne mišice (kardiomiopatija), dedna motnja srčnega ritma (npr. Long-QT), anevrizma aorte ali zožena vratna arterija?",
+   "followup": "Katera diagnoza in kako se nadzoruje oziroma zdravi?"
+  },
+  "family_sudden_death": {
+   "label": "Ali je v vaši najožji družini (starši, bratje in sestre, otroci) prišlo do nenadne srčne smrti?"
+  },
+  "stroke": {
+   "label": "Ali ste kdaj imeli možgansko kap, možgansko krvavitev ali TIA (prehodno motnjo prekrvavitve s kratkotrajnimi izpadi)?",
+   "followup": "Kdaj je bil dogodek in ali je bila rehabilitacija zaključena?"
+  },
+  "stroke_residuals": {
+   "label": "Ali od takrat še obstajajo posledice, kot so ohromelost, motnje govora, težave s spominom ali omejitve vidnega polja?",
+   "followup": "Katere težave trenutno še obstajajo?"
+  },
+  "head_injury": {
+   "label": "Ali ste kdaj imeli hudo poškodbo glave (z nezavestjo ali bolnišničnim zdravljenjem) ali operacijo možganov?",
+   "followup": "Kdaj in kaj se je zdravilo?"
+  },
+  "head_injury_recent": {
+   "label": "Ali je od te poškodbe ali operacije minilo manj kot 3 mesece?",
+   "hint": "Po možganski poškodbi ali operaciji možganov po smernicah praviloma 3 mesece ni zmožnosti za vožnjo."
+  },
+  "brain_residuals": {
+   "label": "Ali od poškodbe oziroma operacije obstajajo težave, kot so motnje koncentracije ali spomina, sprememba osebnosti ali krčni napadi?",
+   "followup": "Katere težave in kako se kažejo?"
+  },
+  "parkinson": {
+   "label": "Ali vam je bila diagnosticirana Parkinsonova bolezen ali druga motnja gibanja ali koordinacije?",
+   "followup": "Od kdaj, kako se zdravi in kdaj je bila zadnja nevrološka kontrola?"
+  },
+  "ms_spinal": {
+   "label": "Ali je pri vas znana multipla skleroza, bolezen hrbtenjače ali poškodba hrbtenjače?",
+   "followup": "Katera diagnoza in kakšne težave imate trenutno?"
+  },
+  "muscle_nerve": {
+   "label": "Ali je pri vas znana mišična ali živčna bolezen (npr. propadanje mišic/mišična distrofija, miastenija, polinevropatija)?",
+   "followup": "Katera diagnoza in kako močno ste omejeni?"
+  },
+  "paralysis_attacks": {
+   "label": "Ali se pri vas pojavljajo napadi ohromelosti ali nenadna huda mišična oslabelost?",
+   "followup": "Kdaj je nastopil zadnji napad in kako hitro se pojavi?"
+  },
+  "motor_limits": {
+   "label": "Ali imate ohromelost, mišično oslabelost ali motnje občutka v rokah ali nogah, ki bi vas lahko omejevale pri upravljanju vozila?",
+   "followup": "Kateri deli telesa so prizadeti?"
+  },
+  "vertigo": {
+   "label": "Ali imate vrtoglavico ali motnje ravnotežja (npr. občutek vrtenja, zibanja, negotovost pri hoji)?",
+   "followup": "Kakšen je občutek vrtoglavice, kako pogosto se pojavlja, kako dolgo traja napad in kaj ga sproži?"
+  },
+  "vertigo_last": {
+   "label": "Koliko časa je minilo od vašega zadnjega napada vrtoglavice?",
+   "options": {
+    "unter3m": "Manj kot 3 mesece",
+    "3bis6m": "3 do 6 mesecev",
+    "6bis12m": "6 do 12 mesecev",
+    "1bis2j": "1 do 2 leti",
+    "ueber2j": "Več kot 2 leti"
+   }
+  },
+  "vertigo_prodromi": {
+   "label": "Ali se vaši napadi vrtoglavice prej napovejo (npr. pritisk v ušesu, šumenje v ušesih, poslabšanje sluha), tako da bi se lahko pravočasno ustavili?",
+   "options": {
+    "immer": "Da, vedno",
+    "manchmal": "Včasih",
+    "nie": "Ne, pridejo brez opozorila"
+   }
+  },
+  "vertigo_positional": {
+   "label": "Ali vrtoglavico sprožijo določeni gibi glave ali spremembe položaja telesa (npr. obračanje v postelji, sklanjanje)?"
+  },
+  "vertigo_ear": {
+   "label": "Ali se vrtoglavica pojavlja skupaj s poslabšanjem sluha, šumenjem v ušesih (tinitus) ali občutkom pritiska v ušesu?"
+  },
+  "ear_disease": {
+   "label": "Ali je bila pri vas ugotovljena bolezen ravnotežnega organa ali notranjega ušesa (npr. položajna vrtoglavica, Menièrova bolezen)?",
+   "followup": "Katera diagnoza, kako se je zdravila in ali ste od takrat brez težav?"
+  },
+  "mobility_limits": {
+   "label": "Ali imate trajno omejitev gibljivosti rok, nog, dlani ali hrbtenice (npr. po nesreči, operaciji, amputaciji)?",
+   "followup": "Kateri deli telesa so prizadeti in od kdaj?"
+  },
+  "prosthesis": {
+   "label": "Ali nosite protezo ali uporabljate ortopedske pripomočke?",
+   "followup": "Katere pripomočke in ali imate težave pri daljši obremenitvi?"
+  },
+  "vehicle_modified": {
+   "label": "Ali je vaše vozilo predelano zaradi telesne omejitve (npr. ročno upravljanje, pomoč pri krmiljenju)?",
+   "followup": "Katere predelave in ali so vpisane v vozniško dovoljenje?"
+  },
+  "diabetes_type": {
+   "label": "Ali je pri vas znana sladkorna bolezen (diabetes mellitus)?",
+   "options": {
+    "none": "Ne",
+    "type1": "Da, tip 1",
+    "type2": "Da, tip 2",
+    "other": "Da, druga ali nejasna oblika"
+   }
+  },
+  "diabetes_therapy": {
+   "label": "Kako se vaša sladkorna bolezen trenutno zdravi?",
+   "options": {
+    "lifestyle": "Samo s prehrano / življenjskim slogom",
+    "tabl_low": "S tabletami z majhnim tveganjem za hipoglikemijo (npr. metformin)",
+    "tabl_high": "S tabletami s tveganjem za hipoglikemijo (sulfonilsečnine, glinidi)",
+    "insulin": "Z inzulinom",
+    "unknown": "Ne vem natančno"
+   }
+  },
+  "hypoglycemia": {
+   "label": "Ali ste v zadnjih 12 mesecih doživeli hudo hipoglikemijo (nizek krvni sladkor), pri kateri ste potrebovali tujo pomoč?",
+   "followup": "Kako pogosto, kdaj je bila zadnja epizoda in ali je nastopila v budnem stanju ali med spanjem?"
+  },
+  "hypo_awareness": {
+   "label": "Ali se je zgodilo, da hipoglikemije sami niste pravočasno opazili (odsotni opozorilni znaki)?",
+   "followup": "Kdaj nazadnje in ali je bilo kaj ukrenjeno (npr. izobraževanje, sprememba zdravljenja)?"
+  },
+  "glucose_monitoring": {
+   "label": "Ali si redno sami merite krvni sladkor (ali nosite senzor za glukozo)?",
+   "options": {
+    "2x": "Da, najmanj dvakrat na dan",
+    "seltener": "Da, vendar redkeje",
+    "nein": "Ne",
+    "keine_med": "Zame ne velja (ne jemljem zdravil za zniževanje krvnega sladkorja)"
+   }
+  },
+  "diabetes_derailment": {
+   "label": "Ali je v zadnjih mesecih prišlo do ponovne nastavitve zdravljenja ali do presnovne iztirjenosti (npr. bolnišnično zdravljenje zaradi iztirjenih vrednosti)?",
+   "followup": "Kaj se je zgodilo in kdaj?"
+  },
+  "kidney_disease": {
+   "label": "Ali je pri vas znana kronična ledvična bolezen ali oslabelo delovanje ledvic?",
+   "followup": "Katera bolezen in ali ste v zdravljenju pri nefrologu?"
+  },
+  "dialysis": {
+   "label": "Ali se redno zdravite z dializo (čiščenje krvi)?",
+   "followup": "Od kdaj in kolikokrat na teden? Ali se med posameznimi zdravljenji počutite zmogljivi?"
+  },
+  "transplant": {
+   "label": "Ali vam je bil presajen kakšen organ (npr. ledvica, srce, jetra, pljuča)?",
+   "followup": "Kateri organ, kdaj in ali ste v redni kontroli po presaditvi?"
+  },
+  "lung_disease": {
+   "label": "Ali imate kronično bolezen pljuč ali bronhijev (npr. KOPB, astma, pljučna fibroza)?",
+   "followup": "Katera bolezen in kako se zdravi?"
+  },
+  "dyspnea": {
+   "label": "Ali imate težko dihanje že pri lažjem naporu ali v mirovanju ali potrebujete trajno zdravljenje s kisikom?"
+  },
+  "cough_syncope": {
+   "label": "Ali je pri močnih napadih kašlja že prišlo do vrtoglavice, temnenja pred očmi ali kratkotrajne nezavesti?"
+  },
+  "daytime_sleepiness": {
+   "label": "Ali vam je čez dan težko ostati budni in pozorni – zlasti v enoličnih položajih (npr. branje, sestanki, daljše vožnje z avtomobilom)?"
+  },
+  "microsleep": {
+   "label": "Ali ste v zadnjih mesecih nehote zaspali ali ste doživeli mikrospanec (spanec za nekaj sekund)?",
+   "followup": "V katerih položajih? Ali se je zgodilo tudi za volanom?"
+  },
+  "snoring": {
+   "label": "Ali so vam povedali, da glasno in neenakomerno smrčite ali da imate ponoči premore v dihanju?"
+  },
+  "osas": {
+   "label": "Ali je bila pri vas ugotovljena apneja med spanjem (nočni zastoji dihanja)?",
+   "followup": "Kdaj je bila postavljena diagnoza in kakšna stopnja resnosti oziroma vrednost AHI je bila ugotovljena (če vam je znana)?"
+  },
+  "cpap": {
+   "label": "Ali se zaradi apneje med spanjem zdravite (npr. z dihalno masko CPAP)?",
+   "options": {
+    "regelmaessig": "Da, redno (skoraj vsako noč)",
+    "unregelmaessig": "Da, vendar neredno",
+    "abgebrochen": "Zdravljenje je bilo prekinjeno",
+    "keine": "Ne, brez zdravljenja"
+   }
+  },
+  "psychiatric": {
+   "label": "Ali vam je bila diagnosticirana duševna bolezen (npr. depresija, anksiozna motnja, bipolarna motnja)?",
+   "followup": "Katera bolezen in kako se zdravi?"
+  },
+  "psychiatric_severe": {
+   "label": "Ali ste bili zaradi tega že v bolnišničnem zdravljenju, ali ste imeli manično fazo ali misli na samomor?",
+   "followup": "Kdaj je bilo to nazadnje?"
+  },
+  "psychosis": {
+   "label": "Ali vam je bila kdaj diagnosticirana shizofrenija ali druga psihoza (bolezen z blodnjami ali halucinacijami)?",
+   "followup": "Koliko akutnih epizod ste imeli, kdaj je bila zadnja in ali ste v zdravljenju pri zdravniku specialistu?"
+  },
+  "memory_problems": {
+   "label": "Ali ste sami ali vaši svojci v zadnjem času pri vas opazili vse večje težave s spominom ali orientacijo?",
+   "followup": "Od kdaj in kako se kažejo v vsakdanjem življenju?"
+  },
+  "concentration": {
+   "label": "Ali imate težave s koncentracijo ali pozornostjo?"
+  },
+  "alcohol": {
+   "label": "Kako pogosto pijete alkohol?",
+   "options": {
+    "nie": "Nikoli",
+    "selten": "Redko (največ 1-krat na mesec)",
+    "woechentlich": "1- do 2-krat na teden",
+    "mehrmals": "Večkrat na teden",
+    "taeglich": "Vsak dan ali skoraj vsak dan"
+   }
+  },
+  "alcohol_control": {
+   "label": "Ali se je zgodilo, da ste popili več, kot ste nameravali, ali da ste izgubili nadzor nad svojim pitjem?"
+  },
+  "alcohol_traffic": {
+   "label": "Ali ste kdaj v cestnem prometu izstopali pod vplivom alkohola (npr. vožnja pod vplivom alkohola, globa, MPU)?",
+   "followup": "Kdaj in kakšna vrednost alkohola v krvi (promili) je bila ugotovljena (če vam je znana)?"
+  },
+  "alcohol_dependence": {
+   "label": "Ali je bila pri vas kdaj ugotovljena odvisnost od alkohola ali ste opravili razstrupljanje oziroma zdravljenje odvajanja?",
+   "followup": "Kdaj je bilo zdravljenje zaključeno in od kdaj živite abstinentno?"
+  },
+  "drugs": {
+   "label": "Ali trenutno jemljete droge (npr. konopljo, kokain, amfetamine) ali ste v preteklosti redno uživali droge?",
+   "followup": "Katere snovi, kako pogosto in kdaj nazadnje?"
+  },
+  "cannabis": {
+   "label": "Kako pogosto uživate konopljo (kanabis)?",
+   "options": {
+    "nie": "Nikoli",
+    "gelegentlich": "Občasno (ne redno)",
+    "regelmaessig": "Redno (vsak dan ali po navadi)"
+   }
+  },
+  "substitution": {
+   "label": "Ali prejemate nadomestno zdravljenje (npr. metadon)?",
+   "followup": "Od kdaj?"
+  },
+  "regular_meds": {
+   "label": "Ali redno jemljete zdravila?",
+   "followup": "Katera zdravila in proti čemu?"
+  },
+  "sedating_meds": {
+   "label": "Ali so med njimi zdravila, ki lahko povzročajo utrujenost ali vplivajo na sposobnost odzivanja (npr. močna zdravila proti bolečinam/opioidi, uspavala ali pomirjevala, antidepresivi, antiepileptiki, zdravila proti alergiji)?",
+   "followup": "Katera zdravila in v kakšnem odmerku?"
+  },
+  "med_side_effects": {
+   "label": "Ali ob svojih zdravilih opažate neželene učinke, kot so utrujenost, upočasnjenost, motnje koncentracije ali vrtoglavica?",
+   "followup": "Kateri neželeni učinki in kako močni?"
+  },
+  "med_recent_change": {
+   "label": "Ali je bilo v zadnjih tednih tako zdravilo na novo uvedeno ali je bil odmerek občutno spremenjen?",
+   "followup": "Katero zdravilo in kdaj?"
+  },
+  "benzo_regular": {
+   "label": "Ali že več mesecev redno – tudi če le zvečer in v majhni količini – jemljete uspavala ali pomirjevala (npr. benzodiazepine)?",
+   "followup": "Katero zdravilo, kako dolgo že in ali ob opustitvi opažate odtegnitvene znake?"
+  },
+  "multiple_conditions": {
+   "label": "Ali pri vas hkrati obstaja več bolezni ali zdravstvenih omejitev?",
+   "hint": "Več odstopanj je lahko v seštevku pomembnih za zmožnost za vožnjo, tudi če bi bilo vsako posamezno neškodljivo (smernice, pogl. 2.7).",
+   "followup": "Prosimo, na kratko naštejte vse znane bolezni."
+  },
+  "other_conditions": {
+   "label": "Ali obstajajo še druge bolezni, težave ali pretekle operacije, ki doslej niso bile omenjene?",
+   "followup": "Katere?"
+  },
+  "driving_adaptation": {
+   "label": "Ali se zaradi zdravstvenih omejitev zavestno odpovedujete določenim vožnjam (npr. v temi, dolge razdalje, avtocesta)?",
+   "followup": "Katerim vožnjam in zakaj?"
+  },
+  "consent_truth": {
+   "label": "Potrjujem, da so moji podatki popolni in resnični.",
+   "error": "Prosimo, potrdite popolnost svojih podatkov."
+  },
+  "consent_privacy": {
+   "label": "Prebral/-a sem informacije o varstvu podatkov in soglašam z obdelavo svojih podatkov za prometnomedicinske namene.",
+   "error": "Prosimo, sprejmite informacije o varstvu podatkov."
+  }
+ },
+ "ess_items": {
+  "ess_1": "Ko sedite in berete",
+  "ess_2": "Ko gledate televizijo",
+  "ess_3": "Ko pasivno sedite v javnosti (npr. v gledališču ali na sestanku)",
+  "ess_4": "Kot sopotnik v avtomobilu med enourno vožnjo brez odmora",
+  "ess_5": "Ko ste se popoldne ulegli, da bi počivali",
+  "ess_6": "Ko sedite in se z nekom pogovarjate",
+  "ess_7": "Ko po kosilu (brez alkohola) mirno sedite",
+  "ess_8": "Ko morate kot voznik avtomobila zaradi prometa nekaj minut stati"
+ }
+}

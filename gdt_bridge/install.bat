@@ -46,10 +46,15 @@ if %errorLevel% NEQ 0 (
     exit /b 1
 )
 
-:: pywin32 Post-Install
+:: pywin32 Post-Install (registriert die pywin32-DLLs fuer den Service-Betrieb)
 echo [2/4] Konfiguriere pywin32 ...
-python -m win32com.client >nul 2>&1
-python "%SystemRoot%\system32\cmd.exe" /c "python -c \"import win32serviceutil\"" >nul 2>&1
+python -m pywin32_postinstall -install
+if %errorLevel% NEQ 0 (
+    echo FEHLER: pywin32-Postinstall fehlgeschlagen.
+    echo Bitte manuell ausfuhren: python -m pywin32_postinstall -install
+    pause
+    exit /b 1
+)
 
 :: GDT-Ordner anlegen
 echo [3/4] Lege GDT-Ordner an ...
@@ -59,8 +64,6 @@ for /f "tokens=2 delims==" %%A in ('findstr /i "gdt_inbox" "%CONFIG%"') do (
 for /f "tokens=2 delims==" %%A in ('findstr /i "gdt_outbox" "%CONFIG%"') do (
     set "OUTBOX=%%A"
 )
-set "INBOX=%INBOX: =%"
-set "OUTBOX=%OUTBOX: =%"
 if defined INBOX  mkdir "%INBOX%"  2>nul && echo    Inbox:  %INBOX%
 if defined OUTBOX mkdir "%OUTBOX%" 2>nul && echo    Outbox: %OUTBOX%
 

@@ -1,0 +1,585 @@
+{
+ "_meta": {
+  "language": "sq",
+  "name": "Shqip",
+  "machine_translated": true
+ },
+ "ui": {
+  "header_title": "Pyetësor mjekësor për aftësinë e drejtimit të automjetit",
+  "header_subtitle": "Ju lutemi përgjigjuni të gjitha pyetjeve",
+  "language_label": "Gjuha",
+  "loading": "Pyetësori po ngarkohet …",
+  "not_found_title": "Pyetësori nuk u gjet",
+  "to_start": "Në faqen kryesore",
+  "back": "Prapa",
+  "next": "Vazhdo",
+  "skip": "Kapërce",
+  "submit": "Dërgo",
+  "sending": "Duke dërguar…",
+  "question_of": "Pyetja {current} nga {total}",
+  "answer_placeholder": "Përgjigjja juaj…",
+  "required_error": "Ju lutemi përgjigjuni kësaj pyetjeje.",
+  "yes": "Po",
+  "no": "Jo",
+  "consent_title": "Pëlqimi",
+  "followup_hint": "E dhënë shtesë vullnetare – ndihmon në vlerësimin mjekësor.",
+  "ess_question": "Sa e mundshme është që të ju zërë gjumi në këtë situatë?",
+  "ess_sum": "Shuma deri tani",
+  "privacy_button": "Shfaq njoftimin për mbrojtjen e të dhënave",
+  "privacy_title": "Njoftim për mbrojtjen e të dhënave",
+  "privacy_subtitle": "Informacion mbi përpunimin e të dhënave tuaja sipas nenit 13 të DSGVO (Rregullorja e BE-së për mbrojtjen e të dhënave, GDPR)",
+  "privacy_controller": "Përgjegjësi për përpunimin: Dr. med. Björn Micka, Betriebsmedizin · Notfallmedizin, Christoph-Dassler-Str. 22, 91074 Herzogenaurach",
+  "privacy_purpose": "Qëllimi i përpunimit: Të dhënat tuaja në këtë pyetësor (përfshirë të dhënat shëndetësore) përdoren vetëm për përgatitjen dhe kryerjen e ekzaminimit tuaj mjekësor për aftësinë e drejtimit të automjetit.",
+  "privacy_legal": "Baza ligjore: Pëlqimi juaj (neni 6 par. 1 pika a, neni 9 par. 2 pika a DSGVO). Pëlqimin mund ta tërhiqni në çdo kohë me efekt për të ardhmen.",
+  "privacy_storage": "Ruajtja: Rezultati merret në dokumentacionin e ekzaminimit tuaj dhe i nënshtrohet afateve mjekësore të ruajtjes. Qasja online përmes lidhjes suaj personale skadon pas mbarimit të vlefshmërisë; të dhënat e këtij pyetësori online fshihen më pas në mënyrë rutinore.",
+  "privacy_rights": "Të drejtat tuaja: Ju keni të drejtën e informimit, korrigjimit, fshirjes dhe kufizimit të përpunimit, si dhe të drejtën e ankesës pranë autoritetit kompetent mbikëqyrës për mbrojtjen e të dhënave.",
+  "privacy_secrecy": "Të gjitha të dhënat i nënshtrohen sekretit mjekësor.",
+  "success_title": "Faleminderit shumë!",
+  "success_text": "Pyetësori juaj u dërgua me sukses.",
+  "success_result": "Rezultati ESS",
+  "success_doctor_note": "Ju lutemi diskutoni rezultatin me mjekun tuaj. Vlerësimi përfundimtar bëhet nga një mjek specialist.",
+  "success_pdf": "Shkarko përmbledhjen në PDF",
+  "success_close": "Tani mund ta mbyllni këtë dritare.",
+  "band_normal": "Normal (0–9)",
+  "band_elevated": "I rritur (10–15)",
+  "band_severe": "I theksuar (≥16)",
+  "submit_error": "Gabim gjatë dërgimit. Ju lutemi kontrolloni të dhënat tuaja.",
+  "ess_opt_0": "0 – Nuk do të më zinte kurrë gjumi",
+  "ess_opt_1": "1 – Mundësi e vogël",
+  "ess_opt_2": "2 – Mundësi mesatare",
+  "ess_opt_3": "3 – Mundësi e madhe"
+ },
+ "sections": {
+  "anlass": {
+   "title": "Arsyeja dhe profili i drejtimit",
+   "subtitle": "Të dhëna për ekzaminimin dhe veprimtarinë tuaj si shofer"
+  },
+  "gesundheit": {
+   "title": "Gjendja shëndetësore",
+   "subtitle": "Një pyetje paraprake"
+  },
+  "anfaelle": {
+   "title": "Krizat dhe humbja e vetëdijes",
+   "subtitle": "Rreziku i një humbjeje të papritur të kontrollit – kriza epileptike dhe të fikëte"
+  },
+  "sehen_hoeren": {
+   "title": "Shikimi dhe dëgjimi",
+   "subtitle": "Funksioni i shikimit dhe i dëgjimit"
+  },
+  "herz": {
+   "title": "Zemra dhe qarkullimi i gjakut",
+   "subtitle": "Sëmundjet e zemrës dhe të enëve të gjakut"
+  },
+  "gehirn": {
+   "title": "Goditja në tru dhe truri",
+   "subtitle": "Çrregullimet e qarkullimit të gjakut, lëndimet dhe operacionet e trurit"
+  },
+  "neuro": {
+   "title": "Sistemi nervor",
+   "subtitle": "Sëmundjet neurologjike"
+  },
+  "schwindel": {
+   "title": "Ekuilibri dhe marrja e mendve",
+   "subtitle": "Format e marrjes së mendve dhe çrregullimet e ekuilibrit"
+  },
+  "bewegung": {
+   "title": "Aparati lëvizor",
+   "subtitle": "Kufizimet fizike dhe mjetet ndihmëse"
+  },
+  "diabetes": {
+   "title": "Diabeti / metabolizmi",
+   "subtitle": "Sëmundja e sheqerit dhe rëniet e sheqerit në gjak"
+  },
+  "organe": {
+   "title": "Organet e brendshme",
+   "subtitle": "Veshkat, mushkëritë dhe transplantet"
+  },
+  "schlaf": {
+   "title": "Gjumi dhe përgjumja gjatë ditës",
+   "subtitle": "Përfshirë shkallën Epworth Sleepiness Scale (ESS)"
+  },
+  "psyche": {
+   "title": "Shëndeti mendor",
+   "subtitle": "Sëmundjet psikike dhe kujtesa"
+  },
+  "substanzen": {
+   "title": "Alkooli, drogat dhe medikamentet",
+   "subtitle": "Konsumi dhe medikamentet e përhershme"
+  },
+  "allgemein": {
+   "title": "Të përgjithshme dhe pëlqimi",
+   "subtitle": "Të dhëna të tjera dhe deklarata"
+  }
+ },
+ "questions": {
+  "exam_occasion": {
+   "label": "Për cilën leje drejtimi bëhet ekzaminimi?",
+   "options": {
+    "pkw": "Automjet personal / kategori tjetër",
+    "lkw": "Kamion (C, C1, CE, C1E)",
+    "bus": "Autobus (D, D1, DE, D1E)",
+    "fahrgast": "Transport pasagjerësh (taksi, makinë me qira, transport të sëmurësh)"
+   }
+  },
+  "exam_kind": {
+   "label": "A bëhet fjalë për lëshim për herë të parë apo për vazhdim?",
+   "options": {
+    "erst": "Lëshim për herë të parë",
+    "verlaengerung": "Vazhdim"
+   }
+  },
+  "license_classes": {
+   "label": "Cilat kategori të lejes së drejtimit zotëroni ose po kërkoni?",
+   "options": {
+    "AM": "AM",
+    "A1": "A1",
+    "A2": "A2",
+    "A": "A",
+    "B": "B",
+    "BE": "BE",
+    "C1": "C1",
+    "C1E": "C1E",
+    "C": "C",
+    "CE": "CE",
+    "D1": "D1",
+    "D": "D",
+    "DE": "DE",
+    "T": "T"
+   }
+  },
+  "license_years": {
+   "label": "Prej sa vitesh keni leje drejtimi?",
+   "options": {
+    "erstantrag": "Ende asnjë (kërkesë e parë)",
+    "unter3": "Më pak se 3 vjet",
+    "3bis10": "3 deri në 10 vjet",
+    "ueber10": "Më shumë se 10 vjet"
+   }
+  },
+  "driving_hours": {
+   "label": "Sa orë drejtoni mesatarisht në ditë?",
+   "options": {
+    "<1": "Më pak se 1 orë",
+    "1-2": "1 deri në 2 orë",
+    "2-4": "2 deri në 4 orë",
+    ">4": "Më shumë se 4 orë"
+   }
+  },
+  "night_driving": {
+   "label": "A drejtoni rregullisht natën?"
+  },
+  "accidents": {
+   "label": "A keni pasur në 24 muajt e fundit aksidente ose gati-aksidente në trafikun rrugor?",
+   "followup": "Çfarë ndodhi?"
+  },
+  "license_withdrawn": {
+   "label": "A ju është hequr ndonjëherë leja e drejtimit ose a ju është dashur të merrni pjesë në një ekzaminim mjekësor-psikologjik (MPU – test i aftësisë për drejtim)?",
+   "followup": "Kur dhe për çfarë arsyeje?"
+  },
+  "psych_test_done": {
+   "label": "A keni kryer tashmë për këtë leje drejtimi një test psikologjik të performancës (test i reagimit, i përqendrimit dhe i vëmendjes)?",
+   "hint": "Për kategoritë e autobusëve dhe transportin e pasagjerëve kjo dëshmi kërkohet sipas Shtojcës 5 të FeV (rregullorja gjermane e lejeve të drejtimit). Ju lutemi sillni me vete në ekzaminim një raport ekzistues.",
+   "followup": "Kur dhe ku u krye testi?"
+  },
+  "has_conditions": {
+   "label": "A keni ndonjë sëmundje të njohur të mëparshme, një kufizim të përhershëm fizik, ose jeni në trajtim të rregullt mjekësor?",
+   "hint": "Këtu përfshihen edhe sëmundjet e rënda të së kaluarës më të largët (p.sh. zemra, diabeti, nervat, psikika). Nëse jo, pyetësori shkurtohet ndjeshëm."
+  },
+  "seizure_ever": {
+   "label": "A keni pasur ndonjëherë një krizë epileptike ose krizë konvulsive?",
+   "followup": "Kur ishte kriza e fundit, sa keni pasur gjithsej dhe a kishte ndonjë shkaktar (p.sh. mungesë gjumi, ethe, alkool)?"
+  },
+  "epilepsy": {
+   "label": "A ju është diagnostikuar epilepsi?",
+   "followup": "A shfaqen krizat vetëm gjatë gjumit? A jeni në trajtim të rregullt neurologjik?"
+  },
+  "seizure_free": {
+   "label": "Prej sa kohësh jeni tashmë pa kriza?",
+   "hint": "Udhëzimet mjekësore e lidhin aftësinë për drejtim me periudha konkrete pa kriza.",
+   "options": {
+    "unter3m": "Më pak se 3 muaj",
+    "3bis6m": "3 deri në 6 muaj",
+    "6bis12m": "6 deri në 12 muaj",
+    "1bis2j": "1 deri në 2 vjet",
+    "2bis5j": "2 deri në 5 vjet",
+    "ueber5j": "Më shumë se 5 vjet"
+   }
+  },
+  "antiepileptics": {
+   "label": "A merrni medikamente kundër krizave (antiepileptikë)?",
+   "options": {
+    "nie": "Jo, nuk kam marrë kurrë",
+    "aktuell": "Po, aktualisht",
+    "reduktion": "Trajtimi aktualisht po zvogëlohet hap pas hapi",
+    "ende_unter3m": "Përfunduar para më pak se 3 muajsh",
+    "ende_ueber3m": "Përfunduar para më shumë se 3 muajsh"
+   }
+  },
+  "syncope": {
+   "label": "A ju ka rënë ndonjëherë papritur të fikët (humbje e shkurtër e vetëdijes)?",
+   "options": {
+    "nie": "Kurrë",
+    "einmal": "Një herë",
+    "mehrmals": "Disa herë"
+   }
+  },
+  "syncope_recent": {
+   "label": "A ka ndodhur të fikëtit juaj i fundit para më pak se 6 muajsh?",
+   "followup": "Në çfarë situate ndodhi të fikëtit dhe a u gjet një shkak (p.sh. qarkullimi i gjakut, ritmi i zemrës, gjatë urinimit)?"
+  },
+  "syncope_prodromi": {
+   "label": "A paralajmërohet tek ju një e fikët paraprakisht (p.sh. djersitje, marrje mendsh, të përziera, rrahje të forta zemre)?"
+  },
+  "glasses": {
+   "label": "A mbani syze ose lente kontakti kur drejtoni automjetin?"
+  },
+  "eye_disease": {
+   "label": "A ju është e njohur ndonjë sëmundje e syve (p.sh. katarakt/perde e syrit, glaukomë/tensioni i syrit, sëmundje e retinës, kufizim i fushës së shikimit)?",
+   "followup": "Cila sëmundje, dhe a jeni në trajtim te okulisti?"
+  },
+  "one_eyed": {
+   "label": "A shikoni me njërin sy dukshëm më keq ose a jeni i verbër nga njëri sy?"
+  },
+  "night_vision": {
+   "label": "A keni probleme me shikimin në muzg ose në errësirë, ose a ju verbojnë fort dritat e automjeteve përballë?",
+   "followup": "Në cilat situata shfaqen problemet?"
+  },
+  "hearing_impaired": {
+   "label": "A keni dëgjim shumë të dobësuar ose a jeni i shurdhër?",
+   "followup": "Prej kur, dhe a jeni në trajtim te mjeku i veshit, hundës dhe fytit (ORL)?"
+  },
+  "hearing_aid": {
+   "label": "A mbani aparat dëgjimi ose implant koklear?"
+  },
+  "heart_disease": {
+   "label": "A ju është e njohur ndonjë sëmundje e zemrës ose e enëve të gjakut?",
+   "hint": "p.sh. çrregullime të ritmit, infarkt i zemrës, dobësi e zemrës, defekt i valvulave, çrregullime të qarkullimit të gjakut",
+   "followup": "Cila(t) sëmundje, prej kur, dhe si trajtohen?"
+  },
+  "cardio_checkup": {
+   "label": "A kontrolloheni për këtë arsye rregullisht te një kardiolog?",
+   "followup": "Kur ishte kontrolli i fundit?"
+  },
+  "heart_attack": {
+   "label": "A keni pasur ndonjëherë infarkt të zemrës, trajtim me stent ose operacion bypass?",
+   "followup": "Kur ndodhi ngjarja ose ndërhyrja, dhe a pati komplikime (p.sh. fuqi pompimi e kufizuar e zemrës)?"
+  },
+  "arrhythmia": {
+   "label": "A ju janë të njohura çrregullime të ritmit të zemrës (p.sh. \"pengesa\" të zemrës, rrahje shumë të shpejta, puls dukshëm i ngadaltë, fibrilacion atrial, bllok AV)?",
+   "followup": "Cila diagnozë, dhe si trajtohet?"
+  },
+  "pacemaker_icd": {
+   "label": "A mbani stimulues kardiak (pacemaker) ose defibrilator (ICD)?",
+   "options": {
+    "nein": "Jo",
+    "schrittmacher": "Stimulues kardiak (pacemaker)",
+    "icd": "Defibrilator (ICD)"
+   },
+   "followup": "Kur u vendos, dhe kur ishte kontrolli i fundit?"
+  },
+  "icd_shock": {
+   "label": "A ka dhënë defibrilatori juaj një shok elektrik në 3 muajt e fundit?",
+   "followup": "Kur, dhe çfarë tha kardiologu juaj për këtë?"
+  },
+  "exertion_symptoms": {
+   "label": "A ju shfaqen gjatë sforcimit fizik mungesë fryme, dhimbje gjoksi, \"pengesa\" të zemrës ose lodhje e pazakontë?",
+   "hint": "Vetëvlerësim sipas stadeve NYHA",
+   "options": {
+    "keine": "Jo, asnjë ankesë gjatë sforcimit të përditshëm",
+    "stark": "Gjatë sforcimit më të madh (p.sh. ngjitje e shpejtë e shkallëve)",
+    "leicht": "Tashmë gjatë sforcimit të lehtë (p.sh. ecje e ngadaltë)",
+    "ruhe": "Edhe në qetësi"
+   }
+  },
+  "hypertension": {
+   "label": "A ju është i njohur tensioni i lartë i gjakut?",
+   "followup": "Prej kur, cilat medikamente, dhe çfarë vlerash matni zakonisht?"
+  },
+  "bp_dizziness": {
+   "label": "A ju shfaqen nga medikamentet e tensionit marrje mendsh, ndjenjë dobësie ose errësim i papritur para syve?"
+  },
+  "heart_other": {
+   "label": "A ju është e njohur ndonjë sëmundje tjetër e zemrës/enëve të gjakut: defekt i valvulave të zemrës, defekt i lindur i zemrës, sëmundje e muskulit të zemrës (kardiomiopati), sëmundje e trashëguar e ritmit (p.sh. Long-QT), aneurizëm i aortës ose ngushtim i arteries së qafës?",
+   "followup": "Cila diagnozë, dhe si kontrollohet/trajtohet?"
+  },
+  "family_sudden_death": {
+   "label": "A ka pasur në familjen tuaj më të ngushtë (prindër, vëllezër e motra, fëmijë) vdekje të papritur nga zemra?"
+  },
+  "stroke": {
+   "label": "A keni pasur ndonjëherë goditje në tru, hemorragji cerebrale ose TIA (çrregullim kalimtar i qarkullimit të gjakut me simptoma të shkurtra)?",
+   "followup": "Kur ndodhi ngjarja, dhe a u përfundua një rehabilitim?"
+  },
+  "stroke_residuals": {
+   "label": "A kanë mbetur që atëherë pasoja si paralizë, çrregullime të të folurit, probleme me kujtesën ose kufizime të fushës së shikimit?",
+   "followup": "Cilat ankesa ekzistojnë ende aktualisht?"
+  },
+  "head_injury": {
+   "label": "A keni pasur ndonjëherë një lëndim të rëndë të kokës (me humbje të vetëdijes ose qëndrim në spital) ose një operacion në tru?",
+   "followup": "Kur, dhe çfarë u trajtua?"
+  },
+  "head_injury_recent": {
+   "label": "A ka ndodhur ky lëndim ose operacion para më pak se 3 muajsh?",
+   "hint": "Pas një lëndimi ose operacioni të trurit, sipas udhëzimeve mjekësore, në përgjithësi nuk ka aftësi drejtimi për 3 muaj."
+  },
+  "brain_residuals": {
+   "label": "A keni që nga lëndimi/operacioni ankesa si çrregullime të përqendrimit ose të kujtesës, ndryshim i personalitetit ose kriza konvulsive?",
+   "followup": "Cilat ankesa, dhe si ndikojnë ato?"
+  },
+  "parkinson": {
+   "label": "A ju është diagnostikuar sëmundja e Parkinsonit ose ndonjë çrregullim tjetër i lëvizjes ose i koordinimit?",
+   "followup": "Prej kur, si trajtohet, dhe kur ishte kontrolli i fundit neurologjik?"
+  },
+  "ms_spinal": {
+   "label": "A ju është e njohur skleroza multiple, një sëmundje e palcës kurrizore ose një lëndim i palcës kurrizore?",
+   "followup": "Cila diagnozë, dhe çfarë ankesash keni aktualisht?"
+  },
+  "muscle_nerve": {
+   "label": "A ju është e njohur ndonjë sëmundje e muskujve ose e nervave (p.sh. atrofi muskulare, miasteni, polineuropati)?",
+   "followup": "Cila diagnozë, dhe sa shumë jeni i kufizuar?"
+  },
+  "paralysis_attacks": {
+   "label": "A ju ndodhin paraliza në formë krizash ose dobësi e papritur e fortë muskulare?",
+   "followup": "Kur ndodhi kriza e fundit, dhe sa shpejt fillon ajo?"
+  },
+  "motor_limits": {
+   "label": "A keni paraliza, dobësi muskulare ose çrregullime të ndjeshmërisë në krahë ose këmbë, që mund t'ju kufizojnë në përdorimin e një automjeti?",
+   "followup": "Cilat pjesë të trupit janë të prekura?"
+  },
+  "vertigo": {
+   "label": "A vuani nga marrja e mendve ose çrregullime të ekuilibrit (p.sh. ndjesi rrotullimi, lëkundje, pasiguri gjatë ecjes)?",
+   "followup": "Si ndihet marrja e mendve, sa shpesh shfaqet, sa zgjat një krizë, dhe çfarë e shkakton?"
+  },
+  "vertigo_last": {
+   "label": "Sa kohë ka kaluar nga kriza juaj e fundit e marrjes së mendve?",
+   "options": {
+    "unter3m": "Më pak se 3 muaj",
+    "3bis6m": "3 deri në 6 muaj",
+    "6bis12m": "6 deri në 12 muaj",
+    "1bis2j": "1 deri në 2 vjet",
+    "ueber2j": "Më shumë se 2 vjet"
+   }
+  },
+  "vertigo_prodromi": {
+   "label": "A paralajmërohen krizat tuaja të marrjes së mendve paraprakisht (p.sh. presion në vesh, zhurma në vesh, dobësim i dëgjimit), kështu që të mund të ndaloni në kohë?",
+   "options": {
+    "immer": "Po, gjithmonë",
+    "manchmal": "Ndonjëherë",
+    "nie": "Jo, ato vijnë pa paralajmërim"
+   }
+  },
+  "vertigo_positional": {
+   "label": "A shkaktohet marrja e mendve nga lëvizje të caktuara të kokës ose ndryshime të pozicionit (p.sh. kthimi në shtrat, përkulja)?"
+  },
+  "vertigo_ear": {
+   "label": "A shfaqet marrja e mendve së bashku me dobësim të dëgjimit, zhurma në vesh (tinitus) ose ndjenjë presioni në vesh?"
+  },
+  "ear_disease": {
+   "label": "A ju është konstatuar ndonjë sëmundje e organit të ekuilibrit ose e veshit të brendshëm (p.sh. vertigo pozicionale, sëmundja e Menière-it)?",
+   "followup": "Cila diagnozë, si u trajtua, dhe a jeni që atëherë pa ankesa?"
+  },
+  "mobility_limits": {
+   "label": "A keni një kufizim të përhershëm të lëvizshmërisë së krahëve, këmbëve, duarve ose shtyllës kurrizore (p.sh. pas aksidenti, operacioni, amputimi)?",
+   "followup": "Cilat pjesë të trupit janë të prekura, dhe prej kur?"
+  },
+  "prosthesis": {
+   "label": "A mbani protezë ose a përdorni mjete ndihmëse ortopedike?",
+   "followup": "Cilat mjete ndihmëse, dhe a keni ankesa gjatë sforcimit më të gjatë?"
+  },
+  "vehicle_modified": {
+   "label": "A është përshtatur automjeti juaj për shkak të një kufizimi fizik (p.sh. komanda me dorë, ndihmë për timonin)?",
+   "followup": "Cilat përshtatje, dhe a janë të regjistruara në lejen e drejtimit?"
+  },
+  "diabetes_type": {
+   "label": "A ju është i njohur diabeti mellitus (sëmundja e sheqerit)?",
+   "options": {
+    "none": "Jo",
+    "type1": "Po, tipi 1",
+    "type2": "Po, tipi 2",
+    "other": "Po, formë tjetër/e paqartë"
+   }
+  },
+  "diabetes_therapy": {
+   "label": "Si trajtohet aktualisht diabeti juaj?",
+   "options": {
+    "lifestyle": "Vetëm ushqyerja / mënyra e jetesës",
+    "tabl_low": "Tableta me rrezik të ulët për rënie të sheqerit (p.sh. Metformin)",
+    "tabl_high": "Tableta me rrezik për rënie të sheqerit (sulfonilure, glinide)",
+    "insulin": "Insulinë",
+    "unknown": "Nuk e di saktësisht"
+   }
+  },
+  "hypoglycemia": {
+   "label": "A keni pasur në 12 muajt e fundit një hipoglikemi të rëndë (rënie e sheqerit në gjak), gjatë së cilës keni pasur nevojë për ndihmën e të tjerëve?",
+   "followup": "Sa shpesh, kur ishte episodi i fundit, dhe a ndodhi kur ishit zgjuar apo në gjumë?"
+  },
+  "hypo_awareness": {
+   "label": "A ka ndodhur që një rënie të sheqerit në gjak të mos e keni vënë re vetë në kohë (mungesë e shenjave paralajmëruese)?",
+   "followup": "Kur për herë të fundit, dhe a u ndërmor diçka (p.sh. trajnim, ndryshim i terapisë)?"
+  },
+  "glucose_monitoring": {
+   "label": "A e matni rregullisht vetë sheqerin në gjak (ose a mbani një sensor glukoze)?",
+   "options": {
+    "2x": "Po, të paktën dy herë në ditë",
+    "seltener": "Po, por më rrallë",
+    "nein": "Jo",
+    "keine_med": "Nuk më përket (nuk marr medikamente për uljen e sheqerit në gjak)"
+   }
+  },
+  "diabetes_derailment": {
+   "label": "A ka pasur në muajt e fundit një ripërshtatje të terapisë ose një çrregullim të rëndë metabolik (p.sh. trajtim në spital për shkak të vlerave të dala jashtë kontrollit)?",
+   "followup": "Çfarë ndodhi, dhe kur?"
+  },
+  "kidney_disease": {
+   "label": "A ju është e njohur një sëmundje kronike e veshkave ose dobësi e veshkave?",
+   "followup": "Cila sëmundje, dhe a jeni në trajtim te nefrologu (mjeku i veshkave)?"
+  },
+  "dialysis": {
+   "label": "A trajtoheni rregullisht me dializë (pastrim i gjakut)?",
+   "followup": "Prej kur dhe sa herë në javë? A ndiheni në gjendje të mirë midis trajtimeve?"
+  },
+  "transplant": {
+   "label": "A ju është transplantuar ndonjë organ (p.sh. veshkë, zemër, mëlçi, mushkëri)?",
+   "followup": "Cili organ, kur, dhe a jeni në përkujdesje të rregullt pasuese?"
+  },
+  "lung_disease": {
+   "label": "A vuani nga një sëmundje kronike e mushkërive ose e bronkeve (p.sh. COPD, astmë, fibrozë pulmonare)?",
+   "followup": "Cila sëmundje, dhe si trajtohet?"
+  },
+  "dyspnea": {
+   "label": "A keni vështirësi në frymëmarrje tashmë gjatë sforcimit të lehtë ose në qetësi, ose a keni nevojë për terapi afatgjatë me oksigjen?"
+  },
+  "cough_syncope": {
+   "label": "A ju ka ndodhur gjatë krizave të forta të kollës marrje mendsh, errësim para syve ose humbje e shkurtër e vetëdijes?"
+  },
+  "daytime_sleepiness": {
+   "label": "A e keni të vështirë gjatë ditës të qëndroni zgjuar dhe të vëmendshëm – veçanërisht në situata monotone (p.sh. lexim, mbledhje, udhëtime të gjata me makinë)?"
+  },
+  "microsleep": {
+   "label": "A ju ka zënë gjumi pa dashje në muajt e fundit ose a keni pasur gjumë sekondash (mikrogjumë)?",
+   "followup": "Në cilat situata? A ka ndodhur edhe në timon?"
+  },
+  "snoring": {
+   "label": "A ju është thënë se gërhisni me zë të lartë dhe në mënyrë të parregullt ose se keni pauza të frymëmarrjes natën?"
+  },
+  "osas": {
+   "label": "A ju është konstatuar sindroma e apnesë së gjumit (ndalesa të frymëmarrjes gjatë natës)?",
+   "followup": "Kur u vendos diagnoza, dhe cila shkallë ashpërsie ose vlerë AHI u konstatua (nëse e dini)?"
+  },
+  "cpap": {
+   "label": "A trajtoheni për apnenë e gjumit (p.sh. me maskë frymëmarrjeje CPAP)?",
+   "options": {
+    "regelmaessig": "Po, rregullisht (pothuajse çdo natë)",
+    "unregelmaessig": "Po, por në mënyrë të parregullt",
+    "abgebrochen": "Trajtimi u ndërpre",
+    "keine": "Jo, asnjë trajtim"
+   }
+  },
+  "psychiatric": {
+   "label": "A ju është diagnostikuar ndonjë sëmundje psikike (p.sh. depresion, çrregullim ankthi, çrregullim bipolar)?",
+   "followup": "Cila sëmundje, dhe si trajtohet?"
+  },
+  "psychiatric_severe": {
+   "label": "A keni qenë për këtë arsye ndonjëherë në trajtim spitalor, a keni pasur një fazë manie ose mendime për t'i dhënë fund jetës?",
+   "followup": "Kur ishte hera e fundit?"
+  },
+  "psychosis": {
+   "label": "A ju është diagnostikuar ndonjëherë skizofreni ose një psikozë tjetër (sëmundje me ide deluzive ose halucinacione)?",
+   "followup": "Sa episode akute keni pasur, kur ishte i fundit, dhe a jeni në trajtim te mjeku specialist?"
+  },
+  "memory_problems": {
+   "label": "A keni vënë re kohët e fundit ju vetë ose të afërmit tuaj probleme në rritje me kujtesën ose orientimin tek ju?",
+   "followup": "Prej kur, dhe si ndikojnë ato në jetën e përditshme?"
+  },
+  "concentration": {
+   "label": "A keni probleme me përqendrimin ose vëmendjen?"
+  },
+  "alcohol": {
+   "label": "Sa shpesh pini alkool?",
+   "options": {
+    "nie": "Kurrë",
+    "selten": "Rrallë (më së shumti 1 herë në muaj)",
+    "woechentlich": "1 deri në 2 herë në javë",
+    "mehrmals": "Disa herë në javë",
+    "taeglich": "Çdo ditë ose pothuajse çdo ditë"
+   }
+  },
+  "alcohol_control": {
+   "label": "A ka ndodhur që të keni pirë më shumë sesa kishit ndërmend ose të keni humbur kontrollin mbi konsumin tuaj?"
+  },
+  "alcohol_traffic": {
+   "label": "A jeni kapur ndonjëherë në trafikun rrugor nën ndikimin e alkoolit (p.sh. drejtim në gjendje të dehur, gjobë, MPU – test i aftësisë për drejtim)?",
+   "followup": "Kur, dhe çfarë vlere promile u konstatua (nëse e dini)?"
+  },
+  "alcohol_dependence": {
+   "label": "A ju është konstatuar ndonjëherë varësi nga alkooli ose a keni bërë një dezintoksikim ose trajtim çmësimi?",
+   "followup": "Kur u përfundua trajtimi, dhe prej kur jetoni abstinent?"
+  },
+  "drugs": {
+   "label": "A merrni aktualisht droga (p.sh. kanabis, kokainë, amfetamina) ose a keni konsumuar më parë rregullisht droga?",
+   "followup": "Cilat substanca, sa shpesh, dhe kur për herë të fundit?"
+  },
+  "cannabis": {
+   "label": "Sa shpesh konsumoni kanabis?",
+   "options": {
+    "nie": "Kurrë",
+    "gelegentlich": "Herë pas here (jo rregullisht)",
+    "regelmaessig": "Rregullisht (çdo ditë ose si zakon)"
+   }
+  },
+  "substitution": {
+   "label": "A merrni një trajtim zëvendësues (substitucion, p.sh. metadon)?",
+   "followup": "Prej kur?"
+  },
+  "regular_meds": {
+   "label": "A merrni rregullisht medikamente?",
+   "followup": "Cilat medikamente, dhe kundër çfarë?"
+  },
+  "sedating_meds": {
+   "label": "A ka midis tyre medikamente që shkaktojnë lodhje ose mund të ndikojnë në aftësinë e reagimit (p.sh. qetësues të fortë dhimbjeje/opioide, medikamente gjumi ose qetësuese, antidepresivë, antiepileptikë, medikamente kundër alergjive)?",
+   "followup": "Cilat medikamente, në çfarë doze?"
+  },
+  "med_side_effects": {
+   "label": "A vini re nga medikamentet tuaja efekte anësore si lodhje, ngadalësim, çrregullime të përqendrimit ose marrje mendsh?",
+   "followup": "Cilat efekte anësore, dhe sa të forta?"
+  },
+  "med_recent_change": {
+   "label": "A është filluar në javët e fundit një medikament i tillë i ri ose a është ndryshuar dukshëm doza?",
+   "followup": "Cili medikament, dhe kur?"
+  },
+  "benzo_regular": {
+   "label": "A merrni prej disa muajsh rregullisht – qoftë edhe vetëm në mbrëmje në sasi të vogël – medikamente gjumi ose qetësuese (p.sh. benzodiazepina)?",
+   "followup": "Cili medikament, prej sa kohësh, dhe a vini re shenja abstinence kur e lini?"
+  },
+  "multiple_conditions": {
+   "label": "A keni disa sëmundje ose kufizime shëndetësore njëkohësisht?",
+   "hint": "Disa probleme së bashku mund të jenë të rëndësishme për aftësinë e drejtimit, edhe nëse secili veç e veç do të ishte i parrezikshëm (udhëzimet, kap. 2.7).",
+   "followup": "Ju lutemi numëroni shkurtimisht të gjitha sëmundjet e njohura."
+  },
+  "other_conditions": {
+   "label": "A ka sëmundje, ankesa ose operacione të mëparshme të tjera, që nuk janë përmendur deri tani?",
+   "followup": "Cilat?"
+  },
+  "driving_adaptation": {
+   "label": "A hiqni dorë me vetëdije nga udhëtime të caktuara për shkak të kufizimeve shëndetësore (p.sh. në errësirë, rrugë të gjata, autostradë)?",
+   "followup": "Nga cilat udhëtime, dhe pse?"
+  },
+  "consent_truth": {
+   "label": "Konfirmoj se të dhënat e mia janë të plota dhe të vërteta.",
+   "error": "Ju lutemi konfirmoni plotësinë e të dhënave tuaja."
+  },
+  "consent_privacy": {
+   "label": "I kam lexuar njoftimet për mbrojtjen e të dhënave dhe jap pëlqimin për përpunimin e të dhënave të mia për qëllime të mjekësisë së trafikut.",
+   "error": "Ju lutemi pranoni njoftimet për mbrojtjen e të dhënave."
+  }
+ },
+ "ess_items": {
+  "ess_1": "Duke ndenjur ulur dhe duke lexuar",
+  "ess_2": "Duke parë televizor",
+  "ess_3": "Kur rrini ulur pasivisht në publik (p.sh. në teatër ose në një mbledhje)",
+  "ess_4": "Si pasagjer në makinë gjatë një udhëtimi njëorësh pa pushim",
+  "ess_5": "Kur jeni shtrirë pasdite për t'u çlodhur",
+  "ess_6": "Kur rrini ulur dhe bisedoni me dikë",
+  "ess_7": "Kur rrini ulur të qetë pas drekës (pa alkool)",
+  "ess_8": "Kur si drejtues i makinës duhet të ndaloni disa minuta për shkak të trafikut"
+ }
+}

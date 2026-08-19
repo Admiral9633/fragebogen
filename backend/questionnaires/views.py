@@ -1,20 +1,42 @@
+import logging
 import os
+import secrets
+from datetime import datetime, timedelta
+
+from django.conf import settings
+from django.db import IntegrityError, transaction
 from django.utils import timezone
+from django.utils.html import escape
 from django.core.mail import send_mail
-from django.template.loader import render_to_string
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import BasePermission
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponse
 
 from .models import QuestionnaireSession, AnswerSet, QuestionnaireTemplate
 from .serializers import (
     SubmitSerializer,
     QuestionnaireSessionSerializer,
-    AnswerSetSerializer
 )
+from .schema import is_v2_schema, validate_answers
+from .evaluation import evaluate_answers
+from .translations import available_languages, load_translation
+
+logger = logging.getLogger(__name__)
+
+
+def parse_birth_date(value):
+    """'YYYY-MM-DD' oder 'TT.MM.YYYY' → date | None (None auch bei leerem String)."""
+    value = (value or '').strip()
+    if not value:
+        return None
+    for fmt in ('%Y-%m-%d', '%d.%m.%Y'):
+        try:
+            return datetime.strptime(value, fmt).date()
+        except ValueError:
+            continue
+    raise ValueError(f'Ungültiges Datumsformat: {value}')
 
 
 class AdminApiKeyPermission(BasePermission):
@@ -24,7 +46,7 @@ class AdminApiKeyPermission(BasePermission):
         if not admin_key:
             return False
         auth = request.META.get('HTTP_AUTHORIZATION', '')
-        return auth == f'Bearer {admin_key}'
+        return secrets.compare_digest(auth, f'Bearer {admin_key}')
 
 
 class QuestionnaireSessionView(APIView):
@@ -60,45 +82,62 @@ class SubmitQuestionnaireView(APIView):
     POST: Fragebogen einreichen
     """
     def post(self, request, token):
-        # Hole Session
-        session = get_object_or_404(QuestionnaireSession, token=token)
-        
-        # Validiere Session
-        if session.is_expired():
-            return Response(
-                {'error': 'Dieser Link ist abgelaufen.'},
-                status=status.HTTP_410_GONE
-            )
-        
-        if session.completed:
+        # Schema laden (fuer die Validierung), ohne DB-Lock
+        base_session = get_object_or_404(
+            QuestionnaireSession.objects.select_related('template'), token=token
+        )
+        template_schema = base_session.template.schema_json
+
+        if is_v2_schema(template_schema):
+            # Schema-getriebene Validierung: nur bekannte Fragen werden gespeichert
+            validated_data, schema_errors = validate_answers(template_schema, request.data)
+            if schema_errors:
+                return Response(schema_errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            # Legacy-Templates (v1): fixe ESS+Consent-Validierung
+            serializer = SubmitSerializer(data=request.data)
+            if not serializer.is_valid():
+                return Response(
+                    serializer.errors,
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            validated_data = serializer.validated_data
+
+        # Atomar: Doppel-Submit (Doppelklick, paralleler POST) sauber abfangen
+        try:
+            with transaction.atomic():
+                session = get_object_or_404(
+                    QuestionnaireSession.objects.select_for_update(), token=token
+                )
+
+                if session.is_expired():
+                    return Response(
+                        {'error': 'Dieser Link ist abgelaufen.'},
+                        status=status.HTTP_410_GONE
+                    )
+
+                if session.completed:
+                    return Response(
+                        {'error': 'Dieser Fragebogen wurde bereits ausgefüllt.'},
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
+
+                AnswerSet.objects.create(
+                    session=session,
+                    answers_json=validated_data,
+                    ess_total=validated_data['ess_total'],
+                    ess_band=validated_data['ess_band']
+                )
+
+                session.completed = True
+                session.completed_at = timezone.now()
+                session.save()
+        except IntegrityError:
             return Response(
                 {'error': 'Dieser Fragebogen wurde bereits ausgefüllt.'},
                 status=status.HTTP_400_BAD_REQUEST
             )
-        
-        # Validiere Eingabedaten
-        serializer = SubmitSerializer(data=request.data)
-        if not serializer.is_valid():
-            return Response(
-                serializer.errors,
-                status=status.HTTP_400_BAD_REQUEST
-            )
-        
-        # Speichere Antworten
-        validated_data = serializer.validated_data
-        
-        AnswerSet.objects.create(
-            session=session,
-            answers_json=validated_data,
-            ess_total=validated_data['ess_total'],
-            ess_band=validated_data['ess_band']
-        )
-        
-        # Markiere Session als abgeschlossen
-        session.completed = True
-        session.completed_at = timezone.now()
-        session.save()
-        
+
         return Response({
             'success': True,
             'ess_total': validated_data['ess_total'],
@@ -113,6 +152,12 @@ class AnswersView(APIView):
     """
     def get(self, request, token):
         session = get_object_or_404(QuestionnaireSession, token=token)
+        if session.is_expired():
+            # Zugriffsfenster: Nach Ablauf des Links auch keine Ergebnisse mehr ausliefern
+            return Response(
+                {'error': 'Dieser Link ist abgelaufen.'},
+                status=status.HTTP_410_GONE
+            )
         if not session.completed:
             return Response(
                 {'error': 'Session noch nicht abgeschlossen.'},
@@ -124,6 +169,8 @@ class AnswersView(APIView):
             return Response({'error': 'Keine Antworten gefunden.'}, status=status.HTTP_404_NOT_FOUND)
         return Response({
             'answers': answer_set.answers_json,
+            'schema': session.template.schema_json,
+            'evaluation': evaluate_answers(answer_set.answers_json),
             'ess_total': answer_set.ess_total,
             'ess_band': answer_set.ess_band,
             'completed_at': session.completed_at.strftime('%d.%m.%Y') if session.completed_at else None,
@@ -134,389 +181,56 @@ class AnswersView(APIView):
         })
 
 
-class GeneratePDFView(APIView):
+class TranslationView(APIView):
     """
-    GET: Generiere PDF für eine abgeschlossene Session
+    GET /api/i18n/            – verfügbare Sprachcodes
+    GET /api/i18n/<lang>/     – Sprachdatei (UI-Texte + übersetzte Fragen)
     """
-    def get(self, request, token):
-        session = get_object_or_404(QuestionnaireSession, token=token)
-        
-        # Prüfe ob Session abgeschlossen
-        if not session.completed:
+    def get(self, request, lang=None):
+        if lang is None:
+            return Response({'languages': available_languages()})
+        data = load_translation(lang)
+        if data is None:
             return Response(
-                {'error': 'Dieser Fragebogen ist noch nicht abgeschlossen.'},
-                status=status.HTTP_400_BAD_REQUEST
+                {'error': f'Sprache "{lang}" nicht verfügbar.'},
+                status=status.HTTP_404_NOT_FOUND,
             )
-        
-        try:
-            answer_set = session.answers
-        except AnswerSet.DoesNotExist:
-            return Response(
-                {'error': 'Keine Antworten gefunden.'},
-                status=status.HTTP_404_NOT_FOUND
-            )
-        
-        # Generiere HTML für PDF
-        html_content = self._generate_html(session, answer_set)
-        
-        # Verwende xhtml2pdf für PDF-Generierung
-        try:
-            from io import BytesIO
-            from xhtml2pdf import pisa
-            
-            pdf_buffer = BytesIO()
-            pisa_status = pisa.CreatePDF(html_content, dest=pdf_buffer)
-            
-            if pisa_status.err:
-                raise Exception(f'PDF-Generierung fehlgeschlagen: {pisa_status.err}')
-            
-            pdf_bytes = pdf_buffer.getvalue()
-            response = HttpResponse(pdf_bytes, content_type='application/pdf')
-            response['Content-Disposition'] = f'attachment; filename="fragebogen_{token}.pdf"'
-            return response
-        except Exception as pdf_error:
-            import logging
-            logging.getLogger(__name__).error(f'PDF generation failed: {pdf_error}')
-            # Fallback: druckbares HTML
-            return HttpResponse(html_content, content_type='text/html')
-    
-    def _generate_html(self, session, answer_set):
-        """Generiere HTML – exakter Wortlaut aus Online-Fragebogen, 2 Seiten"""
-        a = answer_set.answers_json
-
-        def x(val, target="yes"):
-            """Angekreuzte oder leere Box"""
-            if str(val) == str(target):
-                return '<span class="cb-x">&#10003;</span>'
-            return '<span class="cb-o">&nbsp;</span>'
-
-        def yn(val):
-            if val == "yes": return "Ja"
-            if val == "no":  return "Nein"
-            return "—"
-
-        def v(key, fallback="—"):
-            r = str(a.get(key, "") or "").strip()
-            return r if r else fallback
-
-        def row(label, key, subtext=None, bg="#ffffff", cls=""):
-            val = a.get(key, "")
-            sub = f'<div class="sub">{subtext}</div>' if subtext else ""
-            row_cls = cls if cls else ""
-            return (f'<tr style="background:{bg}" class="{row_cls}">'
-                    f'<td class="q">{label}{sub}</td>'
-                    f'<td class="c">{x(val,"yes")}</td>'
-                    f'<td class="c">{x(val,"no")}</td></tr>')
-
-        def row_ft(label, key, ft_key, ft_label="Beschreibung", bg="#ffffff"):
-            """Ja/Nein Zeile mit Freitext direkt darunter wenn ausgefüllt"""
-            val = a.get(key, "")
-            ft  = str(a.get(ft_key, "") or "").strip()
-            sub = f'<div class="ft">{ft_label}: {ft}</div>' if ft else ""
-            return (f'<tr style="background:{bg}">'
-                    f'<td class="q">{label}{sub}</td>'
-                    f'<td class="c">{x(val,"yes")}</td>'
-                    f'<td class="c">{x(val,"no")}</td></tr>')
-
-        # ── Führerscheinklassen ────────────────────────────────────────────
-        lic_arr = a.get("license_classes_arr", [])
-        if isinstance(lic_arr, str):
-            lic_arr = [s.strip() for s in lic_arr.split(",") if s.strip()]
-        lic_str = v("license_classes")
-
-        # ── Alkohol-Antwort ────────────────────────────────────────────────
-        alc_map = {"none":"Keinen","occasional":"Gelegentlich","regular":"Regelmäßig","risky":"Riskant"}
-        alc_val = alc_map.get(a.get("alcohol",""), "—")
-
-        # ── Diabetes ──────────────────────────────────────────────────────
-        dt_map = {"none":"Kein Diabetes","type1":"Typ 1","type2":"Typ 2"}
-        dt_val = dt_map.get(a.get("diabetes_type",""), "—")
-        has_dm = a.get("diabetes_type","") not in ("none","",None)
-        th_map = {"insulin":"Insulin","tablets":"Tabletten","diet":"Diät","other":"Sonstige"}
-        th_val = th_map.get(a.get("diabetes_therapy",""), "")
-
-        # ── ESS ───────────────────────────────────────────────────────────
-        ess_q = [
-            "Beim Sitzen und Lesen",
-            "Beim Fernsehen",
-            "Wenn Sie passiv in der Öffentlichkeit sitzen (z.B. im Theater oder bei einer Besprechung)",
-            "Als Beifahrer im Auto während einer einstündigen Fahrt ohne Pause",
-            "Wenn Sie sich am Nachmittag hingelegt haben, um auszuruhen",
-            "Wenn Sie sitzen und sich mit jemandem unterhalten",
-            "Wenn Sie nach dem Mittagessen (ohne Alkohol) ruhig dasitzen",
-            "Wenn Sie als Fahrer eines Autos verkehrsbedingt einige Minuten halten müssen",
-        ]
-        ess_rows = ""
-        for i, label in enumerate(ess_q):
-            val = str(a.get(f"ess_{i+1}", ""))
-            bg  = "#f5f5f5" if i % 2 == 0 else "#fff"
-            ess_rows += (f'<tr style="background:{bg}">'
-                         f'<td class="q">{i+1}. {label}</td>'
-                         f'<td class="c">{x(val,"0")}</td>'
-                         f'<td class="c">{x(val,"1")}</td>'
-                         f'<td class="c">{x(val,"2")}</td>'
-                         f'<td class="c">{x(val,"3")}</td></tr>')
-
-        ess_total = answer_set.ess_total or 0
-        if ess_total <= 9:   ess_band = f"{ess_total}/24 – Normal (0–9)"
-        elif ess_total <= 15: ess_band = f"{ess_total}/24 – Erhöht (10–15)"
-        else:                 ess_band = f"{ess_total}/24 – Ausgeprägt (≥16) – ärztliche Abklärung erforderlich"
-
-        completed = session.completed_at.strftime('%d.%m.%Y') if session.completed_at else "—"
-
-        # ── Einwilligung ──────────────────────────────────────────────────
-        consent_truth   = a.get("consent_truth", False)
-        consent_privacy = a.get("consent_privacy", False)
-
-        html = f"""<!DOCTYPE html>
-<html lang="de"><head><meta charset="UTF-8"/>
-<title>Verkehrsmedizinischer Fragebogen</title>
-<style>
-  @page {{ size: A4; margin: 14mm 13mm 12mm 13mm; }}
-  * {{ box-sizing: border-box; }}
-  body {{ font-family: Helvetica, Arial, sans-serif; font-size: 8pt; color: #1a1a1a; margin:0; line-height:1.35; }}
-  h1 {{ font-size:13pt; font-weight:bold; color:#1f3864; margin:0 0 6px 0; letter-spacing:0.3pt; }}
-  h2 {{ font-size:7.5pt; font-weight:bold; color:#ffffff; background:#1f3864;
-        margin:7px 0 0 0; padding:2px 6px; border:none; }}
-  table {{ width:100%; border-collapse:collapse; margin-bottom:3px; }}
-  .c {{ border:1px solid #aab; width:26px; text-align:center; padding:1px; vertical-align:middle; }}
-  .q {{ border:1px solid #ccd; padding:2px 6px; vertical-align:middle; }}
-  .cb-x {{ display:inline-block; width:12px; height:12px;
-           background:#1f3864; color:#ffffff;
-           text-align:center; font-size:9pt; font-weight:bold; line-height:12px;
-           border:1px solid #1f3864; }}
-  .cb-o {{ display:inline-block; width:12px; height:12px;
-           background:#ffffff; border:1.5px solid #8899aa; }}
-  .th  {{ background:#1f3864; color:#ffffff; border:1px solid #1f3864;
-          padding:2px 4px; font-size:7.5pt; text-align:center; font-weight:bold; }}
-  .thl {{ background:#1f3864; color:#ffffff; border:1px solid #1f3864;
-          padding:2px 6px; font-size:7.5pt; font-weight:bold; }}
-  .hdr {{ background:#eef1f7; border:1px solid #c8d0e0; padding:5px 8px; margin-bottom:5px; }}
-  .italic-box {{ background:#f0f4fb; border:1px solid #c8d0e0; padding:4px 8px;
-                 font-style:italic; font-size:7.5pt; margin-bottom:2px; }}
-  .warn {{ border:2px solid #1f3864; background:#f7f0f0; padding:5px 8px;
-           font-style:italic; font-size:8pt; font-weight:bold; margin:5px 0; color:#1a1a1a; }}
-  .sig  {{ border-bottom:1px solid #555; height:22px; margin-top:3px; }}
-  .xs   {{ font-size:7pt; color:#555; margin-top:1px; }}
-  .sub  {{ font-size:7pt; color:#666; font-style:italic; margin-top:1px; }}
-  .ft   {{ font-size:7.5pt; color:#333; font-style:italic; margin-top:1px; padding-left:8px;
-           border-left:2px solid #1f3864; }}
-  .val  {{ font-weight:bold; }}
-  .page-break {{ page-break-before:always; }}
-  .r1 {{ background:#f3f5fa; }}
-  .r2 {{ background:#ffffff; }}
-</style></head><body>
-
-<!-- �?�?�?�?�?�? SEITE 1 �?�?�?�?�?�? -->
-<h1>Verkehrsmedizinischer Fragebogen</h1>
-
-<div class="hdr">
-<table><tr>
-  <td style="width:55%;vertical-align:top">
-    <table style="width:100%">
-      <tr><td style="width:90px;padding:1px 4px">Name:</td><td style="border-bottom:1px solid #888">&nbsp;</td></tr>
-      <tr><td style="padding:1px 4px">Vorname:</td><td style="border-bottom:1px solid #888">&nbsp;</td></tr>
-      <tr><td style="padding:1px 4px">Geburtsdatum:</td><td style="border-bottom:1px solid #888">&nbsp;</td></tr>
-    </table>
-  </td>
-  <td style="width:45%;padding-left:12px;vertical-align:top;font-size:8pt;line-height:1.6">
-    <strong>Dr. med. Björn Micka</strong><br/>
-    Betriebsmedizin, Notfallmedizin<br/>
-    Christoph-Dassler-Str. 22, 91074 Herzogenaurach
-  </td>
-</tr></table>
-<div style="margin-top:3px;font-size:8pt">
-  Ausgefüllt am: <span class="val">{completed}</span>
-</div>
-</div>
-
-<!-- 1. Fahrprofil -->
-<h2>1. Fahrprofil</h2>
-<table>
-  <tr class="r1"><td class="q">Führerscheinklassen</td>
-    <td colspan="2" class="q"><span class="val">{lic_str}</span></td></tr>
-  <tr class="r2"><td class="q">Fahrzeit pro Tag (Stunden)</td>
-    <td colspan="2" class="q"><span class="val">{v('driving_hours')}</span></td></tr>
-  {row("Regelmäßige Nachtfahrten","night_driving",bg="#f5f5f5")}
-  {row_ft("Unfälle oder Beinahe-Unfälle in den letzten 24 Monaten","accidents","accidents_desc","Beschreibung",bg="#fff")}
-</table>
-
-<!-- 2. Warnsymptome -->
-<h2>2. Warnsymptome – Plötzliches Ausfallrisiko</h2>
-<table>
-  <tr class="thl"><td class="thl">Frage</td><td class="th">ja</td><td class="th">nein</td></tr>
-  {row("Ohnmacht oder Bewusstlosigkeit in den letzten 5 Jahren","syncope",bg="#f5f5f5")}
-  {row("Krampfanfälle oder epileptische Anfälle","seizures",bg="#fff")}
-  {row("Schwindelattacken","dizziness",bg="#f5f5f5")}
-  {row("Neurologische Ausfälle (z.B. Lähmung, Sprachstörung)","neuro_deficit",bg="#fff")}
-</table>
-
-<!-- 3. Sehen & Hören -->
-<h2>3. Sehen &amp; Hören</h2>
-<table>
-  <tr class="thl"><td class="thl">Frage</td><td class="th">ja</td><td class="th">nein</td></tr>
-  {row("Brille oder Kontaktlinsen","glasses",bg="#f5f5f5")}
-  {row_ft("Sehprobleme (Doppeltsehen, Gesichtsfeldausfälle, Nachtsehen)","vision_problems","vision_desc","Art der Sehprobleme",bg="#fff")}
-  {row("Hörgerät oder relevante Hörstörung","hearing_aid",bg="#f5f5f5")}
-</table>
-
-<!-- 4. Herz-Kreislauf -->
-<h2>4. Herz-Kreislauf</h2>
-<table>
-  <tr class="thl"><td class="thl">Frage</td><td class="th">ja</td><td class="th">nein</td></tr>
-  {row("Herzinfarkt oder koronare Erkrankung","heart_attack",bg="#f5f5f5")}
-  {row("Rhythmusstörungen, Schrittmacher oder ICD","arrhythmia",bg="#fff")}
-  {row("Herzinsuffizienz","heart_failure",bg="#f5f5f5")}
-  {row("Synkopenabklärung bereits erfolgt","syncope_workup",bg="#fff")}
-</table>
-
-<!-- 5. Neurologie -->
-<h2>5. Neurologie</h2>
-<table>
-  <tr class="thl"><td class="thl">Frage</td><td class="th">ja</td><td class="th">nein</td></tr>
-  {row("Epilepsie","epilepsy",bg="#f5f5f5")}
-  {row("Parkinson","parkinson",bg="#fff")}
-  {row("Multiple Sklerose (MS)","ms",bg="#f5f5f5")}
-  {row("Migräne mit Aura","migraine_aura",bg="#fff")}
-  {row("Gleichgewichtsstörungen","balance_disorder",bg="#f5f5f5")}
-</table>
-
-<!-- �?�?�?�?�?�? SEITE 2 �?�?�?�?�?�? -->
-<div class="page-break"></div>
-<h1>Verkehrsmedizinischer Fragebogen – Seite 2</h1>
-
-<!-- 6. Diabetes / Stoffwechsel -->
-<h2>6. Diabetes / Stoffwechsel</h2>
-<table>
-  <tr class="r1"><td class="q">Diabetesform</td>
-    <td colspan="2" class="q"><span class="val">{dt_val}</span></td></tr>
-  {row("Hypoglykämie mit Fremdhilfe in den letzten 12 Monaten","hypoglycemia",bg="#fff")}"""
-
-        if has_dm:
-            html += f"""
-  <tr class="r1"><td class="q">Hypowahrnehmungsstörung</td>
-    <td class="c">{x(a.get('hypo_awareness',''),'yes')}</td>
-    <td class="c">{x(a.get('hypo_awareness',''),'no')}</td></tr>
-  <tr class="r2"><td class="q">Aktuelle Therapie</td>
-    <td colspan="2" class="q"><span class="val">{th_val}</span></td></tr>"""
-
-        html += f"""
-</table>
-
-<!-- 7. Schlaf & Tagesschläfrigkeit -->
-<h2>7. Schlaf &amp; Tagesschläfrigkeit</h2>
-<table>
-  <tr class="thl"><td class="thl">Frage</td><td class="th">ja</td><td class="th">nein</td></tr>
-  {row("Ausgeprägte Tagesmüdigkeit","daytime_sleepiness",bg="#f5f5f5")}
-  {row("Sekundenschlaf beim Fahren","microsleep",bg="#fff")}
-  {row("Schnarchen oder Atemaussetzer","snoring",bg="#f5f5f5")}
-</table>
-<div class="italic-box">
-  <strong>Epworth Sleepiness Scale (ESS)</strong> – Wie wahrscheinlich ist es, dass Sie in den folgenden
-  Situationen einnicken würden?&nbsp; 0 = Nie &nbsp;·&nbsp; 1 = Gering &nbsp;·&nbsp; 2 = Mittel &nbsp;·&nbsp; 3 = Hoch
-</div>
-<table>
-  <tr>
-    <td class="thl" style="width:62%">Situation</td>
-    <td class="th">0</td><td class="th">1</td><td class="th">2</td><td class="th">3</td>
-  </tr>
-  {ess_rows}
-  <tr style="background:#1f3864">
-    <td class="q" style="font-weight:bold;color:#ffffff;border:1px solid #1f3864">Gesamtpunktzahl</td>
-    <td colspan="4" class="q" style="font-weight:bold;color:#ffffff;border:1px solid #1f3864">{ess_band}</td>
-  </tr>
-</table>
-
-<!-- 8. Psychische Gesundheit -->
-<h2>8. Psychische Gesundheit</h2>
-<table>
-  <tr class="thl"><td class="thl">Frage</td><td class="th">ja</td><td class="th">nein</td></tr>
-  {row_ft("Depression, Angststörung oder andere psychiatrische Erkrankung","psychiatric","psychiatric_desc","Art der Erkrankung",bg="#f5f5f5")}
-  {row("Stationäre psychiatrische Behandlung in den letzten 5 Jahren","psychiatric_inpatient",bg="#fff")}
-  {row("Konzentrations- oder Gedächtnisprobleme","concentration",bg="#f5f5f5")}
-</table>
-
-<!-- 9. Substanzen & Medikamente -->
-<h2>9. Substanzen &amp; Medikamente</h2>
-<table>
-  <tr class="r1"><td class="q">Alkohol (Regelmäßiger oder riskanter Konsum)</td>
-    <td colspan="2" class="q"><span class="val">{alc_val}</span></td></tr>
-  {row_ft("Drogenkonsum aktuell oder früher","drugs","drugs_desc","Art und Zeitraum",bg="#fff")}
-  {row_ft("Medikamente mit sedierender Wirkung","sedating_meds","sedating_meds_desc","Welche Medikamente",bg="#f5f5f5")}
-  {row("Nebenwirkungen wie Schläfrigkeit oder Schwindel","side_effects",bg="#fff")}
-</table>
-
-<!-- 10. Einwilligung -->
-<h2>10. Einwilligung &amp; Datenschutz</h2>
-<div class="italic-box">
-  Entsprechend DSGVO unterliegen alle Angaben der medizinischen Schweigepflicht.
-  Sie werden nicht dauerhaft auf Datenträgern gespeichert.
-</div>
-<table>
-  <tr class="r1">
-    <td class="q">Ich bestätige, dass meine Angaben <strong>vollständig und wahrheitsgemäß</strong> sind.</td>
-    <td class="c">{x(consent_truth, True)}</td>
-    <td class="c">{x(not consent_truth, True)}</td>
-  </tr>
-  <tr class="r2">
-    <td class="q">Ich habe die <strong>Datenschutzhinweise</strong> gelesen und willige in die Verarbeitung meiner Daten zu verkehrsmedizinischen Zwecken ein.</td>
-    <td class="c">{x(consent_privacy, True)}</td>
-    <td class="c">{x(not consent_privacy, True)}</td>
-  </tr>
-</table>
-
-<div class="warn">
-  Zur wahrheitsgemäßen Beantwortung <u>a l l e r</u> Fragen sind Sie verpflichtet.
-  Das Verschweigen von Vorerkrankungen stellt einen Verstoß gegen § 11 FeV dar
-  und kann rechtliche Konsequenzen haben!
-</div>
-
-<table style="margin-top:10px">
-  <tr>
-    <td style="width:44%;padding-right:8px">
-      <div class="sig">&nbsp;</div><div class="xs">Ort / Datum</div>
-    </td>
-    <td style="width:12%">&nbsp;</td>
-    <td style="width:44%">
-      <div class="sig">&nbsp;</div><div class="xs">Unterschrift Patient</div>
-    </td>
-  </tr>
-</table>
-
-</body></html>"""
-        return html
+        response = Response(data)
+        # Sprachdateien ändern sich nur mit Deployments – aggressiv cachen
+        response['Cache-Control'] = 'public, max-age=3600'
+        return response
 
 
-def _send_invitation_email(session, app_url):
+def _send_invitation_email(session):
     """Sendet die Einladungs-E-Mail an den Patienten."""
-    url = f"{app_url}/q/{session.token}"
+    url = f"{settings.APP_URL}/q/{session.token}"
     patient_name = f"{session.patient_first_name} {session.patient_last_name}".strip()
+    valid_until = timezone.localtime(session.expires_at).strftime('%d.%m.%Y')
     subject = "Ihr verkehrsmedizinischer Fragebogen"
     text_body = (
         f"Sehr geehrte/r {patient_name},\n\n"
         "bitte füllen Sie vor Ihrem Termin den beigefügten Fragebogen aus:\n\n"
         f"{url}\n\n"
-        "Der Link ist 14 Tage gültig.\n\n"
+        f"Der Link ist bis zum {valid_until} gültig.\n\n"
         "Mit freundlichen Grüßen\n"
         "Dr. med. Björn Micka\n"
         "Betriebsmedizin · Notfallmedizin\n"
         "Christoph-Dassler-Str. 22, 91074 Herzogenaurach"
     )
     html_body = (
-        f"<p>Sehr geehrte/r {patient_name},</p>"
+        f"<p>Sehr geehrte/r {escape(patient_name)},</p>"
         "<p>bitte füllen Sie vor Ihrem Termin den folgenden Fragebogen aus:</p>"
         f'<p><a href="{url}" style="font-size:16px;font-weight:bold;">Fragebogen öffnen</a></p>'
         f'<p style="color:#666;font-size:12px;">Direktlink: {url}</p>'
-        "<p>Der Link ist 14 Tage gültig.</p>"
+        f"<p>Der Link ist bis zum {valid_until} gültig.</p>"
         "<hr><p style='font-size:12px;color:#666;'>"
         "Dr. med. Björn Micka · Betriebsmedizin · Notfallmedizin<br>"
         "Christoph-Dassler-Str. 22, 91074 Herzogenaurach</p>"
     )
-    from_email = os.environ.get('EMAIL_FROM', 'noreply@example.com')
     send_mail(
         subject=subject,
         message=text_body,
-        from_email=from_email,
+        from_email=settings.EMAIL_FROM,
         recipient_list=[session.patient_email],
         html_message=html_body,
         fail_silently=False,
@@ -556,7 +270,6 @@ class AdminSessionListView(APIView):
         last_name = d.get('patient_last_name', '').strip()
         first_name = d.get('patient_first_name', '').strip()
         email = d.get('patient_email', '').strip()
-        birth_date_str = d.get('patient_birth_date', '').strip()
 
         if not last_name or not first_name:
             return Response({'error': 'Name und Vorname sind erforderlich.'}, status=400)
@@ -569,36 +282,29 @@ class AdminSessionListView(APIView):
             except ValidationError:
                 return Response({'error': 'Ungültige E-Mail-Adresse.'}, status=400)
 
-        birth_date = None
-        if birth_date_str:
-            from datetime import datetime as dt
-            for fmt in ('%Y-%m-%d', '%d.%m.%Y'):
-                try:
-                    birth_date = dt.strptime(birth_date_str, fmt).date()
-                    break
-                except ValueError:
-                    continue
+        try:
+            birth_date = parse_birth_date(d.get('patient_birth_date', ''))
+        except ValueError:
+            return Response({'error': 'Ungültiges Datumsformat.'}, status=400)
 
         template = QuestionnaireTemplate.objects.filter(is_active=True).order_by('-version').first()
         if not template:
             return Response({'error': 'Kein aktiver Fragebogen-Template gefunden.'}, status=500)
 
-        from datetime import timedelta
         session = QuestionnaireSession.objects.create(
             template=template,
             patient_last_name=last_name,
             patient_first_name=first_name,
             patient_email=email,
             patient_birth_date=birth_date,
-            expires_at=timezone.now() + timedelta(days=14),
+            expires_at=timezone.now() + timedelta(days=settings.SESSION_VALIDITY_DAYS),
         )
 
-        app_url = os.environ.get('APP_URL', 'http://localhost:3000')
         sent = False
         error_msg = None
         if email:
             try:
-                _send_invitation_email(session, app_url)
+                _send_invitation_email(session)
                 sent = True
             except Exception as e:
                 sent = False
@@ -636,21 +342,10 @@ class AdminUpdateSessionView(APIView):
                     return Response({'error': 'Ungültige E-Mail-Adresse.'}, status=400)
             session.patient_email = email
         if 'patient_birth_date' in d:
-            birth_date_str = d['patient_birth_date'].strip()
-            if birth_date_str:
-                from datetime import datetime as _dt
-                bd = None
-                for fmt in ('%Y-%m-%d', '%d.%m.%Y'):
-                    try:
-                        bd = _dt.strptime(birth_date_str, fmt).date()
-                        break
-                    except ValueError:
-                        continue
-                if bd is None:
-                    return Response({'error': 'Ungültiges Datumsformat.'}, status=400)
-                session.patient_birth_date = bd
-            else:
-                session.patient_birth_date = None
+            try:
+                session.patient_birth_date = parse_birth_date(d['patient_birth_date'])
+            except ValueError:
+                return Response({'error': 'Ungültiges Datumsformat.'}, status=400)
         session.save()
         return Response({'success': True})
 
@@ -663,11 +358,15 @@ class AdminResendEmailView(APIView):
 
     def post(self, request, token):
         session = get_object_or_404(QuestionnaireSession, token=token)
+        if session.completed:
+            return Response({'error': 'Dieser Fragebogen wurde bereits ausgefüllt.'}, status=400)
         if not session.patient_email:
             return Response({'error': 'Keine E-Mail-Adresse hinterlegt.'}, status=400)
-        app_url = os.environ.get('APP_URL', 'http://localhost:3000')
+        # Gültigkeit verlängern, damit die Angabe in der neuen Mail stimmt
+        session.expires_at = timezone.now() + timedelta(days=settings.SESSION_VALIDITY_DAYS)
+        session.save(update_fields=['expires_at'])
         try:
-            _send_invitation_email(session, app_url)
+            _send_invitation_email(session)
             return Response({'success': True})
         except Exception as e:
             return Response({'error': str(e)}, status=500)
@@ -722,21 +421,13 @@ class GdtSessionCreateView(APIView):
             )
 
         # Geburtsdatum parsen (YYYY-MM-DD oder TT.MM.YYYY)
-        birth_date = None
-        birth_date_str = d.get('patient_birth_date', '').strip()
-        if birth_date_str:
-            from datetime import datetime as _dt
-            for fmt in ('%Y-%m-%d', '%d.%m.%Y'):
-                try:
-                    birth_date = _dt.strptime(birth_date_str, fmt).date()
-                    break
-                except ValueError:
-                    continue
-            if birth_date is None:
-                return Response(
-                    {'error': f'Ungültiges Datumsformat: {birth_date_str}. Erwartet YYYY-MM-DD.'},
-                    status=status.HTTP_400_BAD_REQUEST,
-                )
+        try:
+            birth_date = parse_birth_date(d.get('patient_birth_date', ''))
+        except ValueError as exc:
+            return Response(
+                {'error': f'{exc}. Erwartet YYYY-MM-DD.'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
 
         # Template holen
         template_slug = d.get('template_slug', '').strip()
@@ -759,7 +450,6 @@ class GdtSessionCreateView(APIView):
                     status=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 )
 
-        from datetime import timedelta
         patient_email = d.get('patient_email', '').strip()
 
         session = QuestionnaireSession.objects.create(
@@ -770,22 +460,28 @@ class GdtSessionCreateView(APIView):
             patient_email      = patient_email,
             gdt_patient_id     = d.get('gdt_patient_id',  '').strip(),
             gdt_request_id     = d.get('gdt_request_id',  '').strip(),
-            expires_at         = timezone.now() + timedelta(days=14),
+            expires_at         = timezone.now() + timedelta(days=settings.SESSION_VALIDITY_DAYS),
         )
 
-        app_url = os.environ.get('APP_URL', 'http://localhost:3000')
-        questionnaire_url = f"{app_url}/q/{session.token}"
+        questionnaire_url = f"{settings.APP_URL}/q/{session.token}"
 
+        email_sent = False
+        email_error = None
         if patient_email:
             try:
-                _send_invitation_email(session, app_url)
-            except Exception:
-                pass  # E-Mail-Fehler blockiert GDT-Session nicht
+                _send_invitation_email(session)
+                email_sent = True
+            except Exception as exc:
+                # E-Mail-Fehler blockiert die GDT-Session nicht, wird aber gemeldet
+                email_error = str(exc)
+                logger.error('Einladungs-Mail fehlgeschlagen (Session %s): %s', session.token, exc)
 
         return Response(
             {
-                'token': str(session.token),
-                'url':   questionnaire_url,
+                'token':       str(session.token),
+                'url':         questionnaire_url,
+                'email_sent':  email_sent,
+                'email_error': email_error,
             },
             status=status.HTTP_201_CREATED,
         )
@@ -820,6 +516,12 @@ class GdtResultView(APIView):
         session = get_object_or_404(QuestionnaireSession, token=token)
 
         if not session.completed:
+            if session.is_expired():
+                # Abgelaufen und nie ausgefüllt: Bridge soll den Eintrag verwerfen
+                return Response(
+                    {'error': 'Session abgelaufen.'},
+                    status=status.HTTP_410_GONE,
+                )
             return Response({'completed': False}, status=status.HTTP_202_ACCEPTED)
 
         try:
@@ -836,8 +538,13 @@ class GdtResultView(APIView):
             'ausgeprägt':  'Ausgeprägt (≥16) – ärztliche Abklärung erforderlich',
         }
 
+        evaluation = evaluate_answers(answer_set.answers_json)
+
         return Response({
             'completed':          True,
+            'auswertung_kritisch': evaluation['zusammenfassung']['kritisch'],
+            'auswertung_pruefen':  evaluation['zusammenfassung']['pruefen'],
+            'auswertung_hinweis':  evaluation['zusammenfassung']['hinweis'],
             'completed_at':       session.completed_at.strftime('%d.%m.%Y') if session.completed_at else '',
             'gdt_patient_id':     session.gdt_patient_id,
             'gdt_request_id':     session.gdt_request_id,

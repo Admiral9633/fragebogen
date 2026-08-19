@@ -1,8 +1,20 @@
 import { notFound } from "next/navigation";
 import fs from "fs";
 import path from "path";
+import { ESS_QUESTIONS } from "@/lib/ess";
+import {
+  answerDisplay,
+  isV2Schema,
+  isVisible,
+  type EvaluationFinding,
+  type EvaluationResult,
+  type Question,
+  type Schema,
+  type Schwere,
+  type Section as SchemaSection,
+} from "@/lib/schema";
 
-const BACKEND_URL = process.env.BACKEND_URL || "http://backend:8000";
+const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:8000";
 
 function getLogoDataUrl(): string {
   try {
@@ -16,6 +28,8 @@ function getLogoDataUrl(): string {
 
 interface AnswerData {
   answers: Record<string, unknown>;
+  schema?: unknown;
+  evaluation?: EvaluationResult;
   ess_total: number;
   ess_band: string;
   completed_at: string | null;
@@ -103,6 +117,24 @@ function SecHeader({ title }: { title: string }) {
   );
 }
 
+function Ft({ label, text }: { label?: string; text: string }) {
+  return (
+    <div
+      style={{
+        padding: "2px 10px 2px 20px",
+        borderBottom: "1px solid #dde3ef",
+        borderLeft: "3px solid #1f3864",
+        background: "#f7f9ff",
+        fontSize: 7,
+        color: "#444",
+        fontStyle: "italic",
+      }}
+    >
+      {label || "Beschreibung"}: {text}
+    </div>
+  );
+}
+
 function YNRow({
   label,
   val,
@@ -110,6 +142,7 @@ function YNRow({
   ftLabel,
   stripe,
   target = "yes",
+  highlight,
 }: {
   label: string;
   val: unknown;
@@ -117,6 +150,8 @@ function YNRow({
   ftLabel?: string;
   stripe?: boolean;
   target?: string;
+  /** Auffällige Antwort (z.B. "Ja" bei Symptomfragen) fürs schnelle Scannen markieren */
+  highlight?: boolean;
 }) {
   return (
     <>
@@ -127,11 +162,14 @@ function YNRow({
           justifyContent: "space-between",
           padding: "3px 10px",
           borderBottom: "1px solid #dde3ef",
-          background: stripe ? "#f3f5fa" : "#fff",
+          background: highlight ? "#fef3c7" : stripe ? "#f3f5fa" : "#fff",
+          borderLeft: highlight ? "3px solid #d97706" : "3px solid transparent",
           gap: 8,
         }}
       >
-        <span style={{ fontSize: 7.5, flex: 1 }}>{label}</span>
+        <span style={{ fontSize: 7.5, flex: 1, fontWeight: highlight ? 700 : 400 }}>
+          {label}
+        </span>
         <div
           style={{
             display: "flex",
@@ -162,21 +200,7 @@ function YNRow({
           </span>
         </div>
       </div>
-      {ft && (
-        <div
-          style={{
-            padding: "2px 10px 2px 20px",
-            borderBottom: "1px solid #dde3ef",
-            borderLeft: "3px solid #1f3864",
-            background: "#f7f9ff",
-            fontSize: 7,
-            color: "#444",
-            fontStyle: "italic",
-          }}
-        >
-          {ftLabel || "Beschreibung"}: {ft}
-        </div>
-      )}
+      {ft && <Ft label={ftLabel} text={ft} />}
     </>
   );
 }
@@ -184,37 +208,44 @@ function YNRow({
 function TextRow({
   label,
   value,
+  ft,
+  ftLabel,
   stripe,
 }: {
   label: string;
   value: string;
+  ft?: string;
+  ftLabel?: string;
   stripe?: boolean;
 }) {
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        padding: "3px 10px",
-        borderBottom: "1px solid #dde3ef",
-        background: stripe ? "#f3f5fa" : "#fff",
-        gap: 8,
-      }}
-    >
-      <span style={{ fontSize: 7.5, flex: 1 }}>{label}</span>
-      <span
+    <>
+      <div
         style={{
-          fontSize: 7.5,
-          fontWeight: 700,
-          color: "#1f3864",
-          minWidth: 100,
-          textAlign: "right" as const,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: "3px 10px",
+          borderBottom: "1px solid #dde3ef",
+          background: stripe ? "#f3f5fa" : "#fff",
+          gap: 8,
         }}
       >
-        {value || "—"}
-      </span>
-    </div>
+        <span style={{ fontSize: 7.5, flex: 1 }}>{label}</span>
+        <span
+          style={{
+            fontSize: 7.5,
+            fontWeight: 700,
+            color: "#1f3864",
+            minWidth: 100,
+            textAlign: "right" as const,
+          }}
+        >
+          {value || "—"}
+        </span>
+      </div>
+      {ft && <Ft label={ftLabel} text={ft} />}
+    </>
   );
 }
 
@@ -232,6 +263,7 @@ function Section({
         borderRadius: 4,
         overflow: "hidden",
         marginBottom: 6,
+        breakInside: "avoid" as const,
       }}
     >
       <SecHeader title={title} />
@@ -240,30 +272,499 @@ function Section({
   );
 }
 
-const ESS_LABELS = [
-  "Beim Sitzen und Lesen",
-  "Beim Fernsehen",
-  "Wenn Sie passiv in der Öffentlichkeit sitzen (z.B. im Theater oder bei einer Besprechung)",
-  "Als Beifahrer im Auto während einer einstündigen Fahrt ohne Pause",
-  "Wenn Sie sich am Nachmittag hingelegt haben, um auszuruhen",
-  "Wenn Sie sitzen und sich mit jemandem unterhalten",
-  "Wenn Sie nach dem Mittagessen (ohne Alkohol) ruhig dasitzen",
-  "Wenn Sie als Fahrer eines Autos verkehrsbedingt einige Minuten halten müssen",
-];
+const ESS_LABELS = ESS_QUESTIONS.map((q) => q.text);
 
-// ─── Page Component ───────────────────────────────────────────────────────────
+function essBandColor(total: number): string {
+  return total <= 9 ? "#86efac" : total <= 15 ? "#fdba74" : "#fca5a5";
+}
 
-export default async function PrintPage({
-  params,
+function essBandLabel(total: number): string {
+  return total <= 9
+    ? `${total}/24 – Normal (0–9)`
+    : total <= 15
+      ? `${total}/24 – Erhöht (10–15)`
+      : `${total}/24 – Ausgeprägt (≥16)`;
+}
+
+/** ESS-Tabelle (Kopf, 8 Zeilen, Summenzeile) – Labels konfigurierbar. */
+function EssTable({
+  labels,
+  answers,
+  essTotal,
 }: {
-  params: Promise<{ token: string }>;
+  labels: string[];
+  answers: Record<string, unknown>;
+  essTotal: number;
 }) {
-  const { token } = await params;
-  const data = await getAnswerData(token);
-  if (!data) notFound();
+  return (
+    <>
+      <div
+        style={{
+          display: "flex",
+          background: "#d8e0ef",
+          borderBottom: "1px solid #c8d0e0",
+          padding: "2px 10px",
+        }}
+      >
+        <span style={{ flex: 1, fontSize: 7, fontWeight: 700, color: "#1f3864" }}>Situation</span>
+        {["0", "1", "2", "3"].map((n) => (
+          <span
+            key={n}
+            style={{
+              width: 22,
+              textAlign: "center" as const,
+              fontSize: 7,
+              fontWeight: 700,
+              color: "#1f3864",
+            }}
+          >
+            {n}
+          </span>
+        ))}
+      </div>
+      {labels.map((label, i) => {
+        const val = String(answers[`ess_${i + 1}`] ?? "");
+        return (
+          <div
+            key={i}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              padding: "2px 10px",
+              borderBottom: "1px solid #dde3ef",
+              background: i % 2 === 0 ? "#f3f5fa" : "#fff",
+            }}
+          >
+            <span style={{ flex: 1, fontSize: 6.5, paddingRight: 4 }}>
+              {i + 1}. {label}
+            </span>
+            {[0, 1, 2, 3].map((n) => (
+              <span key={n} style={{ width: 22, display: "flex", justifyContent: "center" }}>
+                <Cb val={val} target={String(n)} />
+              </span>
+            ))}
+          </div>
+        );
+      })}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: "3px 10px",
+          background: "#1f3864",
+          color: "#fff",
+        }}
+      >
+        <span style={{ fontSize: 7.5, fontWeight: 700 }}>Gesamtpunktzahl</span>
+        <span style={{ fontSize: 8, fontWeight: 900, color: essBandColor(essTotal) }}>
+          {essBandLabel(essTotal)}
+        </span>
+      </div>
+    </>
+  );
+}
 
-  const logoDataUrl = getLogoDataUrl();
+/** Kopfbereich mit Titel, Patientendaten, Logo und Arztadresse. */
+function PrintHeader({
+  data,
+  logoDataUrl,
+  title,
+}: {
+  data: AnswerData;
+  logoDataUrl: string;
+  title: string;
+}) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "flex-start",
+        border: "1px solid #c8d0e0",
+        borderRadius: 4,
+        padding: "8px 12px",
+        marginBottom: 8,
+        background: "#eef1f7",
+      }}
+    >
+      <div style={{ flex: 1 }}>
+        <div style={{ fontSize: 14, fontWeight: 900, color: "#1f3864", marginBottom: 5 }}>
+          {title}
+        </div>
+        <table style={{ borderCollapse: "collapse" }}>
+          <tbody>
+            {([
+              ["Name:", data.patient_last_name || "—"],
+              ["Vorname:", data.patient_first_name || "—"],
+              ["Geburtsdatum:", data.patient_birth_date || "—"],
+            ] as [string, string][]).map(([label, value]) => (
+              <tr key={label}>
+                <td
+                  style={{
+                    fontSize: 7.5,
+                    paddingRight: 8,
+                    paddingBottom: 3,
+                    color: "#555",
+                    width: 80,
+                    whiteSpace: "nowrap" as const,
+                  }}
+                >
+                  {label}
+                </td>
+                <td style={{ fontSize: 7.5, fontWeight: 600, paddingBottom: 3 }}>{value}</td>
+              </tr>
+            ))}
+            <tr>
+              <td style={{ fontSize: 7.5, color: "#555" }}>Ausgefüllt am:</td>
+              <td style={{ fontSize: 7.5, fontWeight: 700 }}>&nbsp;{data.completed_at || "—"}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div
+        style={{
+          textAlign: "right" as const,
+          fontSize: 7.5,
+          lineHeight: 1.7,
+          color: "#333",
+          display: "flex",
+          flexDirection: "column" as const,
+          alignItems: "flex-end",
+          gap: 4,
+        }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        {logoDataUrl && <img src={logoDataUrl} alt="Logo" style={{ height: 48, width: "auto" }} />}
+        <div>
+          <div style={{ fontWeight: 700, fontSize: 8.5, color: "#1f3864" }}>Dr. med. Björn Micka</div>
+          Betriebsmedizin · Notfallmedizin<br />
+          Christoph-Dassler-Str. 22<br />
+          91074 Herzogenaurach
+        </div>
+      </div>
+    </div>
+  );
+}
 
+/** Warnhinweis-§11-Box. */
+function WarnBox() {
+  return (
+    <div
+      style={{
+        border: "2px solid #1f3864",
+        borderRadius: 4,
+        padding: "5px 10px",
+        background: "#f7f0f0",
+        fontSize: 7,
+        fontStyle: "italic",
+        fontWeight: 700,
+        marginBottom: 8,
+        lineHeight: 1.5,
+        breakInside: "avoid" as const,
+      }}
+    >
+      Zur wahrheitsgemäßen Beantwortung <u>a&nbsp;l&nbsp;l&nbsp;e&nbsp;r</u> Fragen
+      sind Sie verpflichtet. Das Verschweigen von Vorerkrankungen stellt einen Verstoß
+      gegen §&nbsp;11 FeV dar und kann rechtliche Konsequenzen haben!
+    </div>
+  );
+}
+
+/** Unterschriftenzeilen. */
+function SignatureRow() {
+  return (
+    <div style={{ display: "flex", gap: 16, marginTop: 8, breakInside: "avoid" as const }}>
+      {["Ort / Datum", "Unterschrift Patient"].map((label) => (
+        <div key={label} style={{ flex: 1 }}>
+          <div style={{ borderBottom: "1px solid #555", height: 26, marginBottom: 3 }} />
+          <span style={{ fontSize: 7, color: "#555" }}>{label}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// ─── V2: generisches Rendering aus dem Schema ─────────────────────────────────
+
+// ─── Automatische Auswertung (BASt-Leitlinien) ───────────────────────────────
+
+const SCHWERE_STYLE: Record<
+  Schwere,
+  { label: string; color: string; bg: string; border: string }
+> = {
+  kritisch: { label: "KRITISCH", color: "#b91c1c", bg: "#fef2f2", border: "#fecaca" },
+  pruefen: { label: "PRÜFEN", color: "#b45309", bg: "#fffbeb", border: "#fde68a" },
+  hinweis: { label: "HINWEIS", color: "#1f3864", bg: "#f3f6fc", border: "#c8d0e0" },
+};
+
+function EvaluationFindingRow({ finding }: { finding: EvaluationFinding }) {
+  const s = SCHWERE_STYLE[finding.schwere];
+  return (
+    <div
+      style={{
+        display: "flex",
+        gap: 8,
+        padding: "4px 10px",
+        borderBottom: "1px solid #e5e9f2",
+        background: s.bg,
+        breakInside: "avoid" as const,
+      }}
+    >
+      <span
+        style={{
+          flexShrink: 0,
+          alignSelf: "flex-start",
+          marginTop: 1,
+          width: 52,
+          textAlign: "center" as const,
+          fontSize: 6,
+          fontWeight: 900,
+          letterSpacing: "0.5px",
+          color: "#fff",
+          background: s.color,
+          borderRadius: 3,
+          padding: "2px 0",
+        }}
+      >
+        {s.label}
+      </span>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ fontSize: 7.5, fontWeight: 700, color: "#1a1a1a" }}>
+          {finding.bereich}
+          <span style={{ fontWeight: 400, color: "#667" }}> · Kap. {finding.kapitel}</span>
+        </div>
+        <div style={{ fontSize: 7, color: "#333" }}>{finding.befund}</div>
+        <div style={{ fontSize: 6.8, color: s.color, fontStyle: "italic" }}>
+          {finding.konsequenz}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function EvaluationBlock({ evaluation }: { evaluation: EvaluationResult }) {
+  const z = evaluation.zusammenfassung;
+  const unauffaellig = z.kritisch === 0 && z.pruefen === 0 && z.hinweis === 0;
+
+  return (
+    <div
+      style={{
+        border: "1.5px solid #1f3864",
+        borderRadius: 4,
+        overflow: "hidden",
+        marginBottom: 8,
+        breakInside: "avoid" as const,
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          background: "#1f3864",
+          color: "#fff",
+          padding: "4px 10px",
+        }}
+      >
+        <span style={{ fontSize: 8.5, fontWeight: 900, letterSpacing: "0.5px" }}>
+          AUTOMATISCHE AUSWERTUNG NACH BEGUTACHTUNGSLEITLINIEN
+        </span>
+        <span style={{ fontSize: 7, display: "flex", gap: 8 }}>
+          <span style={{ fontWeight: 900, color: z.kritisch ? "#fca5a5" : "#9fb3d9" }}>
+            {z.kritisch} kritisch
+          </span>
+          <span style={{ fontWeight: 900, color: z.pruefen ? "#fcd34d" : "#9fb3d9" }}>
+            {z.pruefen} prüfen
+          </span>
+          <span style={{ fontWeight: 700, color: "#c9d6ee" }}>{z.hinweis} Hinweise</span>
+          <span
+            style={{
+              background: "#fff",
+              color: "#1f3864",
+              borderRadius: 3,
+              padding: "1px 6px",
+              fontWeight: 900,
+            }}
+          >
+            Gruppe {evaluation.gruppe2 ? "2" : "1"}
+          </span>
+        </span>
+      </div>
+
+      {unauffaellig ? (
+        <div
+          style={{
+            padding: "6px 10px",
+            fontSize: 7.5,
+            color: "#166534",
+            background: "#f0fdf4",
+            fontWeight: 700,
+          }}
+        >
+          Keine eignungsrelevanten Auffälligkeiten aus den Angaben ableitbar.
+        </div>
+      ) : (
+        evaluation.findings.map((f, i) => <EvaluationFindingRow key={i} finding={f} />)
+      )}
+
+      <div
+        style={{
+          padding: "3px 10px",
+          fontSize: 6,
+          color: "#667",
+          fontStyle: "italic",
+          background: "#f7f9ff",
+          borderTop: "1px solid #e5e9f2",
+        }}
+      >
+        {evaluation.disclaimer}
+      </div>
+    </div>
+  );
+}
+
+function followupText(
+  q: Question,
+  answers: Record<string, unknown>
+): { ft?: string; ftLabel?: string } {
+  const f = q.followup;
+  if (!f || answers[q.id] !== (f.when ?? "yes")) return {};
+  const raw = answers[f.id];
+  if (typeof raw !== "string" || raw.trim() === "") return {};
+  return { ft: raw.trim(), ftLabel: f.label };
+}
+
+function PrintSection({
+  index,
+  section,
+  answers,
+  essTotal,
+}: {
+  index: number;
+  section: SchemaSection;
+  answers: Record<string, unknown>;
+  essTotal: number;
+}) {
+  const rows: React.ReactNode[] = [];
+  let rowIdx = 0;
+
+  for (const q of section.questions) {
+    if (!isVisible(q, answers)) continue;
+    const stripe = rowIdx % 2 === 1;
+
+    if (q.type === "ess_matrix") {
+      rows.push(
+        <div key={q.id}>
+          <SecHeader title="ESS – 0 = Nie · 1 = Gering · 2 = Mittel · 3 = Hoch" />
+          <EssTable
+            labels={(q.items ?? []).map((item) => item.label)}
+            answers={answers}
+            essTotal={essTotal}
+          />
+        </div>
+      );
+      rowIdx = 0;
+      continue;
+    }
+
+    const { ft, ftLabel } = followupText(q, answers);
+
+    if (q.type === "yes_no") {
+      rows.push(
+        <YNRow
+          key={q.id}
+          label={q.label}
+          val={answers[q.id]}
+          ft={ft}
+          ftLabel={ftLabel}
+          stripe={stripe}
+          highlight={answers[q.id] === "yes"}
+        />
+      );
+    } else if (q.type === "consent") {
+      rows.push(
+        <YNRow key={q.id} label={q.label} val={String(answers[q.id])} target="true" stripe={stripe} />
+      );
+    } else {
+      // choice / multi_choice / text / textarea
+      rows.push(
+        <TextRow
+          key={q.id}
+          label={q.label}
+          value={answerDisplay(q, answers[q.id])}
+          ft={ft}
+          ftLabel={ftLabel}
+          stripe={stripe}
+        />
+      );
+    }
+    rowIdx++;
+  }
+
+  return (
+    <Section title={`${index}. ${section.title}`}>
+      {rows}
+      {section.pdf_note && (
+        <div
+          style={{
+            padding: "3px 10px",
+            fontSize: 6.5,
+            fontStyle: "italic",
+            color: "#444",
+            background: "#f7f9ff",
+          }}
+        >
+          {section.pdf_note}
+        </div>
+      )}
+    </Section>
+  );
+}
+
+function PrintV2({
+  data,
+  schema,
+  logoDataUrl,
+}: {
+  data: AnswerData;
+  schema: Schema;
+  logoDataUrl: string;
+}) {
+  const a = data.answers;
+  return (
+    <div style={{ padding: "12px", maxWidth: "794px", margin: "0 auto" }}>
+      <PrintHeader
+        data={data}
+        logoDataUrl={logoDataUrl}
+        title={schema.title || "Verkehrsmedizinischer Fragebogen"}
+      />
+
+      {/* Automatische Auswertung nach BASt-Leitlinien */}
+      {data.evaluation && <EvaluationBlock evaluation={data.evaluation} />}
+
+      {/* Sektionen in 2 Spalten (CSS columns) */}
+      <div style={{ columns: 2, columnGap: 6 }}>
+        {schema.sections.map((section, i) => (
+          <PrintSection
+            key={section.id}
+            index={i + 1}
+            section={section}
+            answers={a}
+            essTotal={data.ess_total}
+          />
+        ))}
+      </div>
+
+      <WarnBox />
+      <SignatureRow />
+    </div>
+  );
+}
+
+// ─── Legacy (v1-Vorlagen): bisheriges hartkodiertes Layout ────────────────────
+
+function LegacyPrint({ data, logoDataUrl }: { data: AnswerData; logoDataUrl: string }) {
   const a = data.answers;
   const s = (key: string) => String(a[key] ?? "");
   const ft = (key: string) => {
@@ -284,61 +785,12 @@ export default async function PrintPage({
 
   const hasDm = !["none", "", undefined, null].includes(a.diabetes_type as string);
 
-  const essBandColor =
-    data.ess_total <= 9 ? "#86efac" :
-    data.ess_total <= 15 ? "#fdba74" : "#fca5a5";
-  const essBandLabel =
-    data.ess_total <= 9 ? `${data.ess_total}/24 – Normal (0–9)` :
-    data.ess_total <= 15 ? `${data.ess_total}/24 – Erhöht (10–15)` :
-    `${data.ess_total}/24 – Ausgeprägt (≥16)`;
-
   return (
     <div style={{ padding: "12px", maxWidth: "794px", margin: "0 auto" }}>
 
       {/* ══ SEITE 1 ══ */}
 
-      {/* Header */}
-      <div style={{
-        display: "flex", justifyContent: "space-between", alignItems: "flex-start",
-        border: "1px solid #c8d0e0", borderRadius: 4, padding: "8px 12px",
-        marginBottom: 8, background: "#eef1f7",
-      }}>
-        <div style={{ flex: 1 }}>
-          <div style={{ fontSize: 14, fontWeight: 900, color: "#1f3864", marginBottom: 5 }}>
-            Verkehrsmedizinischer Fragebogen
-          </div>
-          <table style={{ borderCollapse: "collapse" }}>
-            <tbody>
-              {([
-                ["Name:", data.patient_last_name || "—"],
-                ["Vorname:", data.patient_first_name || "—"],
-                ["Geburtsdatum:", data.patient_birth_date || "—"],
-              ] as [string, string][]).map(([label, value]) => (
-                <tr key={label}>
-                  <td style={{ fontSize: 7.5, paddingRight: 8, paddingBottom: 3, color: "#555", width: 80, whiteSpace: "nowrap" as const }}>
-                    {label}
-                  </td>
-                  <td style={{ fontSize: 7.5, fontWeight: 600, paddingBottom: 3 }}>{value}</td>
-                </tr>
-              ))}
-              <tr>
-                <td style={{ fontSize: 7.5, color: "#555" }}>Ausgefüllt am:</td>
-                <td style={{ fontSize: 7.5, fontWeight: 700 }}>&nbsp;{data.completed_at || "—"}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div style={{ textAlign: "right" as const, fontSize: 7.5, lineHeight: 1.7, color: "#333", display: "flex", flexDirection: "column" as const, alignItems: "flex-end", gap: 4 }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          {logoDataUrl && <img src={logoDataUrl} alt="Logo" style={{ height: 48, width: "auto" }} />}
-          <div>
-            <div style={{ fontWeight: 700, fontSize: 8.5, color: "#1f3864" }}>Dr. med. Björn Micka</div>
-            Betriebsmedizin · Notfallmedizin<br />
-            Christoph-Dassler-Str. 22<br />
-            91074 Herzogenaurach
-          </div>
-        </div>
-      </div>
+      <PrintHeader data={data} logoDataUrl={logoDataUrl} title="Verkehrsmedizinischer Fragebogen" />
 
       {/* Two-Column Grid */}
       <div style={{ display: "flex", gap: 6 }}>
@@ -433,41 +885,7 @@ export default async function PrintPage({
           {/* ESS */}
           <div style={{ border: "1px solid #c8d0e0", borderRadius: 4, overflow: "hidden", marginBottom: 6 }}>
             <SecHeader title="ESS – 0 = Nie · 1 = Gering · 2 = Mittel · 3 = Hoch" />
-            <div style={{
-              display: "flex", background: "#d8e0ef",
-              borderBottom: "1px solid #c8d0e0", padding: "2px 10px",
-            }}>
-              <span style={{ flex: 1, fontSize: 7, fontWeight: 700, color: "#1f3864" }}>Situation</span>
-              {["0","1","2","3"].map(n => (
-                <span key={n} style={{ width: 22, textAlign: "center" as const, fontSize: 7, fontWeight: 700, color: "#1f3864" }}>
-                  {n}
-                </span>
-              ))}
-            </div>
-            {ESS_LABELS.map((label, i) => {
-              const val = String(a[`ess_${i + 1}`] ?? "");
-              return (
-                <div key={i} style={{
-                  display: "flex", alignItems: "center",
-                  padding: "2px 10px", borderBottom: "1px solid #dde3ef",
-                  background: i % 2 === 0 ? "#f3f5fa" : "#fff",
-                }}>
-                  <span style={{ flex: 1, fontSize: 6.5, paddingRight: 4 }}>{i + 1}. {label}</span>
-                  {[0,1,2,3].map(n => (
-                    <span key={n} style={{ width: 22, display: "flex", justifyContent: "center" }}>
-                      <Cb val={val} target={String(n)} />
-                    </span>
-                  ))}
-                </div>
-              );
-            })}
-            <div style={{
-              display: "flex", alignItems: "center", justifyContent: "space-between",
-              padding: "3px 10px", background: "#1f3864", color: "#fff",
-            }}>
-              <span style={{ fontSize: 7.5, fontWeight: 700 }}>Gesamtpunktzahl</span>
-              <span style={{ fontSize: 8, fontWeight: 900, color: essBandColor }}>{essBandLabel}</span>
-            </div>
+            <EssTable labels={ESS_LABELS} answers={a} essTotal={data.ess_total} />
           </div>
 
         </div>
@@ -499,26 +917,8 @@ export default async function PrintPage({
               val={String(a.consent_privacy)} target="true" stripe />
           </Section>
 
-          {/* Warnhinweis */}
-          <div style={{
-            border: "2px solid #1f3864", borderRadius: 4, padding: "5px 10px",
-            background: "#f7f0f0", fontSize: 7, fontStyle: "italic",
-            fontWeight: 700, marginBottom: 8, lineHeight: 1.5,
-          }}>
-            Zur wahrheitsgemäßen Beantwortung <u>a&nbsp;l&nbsp;l&nbsp;e&nbsp;r</u> Fragen
-            sind Sie verpflichtet. Das Verschweigen von Vorerkrankungen stellt einen Verstoß
-            gegen §&nbsp;11 FeV dar und kann rechtliche Konsequenzen haben!
-          </div>
-
-          {/* Unterschrift */}
-          <div style={{ display: "flex", gap: 16, marginTop: 8 }}>
-            {["Ort / Datum", "Unterschrift Patient"].map(label => (
-              <div key={label} style={{ flex: 1 }}>
-                <div style={{ borderBottom: "1px solid #555", height: 26, marginBottom: 3 }} />
-                <span style={{ fontSize: 7, color: "#555" }}>{label}</span>
-              </div>
-            ))}
-          </div>
+          <WarnBox />
+          <SignatureRow />
 
         </div>
       </div>
@@ -526,3 +926,21 @@ export default async function PrintPage({
   );
 }
 
+// ─── Page Component ───────────────────────────────────────────────────────────
+
+export default async function PrintPage({
+  params,
+}: {
+  params: Promise<{ token: string }>;
+}) {
+  const { token } = await params;
+  const data = await getAnswerData(token);
+  if (!data) notFound();
+
+  const logoDataUrl = getLogoDataUrl();
+
+  if (isV2Schema(data.schema)) {
+    return <PrintV2 data={data} schema={data.schema} logoDataUrl={logoDataUrl} />;
+  }
+  return <LegacyPrint data={data} logoDataUrl={logoDataUrl} />;
+}

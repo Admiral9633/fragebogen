@@ -1,6 +1,7 @@
 """
 Management Command zum Erstellen von Sample-Daten für Tests
 """
+from django.core.management import call_command
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 from datetime import timedelta
@@ -13,23 +14,13 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         self.stdout.write('Erstelle Test-Daten...')
 
-        # Erstelle Template
-        template, created = QuestionnaireTemplate.objects.get_or_create(
-            slug='verkehrsmedizin-v1',
-            defaults={
-                'version': 1,
-                'schema_json': {
-                    'sections': ['ess'],
-                    'title': 'Verkehrsmedizinischer Fragebogen'
-                },
-                'is_active': True
-            }
+        # Aktuellen Leitlinien-Katalog laden (idempotent)
+        call_command('load_catalog')
+        template = (
+            QuestionnaireTemplate.objects.filter(is_active=True)
+            .order_by('-version')
+            .first()
         )
-
-        if created:
-            self.stdout.write(self.style.SUCCESS(f'✓ Template erstellt: {template.slug}'))
-        else:
-            self.stdout.write(self.style.WARNING(f'- Template existiert bereits: {template.slug}'))
 
         # Erstelle Test-Sessions
         for i in range(3):

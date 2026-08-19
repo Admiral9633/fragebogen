@@ -4,11 +4,11 @@ Next.js Frontend für das Verkehrsmedizin Fragebogen-System.
 
 ## Features
 
-- Next.js 15 App Router
-- Shadcn/ui Components
-- React Hook Form
+- Next.js 16 App Router + React 19
+- Shadcn/ui Components, sonner-Toasts, Dark Mode
 - Tailwind CSS
 - TypeScript
+- Puppeteer-PDF-Route (`/api/puppeteer-pdf/[token]`)
 
 ## Setup
 
@@ -45,3 +45,4 @@ npm start
 
 - Startseite: `http://localhost:3000`
 - Fragebogen: `http://localhost:3000/q/[token]`
+- Praxis-Admin: `http://localhost:3000/admin` (Login mit `ADMIN_API_KEY`)

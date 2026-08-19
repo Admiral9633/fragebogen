@@ -22,6 +22,13 @@ api_key = DEIN-GEHEIMER-API-KEY
 # Leer lassen = neuester aktiver Template wird automatisch gewählt
 template_slug =
 
+# ── GDT-Encoding ────────────────────────────────────────────────────────────
+# Zeichensatz der GDT-Dateien (wird zum Lesen UND Schreiben verwendet).
+# Der GDT-Standard schreibt eigentlich cp437 (IBM PC-Zeichensatz) vor,
+# viele Praxissysteme schreiben aber cp1252 (Windows-1252).
+# Bei Umlaut-Problemen (z.B. "M„ller" statt "Müller") auf cp437 umstellen.
+gdt_encoding = cp1252
+
 # ── Polling-Intervalle ──────────────────────────────────────────────────────
 # Wie oft (Sekunden) wird der Eingangsordner auf neue .gdt-Dateien geprüft?
 poll_inbox_seconds = 5

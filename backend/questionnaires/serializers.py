@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import QuestionnaireTemplate, QuestionnaireSession, AnswerSet
+from .models import QuestionnaireSession
 
 
 # ESS Konstanten
@@ -19,12 +19,6 @@ def get_ess_band(total):
         return "erhöht"
     else:
         return "normal"
-
-
-class QuestionnaireTemplateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = QuestionnaireTemplate
-        fields = ['id', 'slug', 'version', 'schema_json', 'is_active']
 
 
 class QuestionnaireSessionSerializer(serializers.ModelSerializer):
@@ -96,15 +90,3 @@ class SubmitSerializer(serializers.Serializer):
             )
 
         return attrs
-
-
-class AnswerSetSerializer(serializers.ModelSerializer):
-    session_token = serializers.UUIDField(source='session.token', read_only=True)
-    
-    class Meta:
-        model = AnswerSet
-        fields = [
-            'id', 'session_token', 'answers_json', 
-            'ess_total', 'ess_band', 'created_at'
-        ]
-        read_only_fields = ['created_at']

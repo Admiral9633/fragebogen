@@ -1,0 +1,585 @@
+{
+ "_meta": {
+  "language": "sv",
+  "name": "Svenska",
+  "machine_translated": true
+ },
+ "ui": {
+  "header_title": "Trafikmedicinskt frågeformulär",
+  "header_subtitle": "Var vänlig besvara alla frågor",
+  "language_label": "Språk",
+  "loading": "Frågeformuläret laddas …",
+  "not_found_title": "Frågeformuläret hittades inte",
+  "to_start": "Till startsidan",
+  "back": "Tillbaka",
+  "next": "Vidare",
+  "skip": "Hoppa över",
+  "submit": "Skicka",
+  "sending": "Skickar…",
+  "question_of": "Fråga {current} av {total}",
+  "answer_placeholder": "Ditt svar…",
+  "required_error": "Var vänlig besvara den här frågan.",
+  "yes": "Ja",
+  "no": "Nej",
+  "consent_title": "Samtycke",
+  "followup_hint": "Frivillig kompletterande uppgift – hjälper vid den medicinska bedömningen.",
+  "ess_question": "Hur troligt är det att du skulle slumra till i den här situationen?",
+  "ess_sum": "Hittillsvarande summa",
+  "ess_opt_0": "0 – Skulle aldrig slumra till",
+  "ess_opt_1": "1 – Låg sannolikhet",
+  "ess_opt_2": "2 – Medelhög sannolikhet",
+  "ess_opt_3": "3 – Hög sannolikhet",
+  "privacy_button": "Visa information om dataskydd",
+  "privacy_title": "Information om dataskydd",
+  "privacy_subtitle": "Information om behandlingen av dina uppgifter enligt Art. 13 DSGVO (EU:s dataskyddsförordning)",
+  "privacy_controller": "Personuppgiftsansvarig: Dr. med. Björn Micka, Betriebsmedizin · Notfallmedizin, Christoph-Dassler-Str. 22, 91074 Herzogenaurach",
+  "privacy_purpose": "Ändamål med behandlingen: Dina uppgifter i detta frågeformulär (inklusive hälsouppgifter) används uteslutande för att förbereda och genomföra din trafikmedicinska undersökning.",
+  "privacy_legal": "Rättslig grund: Ditt samtycke (Art. 6 Abs. 1 lit. a, Art. 9 Abs. 2 lit. a DSGVO). Du kan när som helst återkalla samtycket med verkan för framtiden.",
+  "privacy_storage": "Lagring: Resultatet förs in i dina undersökningshandlingar och omfattas av de medicinska bevarandetiderna. Onlineåtkomsten via din personliga länk upphör när giltighetstiden går ut; uppgifterna i detta onlineformulär raderas därefter rutinmässigt.",
+  "privacy_rights": "Dina rättigheter: Du har rätt till tillgång, rättelse, radering och begränsning av behandlingen samt rätt att lämna klagomål till behörig dataskyddsmyndighet.",
+  "privacy_secrecy": "Alla uppgifter omfattas av läkarsekretessen.",
+  "success_title": "Tack så mycket!",
+  "success_text": "Ditt frågeformulär har skickats.",
+  "success_result": "ESS-resultat",
+  "success_doctor_note": "Diskutera resultatet med din läkare. Den slutliga bedömningen görs av en specialistläkare.",
+  "success_pdf": "Ladda ner PDF-sammanfattning",
+  "success_close": "Du kan nu stänga det här fönstret.",
+  "band_normal": "Normal (0–9)",
+  "band_elevated": "Förhöjd (10–15)",
+  "band_severe": "Uttalad (≥16)",
+  "submit_error": "Fel vid sändningen. Kontrollera dina uppgifter."
+ },
+ "sections": {
+  "anlass": {
+   "title": "Anledning och körprofil",
+   "subtitle": "Uppgifter om undersökningen och din körning"
+  },
+  "gesundheit": {
+   "title": "Hälsotillstånd",
+   "subtitle": "En fråga först"
+  },
+  "anfaelle": {
+   "title": "Anfall och medvetslöshet",
+   "subtitle": "Risk för plötsligt bortfall – epileptiska anfall och svimningar"
+  },
+  "sehen_hoeren": {
+   "title": "Syn och hörsel",
+   "subtitle": "Syn- och hörselfunktion"
+  },
+  "herz": {
+   "title": "Hjärta och blodcirkulation",
+   "subtitle": "Hjärt- och kärlsjukdomar"
+  },
+  "gehirn": {
+   "title": "Stroke och hjärna",
+   "subtitle": "Cirkulationsstörningar, skador och operationer i hjärnan"
+  },
+  "neuro": {
+   "title": "Nervsystemet",
+   "subtitle": "Neurologiska sjukdomar"
+  },
+  "schwindel": {
+   "title": "Balans och yrsel",
+   "subtitle": "Former av yrsel och balansstörningar"
+  },
+  "bewegung": {
+   "title": "Rörelseapparaten",
+   "subtitle": "Kroppsliga begränsningar och hjälpmedel"
+  },
+  "diabetes": {
+   "title": "Diabetes / ämnesomsättning",
+   "subtitle": "Sockersjuka och lågt blodsocker"
+  },
+  "organe": {
+   "title": "Inre organ",
+   "subtitle": "Njurar, lungor och transplantationer"
+  },
+  "schlaf": {
+   "title": "Sömn och dagtrötthet",
+   "subtitle": "Inkl. Epworth Sleepiness Scale (ESS)"
+  },
+  "psyche": {
+   "title": "Psykisk hälsa",
+   "subtitle": "Psykiska sjukdomar och minne"
+  },
+  "substanzen": {
+   "title": "Alkohol, droger och läkemedel",
+   "subtitle": "Bruk och regelbunden medicinering"
+  },
+  "allgemein": {
+   "title": "Allmänt och samtycke",
+   "subtitle": "Ytterligare uppgifter och försäkringar"
+  }
+ },
+ "questions": {
+  "exam_occasion": {
+   "label": "För vilket körkort görs undersökningen?",
+   "options": {
+    "pkw": "Personbil / annan behörighet",
+    "lkw": "Lastbil (C, C1, CE, C1E)",
+    "bus": "Buss (D, D1, DE, D1E)",
+    "fahrgast": "Persontransport (taxi, hyrbil med förare, sjuktransport)"
+   }
+  },
+  "exam_kind": {
+   "label": "Gäller det ett förstagångsutfärdande eller en förlängning?",
+   "options": {
+    "erst": "Förstagångsutfärdande",
+    "verlaengerung": "Förlängning"
+   }
+  },
+  "license_classes": {
+   "label": "Vilka körkortsbehörigheter har du eller ansöker du om?",
+   "options": {
+    "AM": "AM",
+    "A1": "A1",
+    "A2": "A2",
+    "A": "A",
+    "B": "B",
+    "BE": "BE",
+    "C1": "C1",
+    "C1E": "C1E",
+    "C": "C",
+    "CE": "CE",
+    "D1": "D1",
+    "D": "D",
+    "DE": "DE",
+    "T": "T"
+   }
+  },
+  "license_years": {
+   "label": "Hur många år har du haft körkort?",
+   "options": {
+    "erstantrag": "Inget ännu (förstagångsansökan)",
+    "unter3": "Mindre än 3 år",
+    "3bis10": "3 till 10 år",
+    "ueber10": "Mer än 10 år"
+   }
+  },
+  "driving_hours": {
+   "label": "Hur många timmar kör du i genomsnitt per dag?",
+   "options": {
+    "<1": "Mindre än 1 timme",
+    "1-2": "1 till 2 timmar",
+    "2-4": "2 till 4 timmar",
+    ">4": "Mer än 4 timmar"
+   }
+  },
+  "night_driving": {
+   "label": "Kör du regelbundet nattetid?"
+  },
+  "accidents": {
+   "label": "Har du under de senaste 24 månaderna varit med om olyckor eller tillbud i trafiken?",
+   "followup": "Vad hände?"
+  },
+  "license_withdrawn": {
+   "label": "Har ditt körkort någon gång återkallats, eller har du varit tvungen att genomgå en medicinsk-psykologisk undersökning (MPU)?",
+   "followup": "När och av vilken anledning?"
+  },
+  "psych_test_done": {
+   "label": "Har du redan genomfört ett psykologiskt prestationstest (reaktions-, koncentrations- och uppmärksamhetstest) för detta körkort?",
+   "hint": "För bussbehörigheter och persontransport krävs detta intyg enligt Anlage 5 FeV (den tyska körkortsförordningen). Ta gärna med ett befintligt utlåtande till undersökningen.",
+   "followup": "När och var genomfördes testet?"
+  },
+  "has_conditions": {
+   "label": "Har du en känd tidigare sjukdom, en bestående fysisk funktionsnedsättning, eller går du på regelbunden medicinsk behandling?",
+   "hint": "Hit räknas även allvarliga sjukdomar längre tillbaka i tiden (t.ex. hjärta, diabetes, nerver, psyke). Om nej blir frågeformuläret betydligt kortare."
+  },
+  "seizure_ever": {
+   "label": "Har du någon gång haft ett epileptiskt anfall eller ett krampanfall?",
+   "followup": "När var det senaste anfallet, hur många har du haft totalt, och fanns det någon utlösande faktor (t.ex. sömnbrist, feber, alkohol)?"
+  },
+  "epilepsy": {
+   "label": "Har du fått diagnosen epilepsi?",
+   "followup": "Uppträder anfallen uteslutande under sömn? Går du på regelbunden neurologisk behandling?"
+  },
+  "seizure_free": {
+   "label": "Hur länge har du nu varit anfallsfri?",
+   "hint": "Riktlinjerna kopplar körlämpligheten till bestämda anfallsfria perioder.",
+   "options": {
+    "unter3m": "Mindre än 3 månader",
+    "3bis6m": "3 till 6 månader",
+    "6bis12m": "6 till 12 månader",
+    "1bis2j": "1 till 2 år",
+    "2bis5j": "2 till 5 år",
+    "ueber5j": "Mer än 5 år"
+   }
+  },
+  "antiepileptics": {
+   "label": "Tar du läkemedel mot anfall (antiepileptika)?",
+   "options": {
+    "nie": "Nej, har aldrig tagit",
+    "aktuell": "Ja, för närvarande",
+    "reduktion": "Behandlingen trappas för närvarande ned successivt",
+    "ende_unter3m": "Avslutad för mindre än 3 månader sedan",
+    "ende_ueber3m": "Avslutad för mer än 3 månader sedan"
+   }
+  },
+  "syncope": {
+   "label": "Har du någon gång plötsligt svimmat (kortvarig medvetslöshet)?",
+   "options": {
+    "nie": "Aldrig",
+    "einmal": "En gång",
+    "mehrmals": "Flera gånger"
+   }
+  },
+  "syncope_recent": {
+   "label": "Är din senaste svimning mindre än 6 månader sedan?",
+   "followup": "I vilken situation inträffade svimningen, och hittades någon orsak (t.ex. blodcirkulationen, hjärtrytmen, vid vattenkastning)?"
+  },
+  "syncope_prodromi": {
+   "label": "Förvarnas en svimning hos dig (t.ex. svettning, yrsel, illamående, hjärtklappning)?"
+  },
+  "glasses": {
+   "label": "Använder du glasögon eller kontaktlinser när du kör?"
+  },
+  "eye_disease": {
+   "label": "Har du någon känd ögonsjukdom (t.ex. grå starr, grön starr/glaukom, näthinnesjukdom, inskränkt synfält)?",
+   "followup": "Vilken sjukdom, och går du på behandling hos ögonläkare?"
+  },
+  "one_eyed": {
+   "label": "Ser du betydligt sämre på det ena ögat eller är du blind på det ena ögat?"
+  },
+  "night_vision": {
+   "label": "Har du problem med att se i skymning eller mörker, eller blir du kraftigt bländad av mötande trafik?",
+   "followup": "I vilka situationer uppstår problemen?"
+  },
+  "hearing_impaired": {
+   "label": "Har du en grav hörselnedsättning eller är du döv?",
+   "followup": "Sedan när, och går du på behandling hos öron-näsa-hals-läkare?"
+  },
+  "hearing_aid": {
+   "label": "Använder du hörapparat eller cochleaimplantat?"
+  },
+  "heart_disease": {
+   "label": "Har du någon känd hjärt- eller kärlsjukdom?",
+   "hint": "t.ex. rytmrubbningar, hjärtinfarkt, hjärtsvikt, klaffel, cirkulationsstörningar",
+   "followup": "Vilken/vilka sjukdomar, sedan när, och hur behandlas de?"
+  },
+  "cardio_checkup": {
+   "label": "Går du regelbundet på kontroll hos en kardiolog (hjärtläkare) för detta?",
+   "followup": "När var den senaste kontrollen?"
+  },
+  "heart_attack": {
+   "label": "Har du någon gång haft en hjärtinfarkt, fått en stent inlagd eller genomgått en bypassoperation?",
+   "followup": "När inträffade händelsen eller ingreppet, och fanns det komplikationer (t.ex. nedsatt pumpförmåga)?"
+  },
+  "arrhythmia": {
+   "label": "Har du kända hjärtrytmrubbningar (t.ex. extraslag, hjärtklappning, påfallande långsam puls, förmaksflimmer, AV-block)?",
+   "followup": "Vilken diagnos, och hur behandlas den?"
+  },
+  "pacemaker_icd": {
+   "label": "Har du en pacemaker eller en defibrillator (ICD)?",
+   "options": {
+    "nein": "Nej",
+    "schrittmacher": "Pacemaker",
+    "icd": "Defibrillator (ICD)"
+   },
+   "followup": "När sattes den in, och när var den senaste kontrollen?"
+  },
+  "icd_shock": {
+   "label": "Har din defibrillator avgett en stöt under de senaste 3 månaderna?",
+   "followup": "När, och vad sa din kardiolog om det?"
+  },
+  "exertion_symptoms": {
+   "label": "Får du andnöd, bröstsmärtor, hjärtklappning eller ovanlig utmattning vid ansträngning?",
+   "hint": "Egen bedömning enligt NYHA-stadierna",
+   "options": {
+    "keine": "Nej, inga besvär vid vardaglig ansträngning",
+    "stark": "Vid kraftigare ansträngning (t.ex. rask trappgång)",
+    "leicht": "Redan vid lätt ansträngning (t.ex. långsam gång)",
+    "ruhe": "Redan i vila"
+   }
+  },
+  "hypertension": {
+   "label": "Har du känt högt blodtryck?",
+   "followup": "Sedan när, vilka läkemedel, och vilka värden brukar du mäta?"
+  },
+  "bp_dizziness": {
+   "label": "Får du yrsel, svaghetskänsla eller svartnar det för ögonen av dina blodtrycksläkemedel?"
+  },
+  "heart_other": {
+   "label": "Har du någon annan känd hjärt-/kärlsjukdom: klaffel, medfött hjärtfel, hjärtmuskelsjukdom (kardiomyopati), ärftlig rytmsjukdom (t.ex. Long-QT), aortaaneurysm eller förträngd halspulsåder?",
+   "followup": "Vilken diagnos, och hur kontrolleras/behandlas den?"
+  },
+  "family_sudden_death": {
+   "label": "Har det förekommit plötslig hjärtdöd i din närmaste familj (föräldrar, syskon, barn)?"
+  },
+  "stroke": {
+   "label": "Har du någon gång haft en stroke, en hjärnblödning eller en TIA (övergående cirkulationsstörning med kortvariga bortfall)?",
+   "followup": "När inträffade händelsen, och har en rehabilitering avslutats?"
+  },
+  "stroke_residuals": {
+   "label": "Finns det sedan dess kvarstående följder som förlamningar, talsvårigheter, minnesproblem eller inskränkningar i synfältet?",
+   "followup": "Vilka besvär finns kvar i dag?"
+  },
+  "head_injury": {
+   "label": "Har du någon gång haft en svår huvudskada (med medvetslöshet eller sjukhusvistelse) eller genomgått en hjärnoperation?",
+   "followup": "När, och vad behandlades?"
+  },
+  "head_injury_recent": {
+   "label": "Är denna skada eller operation mindre än 3 månader sedan?",
+   "hint": "Efter en hjärnskada eller en hjärnoperation föreligger enligt riktlinjen i regel ingen körlämplighet under 3 månader."
+  },
+  "brain_residuals": {
+   "label": "Finns det sedan skadan/operationen besvär som koncentrations- eller minnesstörningar, personlighetsförändring eller krampanfall?",
+   "followup": "Vilka besvär, och hur påverkar de dig?"
+  },
+  "parkinson": {
+   "label": "Har du fått diagnosen Parkinsons sjukdom eller någon annan rörelse- eller koordinationsstörning?",
+   "followup": "Sedan när, hur behandlas den, och när var den senaste neurologiska kontrollen?"
+  },
+  "ms_spinal": {
+   "label": "Har du känd multipel skleros, en ryggmärgssjukdom eller en ryggmärgsskada?",
+   "followup": "Vilken diagnos, och vilka besvär har du för närvarande?"
+  },
+  "muscle_nerve": {
+   "label": "Har du någon känd muskel- eller nervsjukdom (t.ex. muskelförtvining, myasteni, polyneuropati)?",
+   "followup": "Vilken diagnos, och hur begränsad är du?"
+  },
+  "paralysis_attacks": {
+   "label": "Får du anfallsvisa förlamningar eller plötslig kraftig muskelsvaghet?",
+   "followup": "När inträffade det senaste anfallet, och hur snabbt sätter det in?"
+  },
+  "motor_limits": {
+   "label": "Har du förlamningar, muskelsvaghet eller känselstörningar i armar eller ben som skulle kunna begränsa dig när du manövrerar ett fordon?",
+   "followup": "Vilka kroppsdelar är berörda?"
+  },
+  "vertigo": {
+   "label": "Lider du av yrsel eller balansstörningar (t.ex. karusellkänsla, gungande känsla, osäkerhet när du går)?",
+   "followup": "Hur känns yrseln, hur ofta uppträder den, hur länge varar ett anfall, och vad utlöser den?"
+  },
+  "vertigo_last": {
+   "label": "Hur länge sedan var ditt senaste yrselanfall?",
+   "options": {
+    "unter3m": "Mindre än 3 månader",
+    "3bis6m": "3 till 6 månader",
+    "6bis12m": "6 till 12 månader",
+    "1bis2j": "1 till 2 år",
+    "ueber2j": "Mer än 2 år"
+   }
+  },
+  "vertigo_prodromi": {
+   "label": "Förvarnas dina yrselanfall (t.ex. tryck i örat, öronsus, hörselnedsättning), så att du skulle hinna stanna i tid?",
+   "options": {
+    "immer": "Ja, alltid",
+    "manchmal": "Ibland",
+    "nie": "Nej, de kommer utan förvarning"
+   }
+  },
+  "vertigo_positional": {
+   "label": "Utlöses yrseln av vissa huvudrörelser eller lägesändringar (t.ex. att vända sig i sängen, att böja sig ner)?"
+  },
+  "vertigo_ear": {
+   "label": "Uppträder yrseln tillsammans med hörselnedsättning, öronsus (tinnitus) eller tryckkänsla i örat?"
+  },
+  "ear_disease": {
+   "label": "Har en sjukdom i balansorganet eller innerörat konstaterats hos dig (t.ex. lägesyrsel, Menières sjukdom)?",
+   "followup": "Vilken diagnos, hur behandlades den, och har du varit besvärsfri sedan dess?"
+  },
+  "mobility_limits": {
+   "label": "Har du en bestående inskränkning i rörligheten i armar, ben, händer eller ryggraden (t.ex. efter olycka, operation, amputation)?",
+   "followup": "Vilka kroppsdelar är berörda, och sedan när?"
+  },
+  "prosthesis": {
+   "label": "Använder du en protes eller ortopediska hjälpmedel?",
+   "followup": "Vilka hjälpmedel, och har du besvär vid längre belastning?"
+  },
+  "vehicle_modified": {
+   "label": "Är ditt fordon ombyggt på grund av en kroppslig begränsning (t.ex. handreglage, styrhjälp)?",
+   "followup": "Vilka ombyggnader, och är de införda i körkortet?"
+  },
+  "diabetes_type": {
+   "label": "Har du känd diabetes mellitus (sockersjuka)?",
+   "options": {
+    "none": "Nej",
+    "type1": "Ja, typ 1",
+    "type2": "Ja, typ 2",
+    "other": "Ja, annan/oklar form"
+   }
+  },
+  "diabetes_therapy": {
+   "label": "Hur behandlas din diabetes för närvarande?",
+   "options": {
+    "lifestyle": "Endast kost / livsstil",
+    "tabl_low": "Tabletter med låg risk för lågt blodsocker (t.ex. metformin)",
+    "tabl_high": "Tabletter med risk för lågt blodsocker (sulfonylurea, glinider)",
+    "insulin": "Insulin",
+    "unknown": "Jag vet inte säkert"
+   }
+  },
+  "hypoglycemia": {
+   "label": "Har du under de senaste 12 månaderna haft en svår händelse med lågt blodsocker där du behövde hjälp av någon annan?",
+   "followup": "Hur ofta, när var den senaste episoden, och inträffade den i vaket tillstånd eller under sömn?"
+  },
+  "hypo_awareness": {
+   "label": "Har det hänt att du inte själv märkte ett lågt blodsocker i tid (uteblivna varningstecken)?",
+   "followup": "När senast, och gjordes något åt det (t.ex. utbildning, ändrad behandling)?"
+  },
+  "glucose_monitoring": {
+   "label": "Mäter du regelbundet ditt blodsocker själv (eller bär du en glukossensor)?",
+   "options": {
+    "2x": "Ja, minst två gånger dagligen",
+    "seltener": "Ja, men mer sällan",
+    "nein": "Nej",
+    "keine_med": "Gäller inte mig (inga blodsockersänkande läkemedel)"
+   }
+  },
+  "diabetes_derailment": {
+   "label": "Har det under de senaste månaderna skett en ny inställning av behandlingen eller en urspårning av ämnesomsättningen (t.ex. sjukhusvård på grund av urspårade värden)?",
+   "followup": "Vad hände, och när?"
+  },
+  "kidney_disease": {
+   "label": "Har du känd kronisk njursjukdom eller njursvikt?",
+   "followup": "Vilken sjukdom, och går du på behandling hos njurläkare?"
+  },
+  "dialysis": {
+   "label": "Behandlas du regelbundet med dialys (blodrening)?",
+   "followup": "Sedan när och hur många gånger i veckan? Känner du dig pigg mellan behandlingarna?"
+  },
+  "transplant": {
+   "label": "Har du fått ett organ transplanterat (t.ex. njure, hjärta, lever, lunga)?",
+   "followup": "Vilket organ, när, och går du på regelbunden uppföljning?"
+  },
+  "lung_disease": {
+   "label": "Lider du av en kronisk lung- eller luftrörssjukdom (t.ex. KOL, astma, lungfibros)?",
+   "followup": "Vilken sjukdom, och hur behandlas den?"
+  },
+  "dyspnea": {
+   "label": "Har du andnöd redan vid lätt ansträngning eller i vila, eller behöver du syrgasbehandling under lång tid?"
+  },
+  "cough_syncope": {
+   "label": "Har du vid kraftiga hostattacker fått yrsel, svartnat för ögonen eller kortvarig medvetslöshet?"
+  },
+  "daytime_sleepiness": {
+   "label": "Har du svårt att hålla dig vaken och uppmärksam under dagen – särskilt i enformiga situationer (t.ex. läsning, möten, längre bilresor)?"
+  },
+  "microsleep": {
+   "label": "Har du under de senaste månaderna somnat ofrivilligt eller haft sekundsömn?",
+   "followup": "I vilka situationer? Har det också hänt bakom ratten?"
+  },
+  "snoring": {
+   "label": "Har någon berättat för dig att du snarkar högt och oregelbundet eller har andningsuppehåll på natten?"
+  },
+  "osas": {
+   "label": "Har sömnapnésyndrom (andningsuppehåll under natten) konstaterats hos dig?",
+   "followup": "När ställdes diagnosen, och vilken svårighetsgrad eller vilket AHI-värde konstaterades (om du känner till det)?"
+  },
+  "cpap": {
+   "label": "Behandlas du för sömnapnén (t.ex. med CPAP-andningsmask)?",
+   "options": {
+    "regelmaessig": "Ja, regelbundet (nästan varje natt)",
+    "unregelmaessig": "Ja, men oregelbundet",
+    "abgebrochen": "Behandlingen avbröts",
+    "keine": "Nej, ingen behandling"
+   }
+  },
+  "psychiatric": {
+   "label": "Har du fått diagnosen en psykisk sjukdom (t.ex. depression, ångestsyndrom, bipolär sjukdom)?",
+   "followup": "Vilken sjukdom, och hur behandlas den?"
+  },
+  "psychiatric_severe": {
+   "label": "Har du på grund av detta någon gång vårdats på sjukhus, haft en manisk period eller haft självmordstankar?",
+   "followup": "När var det senast?"
+  },
+  "psychosis": {
+   "label": "Har du någon gång fått diagnosen schizofreni eller någon annan psykos (sjukdom med vanföreställningar eller hallucinationer)?",
+   "followup": "Hur många akuta episoder har du haft, när var den senaste, och går du på behandling hos specialistläkare?"
+  },
+  "memory_problems": {
+   "label": "Har du själv eller dina anhöriga på sista tiden märkt tilltagande minnes- eller orienteringsproblem hos dig?",
+   "followup": "Sedan när, och hur påverkar de vardagen?"
+  },
+  "concentration": {
+   "label": "Har du koncentrations- eller uppmärksamhetsproblem?"
+  },
+  "alcohol": {
+   "label": "Hur ofta dricker du alkohol?",
+   "options": {
+    "nie": "Aldrig",
+    "selten": "Sällan (högst 1 gång per månad)",
+    "woechentlich": "1 till 2 gånger per vecka",
+    "mehrmals": "Flera gånger per vecka",
+    "taeglich": "Dagligen eller nästan dagligen"
+   }
+  },
+  "alcohol_control": {
+   "label": "Har det hänt att du druckit mer än du tänkt dig eller förlorat kontrollen över ditt drickande?"
+  },
+  "alcohol_traffic": {
+   "label": "Har du någon gång uppmärksammats i trafiken påverkad av alkohol (t.ex. rattfylleri, böter, MPU – medicinsk-psykologisk undersökning)?",
+   "followup": "När, och vilken promillehalt konstaterades (om du känner till den)?"
+  },
+  "alcohol_dependence": {
+   "label": "Har alkoholberoende någon gång konstaterats hos dig, eller har du genomgått en avgiftning eller en avvänjningsbehandling?",
+   "followup": "När avslutades behandlingen, och hur länge har du levt nykter?"
+  },
+  "drugs": {
+   "label": "Tar du för närvarande droger (t.ex. cannabis, kokain, amfetamin) eller har du tidigare använt droger regelbundet?",
+   "followup": "Vilka substanser, hur ofta, och när senast?"
+  },
+  "cannabis": {
+   "label": "Hur ofta använder du cannabis?",
+   "options": {
+    "nie": "Aldrig",
+    "gelegentlich": "Ibland (inte regelbundet)",
+    "regelmaessig": "Regelbundet (dagligen eller vanemässigt)"
+   }
+  },
+  "substitution": {
+   "label": "Får du en substitutionsbehandling (t.ex. metadon)?",
+   "followup": "Sedan när?"
+  },
+  "regular_meds": {
+   "label": "Tar du läkemedel regelbundet?",
+   "followup": "Vilka läkemedel, och mot vad?"
+  },
+  "sedating_meds": {
+   "label": "Finns det bland dem läkemedel som kan göra dig trött eller påverka din reaktionsförmåga (t.ex. starka smärtstillande/opioider, sömn- eller lugnande medel, antidepressiva, antiepileptika, allergimedicin)?",
+   "followup": "Vilka läkemedel, i vilken dosering?"
+  },
+  "med_side_effects": {
+   "label": "Märker du biverkningar av dina läkemedel såsom trötthet, tröghet, koncentrationssvårigheter eller yrsel?",
+   "followup": "Vilka biverkningar, och hur kraftiga?"
+  },
+  "med_recent_change": {
+   "label": "Har ett sådant läkemedel satts in eller dosen ändrats tydligt under de senaste veckorna?",
+   "followup": "Vilket läkemedel, och när?"
+  },
+  "benzo_regular": {
+   "label": "Tar du sedan flera månader regelbundet sömn- eller lugnande medel (t.ex. bensodiazepiner) – även om det bara är en liten mängd på kvällen?",
+   "followup": "Vilket medel, hur länge redan, och märker du abstinensbesvär när du slutar?"
+  },
+  "multiple_conditions": {
+   "label": "Har du flera sjukdomar eller hälsomässiga begränsningar samtidigt?",
+   "hint": "Flera avvikelser kan sammantaget ha betydelse för körlämpligheten, även om var och en för sig skulle vara harmlös (riktlinjerna kap. 2.7).",
+   "followup": "Räkna kort upp alla kända sjukdomar."
+  },
+  "other_conditions": {
+   "label": "Finns det ytterligare sjukdomar, besvär eller tidigare operationer som inte har nämnts hittills?",
+   "followup": "Vilka?"
+  },
+  "driving_adaptation": {
+   "label": "Avstår du medvetet från vissa körningar på grund av hälsomässiga begränsningar (t.ex. i mörker, långa sträckor, motorväg)?",
+   "followup": "Vilka körningar, och varför?"
+  },
+  "consent_truth": {
+   "label": "Jag intygar att mina uppgifter är fullständiga och sanningsenliga.",
+   "error": "Var vänlig bekräfta att dina uppgifter är fullständiga."
+  },
+  "consent_privacy": {
+   "label": "Jag har läst informationen om dataskydd och samtycker till att mina uppgifter behandlas för trafikmedicinska ändamål.",
+   "error": "Var vänlig acceptera informationen om dataskydd."
+  }
+ },
+ "ess_items": {
+  "ess_1": "När du sitter och läser",
+  "ess_2": "När du tittar på TV",
+  "ess_3": "När du sitter passivt på en offentlig plats (t.ex. på teatern eller på ett möte)",
+  "ess_4": "Som passagerare i en bil under en timmes körning utan paus",
+  "ess_5": "När du har lagt dig för att vila på eftermiddagen",
+  "ess_6": "När du sitter och samtalar med någon",
+  "ess_7": "När du sitter stilla efter lunchen (utan alkohol)",
+  "ess_8": "När du som bilförare måste stanna några minuter på grund av trafiken"
+ }
+}

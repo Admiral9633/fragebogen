@@ -13,8 +13,26 @@ export async function GET(
   const appUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
   const printUrl = `${appUrl}/print/${token}`;
 
+  // Session erst validieren, bevor eine Chromium-Instanz gestartet wird
+  const backendUrl = process.env.BACKEND_URL || "http://localhost:8000";
+  try {
+    const check = await fetch(`${backendUrl}/api/answers/${token}/`, {
+      cache: "no-store",
+    });
+    if (!check.ok) {
+      return NextResponse.json(
+        { error: "Fragebogen nicht gefunden oder noch nicht abgeschlossen" },
+        { status: check.status === 400 ? 409 : 404 }
+      );
+    }
+  } catch {
+    return NextResponse.json(
+      { error: "Backend nicht erreichbar" },
+      { status: 502 }
+    );
+  }
+
   // webpackIgnore verhindert dass webpack diesen Import analysiert/bundelt
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const puppeteer = (await import(/* webpackIgnore: true */ "puppeteer-core")).default;
 
   let browser;
@@ -39,21 +57,36 @@ export async function GET(
     const page = await browser.newPage();
     await page.setViewport({ width: 794, height: 1123 }); // A4 @ 96dpi
 
-    await page.goto(printUrl, {
+    const gotoResponse = await page.goto(printUrl, {
       waitUntil: "networkidle0",
       timeout: 30000,
     });
+    if (!gotoResponse || gotoResponse.status() !== 200) {
+      return NextResponse.json(
+        { error: "Fragebogen nicht gefunden" },
+        { status: 404 }
+      );
+    }
 
     // Wait for fonts
     await page.evaluate(() => document.fonts.ready);
 
+    const generatedAt = new Date().toLocaleDateString("de-DE");
     const pdf = await page.pdf({
       format: "A4",
       printBackground: true,
+      displayHeaderFooter: true,
+      headerTemplate: "<span></span>",
+      footerTemplate: `
+        <div style="width:100%;font-size:6.5px;color:#667;padding:0 12mm;
+                    display:flex;justify-content:space-between;font-family:Helvetica,Arial,sans-serif;">
+          <span>Verkehrsmedizinischer Fragebogen · erstellt am ${generatedAt}</span>
+          <span>${token.slice(0, 8)} · Seite <span class="pageNumber"></span> von <span class="totalPages"></span></span>
+        </div>`,
       margin: {
-        top: "13mm",
+        top: "10mm",
         right: "12mm",
-        bottom: "11mm",
+        bottom: "14mm",
         left: "12mm",
       },
     });
