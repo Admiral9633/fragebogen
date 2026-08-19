@@ -102,6 +102,20 @@ CATALOG = {
                     followup=_follow("psych_test_desc", "Wann und wo wurde der Test durchgeführt?", "text")),
             ],
         },
+        # ── 1b ────────────────────────────────────────────────────────────
+        {
+            "id": "gesundheit",
+            "title": "Gesundheitszustand",
+            "subtitle": "Eine Frage vorab",
+            "questions": [
+                _yn("has_conditions",
+                    "Haben Sie eine bekannte Vorerkrankung, eine dauerhafte körperliche "
+                    "Einschränkung, oder sind Sie in regelmäßiger ärztlicher Behandlung?",
+                    hint="Dazu zählen auch länger zurückliegende ernsthafte Erkrankungen "
+                         "(z.B. Herz, Diabetes, Nerven, Psyche). Wenn nein, verkürzt sich "
+                         "der Fragebogen deutlich."),
+            ],
+        },
         # ── 2 ─────────────────────────────────────────────────────────────
         {
             "id": "anfaelle",
@@ -586,6 +600,7 @@ CATALOG = {
             ],
         },
         # ── 14 ────────────────────────────────────────────────────────────
+        # (Fortsetzung unten; Gateway-Logik siehe GATEWAY_SKIP am Dateiende)
         {
             "id": "allgemein",
             "title": "Allgemeines & Einwilligung",
@@ -626,3 +641,32 @@ CATALOG = {
         },
     ],
 }
+
+
+# ── Gateway-Logik ─────────────────────────────────────────────────────────────
+# Verneint der Patient die Eingangsfrage has_conditions (keine Vorerkrankung,
+# keine dauerhafte Einschränkung, keine laufende Behandlung), werden die
+# DIAGNOSE-orientierten Einstiegsfragen übersprungen. Symptom-, Ereignis- und
+# Verhaltens-Screening (Anfälle, Synkopen, Schlaganfall, Tagesschläfrigkeit/ESS,
+# Schwindel, Sehsymptome, Belastungsbeschwerden, Alkohol/Drogen/Medikamente)
+# bleibt bewusst für ALLE Patienten aktiv — "keine Vorerkrankung" schließt
+# unerkannte Symptome nicht aus (BASt-Anamnese Stufe 1).
+GATEWAY_SKIP = {
+    "eye_disease",
+    "heart_disease", "heart_attack", "arrhythmia", "pacemaker_icd",
+    "hypertension", "heart_other",
+    "parkinson", "ms_spinal", "muscle_nerve",
+    "ear_disease",
+    "mobility_limits", "prosthesis", "vehicle_modified",
+    "diabetes_type",
+    "kidney_disease", "transplant", "lung_disease",
+    "osas",
+    "psychiatric", "psychosis",
+    "multiple_conditions",
+}
+
+for _section in CATALOG["sections"]:
+    for _question in _section["questions"]:
+        if _question["id"] in GATEWAY_SKIP:
+            assert "show_if" not in _question, _question["id"]
+            _question["show_if"] = {"id": "has_conditions", "in": ["yes"]}

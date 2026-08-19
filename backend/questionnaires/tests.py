@@ -231,6 +231,26 @@ class KatalogV2Tests(TestCase):
         self.assertEqual(res.status_code, 400)
         self.assertIn('psych_test_done', res.json())
 
+    def test_gateway_nein_ueberspringt_diagnoseblöcke(self):
+        answers = build_valid_answers(CATALOG)
+        self.assertEqual(answers.get('has_conditions'), 'no')
+        # Diagnose-Einstiegsfragen sind unsichtbar und werden nicht verlangt
+        for qid in ('diabetes_type', 'heart_disease', 'psychiatric', 'kidney_disease'):
+            self.assertNotIn(qid, answers)
+        res = self.submit(answers)
+        self.assertEqual(res.status_code, 201, res.json())
+        # Symptom-Screening bleibt Pflicht
+        self.assertIn('microsleep', answers)
+        self.assertIn('syncope', answers)
+
+    def test_gateway_ja_verlangt_diagnoseblöcke(self):
+        answers = build_valid_answers(CATALOG, overrides={'has_conditions': 'yes'})
+        self.assertIn('diabetes_type', answers)
+        del answers['heart_disease']
+        res = self.submit(answers)
+        self.assertEqual(res.status_code, 400)
+        self.assertIn('heart_disease', res.json())
+
     def test_ess_wertebereich_wird_geprueft(self):
         answers = build_valid_answers(CATALOG)
         answers['ess_3'] = 7

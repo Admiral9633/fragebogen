@@ -466,6 +466,13 @@ def evaluate_answers(answers):  # noqa: C901 - bewusst ein flaches Regelwerk
             "(Cor pulmonale, vgl. 3.4.5) klären."))
 
     # ── Allgemeines ──────────────────────────────────────────────────────────
+    if a.get("has_conditions") == "no":
+        out.append(_f("hinweis", "Anamnese", "2.5",
+            "Patient verneint Vorerkrankungen, dauerhafte Einschränkungen und "
+            "laufende ärztliche Behandlung",
+            "Verkürzter Fragensatz: Diagnose-Blöcke wurden übersprungen; Symptom- "
+            "und Ereignis-Screening (Anfälle, Synkopen, Tagesschläfrigkeit, "
+            "Substanzen) wurde vollständig erhoben."))
     if yes("license_withdrawn"):
         out.append(_f("pruefen", "Verkehrsvorgeschichte", "3.13/3.17",
             "Früherer Fahrerlaubnisentzug bzw. MPU",

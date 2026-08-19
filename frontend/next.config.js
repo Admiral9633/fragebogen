@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+// Hinweis: Änderungen an dieser Datei starten den Dev-Server automatisch neu.
 const nextConfig = {
   trailingSlash: false,
   serverExternalPackages: ['puppeteer-core'],
@@ -16,6 +17,7 @@ const nextConfig = {
       // Hinweis: /api/answers/:token wird bewusst NICHT öffentlich durchgereicht —
       // die Print-Page holt die Daten serverseitig direkt vom Backend.
       // i18n (Sprachdateien für den Patienten-Fragebogen)
+      { source: '/api/i18n', destination: `${backendUrl}/api/i18n/` },
       { source: '/api/i18n/:lang', destination: `${backendUrl}/api/i18n/:lang/` },
       { source: '/api/i18n/:lang/', destination: `${backendUrl}/api/i18n/:lang/` },
       // admin

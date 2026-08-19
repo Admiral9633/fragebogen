@@ -48,6 +48,21 @@ export default function QuestionnairePage() {
   const [country, setCountry] = useState("de");
   const [lang, setLang] = useState("de");
   const [translation, setTranslation] = useState<Translation | null>(null);
+  const [availableLangs, setAvailableLangs] = useState<Set<string> | undefined>();
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await fetch("/api/i18n");
+        if (res.ok) {
+          const d = await res.json();
+          if (Array.isArray(d.languages)) setAvailableLangs(new Set(d.languages));
+        }
+      } catch {
+        // ohne Liste bleiben alle Länder wählbar (Fallback: Deutsch)
+      }
+    })();
+  }, []);
 
   useEffect(() => {
     const saved = localStorage.getItem("fragebogen_country");
@@ -77,6 +92,13 @@ export default function QuestionnairePage() {
 
   const ui = uiStrings(translation);
   const dir = RTL_LANGUAGES.has(lang) ? "rtl" : "ltr";
+
+  const schema = sessionData?.template;
+  const hasV2Schema = isV2Schema(schema);
+  const translatedSchema = useMemo(
+    () => (hasV2Schema ? translateSchema(schema, translation) : schema),
+    [schema, hasV2Schema, translation]
+  );
 
   useEffect(() => {
     if (!token) return;
@@ -199,13 +221,6 @@ export default function QuestionnairePage() {
     );
   }
 
-  const schema = sessionData?.template;
-  const hasV2Schema = isV2Schema(schema);
-  const translatedSchema = useMemo(
-    () => (hasV2Schema ? translateSchema(schema, translation) : schema),
-    [schema, hasV2Schema, translation]
-  );
-
   // ── Form ───────────────────────────────────────────────────────────────────
   return (
     <main className="min-h-screen bg-background">
@@ -227,6 +242,7 @@ export default function QuestionnairePage() {
             value={country}
             onSelect={handleCountryChange}
             label={ui.language_label}
+            available={availableLangs}
           />
           <ModeToggle />
         </div>

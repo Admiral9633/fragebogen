@@ -53,6 +53,10 @@
    "title": "Anlass & Fahrprofil",
    "subtitle": "Angaben zur Untersuchung und Ihrer Fahrtätigkeit"
   },
+  "gesundheit": {
+   "title": "Gesundheitszustand",
+   "subtitle": "Eine Frage vorab"
+  },
   "anfaelle": {
    "title": "Anfälle & Bewusstlosigkeit",
    "subtitle": "Plötzliches Ausfallrisiko – epileptische Anfälle und Ohnmachten"
@@ -175,6 +179,10 @@
    "label": "Haben Sie für diese Fahrerlaubnis bereits einen psychologischen Leistungstest (Reaktions-, Konzentrations- und Aufmerksamkeitstest) absolviert?",
    "hint": "Bei Bus-Klassen und Fahrgastbeförderung ist dieser Nachweis nach Anlage 5 FeV vorgeschrieben. Bitte bringen Sie ein vorhandenes Gutachten zur Untersuchung mit.",
    "followup": "Wann und wo wurde der Test durchgeführt?"
+  },
+  "has_conditions": {
+   "label": "Haben Sie eine bekannte Vorerkrankung, eine dauerhafte körperliche Einschränkung, oder sind Sie in regelmäßiger ärztlicher Behandlung?",
+   "hint": "Dazu zählen auch länger zurückliegende ernsthafte Erkrankungen (z.B. Herz, Diabetes, Nerven, Psyche). Wenn nein, verkürzt sich der Fragebogen deutlich."
   },
   "seizure_ever": {
    "label": "Hatten Sie jemals einen epileptischen Anfall oder Krampfanfall?",

@@ -49,11 +49,17 @@ interface LanguageSelectProps {
   onSelect: (countryCode: string, lang: string) => void;
   /** Übersetztes Label für aria/Trigger ("Sprache") */
   label: string;
+  /**
+   * Verfügbare Sprachcodes (aus /api/i18n/). Länder ohne Sprachdatei werden
+   * deaktiviert statt still auf Deutsch zurückzufallen. undefined = alle aktiv.
+   */
+  available?: Set<string>;
 }
 
-export function LanguageSelect({ value, onSelect, label }: LanguageSelectProps) {
+export function LanguageSelect({ value, onSelect, label, available }: LanguageSelectProps) {
   const [open, setOpen] = React.useState(false);
   const selected: Country | undefined = COUNTRIES.find((c) => c.code === value);
+  const isAvailable = (c: Country) => !available || available.has(c.lang);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -87,6 +93,7 @@ export function LanguageSelect({ value, onSelect, label }: LanguageSelectProps) 
                   key={country.code}
                   value={country.name}
                   keywords={[country.nameDe, country.code]}
+                  disabled={!isAvailable(country)}
                   onSelect={() => {
                     onSelect(country.code, country.lang);
                     setOpen(false);
