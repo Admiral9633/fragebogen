@@ -18,6 +18,10 @@ an die Praxis-EDV (SAMAS).
 
 ### Frontend
 - Next.js 16 (App Router) + React 19
+- **43 Sprachen**: Länder-Combobox mit SVG-Flaggen (lokal gebündelt, inkl. Kosovo);
+  Katalog bleibt deutsch-kanonisch, Sprachdateien übersetzen nur die Patienten-Anzeige,
+  PDF/Auswertung bleiben deutsch; RTL für Arabisch/Urdu; Gateway-Frage verkürzt den
+  Fragebogen bei Gesunden von 67 auf 45 Fragen
 - Tailwind CSS v4 + shadcn/ui (new-york, OKLCH-Theme, Field-Familie)
 - react-hook-form (dokumentiertes shadcn-Formular-Muster), sonner-Toasts
 - Dark Mode nach shadcn (next-themes): Hell · Dunkel · E-Ink (Praxis-Tablet) · System
@@ -52,7 +56,16 @@ Steuerfrage für Gruppe 2 (LKW/Bus/Fahrgastbeförderung).
 ```bash
 # Katalog als aktives Template laden (läuft in Docker automatisch beim Start)
 python manage.py load_catalog
+
+# i18n: Master aus dem Katalog erzeugen bzw. Sprachdateien prüfen
+python manage.py build_i18n_master
+python manage.py check_i18n
 ```
+
+**Mehrsprachigkeit:** `questionnaires/i18n/<code>.json` (42 Sprachen, maschinell
+übersetzt und als solche markiert — fachliche Prüfpunkte in
+`docs/UEBERSETZUNGS-HINWEISE.md`). Antworten sind sprachunabhängige Werte;
+der Sprachwechsel im Formular erhält bereits gegebene Antworten.
 
 Änderungen am Katalog werden mit dem nächsten `load_catalog` wirksam; das Frontend
 rendert das Formular vollständig aus dem Template-Schema der Session-API, die
