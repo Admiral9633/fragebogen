@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { toast } from "sonner";
+import { cn } from "@/lib/utils";
 import {
   Link2, Mail, Pencil, Trash2, RefreshCw,
   FileText, Plus, CheckCircle2, Clock, Loader2,
@@ -29,8 +30,10 @@ import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { DatePicker } from "@/components/ui/date-picker";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SiteHeader } from "@/components/site-header";
+import { SessionDetailSheet } from "@/components/admin/session-detail-sheet";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -46,9 +49,16 @@ interface Session {
   completed_at: string | null;
   created_at: string;
   expires_at: string;
+  expired: boolean;
   invitation_sent_at: string | null;
   gdt_patient_id: string;
+  gdt_result_delivered_at: string | null;
+  ess_total: number | null;
+  ess_band: string | null;
+  auswertung: { kritisch: number; pruefen: number; hinweis: number } | null;
 }
+
+type StatusFilter = "alle" | "offen" | "fertig" | "auffaellig";
 
 // ─── Login ────────────────────────────────────────────────────────────────────
 
@@ -210,6 +220,29 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
   const [creating, setCreating] = useState(false);
 
   const [editSession, setEditSession] = useState<Session | null>(null);
+  const [detailToken, setDetailToken] = useState<string | null>(null);
+  const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState<StatusFilter>("alle");
+
+  const filteredSessions = sessions.filter((s) => {
+    if (statusFilter === "offen" && s.completed) return false;
+    if (statusFilter === "fertig" && !s.completed) return false;
+    if (
+      statusFilter === "auffaellig" &&
+      !(s.auswertung && (s.auswertung.kritisch > 0 || s.auswertung.pruefen > 0))
+    )
+      return false;
+    if (search.trim()) {
+      const q = search.trim().toLowerCase();
+      const hay = `${s.patient_last_name} ${s.patient_first_name} ${s.patient_email} ${s.gdt_patient_id}`.toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  const auffaelligCount = sessions.filter(
+    (s) => s.auswertung && (s.auswertung.kritisch > 0 || s.auswertung.pruefen > 0)
+  ).length;
   const [deleteSession, setDeleteSession] = useState<Session | null>(null);
 
   const headers = {
@@ -321,7 +354,7 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
         <TooltipProvider delayDuration={300}>
           <div className="flex flex-1 flex-col gap-6 p-4 md:p-6">
           {/* Übersicht */}
-          <div id="overview" className="grid grid-cols-2 sm:grid-cols-3 gap-4 scroll-mt-16">
+          <div id="overview" className="grid grid-cols-2 sm:grid-cols-4 gap-4 scroll-mt-16">
             <Card>
               <CardContent className="pt-6">
                 <p className="text-2xl font-bold">{sessions.length}</p>
@@ -330,14 +363,25 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
             </Card>
             <Card>
               <CardContent className="pt-6">
-                <p className="text-2xl font-bold text-green-600">{sessions.filter(s => s.completed).length}</p>
+                <p className="text-2xl font-bold text-success">{sessions.filter(s => s.completed).length}</p>
                 <p className="text-sm text-muted-foreground">Abgeschlossen</p>
               </CardContent>
             </Card>
-            <Card className="col-span-2 sm:col-span-1">
+            <Card>
               <CardContent className="pt-6">
-                <p className="text-2xl font-bold text-amber-500">{sessions.filter(s => !s.completed).length}</p>
+                <p className="text-2xl font-bold text-warning">{sessions.filter(s => !s.completed).length}</p>
                 <p className="text-sm text-muted-foreground">Offen</p>
+              </CardContent>
+            </Card>
+            <Card
+              className={cn("cursor-pointer transition-colors hover:bg-muted/40", auffaelligCount > 0 && "border-destructive/40")}
+              onClick={() => setStatusFilter("auffaellig")}
+            >
+              <CardContent className="pt-6">
+                <p className={cn("text-2xl font-bold", auffaelligCount > 0 ? "text-destructive" : "text-muted-foreground")}>
+                  {auffaelligCount}
+                </p>
+                <p className="text-sm text-muted-foreground">Auffällig</p>
               </CardContent>
             </Card>
           </div>
@@ -390,12 +434,41 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
                 <CardTitle className="text-base">
                   Alle Sessions
                   {sessions.length > 0 && (
-                    <Badge variant="secondary" className="ml-2 font-normal">{sessions.length}</Badge>
+                    <Badge variant="secondary" className="ml-2 font-normal">
+                      {filteredSessions.length}/{sessions.length}
+                    </Badge>
                   )}
                 </CardTitle>
                 <Button variant="ghost" size="icon" onClick={loadSessions}>
                   <RefreshCw className="size-4" />
                 </Button>
+              </div>
+              <div className="flex flex-wrap items-center gap-2 pt-2">
+                <Input
+                  placeholder="Suchen (Name, E-Mail, GDT-ID)…"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  className="h-8 max-w-56"
+                />
+                <ToggleGroup
+                  type="single"
+                  variant="outline"
+                  size="sm"
+                  value={statusFilter}
+                  onValueChange={(v) => v && setStatusFilter(v as StatusFilter)}
+                >
+                  <ToggleGroupItem value="alle">Alle</ToggleGroupItem>
+                  <ToggleGroupItem value="offen">Offen</ToggleGroupItem>
+                  <ToggleGroupItem value="fertig">Abgeschlossen</ToggleGroupItem>
+                  <ToggleGroupItem value="auffaellig" className="gap-1">
+                    Auffällig
+                    {auffaelligCount > 0 && (
+                      <Badge variant="destructive" className="h-4 min-w-4 px-1 text-[10px]">
+                        {auffaelligCount}
+                      </Badge>
+                    )}
+                  </ToggleGroupItem>
+                </ToggleGroup>
               </div>
             </CardHeader>
             <Separator />
@@ -405,47 +478,87 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
                 <div className="space-y-2 p-4">
                   {[...Array(3)].map((_, i) => <Skeleton key={i} className="h-10 w-full" />)}
                 </div>
-              ) : sessions.length === 0 ? (
-                <p className="text-sm text-muted-foreground p-4 text-center">Keine Sessions vorhanden.</p>
+              ) : filteredSessions.length === 0 ? (
+                <p className="text-sm text-muted-foreground p-4 text-center">
+                  {sessions.length === 0 ? "Keine Sessions vorhanden." : "Kein Treffer für den Filter."}
+                </p>
               ) : (
                 <Table>
                   <TableHeader>
                     <TableRow>
                       <TableHead>Patient</TableHead>
-                      <TableHead>GDT</TableHead>
-                      <TableHead>E-Mail</TableHead>
-                      <TableHead>Geburtsdatum</TableHead>
+                      <TableHead>Auswertung</TableHead>
+                      <TableHead>SAMAS</TableHead>
                       <TableHead>Status</TableHead>
                       <TableHead>Erstellt</TableHead>
                       <TableHead className="text-right">Aktionen</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {sessions.map((s) => (
-                      <TableRow key={s.token}>
-                        <TableCell className="font-medium">
-                          {s.patient_last_name || "—"}
-                          {s.patient_first_name ? `, ${s.patient_first_name}` : ""}
+                    {filteredSessions.map((s) => (
+                      <TableRow
+                        key={s.token}
+                        className="cursor-pointer"
+                        onClick={() => setDetailToken(s.token)}
+                      >
+                        <TableCell>
+                          <span className="font-medium">
+                            {s.patient_last_name || "—"}
+                            {s.patient_first_name ? `, ${s.patient_first_name}` : ""}
+                          </span>
+                          <span className="block text-xs text-muted-foreground">
+                            {[s.patient_birth_date, s.patient_email].filter(Boolean).join(" · ") || "—"}
+                          </span>
+                        </TableCell>
+
+                        <TableCell>
+                          {s.auswertung ? (
+                            s.auswertung.kritisch > 0 || s.auswertung.pruefen > 0 ? (
+                              <span className="flex flex-wrap gap-1">
+                                {s.auswertung.kritisch > 0 && (
+                                  <Badge variant="destructive">{s.auswertung.kritisch} kritisch</Badge>
+                                )}
+                                {s.auswertung.pruefen > 0 && (
+                                  <Badge variant="warning">{s.auswertung.pruefen} prüfen</Badge>
+                                )}
+                              </span>
+                            ) : (
+                              <Badge variant="success">unauffällig</Badge>
+                            )
+                          ) : (
+                            <span className="text-xs text-muted-foreground">—</span>
+                          )}
+                          {s.ess_total !== null && (
+                            <span className="block pt-0.5 text-[11px] text-muted-foreground">
+                              ESS {s.ess_total}/24
+                            </span>
+                          )}
                         </TableCell>
 
                         <TableCell>
                           {s.gdt_patient_id ? (
                             <Tooltip>
                               <TooltipTrigger asChild>
-                                <Badge variant="secondary" className="cursor-default font-mono text-[10px]">
-                                  GDT
+                                <Badge
+                                  variant={s.gdt_result_delivered_at ? "success" : "secondary"}
+                                  className="cursor-default font-mono text-[10px]"
+                                >
+                                  {s.gdt_result_delivered_at ? "GDT ✓" : "GDT"}
                                 </Badge>
                               </TooltipTrigger>
-                              <TooltipContent>GDT-ID: {s.gdt_patient_id}</TooltipContent>
+                              <TooltipContent>
+                                GDT-ID {s.gdt_patient_id}
+                                {s.gdt_result_delivered_at
+                                  ? ` · Ergebnis an SAMAS übermittelt ${s.gdt_result_delivered_at}`
+                                  : s.completed
+                                    ? " · Ergebnis wartet auf Abholung durch die Bridge"
+                                    : " · Link-GDT geschrieben, SAMAS arbeitet normal weiter"}
+                              </TooltipContent>
                             </Tooltip>
                           ) : (
                             <span className="text-muted-foreground">—</span>
                           )}
                         </TableCell>
-
-                        <TableCell className="text-muted-foreground text-xs">{s.patient_email || "—"}</TableCell>
-
-                        <TableCell className="text-muted-foreground text-xs">{s.patient_birth_date || "—"}</TableCell>
 
                         <TableCell>
                           {s.completed ? (
@@ -453,6 +566,8 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
                               <CheckCircle2 className="size-3" />
                               {s.completed_at ?? "Ausgefüllt"}
                             </Badge>
+                          ) : s.expired ? (
+                            <Badge variant="destructive">Abgelaufen</Badge>
                           ) : (
                             <Badge variant="warning" className="gap-1">
                               <Clock className="size-3" />
@@ -463,7 +578,7 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
 
                         <TableCell className="text-muted-foreground text-xs whitespace-nowrap">{s.created_at}</TableCell>
 
-                        <TableCell>
+                        <TableCell onClick={(e) => e.stopPropagation()}>
                           <div className="flex items-center justify-end gap-1">
                             <Tooltip>
                               <TooltipTrigger asChild>
@@ -539,6 +654,14 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
             onClose={() => setEditSession(null)}
             onSaved={loadSessions}
             headers={headers}
+          />
+
+          <SessionDetailSheet
+            token={detailToken}
+            headers={headers}
+            onClose={() => setDetailToken(null)}
+            onResend={handleResend}
+            onCopyLink={copyLink}
           />
 
           <AlertDialog open={!!deleteSession} onOpenChange={(open) => !open && setDeleteSession(null)}>
