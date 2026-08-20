@@ -333,6 +333,75 @@ class AuswertungTests(TestCase):
         self.assertGreaterEqual(res.json()['auswertung_kritisch'], 1)
 
 
+class AdminCockpitTests(TestCase):
+    """Admin-Liste mit Auswertung, Detail-Endpunkt, GDT-Übermittlungsstatus."""
+
+    def setUp(self):
+        call_command('load_catalog', verbosity=0)
+        self.template = QuestionnaireTemplate.objects.get(slug='verkehrsmedizin-leitlinien')
+        self.auth = {'HTTP_AUTHORIZATION': 'Bearer cockpit-key'}
+        self.env = mock.patch.dict(os.environ, {'ADMIN_API_KEY': 'cockpit-key'})
+        self.env.start()
+        self.addCleanup(self.env.stop)
+
+    def _completed(self, **overrides):
+        session = QuestionnaireSession.objects.create(
+            template=self.template,
+            patient_last_name='Mustermann', patient_first_name='Max',
+            gdt_patient_id=overrides.pop('gdt_patient_id', ''),
+            expires_at=timezone.now() + timedelta(days=14),
+        )
+        answers = build_valid_answers(CATALOG, overrides=overrides)
+        res = self.client.post(
+            f'/api/submit/{session.token}/', answers, content_type='application/json'
+        )
+        assert res.status_code == 201, res.json()
+        return session
+
+    def test_liste_enthaelt_auswertung_und_ess(self):
+        self._completed(microsleep='yes')
+        res = self.client.get('/api/admin/sessions/', **self.auth)
+        self.assertEqual(res.status_code, 200)
+        row = res.json()[0]
+        self.assertEqual(row['ess_total'], 8)
+        self.assertGreaterEqual(row['auswertung']['kritisch'], 1)
+        self.assertIn('expired', row)
+
+    def test_detail_liefert_findings_mit_konsequenzen(self):
+        session = self._completed(microsleep='yes')
+        res = self.client.get(f'/api/admin/sessions/{session.token}/detail/', **self.auth)
+        self.assertEqual(res.status_code, 200)
+        d = res.json()
+        self.assertIsNotNone(d['answers'])
+        self.assertIn('sections', d['schema'])
+        findings = d['evaluation']['findings']
+        self.assertTrue(any(f['schwere'] == 'kritisch' for f in findings))
+        self.assertTrue(all('konsequenz' in f and 'kapitel' in f for f in findings))
+
+    def test_detail_funktioniert_auch_nach_ablauf(self):
+        session = self._completed()
+        session.expires_at = timezone.now() - timedelta(days=1)
+        session.save()
+        res = self.client.get(f'/api/admin/sessions/{session.token}/detail/', **self.auth)
+        self.assertEqual(res.status_code, 200)
+        self.assertTrue(res.json()['expired'])
+
+    def test_detail_ohne_key_403(self):
+        session = self._completed()
+        res = self.client.get(f'/api/admin/sessions/{session.token}/detail/')
+        self.assertEqual(res.status_code, 403)
+
+    def test_gdt_abruf_setzt_uebermittelt_zeitstempel(self):
+        session = self._completed(gdt_patient_id='4711')
+        self.assertIsNone(session.gdt_result_delivered_at)
+        res = self.client.get(f'/api/gdt/result/{session.token}/', **self.auth)
+        self.assertEqual(res.status_code, 200)
+        session.refresh_from_db()
+        self.assertIsNotNone(session.gdt_result_delivered_at)
+        liste = self.client.get('/api/admin/sessions/', **self.auth).json()
+        self.assertIsNotNone(liste[0]['gdt_result_delivered_at'])
+
+
 class TranslationTests(TestCase):
     def test_sprachliste_enthaelt_deutsch(self):
         res = self.client.get('/api/i18n/')

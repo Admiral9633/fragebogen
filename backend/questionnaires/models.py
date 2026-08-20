@@ -71,6 +71,12 @@ class QuestionnaireSession(models.Model):
         blank=True,
         help_text="GDT Feld 8315 – Anforderungskennung für Rückantwort"
     )
+    gdt_result_delivered_at = models.DateTimeField(
+        null=True,
+        blank=True,
+        help_text="Zeitpunkt, zu dem die GDT-Bridge das Ergebnis abgeholt hat "
+                  "(Ergebnis-GDT für SAMAS geschrieben)"
+    )
     
     class Meta:
         ordering = ['-created_at']
