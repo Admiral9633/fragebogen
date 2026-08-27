@@ -18,8 +18,12 @@ api_url = https://dein-server.de/api
 # Admin API Key (ADMIN_API_KEY in der .env des Servers)
 api_key = DEIN-GEHEIMER-API-KEY
 
-# Welcher Fragebogen-Template soll verwendet werden?
-# Leer lassen = neuester aktiver Template wird automatisch gewählt
+# Welche Untersuchungsart (Fragebogen-Template) soll verwendet werden?
+# Leer lassen = Verkehrsmedizin ("verkehrsmedizin-leitlinien").
+# Weitere Kataloge (Auswahl): laerm-2024, g20-laerm-2016, haut-2024,
+# atemschutz-2024, hitze-2024, kaelte-2024, ausland-2024, bildschirm-2024,
+# absturz-2024, infektion-2024, muskel_skelett-2024 … (vollständige Liste:
+# GET /api/admin/templates/)
 template_slug =
 
 # ── GDT-Encoding ────────────────────────────────────────────────────────────

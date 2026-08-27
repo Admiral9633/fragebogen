@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { CheckCircle2, AlertCircle, Download, Car } from "lucide-react";
+import { CheckCircle2, AlertCircle, Download, Car, Stethoscope } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { AnamneseForm } from "@/components/anamnese-form";
 import { LanguageSelect } from "@/components/language-select";
@@ -100,6 +100,17 @@ export default function QuestionnairePage() {
     [schema, hasV2Schema, translation]
   );
 
+  // DGUV-Kataloge tragen ihren eigenen (deutschen) Titel; nur die Verkehrs-
+  // medizin nutzt den übersetzten i18n-Titel
+  const schemaTitle: string | undefined = hasV2Schema ? schema?.title : undefined;
+  const istVerkehrsmedizin =
+    !schemaTitle || schemaTitle.toLowerCase().includes("verkehrsmedizin");
+  const headerTitle = istVerkehrsmedizin ? ui.header_title : schemaTitle;
+
+  useEffect(() => {
+    if (!istVerkehrsmedizin && schemaTitle) document.title = schemaTitle;
+  }, [istVerkehrsmedizin, schemaTitle]);
+
   useEffect(() => {
     if (!token) return;
     (async () => {
@@ -192,20 +203,22 @@ export default function QuestionnairePage() {
             </CardContent>
           </Card>
 
-          <div className={cn("rounded-xl border-2 p-6", m.box)}>
-            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">{ui.success_result}</p>
-            <div className="flex items-center justify-between">
-              <div>
-                <span className="text-4xl font-black text-foreground">{result.ess_total}</span>
-                <span className="text-lg text-muted-foreground ml-1">/ 24</span>
-                <p className={cn("text-sm font-semibold mt-1", m.text)}>{m.label}</p>
+          {result.ess_total !== null && result.ess_total !== undefined && (
+            <div className={cn("rounded-xl border-2 p-6", m.box)}>
+              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">{ui.success_result}</p>
+              <div className="flex items-center justify-between">
+                <div>
+                  <span className="text-4xl font-black text-foreground">{result.ess_total}</span>
+                  <span className="text-lg text-muted-foreground ml-1">/ 24</span>
+                  <p className={cn("text-sm font-semibold mt-1", m.text)}>{m.label}</p>
+                </div>
+                <div className={cn(badgeVariants({ variant: m.badgeVariant }), "flex size-16 items-center justify-center rounded-full border-0 text-2xl font-black")}>
+                  {result.ess_total}
+                </div>
               </div>
-              <div className={cn(badgeVariants({ variant: m.badgeVariant }), "flex size-16 items-center justify-center rounded-full border-0 text-2xl font-black")}>
-                {result.ess_total}
-              </div>
+              <p className="mt-4 text-xs text-muted-foreground">{ui.success_doctor_note}</p>
             </div>
-            <p className="mt-4 text-xs text-muted-foreground">{ui.success_doctor_note}</p>
-          </div>
+          )}
 
           <Button
             className="h-12 w-full gap-2 text-sm"
@@ -228,11 +241,15 @@ export default function QuestionnairePage() {
       <header className="bg-card border-b border-border sticky top-0 z-20 shadow-sm">
         <div className="max-w-3xl mx-auto px-4 py-3 flex items-center gap-3">
           <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary">
-            <Car className="size-4 text-primary-foreground" />
+            {istVerkehrsmedizin ? (
+              <Car className="size-4 text-primary-foreground" />
+            ) : (
+              <Stethoscope className="size-4 text-primary-foreground" />
+            )}
           </div>
           <div className="min-w-0 flex-1">
             <h1 className="text-sm font-semibold text-foreground truncate">
-              {ui.header_title}
+              {headerTitle}
             </h1>
             <p className="text-xs text-muted-foreground truncate">
               {ui.header_subtitle}

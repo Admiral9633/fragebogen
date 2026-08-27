@@ -39,6 +39,8 @@ import { Spinner } from "@/components/ui/spinner";
 
 export interface SessionDetail {
   token: string;
+  untersuchung: string;
+  template_slug: string;
   patient_last_name: string;
   patient_first_name: string;
   patient_email: string;
@@ -247,6 +249,9 @@ export function SessionDetailSheet({
                 )}
               </SheetTitle>
               <SheetDescription>
+                <span className="block font-medium text-foreground/80">
+                  {detail.untersuchung}
+                </span>
                 {detail.patient_birth_date && <>Geb. {detail.patient_birth_date} · </>}
                 Erstellt {detail.created_at} · Gültig bis {detail.expires_at}
               </SheetDescription>
@@ -321,9 +326,11 @@ export function SessionDetailSheet({
                     <h3 className="text-sm font-bold uppercase tracking-wide">
                       Automatische Auswertung
                     </h3>
-                    <Badge variant="outline">
-                      Gruppe {detail.evaluation.gruppe2 ? "2" : "1"}
-                    </Badge>
+                    {detail.template_slug === "verkehrsmedizin-leitlinien" && (
+                      <Badge variant="outline">
+                        Gruppe {detail.evaluation.gruppe2 ? "2" : "1"}
+                      </Badge>
+                    )}
                     {detail.ess_total !== null && (
                       <Badge
                         variant={

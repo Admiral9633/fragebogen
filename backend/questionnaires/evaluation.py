@@ -16,6 +16,67 @@ Schweregrade:
 
 SCHWERE_ORDER = {"kritisch": 0, "pruefen": 1, "hinweis": 2}
 
+
+def evaluate_rules(answers, rules, gruppe2=False):
+    """
+    Datengetriebene Auswertung für DGUV-Kataloge.
+
+    Eine Regel feuert, wenn ALLE Bedingungen in "wenn" zutreffen
+    ({frage_id: [erlaubte werte]}); optional schließt "wenn_nicht"
+    ({frage_id: [werte]}) die Regel aus, sobald EINE dieser Bedingungen zutrifft.
+    Bei Multi-Choice-Antworten (Listen) trifft eine Bedingung zu, sobald
+    EINER der angekreuzten Werte in der Werteliste der Regel steht.
+    """
+    def _match(answer, werte):
+        if isinstance(answer, list):
+            return any(a in werte for a in answer)
+        return answer in werte
+
+    out = []
+    for rule in rules or []:
+        wenn = rule.get("wenn", {})
+        if not wenn:
+            continue
+        if not all(_match(answers.get(q), werte) for q, werte in wenn.items()):
+            continue
+        wenn_nicht = rule.get("wenn_nicht", {})
+        if any(_match(answers.get(q), werte) for q, werte in wenn_nicht.items()):
+            continue
+        out.append({
+            "schwere": rule.get("schwere", "hinweis"),
+            "bereich": rule.get("bereich", ""),
+            "kapitel": rule.get("quelle", rule.get("kapitel", "")),
+            "befund": rule.get("befund", ""),
+            "konsequenz": rule.get("konsequenz", ""),
+        })
+
+    out.sort(key=lambda f: SCHWERE_ORDER.get(f["schwere"], 9))
+    counts = {"kritisch": 0, "pruefen": 0, "hinweis": 0}
+    for f in out:
+        counts[f["schwere"]] += 1
+    return {
+        "gruppe2": gruppe2,
+        "findings": out,
+        "zusammenfassung": counts,
+        "disclaimer": (
+            "Automatisch erzeugte Hinweise nach den DGUV Empfehlungen/Grundsätzen "
+            "für arbeitsmedizinische Untersuchungen. Entscheidungsunterstützung – "
+            "die abschließende Beurteilung obliegt der Ärztin/dem Arzt."
+        ),
+    }
+
+
+def evaluate_for_template(answers, template_slug):
+    """Auswertung passend zum Template: bespoke Verkehrsmedizin oder Regel-Engine."""
+    from questionnaires.catalogs import CATALOG_REGISTRY
+
+    entry = CATALOG_REGISTRY.get(template_slug)
+    if entry is None or entry.get("rules") is None:
+        # Verkehrsmedizin (und unbekannte/Legacy-Templates): BASt-Regelwerk —
+        # feuert nur auf bekannte Frage-IDs und ist damit auch für Legacy sicher
+        return evaluate_answers(answers)
+    return evaluate_rules(answers, entry["rules"])
+
 GRUPPE2_ANLAESSE = {"lkw", "bus", "fahrgast"}
 GRUPPE2_KLASSEN = {"C", "C1", "CE", "C1E", "D", "D1", "DE"}
 

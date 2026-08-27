@@ -1,40 +1,47 @@
+# -*- coding: utf-8 -*-
 """
-Lädt den Leitlinien-Fragenkatalog (catalog.py) als aktives Fragebogen-Template.
+Lädt ALLE Fragenkataloge der Registry (questionnaires/catalogs) als aktive
+Fragebogen-Templates: Verkehrsmedizin (BASt-Leitlinien) plus die
+DGUV-Untersuchungen in alter (Grundsätze 2016) und neuer Fassung
+(Empfehlungen 2024).
 
-Idempotent: Bei erneutem Aufruf wird das bestehende Template aktualisiert.
-Alle anderen Templates werden deaktiviert, damit neue Sessions immer den
-aktuellen Katalog verwenden. Bereits angelegte Sessions behalten ihr Template.
+Idempotent: Bestehende Templates werden aktualisiert, Templates ohne
+Registry-Eintrag deaktiviert (bereits angelegte Sessions behalten ihres).
 """
 from django.core.management.base import BaseCommand
 
-from questionnaires.catalog import CATALOG
+from questionnaires.catalogs import CATALOG_REGISTRY
 from questionnaires.models import QuestionnaireTemplate
-
-SLUG = "verkehrsmedizin-leitlinien"
 
 
 class Command(BaseCommand):
-    help = "Lädt/aktualisiert den Fragenkatalog nach Begutachtungsleitlinien als aktives Template"
+    help = "Lädt/aktualisiert alle Fragenkataloge der Registry als aktive Templates"
 
     def handle(self, *args, **options):
-        template, created = QuestionnaireTemplate.objects.update_or_create(
-            slug=SLUG,
-            defaults={
-                "version": CATALOG["version"],
-                "schema_json": CATALOG,
-                "is_active": True,
-            },
-        )
+        active_pks = []
+        for slug, entry in sorted(CATALOG_REGISTRY.items()):
+            catalog = entry["catalog"]
+            template, created = QuestionnaireTemplate.objects.update_or_create(
+                slug=slug,
+                defaults={
+                    "version": catalog.get("version", 2),
+                    "schema_json": catalog,
+                    "is_active": True,
+                },
+            )
+            active_pks.append(template.pk)
+            n_questions = sum(len(s["questions"]) for s in catalog["sections"])
+            self.stdout.write(
+                f"  {'+' if created else '='} {slug}: "
+                f"{catalog.get('title', slug)} "
+                f"({len(catalog['sections'])} Abschnitte, {n_questions} Fragen)"
+            )
+
         deactivated = (
-            QuestionnaireTemplate.objects.exclude(pk=template.pk)
+            QuestionnaireTemplate.objects.exclude(pk__in=active_pks)
             .filter(is_active=True)
             .update(is_active=False)
         )
-
-        n_sections = len(CATALOG["sections"])
-        n_questions = sum(len(s["questions"]) for s in CATALOG["sections"])
         self.stdout.write(self.style.SUCCESS(
-            f"Template '{SLUG}' {'angelegt' if created else 'aktualisiert'} "
-            f"({n_sections} Abschnitte, {n_questions} Fragen); "
-            f"{deactivated} andere(s) Template(s) deaktiviert."
+            f"{len(active_pks)} Kataloge aktiv; {deactivated} Template(s) deaktiviert."
         ))

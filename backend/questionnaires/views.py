@@ -20,10 +20,22 @@ from .serializers import (
     QuestionnaireSessionSerializer,
 )
 from .schema import is_v2_schema, validate_answers
-from .evaluation import evaluate_answers
+from .evaluation import evaluate_answers, evaluate_for_template
 from .translations import available_languages, load_translation
 
 logger = logging.getLogger(__name__)
+
+
+# Fallback, wenn ein Aufrufer (z.B. die GDT-Bridge) keine Untersuchungsart
+# mitgibt: immer der Verkehrsmedizin-Katalog, nie ein zufälliger DGUV-Katalog.
+DEFAULT_TEMPLATE_SLUG = 'verkehrsmedizin-leitlinien'
+
+
+def default_template():
+    return (
+        QuestionnaireTemplate.objects.filter(slug=DEFAULT_TEMPLATE_SLUG, is_active=True).first()
+        or QuestionnaireTemplate.objects.filter(is_active=True).order_by('slug').first()
+    )
 
 
 def parse_birth_date(value):
@@ -125,8 +137,8 @@ class SubmitQuestionnaireView(APIView):
                 AnswerSet.objects.create(
                     session=session,
                     answers_json=validated_data,
-                    ess_total=validated_data['ess_total'],
-                    ess_band=validated_data['ess_band']
+                    ess_total=validated_data.get('ess_total'),
+                    ess_band=validated_data.get('ess_band')
                 )
 
                 session.completed = True
@@ -140,8 +152,8 @@ class SubmitQuestionnaireView(APIView):
 
         return Response({
             'success': True,
-            'ess_total': validated_data['ess_total'],
-            'ess_band': validated_data['ess_band'],
+            'ess_total': validated_data.get('ess_total'),
+            'ess_band': validated_data.get('ess_band'),
             'message': 'Fragebogen erfolgreich eingereicht.'
         }, status=status.HTTP_201_CREATED)
 
@@ -170,7 +182,7 @@ class AnswersView(APIView):
         return Response({
             'answers': answer_set.answers_json,
             'schema': session.template.schema_json,
-            'evaluation': evaluate_answers(answer_set.answers_json),
+            'evaluation': evaluate_for_template(answer_set.answers_json, session.template.slug),
             'ess_total': answer_set.ess_total,
             'ess_band': answer_set.ess_band,
             'completed_at': session.completed_at.strftime('%d.%m.%Y') if session.completed_at else None,
@@ -257,6 +269,8 @@ class AdminSessionListView(APIView):
         for s in sessions:
             row = {
                 'token': str(s.token),
+                'untersuchung': (s.template.schema_json or {}).get('title') or s.template.slug,
+                'template_slug': s.template.slug,
                 'patient_last_name': s.patient_last_name,
                 'patient_first_name': s.patient_first_name,
                 'patient_email': s.patient_email,
@@ -284,8 +298,8 @@ class AdminSessionListView(APIView):
                 if answer_set:
                     row['ess_total'] = answer_set.ess_total
                     row['ess_band'] = answer_set.ess_band
-                    row['auswertung'] = evaluate_answers(
-                        answer_set.answers_json
+                    row['auswertung'] = evaluate_for_template(
+                        answer_set.answers_json, s.template.slug
                     )['zusammenfassung']
             data.append(row)
         return Response(data)
@@ -312,9 +326,17 @@ class AdminSessionListView(APIView):
         except ValueError:
             return Response({'error': 'Ungültiges Datumsformat.'}, status=400)
 
-        template = QuestionnaireTemplate.objects.filter(is_active=True).order_by('-version').first()
-        if not template:
-            return Response({'error': 'Kein aktiver Fragebogen-Template gefunden.'}, status=500)
+        template_slug = (d.get('template_slug') or '').strip()
+        if template_slug:
+            template = QuestionnaireTemplate.objects.filter(
+                slug=template_slug, is_active=True
+            ).first()
+            if not template:
+                return Response({'error': f'Untersuchungsart "{template_slug}" nicht gefunden.'}, status=400)
+        else:
+            template = default_template()
+            if not template:
+                return Response({'error': 'Kein aktiver Fragebogen-Template gefunden.'}, status=500)
 
         session = QuestionnaireSession.objects.create(
             template=template,
@@ -342,6 +364,24 @@ class AdminSessionListView(APIView):
         }, status=201)
 
 
+class AdminTemplateListView(APIView):
+    """
+    GET /api/admin/templates/ – aktive Untersuchungsarten für die Session-Anlage.
+    """
+    permission_classes = [AdminApiKeyPermission]
+
+    def get(self, request):
+        templates = QuestionnaireTemplate.objects.filter(is_active=True).order_by('slug')
+        return Response([
+            {
+                'slug': t.slug,
+                'title': (t.schema_json or {}).get('title') or t.slug,
+                'basis': (t.schema_json or {}).get('basis', ''),
+            }
+            for t in templates
+        ])
+
+
 class AdminSessionDetailView(APIView):
     """
     GET /api/admin/sessions/<token>/detail/ – vollständige Sicht für die Praxis:
@@ -357,6 +397,8 @@ class AdminSessionDetailView(APIView):
         )
         data = {
             'token': str(session.token),
+            'untersuchung': (session.template.schema_json or {}).get('title') or session.template.slug,
+            'template_slug': session.template.slug,
             'patient_last_name': session.patient_last_name,
             'patient_first_name': session.patient_first_name,
             'patient_email': session.patient_email,
@@ -395,7 +437,9 @@ class AdminSessionDetailView(APIView):
                 answer_set = None
             if answer_set:
                 data['answers'] = answer_set.answers_json
-                data['evaluation'] = evaluate_answers(answer_set.answers_json)
+                data['evaluation'] = evaluate_for_template(
+                    answer_set.answers_json, session.template.slug
+                )
                 data['ess_total'] = answer_set.ess_total
                 data['ess_band'] = answer_set.ess_band
         return Response(data)
@@ -525,9 +569,7 @@ class GdtSessionCreateView(APIView):
                     status=status.HTTP_404_NOT_FOUND,
                 )
         else:
-            template = QuestionnaireTemplate.objects.filter(
-                is_active=True
-            ).order_by('-version').first()
+            template = default_template()
             if not template:
                 return Response(
                     {'error': 'Kein aktiver Fragebogen-Template vorhanden.'},
@@ -622,7 +664,7 @@ class GdtResultView(APIView):
             'ausgeprägt':  'Ausgeprägt (≥16) – ärztliche Abklärung erforderlich',
         }
 
-        evaluation = evaluate_answers(answer_set.answers_json)
+        evaluation = evaluate_for_template(answer_set.answers_json, session.template.slug)
 
         # Merken, dass die Bridge das Ergebnis abgeholt hat (→ Ergebnis-GDT an SAMAS)
         if session.gdt_result_delivered_at is None:

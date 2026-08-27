@@ -6,6 +6,7 @@ from .views import (
     TranslationView,
     AdminSessionListView,
     AdminSessionDetailView,
+    AdminTemplateListView,
     AdminResendEmailView,
     AdminDeleteSessionView,
     AdminUpdateSessionView,
@@ -21,6 +22,7 @@ urlpatterns = [
     path('i18n/<slug:lang>/', TranslationView.as_view(), name='i18n-detail'),
     # Admin
     path('admin/sessions/', AdminSessionListView.as_view(), name='admin-sessions'),
+    path('admin/templates/', AdminTemplateListView.as_view(), name='admin-templates'),
     path('admin/sessions/<uuid:token>/detail/', AdminSessionDetailView.as_view(), name='admin-detail'),
     path('admin/sessions/<uuid:token>/resend/', AdminResendEmailView.as_view(), name='admin-resend'),
     path('admin/sessions/<uuid:token>/update/', AdminUpdateSessionView.as_view(), name='admin-update'),

@@ -12,9 +12,10 @@ from django.test import TestCase
 from django.utils import timezone
 
 from .catalog import CATALOG
-from .evaluation import evaluate_answers
+from .catalogs import CATALOG_REGISTRY
+from .evaluation import evaluate_answers, evaluate_for_template
 from .models import AnswerSet, QuestionnaireSession, QuestionnaireTemplate
-from .schema import ESS_KEYS, is_visible, iter_questions
+from .schema import ESS_KEYS, is_visible, iter_questions, validate_answers
 
 
 def make_session(**kwargs):
@@ -155,6 +156,9 @@ def build_valid_answers(schema, overrides=None):
                 answers[qid] = [q["options"][0]["value"]]
             elif qtype == "consent":
                 answers[qid] = True
+            elif qtype in ("text", "textarea"):
+                if q.get("required"):
+                    answers[qid] = "Testangabe"
             elif qtype == "ess_matrix":
                 for key in ESS_KEYS:
                     answers.setdefault(key, 1)
@@ -391,6 +395,32 @@ class AdminCockpitTests(TestCase):
         res = self.client.get(f'/api/admin/sessions/{session.token}/detail/')
         self.assertEqual(res.status_code, 403)
 
+    def test_template_liste_fuer_einladung(self):
+        res = self.client.get('/api/admin/templates/', **self.auth)
+        self.assertEqual(res.status_code, 200)
+        slugs = {t['slug'] for t in res.json()}
+        self.assertIn('verkehrsmedizin-leitlinien', slugs)
+        self.assertTrue(all('title' in t and 'basis' in t for t in res.json()))
+
+    def test_anlage_ohne_slug_nimmt_verkehrsmedizin(self):
+        res = self.client.post(
+            '/api/admin/sessions/',
+            {'patient_last_name': 'Test', 'patient_first_name': 'Default'},
+            content_type='application/json', **self.auth,
+        )
+        self.assertEqual(res.status_code, 201, res.json())
+        session = QuestionnaireSession.objects.get(token=res.json()['token'])
+        self.assertEqual(session.template.slug, 'verkehrsmedizin-leitlinien')
+
+    def test_anlage_mit_unbekanntem_slug_400(self):
+        res = self.client.post(
+            '/api/admin/sessions/',
+            {'patient_last_name': 'Test', 'patient_first_name': 'Falsch',
+             'template_slug': 'gibt-es-nicht'},
+            content_type='application/json', **self.auth,
+        )
+        self.assertEqual(res.status_code, 400)
+
     def test_gdt_abruf_setzt_uebermittelt_zeitstempel(self):
         session = self._completed(gdt_patient_id='4711')
         self.assertIsNone(session.gdt_result_delivered_at)
@@ -419,6 +449,96 @@ class TranslationTests(TestCase):
     def test_unbekannte_sprache_404(self):
         self.assertEqual(self.client.get('/api/i18n/zz/').status_code, 404)
         self.assertEqual(self.client.get('/api/i18n/DE1/').status_code, 404)
+
+
+class RegistryKatalogeTests(TestCase):
+    """
+    Qualitätstor für ALLE Kataloge der Registry (Verkehrsmedizin + DGUV
+    2016/2024): Schema valide, Roundtrip build→validate→evaluate fehlerfrei,
+    Einwilligungen vorhanden, Regeln referenzieren nur existierende Fragen
+    mit existierenden Antwortwerten, und jeder Katalog ist einreichbar.
+    """
+
+    def _allowed_values(self, schema):
+        """qid → Menge erlaubter Werte (nur für Fragen mit festem Wertevorrat)."""
+        allowed = {}
+        for _section, q in iter_questions(schema):
+            if q.get('type') == 'yes_no':
+                allowed[q['id']] = {'yes', 'no'}
+            elif q.get('type') in ('choice', 'multi_choice'):
+                allowed[q['id']] = {o['value'] for o in q.get('options', [])}
+        return allowed
+
+    def test_alle_kataloge_valide_und_auswertbar(self):
+        for slug, entry in CATALOG_REGISTRY.items():
+            with self.subTest(katalog=slug):
+                schema = entry['catalog']
+                self.assertEqual(schema.get('version'), 2)
+                self.assertTrue(schema.get('title'))
+                self.assertTrue(schema.get('sections'))
+                answers = build_valid_answers(schema)
+                cleaned, errors = validate_answers(schema, answers)
+                self.assertEqual(errors, {}, f'{slug}: {errors}')
+                result = evaluate_for_template(cleaned, slug)
+                for key in ('findings', 'zusammenfassung', 'disclaimer'):
+                    self.assertIn(key, result)
+
+    def test_einwilligung_in_jedem_katalog(self):
+        for slug, entry in CATALOG_REGISTRY.items():
+            with self.subTest(katalog=slug):
+                ids = {q['id'] for _s, q in iter_questions(entry['catalog'])}
+                self.assertIn('consent_truth', ids)
+                self.assertIn('consent_privacy', ids)
+
+    def test_regeln_referenzieren_nur_existierende_fragen_und_werte(self):
+        for slug, entry in CATALOG_REGISTRY.items():
+            rules = entry['rules']
+            if rules is None:  # Verkehrsmedizin: bespoke-Regelwerk
+                continue
+            with self.subTest(katalog=slug):
+                self.assertGreaterEqual(len(rules), 1, f'{slug}: keine Regeln')
+                schema = entry['catalog']
+                ids = set()
+                for _section, q in iter_questions(schema):
+                    ids.add(q['id'])
+                    if q.get('followup'):
+                        ids.add(q['followup']['id'])
+                allowed = self._allowed_values(schema)
+                for rule in rules:
+                    self.assertIn(rule.get('schwere'), ('kritisch', 'pruefen', 'hinweis'))
+                    self.assertTrue(
+                        rule.get('konsequenz'),
+                        f'{slug}: Regel ohne Verfahrensanweisung: {rule.get("befund")}',
+                    )
+                    for cond in ('wenn', 'wenn_nicht'):
+                        for qid, werte in rule.get(cond, {}).items():
+                            self.assertIn(qid, ids, f'{slug}: unbekannte Frage "{qid}"')
+                            if qid in allowed:
+                                for wert in werte:
+                                    self.assertNotIsInstance(
+                                        wert, (list, dict),
+                                        f'{slug}: Regelwerte müssen Skalare sein ({qid})',
+                                    )
+                                    self.assertIn(
+                                        wert, allowed[qid],
+                                        f'{slug}: Regelwert "{wert}" existiert nicht bei "{qid}"',
+                                    )
+
+    def test_jeder_katalog_kann_eingereicht_werden(self):
+        call_command('load_catalog', verbosity=0)
+        for template in QuestionnaireTemplate.objects.filter(is_active=True):
+            with self.subTest(katalog=template.slug):
+                session = QuestionnaireSession.objects.create(
+                    template=template,
+                    patient_last_name='Mustermann', patient_first_name='Max',
+                    expires_at=timezone.now() + timedelta(days=14),
+                )
+                answers = build_valid_answers(template.schema_json)
+                res = self.client.post(
+                    f'/api/submit/{session.token}/', answers,
+                    content_type='application/json',
+                )
+                self.assertEqual(res.status_code, 201, (template.slug, res.json()))
 
 
 class PurgeSessionsTests(TestCase):

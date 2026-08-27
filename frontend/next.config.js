@@ -21,6 +21,8 @@ const nextConfig = {
       { source: '/api/i18n/:lang', destination: `${backendUrl}/api/i18n/:lang/` },
       { source: '/api/i18n/:lang/', destination: `${backendUrl}/api/i18n/:lang/` },
       // admin
+      { source: '/api/admin/templates', destination: `${backendUrl}/api/admin/templates/` },
+      { source: '/api/admin/templates/', destination: `${backendUrl}/api/admin/templates/` },
       { source: '/api/admin/sessions', destination: `${backendUrl}/api/admin/sessions/` },
       { source: '/api/admin/sessions/', destination: `${backendUrl}/api/admin/sessions/` },
       { source: '/api/admin/sessions/:token/detail', destination: `${backendUrl}/api/admin/sessions/:token/detail/` },

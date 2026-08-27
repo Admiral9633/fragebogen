@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import {
   Link2, Mail, Pencil, Trash2, RefreshCw,
   FileText, Plus, CheckCircle2, Clock, Loader2,
+  Check, ChevronsUpDown,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -24,6 +25,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList,
+} from "@/components/ui/command";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Separator } from "@/components/ui/separator";
@@ -41,6 +46,8 @@ const STORAGE_KEY = "admin_api_key";
 
 interface Session {
   token: string;
+  untersuchung: string;
+  template_slug: string;
   patient_last_name: string;
   patient_first_name: string;
   patient_email: string;
@@ -206,6 +213,76 @@ function EditDialog({ session, onClose, onSaved, headers }: EditDialogProps) {
   );
 }
 
+// ─── Untersuchungsart-Auswahl ─────────────────────────────────────────────────
+
+const DEFAULT_TEMPLATE_SLUG = "verkehrsmedizin-leitlinien";
+
+interface TemplateOption {
+  slug: string;
+  title: string;
+  basis: string;
+}
+
+function TemplateCombobox({
+  templates,
+  value,
+  onChange,
+}: {
+  templates: TemplateOption[];
+  value: string;
+  onChange: (slug: string) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const selected = templates.find((t) => t.slug === value);
+
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button
+          variant="outline"
+          role="combobox"
+          aria-expanded={open}
+          className="w-full justify-between font-normal"
+          disabled={templates.length === 0}
+        >
+          <span className="truncate">
+            {selected?.title ?? (templates.length === 0 ? "Lade Untersuchungsarten…" : "Untersuchungsart wählen…")}
+          </span>
+          <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-[var(--radix-popover-trigger-width)] min-w-80 p-0" align="start">
+        <Command>
+          <CommandInput placeholder="Untersuchung suchen…" />
+          <CommandList className="max-h-72">
+            <CommandEmpty>Keine Untersuchungsart gefunden.</CommandEmpty>
+            <CommandGroup>
+              {templates.map((t) => (
+                <CommandItem
+                  key={t.slug}
+                  value={`${t.title} ${t.slug}`}
+                  onSelect={() => {
+                    onChange(t.slug);
+                    setOpen(false);
+                  }}
+                >
+                  <Check className={cn("mr-2 size-4 shrink-0", value === t.slug ? "opacity-100" : "opacity-0")} />
+                  <span className="min-w-0">
+                    <span className="block truncate">{t.title}</span>
+                    {t.basis && (
+                      <span className="block truncate text-xs text-muted-foreground">{t.basis}</span>
+                    )}
+                  </span>
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </CommandList>
+        </Command>
+      </PopoverContent>
+    </Popover>
+  );
+}
+
 // ─── Dashboard ────────────────────────────────────────────────────────────────
 
 function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void }) {
@@ -218,6 +295,8 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
   const [email, setEmail] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [creating, setCreating] = useState(false);
+  const [templates, setTemplates] = useState<TemplateOption[]>([]);
+  const [templateSlug, setTemplateSlug] = useState(DEFAULT_TEMPLATE_SLUG);
 
   const [editSession, setEditSession] = useState<Session | null>(null);
   const [detailToken, setDetailToken] = useState<string | null>(null);
@@ -234,7 +313,7 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
       return false;
     if (search.trim()) {
       const q = search.trim().toLowerCase();
-      const hay = `${s.patient_last_name} ${s.patient_first_name} ${s.patient_email} ${s.gdt_patient_id}`.toLowerCase();
+      const hay = `${s.patient_last_name} ${s.patient_first_name} ${s.patient_email} ${s.gdt_patient_id} ${s.untersuchung}`.toLowerCase();
       if (!hay.includes(q)) return false;
     }
     return true;
@@ -267,6 +346,24 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
 
   useEffect(() => { loadSessions(); }, [loadSessions]);
 
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await fetch("/api/admin/templates/", {
+          headers: { Authorization: `Bearer ${apiKey}` },
+        });
+        if (!res.ok) return;
+        const list: TemplateOption[] = await res.json();
+        setTemplates(list);
+        if (!list.some((t) => t.slug === DEFAULT_TEMPLATE_SLUG) && list.length > 0) {
+          setTemplateSlug(list[0].slug);
+        }
+      } catch {
+        // Auswahl bleibt leer – das Backend fällt beim Anlegen auf den Standardkatalog zurück
+      }
+    })();
+  }, [apiKey]);
+
   async function handleCreate(e: React.FormEvent) {
     e.preventDefault();
     setCreating(true);
@@ -279,6 +376,7 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
           patient_first_name: firstName,
           patient_email: email,
           patient_birth_date: birthDate || undefined,
+          template_slug: templateSlug,
         }),
       });
       const data = await res.json();
@@ -397,6 +495,11 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
             <Separator />
             <CardContent className="pt-4">
               <form onSubmit={handleCreate} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 items-end">
+                <div className="space-y-1.5 sm:col-span-2">
+                  <Label>Untersuchungsart</Label>
+                  <TemplateCombobox templates={templates} value={templateSlug} onChange={setTemplateSlug} />
+                </div>
+                <div className="hidden lg:block lg:col-span-2" />
                 <div className="space-y-1.5">
                   <Label htmlFor="c-ln">Nachname <span className="text-destructive">*</span></Label>
                   <Input id="c-ln" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
@@ -445,7 +548,7 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
               </div>
               <div className="flex flex-wrap items-center gap-2 pt-2">
                 <Input
-                  placeholder="Suchen (Name, E-Mail, GDT-ID)…"
+                  placeholder="Suchen (Name, E-Mail, GDT-ID, Untersuchung)…"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   className="h-8 max-w-56"
@@ -487,6 +590,7 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
                   <TableHeader>
                     <TableRow>
                       <TableHead>Patient</TableHead>
+                      <TableHead>Untersuchung</TableHead>
                       <TableHead>Auswertung</TableHead>
                       <TableHead>SAMAS</TableHead>
                       <TableHead>Status</TableHead>
@@ -509,6 +613,15 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
                           <span className="block text-xs text-muted-foreground">
                             {[s.patient_birth_date, s.patient_email].filter(Boolean).join(" · ") || "—"}
                           </span>
+                        </TableCell>
+
+                        <TableCell className="max-w-44">
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <span className="block truncate text-xs">{s.untersuchung || "—"}</span>
+                            </TooltipTrigger>
+                            <TooltipContent>{s.untersuchung || "—"}</TooltipContent>
+                          </Tooltip>
                         </TableCell>
 
                         <TableCell>
