@@ -144,7 +144,9 @@
     "D1": "D1",
     "D": "D",
     "DE": "DE",
-    "T": "T"
+    "T": "T",
+    "D1E": "D1E",
+    "L": "L"
    }
   },
   "license_years": {
@@ -246,10 +248,12 @@
   },
   "hearing_impaired": {
    "label": "Aveți hipoacuzie severă sau sunteți surd(ă)?",
-   "followup": "De când și sunteți în tratament ORL?"
+   "followup": "De când și sunteți în tratament ORL?",
+   "hint": "Severă înseamnă: mai mult de 60 % pierdere de auz la urechea mai bună, măsurată fără aparat auditiv."
   },
   "hearing_aid": {
-   "label": "Purtați un aparat auditiv sau un implant cohlear?"
+   "label": "Purtați un aparat auditiv sau un implant cohlear?",
+   "hint": "Un aparat auditiv este recomandat, dar nu este o condiție pentru aptitudinea de a conduce; pentru evaluare contează auzul fără aparat auditiv."
   },
   "heart_disease": {
    "label": "Aveți o boală de inimă sau a vaselor de sânge cunoscută?",
@@ -269,11 +273,12 @@
    "followup": "Ce diagnostic și cum este tratat?"
   },
   "pacemaker_icd": {
-   "label": "Purtați un stimulator cardiac (pacemaker) sau un defibrilator (ICD)?",
+   "label": "Purtați un stimulator cardiac (pacemaker), un defibrilator (ICD) sau un sistem de asistare a inimii?",
    "options": {
     "nein": "Nu",
     "schrittmacher": "Stimulator cardiac (pacemaker)",
-    "icd": "Defibrilator (ICD)"
+    "icd": "Defibrilator (ICD)",
+    "vad": "Sistem de asistare a inimii (inimă artificială/VAD)"
    },
    "followup": "Când a fost implantat și când a fost ultimul control?"
   },
@@ -299,7 +304,7 @@
    "label": "Apar sub medicamentele dumneavoastră pentru tensiune amețeli, senzație de slăbiciune sau întunecarea vederii?"
   },
   "heart_other": {
-   "label": "Aveți o altă boală a inimii sau a vaselor cunoscută: defect de valvă cardiacă, malformație cardiacă din naștere, boală a mușchiului inimii (cardiomiopatie), boală ereditară de ritm (de ex. sindromul QT lung), anevrism de aortă sau îngustare a arterei carotide?",
+   "label": "Aveți o altă boală a inimii sau a vaselor cunoscută: defect de valvă cardiacă, malformație cardiacă din naștere, boală a mușchiului inimii (cardiomiopatie), boală ereditară de ritm (de ex. sindromul QT lung, sindromul Brugada), anevrism de aortă sau îngustare a arterei carotide?",
    "followup": "Ce diagnostic și cum este controlat/tratat?"
   },
   "family_sudden_death": {
@@ -307,7 +312,7 @@
   },
   "stroke": {
    "label": "Ați avut vreodată un accident vascular cerebral, o hemoragie cerebrală sau un AIT (tulburare trecătoare de circulație cu deficite de scurtă durată)?",
-   "followup": "Când a avut loc evenimentul și a fost finalizată o recuperare medicală?"
+   "followup": "Când a avut loc evenimentul și ce cauză a fost constatată?"
   },
   "stroke_residuals": {
    "label": "Au rămas de atunci urmări precum paralizii, tulburări de vorbire, probleme de memorie sau limitări ale câmpului vizual?",
@@ -356,11 +361,12 @@
     "3bis6m": "Între 3 și 6 luni",
     "6bis12m": "Între 6 și 12 luni",
     "1bis2j": "Între 1 și 2 ani",
-    "ueber2j": "Mai mult de 2 ani"
+    "2bis4j": "Între 2 și 4 ani",
+    "ueber4j": "Mai mult de 4 ani"
    }
   },
   "vertigo_prodromi": {
-   "label": "Se anunță dinainte crizele dumneavoastră de amețeală (de ex. presiune în ureche, țiuit în urechi, scăderea auzului), astfel încât ați putea opri la timp?",
+   "label": "Se anunță dinainte crizele dumneavoastră de amețeală (de ex. presiune în ureche, țiuit în urechi, scăderea auzului sau semne premergătoare de migrenă, cum ar fi tulburările de vedere), astfel încât ați putea opri la timp?",
    "options": {
     "immer": "Da, întotdeauna",
     "manchmal": "Uneori",
@@ -410,7 +416,11 @@
   },
   "hypoglycemia": {
    "label": "Ați avut în ultimele 12 luni o scădere severă a glicemiei la care ați avut nevoie de ajutorul altei persoane?",
-   "followup": "Cât de des, când a fost ultimul episod și a apărut în stare de veghe sau în somn?"
+   "options": {
+    "none": "Nu",
+    "once": "Da, o dată",
+    "repeated": "Da, de mai multe ori"
+   }
   },
   "hypo_awareness": {
    "label": "S-a întâmplat să nu observați singur(ă) la timp o scădere a glicemiei (lipsa semnelor de avertizare)?",
@@ -512,18 +522,20 @@
   },
   "alcohol_dependence": {
    "label": "Vi s-a constatat vreodată o dependență de alcool sau ați urmat un tratament de dezintoxicare, respectiv de dezobișnuire?",
-   "followup": "Când a fost încheiat tratamentul și de când trăiți în abstinență?"
+   "followup": "Când a fost încheiat tratamentul (în spital sau ambulatoriu) și de când trăiți în abstinență?"
   },
   "drugs": {
-   "label": "Consumați în prezent droguri (de ex. canabis, cocaină, amfetamine) sau ați consumat în trecut droguri în mod regulat?",
-   "followup": "Ce substanțe, cât de des și când ultima dată?"
+   "label": "Consumați în prezent alte droguri (de ex. cocaină, amfetamine, ecstasy, heroină) sau ați consumat în trecut astfel de droguri în mod regulat?",
+   "followup": "Ce substanțe, cât de des și când ultima dată?",
+   "hint": "Despre canabis întrebăm separat mai sus."
   },
   "cannabis": {
-   "label": "Cât de des consumați canabis?",
+   "label": "Consumați canabis (de ex. sub formă de joint, vaporizator sau produse comestibile)?",
    "options": {
     "nie": "Niciodată",
     "gelegentlich": "Ocazional (nu în mod regulat)",
-    "regelmaessig": "În mod regulat (zilnic sau ca obicei)"
+    "regelmaessig": "În mod regulat (de mai multe ori pe săptămână)",
+    "taeglich": "Zilnic sau aproape zilnic"
    }
   },
   "substitution": {
@@ -570,6 +582,104 @@
   "consent_privacy": {
    "label": "Am citit informațiile privind protecția datelor și îmi dau consimțământul pentru prelucrarea datelor mele în scopuri de medicina traficului rutier.",
    "error": "Vă rugăm să acceptați informațiile privind protecția datelor."
+  },
+  "alcohol_binge": {
+   "label": "Se întâmplă să beți cu o singură ocazie cantități mai mari de alcool într-un timp scurt (de ex. 5 sau mai multe pahare într-o seară)?"
+  },
+  "bp_organ_symptoms": {
+   "label": "Ați avut vreodată din cauza tensiunii mari tulburări de vedere sau suferințe de la creier (de ex. dureri de cap puternice cu confuzie, tulburări de vorbire sau de vedere)?"
+  },
+  "bp_values": {
+   "label": "Cât de mari sunt de obicei valorile dumneavoastră ale tensiunii arteriale – în ciuda tratamentului?",
+   "options": {
+    "unter140": "De cele mai multe ori sub 140/90",
+    "bis180": "Între 140/90 și 180/110",
+    "ueber180": "Frecvent peste 180 (valoarea de sus) sau peste 110 (valoarea de jos)",
+    "unbekannt": "Nu știu"
+   }
+  },
+  "cannabis_medical": {
+   "label": "Luați canabis pe bază de prescripție medicală (canabis medicinal, de ex. de la farmacie)?",
+   "followup": "Cine îl prescrie, pentru ce boală și în ce doză?"
+  },
+  "cannabis_traffic": {
+   "label": "Ați fost vreodată depistat(ă) în traficul rutier sub influența canabisului (de ex. condus sub efectul THC, amendă, MPU – examinare medico-psihologică)?",
+   "followup": "Când a fost aceasta și ce s-a constatat?"
+  },
+  "drug_dependence": {
+   "label": "Vi s-a constatat vreodată o dependență de canabis sau de alte droguri sau ați urmat din acest motiv un tratament de dezintoxicare, respectiv de dezobișnuire?",
+   "followup": "Ce substanță, când a fost încheiat tratamentul (în spital sau ambulatoriu) și de când trăiți în abstinență?"
+  },
+  "heart_event_when": {
+   "label": "Cu cât timp în urmă a avut loc ultimul dintre aceste evenimente (infarct, stent, bypass)?",
+   "options": {
+    "unter6w": "Mai puțin de 6 săptămâni",
+    "6w_bis_3m": "Între 6 săptămâni și 3 luni",
+    "ueber3m": "Mai mult de 3 luni"
+   }
+  },
+  "hypoglycemia_desc": {
+   "label": "Când a fost ultimul episod și a apărut în stare de veghe sau în somn?"
+  },
+  "icd_indication": {
+   "label": "Din ce motiv v-a fost implantat defibrilatorul?",
+   "options": {
+    "vorsorglich": "Preventiv, din cauza bolii mele de inimă (fără un eveniment anterior care să pună viața în pericol)",
+    "nach_ereignis": "După un stop cardiac supraviețuit sau o tulburare de ritm care a pus viața în pericol",
+    "unbekannt": "Nu știu exact"
+   }
+  },
+  "low_ef": {
+   "label": "Vi s-a spus că capacitatea de pompare a inimii dumneavoastră este vizibil redusă (fracție de ejecție sub aproximativ 35 %)?",
+   "hint": "Capacitatea de pompare (FE) se găsește de obicei în raportul cardiologului dumneavoastră.",
+   "options": {
+    "ja": "Da",
+    "nein": "Nu, normală sau doar ușor redusă",
+    "unbekannt": "Nu știu"
+   }
+  },
+  "mixed_consumption": {
+   "label": "Consumați mai des canabis împreună cu alcool sau cu alte substanțe psihoactive (în același timp sau la scurt timp una după alta)?"
+  },
+  "pavk": {
+   "label": "Aveți o tulburare de circulație a picioarelor cunoscută (boala vitrinelor / arteriopatie obliterantă periferică)?",
+   "followup": "De când și s-a efectuat deja o operație sau o intervenție pe cateter?"
+  },
+  "pavk_rest_pain": {
+   "label": "Aveți din această cauză dureri și în repaus, de exemplu noaptea când stați culcat(ă)?"
+  },
+  "resuscitated": {
+   "label": "A trebuit să fiți vreodată resuscitat(ă) după un stop cardiac?",
+   "followup": "Când a fost aceasta și ce cauză a fost găsită?"
+  },
+  "sleepiness_coping": {
+   "label": "Când vă este somn în timpul zilei: observați acest lucru la timp și faceți atunci o pauză (de ex. opriți, dormiți puțin)?",
+   "options": {
+    "zuverlaessig": "Da, observ acest lucru în mod sigur și fac atunci o pauză",
+    "teilweise": "Parțial, dar nu întotdeauna la timp",
+    "nein": "Nu, oboseala mă ia mai degrabă prin surprindere"
+   }
+  },
+  "stroke_prevention": {
+   "label": "A fost lămurită medical cauza evenimentului și sunteți tratat(ă) pentru prevenire (de ex. medicamente care subțiază sângele, medicamente pentru scăderea tensiunii sau a colesterolului, operație la artera carotidă)?",
+   "followup": "Ce tratament și când a fost ultimul control?"
+  },
+  "stroke_rehab": {
+   "label": "Ați făcut o recuperare medicală după acest eveniment?",
+   "hint": "În cazul unor deficite care persistă, conform ghidului, aptitudinea de a conduce trebuie evaluată abia după încheierea unei recuperări medicale potrivite.",
+   "options": {
+    "abgeschlossen": "Da, complet încheiată",
+    "laufend": "Da, este încă în curs",
+    "keine": "Nu, nicio recuperare medicală"
+   }
+  },
+  "vertigo_migraine": {
+   "label": "Apar crizele dumneavoastră de amețeală în legătură cu migrena sau cu dureri de cap puternice (înainte, în timpul sau după acestea)?",
+   "followup": "Se anunță dinainte aceste crize (de ex. tulburări de vedere, sensibilitate la lumină) și când a fost ultima criză?"
+  },
+  "vertigo_situational": {
+   "label": "Apare amețeala dumneavoastră mai ales în anumite situații în care sunteți încordat(ă) sau anxios(oasă) – de ex. la volan, în mulțime sau pe poduri?",
+   "followup": "În ce situații? Apare amețeala și la volan?"
   }
  },
  "ess_items": {

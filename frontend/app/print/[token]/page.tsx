@@ -30,7 +30,7 @@ interface AnswerData {
   answers: Record<string, unknown>;
   schema?: unknown;
   evaluation?: EvaluationResult;
-  ess_total: number;
+  ess_total: number | null;
   ess_band: string;
   completed_at: string | null;
   token: string;
@@ -447,8 +447,8 @@ function PrintHeader({
   );
 }
 
-/** Warnhinweis-§11-Box. */
-function WarnBox() {
+/** Warnhinweis-Box: FeV-Bezug nur bei der Verkehrsmedizin. */
+function WarnBox({ fev = true }: { fev?: boolean }) {
   return (
     <div
       style={{
@@ -464,9 +464,19 @@ function WarnBox() {
         breakInside: "avoid" as const,
       }}
     >
-      Zur wahrheitsgemäßen Beantwortung <u>a&nbsp;l&nbsp;l&nbsp;e&nbsp;r</u> Fragen
-      sind Sie verpflichtet. Das Verschweigen von Vorerkrankungen stellt einen Verstoß
-      gegen §&nbsp;11 FeV dar und kann rechtliche Konsequenzen haben!
+      {fev ? (
+        <>
+          Zur wahrheitsgemäßen Beantwortung <u>a&nbsp;l&nbsp;l&nbsp;e&nbsp;r</u> Fragen
+          sind Sie verpflichtet. Das Verschweigen von Vorerkrankungen stellt einen Verstoß
+          gegen §&nbsp;11 FeV dar und kann rechtliche Konsequenzen haben!
+        </>
+      ) : (
+        <>
+          Bitte beantworten Sie <u>a&nbsp;l&nbsp;l&nbsp;e</u> Fragen vollständig und
+          wahrheitsgemäß. Die Angaben sind Grundlage der arbeitsmedizinischen Beurteilung
+          und unterliegen der ärztlichen Schweigepflicht.
+        </>
+      )}
     </div>
   );
 }
@@ -543,7 +553,15 @@ function EvaluationFindingRow({ finding }: { finding: EvaluationFinding }) {
   );
 }
 
-function EvaluationBlock({ evaluation }: { evaluation: EvaluationResult }) {
+function EvaluationBlock({
+  evaluation,
+  titel,
+  zeigeGruppe,
+}: {
+  evaluation: EvaluationResult;
+  titel: string;
+  zeigeGruppe: boolean;
+}) {
   const z = evaluation.zusammenfassung;
   const unauffaellig = z.kritisch === 0 && z.pruefen === 0 && z.hinweis === 0;
 
@@ -568,7 +586,7 @@ function EvaluationBlock({ evaluation }: { evaluation: EvaluationResult }) {
         }}
       >
         <span style={{ fontSize: 8.5, fontWeight: 900, letterSpacing: "0.5px" }}>
-          AUTOMATISCHE AUSWERTUNG NACH BEGUTACHTUNGSLEITLINIEN
+          {titel}
         </span>
         <span style={{ fontSize: 7, display: "flex", gap: 8 }}>
           <span style={{ fontWeight: 900, color: z.kritisch ? "#fca5a5" : "#9fb3d9" }}>
@@ -578,17 +596,19 @@ function EvaluationBlock({ evaluation }: { evaluation: EvaluationResult }) {
             {z.pruefen} prüfen
           </span>
           <span style={{ fontWeight: 700, color: "#c9d6ee" }}>{z.hinweis} Hinweise</span>
-          <span
-            style={{
-              background: "#fff",
-              color: "#1f3864",
-              borderRadius: 3,
-              padding: "1px 6px",
-              fontWeight: 900,
-            }}
-          >
-            Gruppe {evaluation.gruppe2 ? "2" : "1"}
-          </span>
+          {zeigeGruppe && (
+            <span
+              style={{
+                background: "#fff",
+                color: "#1f3864",
+                borderRadius: 3,
+                padding: "1px 6px",
+                fontWeight: 900,
+              }}
+            >
+              Gruppe {evaluation.gruppe2 ? "2" : "1"}
+            </span>
+          )}
         </span>
       </div>
 
@@ -644,7 +664,7 @@ function PrintSection({
   index: number;
   section: SchemaSection;
   answers: Record<string, unknown>;
-  essTotal: number;
+  essTotal: number | null;
 }) {
   const rows: React.ReactNode[] = [];
   let rowIdx = 0;
@@ -660,7 +680,7 @@ function PrintSection({
           <EssTable
             labels={(q.items ?? []).map((item) => item.label)}
             answers={answers}
-            essTotal={essTotal}
+            essTotal={essTotal ?? 0}
           />
         </div>
       );
@@ -732,16 +752,27 @@ function PrintV2({
   logoDataUrl: string;
 }) {
   const a = data.answers;
+  const titel = schema.title || "Verkehrsmedizinischer Fragebogen";
+  const istVerkehrsmedizin = titel.toLowerCase().includes("verkehrsmedizin");
+  const auswertungTitel = istVerkehrsmedizin
+    ? "AUTOMATISCHE AUSWERTUNG NACH BEGUTACHTUNGSLEITLINIEN"
+    : titel.includes("Empfehlung")
+      ? "AUTOMATISCHE AUSWERTUNG NACH DGUV EMPFEHLUNGEN 2024"
+      : titel.includes("Grundsatz")
+        ? "AUTOMATISCHE AUSWERTUNG NACH DGUV GRUNDSÄTZEN 2016"
+        : "AUTOMATISCHE AUSWERTUNG";
   return (
     <div style={{ padding: "12px", maxWidth: "794px", margin: "0 auto" }}>
-      <PrintHeader
-        data={data}
-        logoDataUrl={logoDataUrl}
-        title={schema.title || "Verkehrsmedizinischer Fragebogen"}
-      />
+      <PrintHeader data={data} logoDataUrl={logoDataUrl} title={titel} />
 
-      {/* Automatische Auswertung nach BASt-Leitlinien */}
-      {data.evaluation && <EvaluationBlock evaluation={data.evaluation} />}
+      {/* Automatische Auswertung (BASt-Leitlinien bzw. DGUV-Regelwerk) */}
+      {data.evaluation && (
+        <EvaluationBlock
+          evaluation={data.evaluation}
+          titel={auswertungTitel}
+          zeigeGruppe={istVerkehrsmedizin}
+        />
+      )}
 
       {/* Sektionen in 2 Spalten (CSS columns) */}
       <div style={{ columns: 2, columnGap: 6 }}>
@@ -756,7 +787,7 @@ function PrintV2({
         ))}
       </div>
 
-      <WarnBox />
+      <WarnBox fev={istVerkehrsmedizin} />
       <SignatureRow />
     </div>
   );
@@ -885,7 +916,7 @@ function LegacyPrint({ data, logoDataUrl }: { data: AnswerData; logoDataUrl: str
           {/* ESS */}
           <div style={{ border: "1px solid #c8d0e0", borderRadius: 4, overflow: "hidden", marginBottom: 6 }}>
             <SecHeader title="ESS – 0 = Nie · 1 = Gering · 2 = Mittel · 3 = Hoch" />
-            <EssTable labels={ESS_LABELS} answers={a} essTotal={data.ess_total} />
+            <EssTable labels={ESS_LABELS} answers={a} essTotal={data.ess_total ?? 0} />
           </div>
 
         </div>

@@ -144,7 +144,9 @@
     "D1": "D1",
     "D": "D",
     "DE": "DE",
-    "T": "T"
+    "T": "T",
+    "D1E": "D1E",
+    "L": "L"
    }
   },
   "license_years": {
@@ -246,10 +248,12 @@
   },
   "hearing_impaired": {
    "label": "Soffre di una grave perdita dell'udito o è sordo/a?",
-   "followup": "Da quando, ed è in cura presso un otorinolaringoiatra?"
+   "followup": "Da quando, ed è in cura presso un otorinolaringoiatra?",
+   "hint": "Grave significa: più del 60 % di perdita dell'udito nell'orecchio migliore, misurata senza apparecchio acustico."
   },
   "hearing_aid": {
-   "label": "Porta un apparecchio acustico o un impianto cocleare?"
+   "label": "Porta un apparecchio acustico o un impianto cocleare?",
+   "hint": "Un apparecchio acustico è consigliato, ma non è un requisito per l'idoneità alla guida; per la valutazione conta l'udito senza apparecchio acustico."
   },
   "heart_disease": {
    "label": "Le è nota una malattia del cuore o dei vasi sanguigni?",
@@ -269,11 +273,12 @@
    "followup": "Quale diagnosi, e come viene trattata?"
   },
   "pacemaker_icd": {
-   "label": "Porta un pacemaker o un defibrillatore (ICD)?",
+   "label": "Porta un pacemaker, un defibrillatore (ICD) o un sistema di assistenza cardiaca?",
    "options": {
     "nein": "No",
     "schrittmacher": "Pacemaker",
-    "icd": "Defibrillatore (ICD)"
+    "icd": "Defibrillatore (ICD)",
+    "vad": "Sistema di assistenza cardiaca (cuore artificiale/VAD)"
    },
    "followup": "Quando è stato impiantato, e quando è stato l'ultimo controllo?"
   },
@@ -299,7 +304,7 @@
    "label": "Con i Suoi farmaci per la pressione Le capita di avere capogiri, sensazione di debolezza o un annebbiamento della vista (vista che si oscura)?"
   },
   "heart_other": {
-   "label": "Le è nota un'altra malattia cardiaca o vascolare: difetto delle valvole cardiache, cardiopatia congenita, malattia del muscolo cardiaco (cardiomiopatia), disturbo del ritmo ereditario (ad es. QT lungo), aneurisma dell'aorta o restringimento della carotide?",
+   "label": "Le è nota un'altra malattia del cuore o dei vasi: un difetto delle valvole cardiache, un difetto cardiaco congenito, una malattia del muscolo cardiaco (cardiomiopatia), una malattia ereditaria del ritmo (ad es. Long-QT, Brugada), un aneurisma dell'aorta o un restringimento della carotide?",
    "followup": "Quale diagnosi, e come viene controllata/trattata?"
   },
   "family_sudden_death": {
@@ -307,7 +312,7 @@
   },
   "stroke": {
    "label": "Ha mai avuto un ictus, un'emorragia cerebrale o un TIA (disturbo circolatorio passeggero con sintomi di breve durata)?",
-   "followup": "Quando è avvenuto l'evento, ed è stata completata una riabilitazione?"
+   "followup": "Quando è avvenuto l'evento, e quale causa è stata riscontrata?"
   },
   "stroke_residuals": {
    "label": "Da allora persistono conseguenze come paralisi, disturbi del linguaggio, problemi di memoria o limitazioni del campo visivo?",
@@ -356,11 +361,12 @@
     "3bis6m": "Da 3 a 6 mesi",
     "6bis12m": "Da 6 a 12 mesi",
     "1bis2j": "Da 1 a 2 anni",
-    "ueber2j": "Più di 2 anni"
+    "2bis4j": "Da 2 a 4 anni",
+    "ueber4j": "Più di 4 anni"
    }
   },
   "vertigo_prodromi": {
-   "label": "I Suoi attacchi di vertigini si preannunciano in anticipo (ad es. pressione nell'orecchio, rumori nell'orecchio, calo dell'udito), così da poterSi fermare in tempo?",
+   "label": "I Suoi attacchi di vertigini si preannunciano in anticipo (ad es. pressione nell'orecchio, rumori nell'orecchio, calo dell'udito o segni premonitori dell'emicrania come disturbi della vista), così da poterSi fermare in tempo?",
    "options": {
     "immer": "Sì, sempre",
     "manchmal": "A volte",
@@ -410,7 +416,11 @@
   },
   "hypoglycemia": {
    "label": "Negli ultimi 12 mesi ha avuto un'ipoglicemia grave (calo dello zucchero nel sangue) per la quale ha avuto bisogno dell'aiuto di un'altra persona?",
-   "followup": "Quante volte, quando è stato l'ultimo episodio, e si è verificato da sveglio/a o durante il sonno?"
+   "options": {
+    "none": "No",
+    "once": "Sì, una volta",
+    "repeated": "Sì, più volte"
+   }
   },
   "hypo_awareness": {
    "label": "È capitato che non Si sia accorto/a in tempo da solo/a di un'ipoglicemia (mancanza di segnali di allarme)?",
@@ -512,18 +522,20 @@
   },
   "alcohol_dependence": {
    "label": "Le è mai stata riscontrata una dipendenza da alcol, o ha fatto una disintossicazione o un trattamento di disassuefazione?",
-   "followup": "Quando è stato concluso il trattamento, e da quando vive in astinenza?"
+   "followup": "Quando è stato concluso il trattamento (in regime di ricovero o ambulatoriale), e da quando vive in astinenza?"
   },
   "drugs": {
-   "label": "Assume attualmente droghe (ad es. cannabis, cocaina, anfetamine) o ne ha consumate regolarmente in passato?",
-   "followup": "Quali sostanze, con quale frequenza, e quando l'ultima volta?"
+   "label": "Assume attualmente altre droghe (ad es. cocaina, anfetamine, ecstasy, eroina) o ne ha consumate regolarmente in passato?",
+   "followup": "Quali sostanze, con quale frequenza, e quando l'ultima volta?",
+   "hint": "La cannabis viene richiesta separatamente qui sopra."
   },
   "cannabis": {
-   "label": "Con quale frequenza consuma cannabis?",
+   "label": "Consuma cannabis (ad es. come spinello, con il vaporizzatore o in alimenti)?",
    "options": {
     "nie": "Mai",
     "gelegentlich": "Occasionalmente (non regolarmente)",
-    "regelmaessig": "Regolarmente (ogni giorno o per abitudine)"
+    "regelmaessig": "Regolarmente (più volte alla settimana)",
+    "taeglich": "Ogni giorno o quasi ogni giorno"
    }
   },
   "substitution": {
@@ -570,6 +582,104 @@
   "consent_privacy": {
    "label": "Ho letto l'informativa sulla protezione dei dati e acconsento al trattamento dei miei dati per finalità di medicina del traffico.",
    "error": "Accetti per favore l'informativa sulla protezione dei dati."
+  },
+  "alcohol_binge": {
+   "label": "Le capita di bere grandi quantità di alcol in poco tempo in una sola occasione (ad es. 5 o più bicchieri in una sera)?"
+  },
+  "bp_organ_symptoms": {
+   "label": "A causa della pressione alta ha mai avuto disturbi della vista o disturbi a livello cerebrale (ad es. forte mal di testa con confusione, disturbi del linguaggio o della vista)?"
+  },
+  "bp_values": {
+   "label": "Quali sono di solito i Suoi valori di pressione – nonostante il trattamento?",
+   "options": {
+    "bis180": "Tra 140/90 e 180/110",
+    "ueber180": "Spesso oltre 180 (valore massimo) o oltre 110 (valore minimo)",
+    "unbekannt": "Non lo so",
+    "unter140": "Per lo più sotto 140/90"
+   }
+  },
+  "cannabis_medical": {
+   "followup": "Chi la prescrive, per quale malattia, e a quale dosaggio?",
+   "label": "Assume cannabis su prescrizione medica (cannabis terapeutica, ad es. dalla farmacia)?"
+  },
+  "cannabis_traffic": {
+   "followup": "Quando è successo, e che cosa è stato riscontrato?",
+   "label": "È mai stato/a fermato/a nel traffico stradale sotto l'effetto di cannabis (ad es. guida sotto l'effetto del THC, multa, visita medico-psicologica MPU)?"
+  },
+  "drug_dependence": {
+   "followup": "Quale sostanza, quando è stato concluso il trattamento (in regime di ricovero o ambulatoriale), e da quando vive in astinenza?",
+   "label": "Le è mai stata riscontrata una dipendenza da cannabis o da altre droghe, o ha fatto per questo motivo una disintossicazione o un trattamento di disassuefazione?"
+  },
+  "heart_event_when": {
+   "label": "A quanto tempo fa risale l'ultimo di questi eventi (infarto, stent, bypass)?",
+   "options": {
+    "6w_bis_3m": "Da 6 settimane a 3 mesi",
+    "ueber3m": "Più di 3 mesi",
+    "unter6w": "Meno di 6 settimane"
+   }
+  },
+  "hypoglycemia_desc": {
+   "label": "Quando è stato l'ultimo episodio, e si è verificato da sveglio/a o durante il sonno?"
+  },
+  "icd_indication": {
+   "label": "Per quale motivo Le è stato impiantato il defibrillatore?",
+   "options": {
+    "nach_ereignis": "Dopo un arresto cardiaco sopravvissuto o un disturbo del ritmo potenzialmente letale",
+    "unbekannt": "Non lo so con esattezza",
+    "vorsorglich": "A scopo preventivo per la mia malattia cardiaca (senza un precedente evento potenzialmente letale)"
+   }
+  },
+  "low_ef": {
+   "hint": "La capacità di pompa (FE) è di solito indicata nel referto del Suo cardiologo.",
+   "label": "Le è stato detto che la capacità di pompa del Suo cuore è notevolmente ridotta (frazione di eiezione inferiore a circa il 35 %)?",
+   "options": {
+    "ja": "Sì",
+    "nein": "No, normale o solo lievemente ridotta",
+    "unbekannt": "Non lo so"
+   }
+  },
+  "mixed_consumption": {
+   "label": "Consuma spesso la cannabis insieme ad alcol o ad altre sostanze inebrianti (contemporaneamente o a breve distanza l'uno dall'altro)?"
+  },
+  "pavk": {
+   "followup": "Da quando, ed è già stato eseguito un intervento chirurgico o un intervento con catetere?",
+   "label": "Le è noto un disturbo della circolazione nelle gambe (malattia delle vetrine / arteriopatia periferica)?"
+  },
+  "pavk_rest_pain": {
+   "label": "Ha per questo motivo dolori anche a riposo, per esempio di notte da sdraiato/a?"
+  },
+  "resuscitated": {
+   "followup": "Quando è successo, e quale causa è stata trovata?",
+   "label": "È mai stato/a rianimato/a dopo un arresto cardiaco?"
+  },
+  "sleepiness_coping": {
+   "label": "Quando durante il giorno Le viene sonno: se ne accorge in tempo e fa poi una pausa (ad es. fermarsi, un breve sonnellino)?",
+   "options": {
+    "nein": "No, la stanchezza mi coglie piuttosto di sorpresa",
+    "teilweise": "In parte, ma non sempre in tempo",
+    "zuverlaessig": "Sì, me ne accorgo con sicurezza e faccio poi una pausa"
+   }
+  },
+  "stroke_prevention": {
+   "followup": "Quale trattamento, e quando è stato l'ultimo controllo?",
+   "label": "La causa dell'evento è stata chiarita dal medico, e viene trattato/a a scopo preventivo (ad es. anticoagulanti, farmaci per la pressione o per il colesterolo, intervento sulla carotide)?"
+  },
+  "stroke_rehab": {
+   "hint": "In caso di disturbi persistenti, secondo le linee guida l'idoneità alla guida deve essere valutata solo dopo la conclusione di una riabilitazione adeguata.",
+   "label": "Ha fatto una riabilitazione dopo l'evento?",
+   "options": {
+    "abgeschlossen": "Sì, completamente conclusa",
+    "keine": "No, nessuna riabilitazione",
+    "laufend": "Sì, è ancora in corso"
+   }
+  },
+  "vertigo_migraine": {
+   "followup": "Questi attacchi si preannunciano in anticipo (ad es. disturbi della vista, sensibilità alla luce), e quando è stato l'ultimo attacco?",
+   "label": "I Suoi attacchi di vertigini si verificano in relazione con l'emicrania o con forti mal di testa (prima, durante o dopo)?"
+  },
+  "vertigo_situational": {
+   "followup": "In quali situazioni? Le vertigini si presentano anche mentre guida?",
+   "label": "Le Sue vertigini si presentano soprattutto in determinate situazioni in cui è teso/a o ansioso/a – ad es. mentre guida, in mezzo alla folla o sui ponti?"
   }
  },
  "ess_items": {

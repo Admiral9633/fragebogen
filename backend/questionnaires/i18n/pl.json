@@ -144,7 +144,9 @@
     "D1": "D1",
     "D": "D",
     "DE": "DE",
-    "T": "T"
+    "T": "T",
+    "D1E": "D1E",
+    "L": "L"
    }
   },
   "license_years": {
@@ -246,10 +248,12 @@
   },
   "hearing_impaired": {
    "label": "Czy ma Pan/Pani znaczny niedosłuch lub jest Pan/Pani osobą niesłyszącą?",
-   "followup": "Od kiedy i czy jest Pan/Pani pod opieką laryngologa?"
+   "followup": "Od kiedy i czy jest Pan/Pani pod opieką laryngologa?",
+   "hint": "Znaczny oznacza: ponad 60 % ubytku słuchu w lepszym uchu, mierzone bez aparatu słuchowego."
   },
   "hearing_aid": {
-   "label": "Czy nosi Pan/Pani aparat słuchowy lub implant ślimakowy?"
+   "label": "Czy nosi Pan/Pani aparat słuchowy lub implant ślimakowy?",
+   "hint": "Aparat słuchowy jest zalecany, ale nie jest warunkiem zdolności do prowadzenia pojazdów; dla oceny liczy się słyszenie bez aparatu słuchowego."
   },
   "heart_disease": {
    "label": "Czy stwierdzono u Pana/Pani chorobę serca lub naczyń?",
@@ -269,11 +273,12 @@
    "followup": "Jakie rozpoznanie i jak jest leczone?"
   },
   "pacemaker_icd": {
-   "label": "Czy ma Pan/Pani wszczepiony rozrusznik serca lub defibrylator (ICD)?",
+   "label": "Czy ma Pan/Pani wszczepiony rozrusznik serca, defibrylator (ICD) lub system wspomagania serca?",
    "options": {
     "nein": "Nie",
     "schrittmacher": "Rozrusznik serca",
-    "icd": "Defibrylator (ICD)"
+    "icd": "Defibrylator (ICD)",
+    "vad": "System wspomagania serca (sztuczne serce/VAD)"
    },
    "followup": "Kiedy wszczepiono i kiedy była ostatnia kontrola?"
   },
@@ -299,7 +304,7 @@
    "label": "Czy przy lekach na nadciśnienie występują u Pana/Pani zawroty głowy, uczucie osłabienia lub ciemność przed oczami?"
   },
   "heart_other": {
-   "label": "Czy stwierdzono u Pana/Pani inną chorobę serca lub naczyń: wadę zastawki serca, wrodzoną wadę serca, chorobę mięśnia sercowego (kardiomiopatię), dziedziczną chorobę rytmu (np. zespół długiego QT), tętniaka aorty lub zwężenie tętnicy szyjnej?",
+   "label": "Czy stwierdzono u Pana/Pani inną chorobę serca lub naczyń: wadę zastawki serca, wrodzoną wadę serca, chorobę mięśnia sercowego (kardiomiopatię), dziedziczną chorobę rytmu (np. zespół długiego QT, zespół Brugadów), tętniaka aorty lub zwężenie tętnicy szyjnej?",
    "followup": "Jakie rozpoznanie i jak jest kontrolowane/leczone?"
   },
   "family_sudden_death": {
@@ -307,7 +312,7 @@
   },
   "stroke": {
    "label": "Czy przebył(a) Pan/Pani kiedykolwiek udar mózgu, krwotok mózgowy lub TIA (przemijające zaburzenie ukrwienia z krótkotrwałymi objawami)?",
-   "followup": "Kiedy miało miejsce zdarzenie i czy zakończono rehabilitację?"
+   "followup": "Kiedy miało miejsce zdarzenie i jaką przyczynę stwierdzono?"
   },
   "stroke_residuals": {
    "label": "Czy od tego czasu utrzymują się następstwa, takie jak porażenia, zaburzenia mowy, problemy z pamięcią lub ograniczenia pola widzenia?",
@@ -356,11 +361,12 @@
     "3bis6m": "3 do 6 miesięcy",
     "6bis12m": "6 do 12 miesięcy",
     "1bis2j": "1 do 2 lat",
-    "ueber2j": "Ponad 2 lata"
+    "2bis4j": "2 do 4 lat",
+    "ueber4j": "Ponad 4 lata"
    }
   },
   "vertigo_prodromi": {
-   "label": "Czy napady zawrotów głowy zapowiadają się wcześniej (np. uczucie ucisku w uchu, szumy uszne, pogorszenie słuchu), tak że mógłby Pan / mogłaby Pani w porę się zatrzymać?",
+   "label": "Czy napady zawrotów głowy zapowiadają się wcześniej (np. uczucie ucisku w uchu, szumy uszne, pogorszenie słuchu lub zwiastuny migreny, takie jak zaburzenia widzenia), tak że mógłby Pan / mogłaby Pani w porę się zatrzymać?",
    "options": {
     "immer": "Tak, zawsze",
     "manchmal": "Czasami",
@@ -410,7 +416,11 @@
   },
   "hypoglycemia": {
    "label": "Czy w ciągu ostatnich 12 miesięcy miał(a) Pan/Pani ciężkie niedocukrzenie (hipoglikemię), przy którym potrzebna była pomoc innych osób?",
-   "followup": "Jak często, kiedy był ostatni epizod i czy wystąpił na jawie, czy we śnie?"
+   "options": {
+    "none": "Nie",
+    "once": "Tak, raz",
+    "repeated": "Tak, kilka razy"
+   }
   },
   "hypo_awareness": {
    "label": "Czy zdarzyło się, że nie zauważył(a) Pan/Pani niedocukrzenia w porę (brak objawów ostrzegawczych)?",
@@ -512,18 +522,20 @@
   },
   "alcohol_dependence": {
    "label": "Czy kiedykolwiek stwierdzono u Pana/Pani uzależnienie od alkoholu lub przeszedł/przeszła Pan/Pani detoksykację bądź leczenie odwykowe?",
-   "followup": "Kiedy zakończono leczenie i od kiedy żyje Pan/Pani w abstynencji?"
+   "followup": "Kiedy zakończono leczenie (stacjonarne czy ambulatoryjne) i od kiedy żyje Pan/Pani w abstynencji?"
   },
   "drugs": {
-   "label": "Czy obecnie zażywa Pan/Pani narkotyki (np. konopie/cannabis, kokainę, amfetaminę) lub czy wcześniej regularnie Pan/Pani je zażywał(a)?",
-   "followup": "Jakie substancje, jak często i kiedy ostatnio?"
+   "label": "Czy obecnie zażywa Pan/Pani inne narkotyki (np. kokainę, amfetaminę, ecstasy, heroinę) lub czy wcześniej regularnie Pan/Pani takie narkotyki zażywał(a)?",
+   "followup": "Jakie substancje, jak często i kiedy ostatnio?",
+   "hint": "O konopie pytamy osobno powyżej."
   },
   "cannabis": {
-   "label": "Jak często używa Pan/Pani konopi (cannabis)?",
+   "label": "Czy zażywa Pan/Pani konopie (cannabis, np. w postaci jointa, waporyzatora lub produktów jadalnych)?",
    "options": {
     "nie": "Nigdy",
     "gelegentlich": "Okazjonalnie (nieregularnie)",
-    "regelmaessig": "Regularnie (codziennie lub nawykowo)"
+    "regelmaessig": "Regularnie (kilka razy w tygodniu)",
+    "taeglich": "Codziennie lub prawie codziennie"
    }
   },
   "substitution": {
@@ -570,6 +582,104 @@
   "consent_privacy": {
    "label": "Zapoznałem/zapoznałam się z informacjami o ochronie danych i wyrażam zgodę na przetwarzanie moich danych do celów medycyny ruchu drogowego.",
    "error": "Proszę zaakceptować informacje o ochronie danych."
+  },
+  "alcohol_binge": {
+   "label": "Czy zdarza się, że przy jednej okazji wypija Pan/Pani większe ilości alkoholu w krótkim czasie (np. 5 lub więcej kieliszków w ciągu jednego wieczoru)?"
+  },
+  "bp_organ_symptoms": {
+   "label": "Czy z powodu wysokiego ciśnienia miał(a) Pan/Pani kiedyś zaburzenia widzenia lub dolegliwości ze strony mózgu (np. silny ból głowy ze splątaniem, zaburzenia mowy lub widzenia)?"
+  },
+  "bp_values": {
+   "label": "Jakie są zwykle Pana/Pani wartości ciśnienia krwi – mimo leczenia?",
+   "options": {
+    "unter140": "Zwykle poniżej 140/90",
+    "bis180": "Między 140/90 a 180/110",
+    "ueber180": "Często powyżej 180 (wartość górna) lub powyżej 110 (wartość dolna)",
+    "unbekannt": "Nie wiem"
+   }
+  },
+  "cannabis_medical": {
+   "label": "Czy przyjmuje Pan/Pani konopie na zlecenie lekarza (medyczna marihuana, np. z apteki)?",
+   "followup": "Kto je przepisuje, na jaką chorobę i w jakiej dawce?"
+  },
+  "cannabis_traffic": {
+   "label": "Czy kiedykolwiek został(a) Pan/Pani zatrzymany(a) w ruchu drogowym pod wpływem konopi (np. jazda pod wpływem THC, grzywna, MPU – badanie medyczno-psychologiczne)?",
+   "followup": "Kiedy to było i co stwierdzono?"
+  },
+  "drug_dependence": {
+   "label": "Czy kiedykolwiek stwierdzono u Pana/Pani uzależnienie od konopi lub innych narkotyków albo czy przeszedł/przeszła Pan/Pani z tego powodu detoksykację bądź leczenie odwykowe?",
+   "followup": "Jaka substancja, kiedy zakończono leczenie (stacjonarne czy ambulatoryjne) i od kiedy żyje Pan/Pani w abstynencji?"
+  },
+  "heart_event_when": {
+   "label": "Ile czasu minęło od ostatniego z tych zdarzeń (zawał, stent, bajpasy)?",
+   "options": {
+    "unter6w": "Mniej niż 6 tygodni",
+    "6w_bis_3m": "Od 6 tygodni do 3 miesięcy",
+    "ueber3m": "Ponad 3 miesiące"
+   }
+  },
+  "hypoglycemia_desc": {
+   "label": "Kiedy był ostatni epizod i czy wystąpił na jawie, czy we śnie?"
+  },
+  "icd_indication": {
+   "label": "Z jakiego powodu wszczepiono Panu/Pani defibrylator?",
+   "options": {
+    "vorsorglich": "Profilaktycznie z powodu mojej choroby serca (bez wcześniejszego zdarzenia zagrażającego życiu)",
+    "nach_ereignis": "Po przebytym zatrzymaniu krążenia lub zagrażającym życiu zaburzeniu rytmu serca",
+    "unbekannt": "Nie wiem dokładnie"
+   }
+  },
+  "low_ef": {
+   "label": "Czy powiedziano Panu/Pani, że wydajność pompowania serca jest wyraźnie obniżona (frakcja wyrzutowa poniżej około 35 %)?",
+   "hint": "Wydajność pompowania serca (EF) jest zwykle podana w opisie od Pana/Pani kardiologa.",
+   "options": {
+    "ja": "Tak",
+    "nein": "Nie, prawidłowa lub tylko nieznacznie obniżona",
+    "unbekannt": "Nie wiem"
+   }
+  },
+  "mixed_consumption": {
+   "label": "Czy częściej zażywa Pan/Pani konopie razem z alkoholem lub innymi substancjami odurzającymi (jednocześnie lub krótko po sobie)?"
+  },
+  "pavk": {
+   "label": "Czy stwierdzono u Pana/Pani zaburzenia ukrwienia nóg (chromanie przestankowe / miażdżyca tętnic kończyn dolnych)?",
+   "followup": "Od kiedy i czy przeprowadzono już operację lub zabieg cewnikowy?"
+  },
+  "pavk_rest_pain": {
+   "label": "Czy z tego powodu odczuwa Pan/Pani ból także w spoczynku, na przykład w nocy podczas leżenia?"
+  },
+  "resuscitated": {
+   "label": "Czy musiał(a) Pan/Pani być już kiedyś reanimowany(a) po zatrzymaniu krążenia?",
+   "followup": "Kiedy to było i jaką przyczynę stwierdzono?"
+  },
+  "sleepiness_coping": {
+   "label": "Gdy w ciągu dnia robi się Pan/Pani senny(a): czy zauważa to Pan/Pani w porę i robi wtedy przerwę (np. zatrzymanie się, krótka drzemka)?",
+   "options": {
+    "zuverlaessig": "Tak, zauważam to niezawodnie i robię wtedy przerwę",
+    "teilweise": "Częściowo, ale nie zawsze w porę",
+    "nein": "Nie, senność raczej mnie zaskakuje"
+   }
+  },
+  "stroke_prevention": {
+   "label": "Czy przyczyna tego zdarzenia została wyjaśniona przez lekarza i czy jest Pan/Pani leczony(a) profilaktycznie (np. leki rozrzedzające krew, leki obniżające ciśnienie lub cholesterol, operacja tętnicy szyjnej)?",
+   "followup": "Jakie leczenie i kiedy była ostatnia kontrola?"
+  },
+  "stroke_rehab": {
+   "label": "Czy po tym zdarzeniu przeszedł/przeszła Pan/Pani rehabilitację?",
+   "hint": "Przy utrzymujących się następstwach zdolność do prowadzenia pojazdów powinna być zgodnie z wytycznymi oceniana dopiero po zakończeniu odpowiedniej rehabilitacji.",
+   "options": {
+    "abgeschlossen": "Tak, w pełni zakończona",
+    "laufend": "Tak, nadal trwa",
+    "keine": "Nie, bez rehabilitacji"
+   }
+  },
+  "vertigo_migraine": {
+   "label": "Czy napady zawrotów głowy występują w związku z migreną lub silnym bólem głowy (przed nim, w jego trakcie lub po nim)?",
+   "followup": "Czy te napady zapowiadają się wcześniej (np. zaburzenia widzenia, nadwrażliwość na światło) i kiedy był ostatni napad?"
+  },
+  "vertigo_situational": {
+   "label": "Czy zawroty głowy występują przede wszystkim w określonych sytuacjach, w których jest Pan/Pani spięty(a) lub odczuwa lęk – np. podczas prowadzenia samochodu, w tłumie lub na mostach?",
+   "followup": "W jakich sytuacjach? Czy zawroty głowy występują także podczas prowadzenia samochodu?"
   }
  },
  "ess_items": {

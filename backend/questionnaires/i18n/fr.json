@@ -144,7 +144,9 @@
     "D1": "D1",
     "D": "D",
     "DE": "DE",
-    "T": "T"
+    "T": "T",
+    "D1E": "D1E",
+    "L": "L"
    }
   },
   "license_years": {
@@ -246,10 +248,12 @@
   },
   "hearing_impaired": {
    "label": "Souffrez-vous d'une perte auditive sévère ou êtes-vous sourd(e) ?",
-   "followup": "Depuis quand, et êtes-vous suivi(e) par un médecin ORL ?"
+   "followup": "Depuis quand, et êtes-vous suivi(e) par un médecin ORL ?",
+   "hint": "Sévère signifie : plus de 60 % de perte auditive à la meilleure oreille, mesurée sans appareil auditif."
   },
   "hearing_aid": {
-   "label": "Portez-vous un appareil auditif ou un implant cochléaire ?"
+   "label": "Portez-vous un appareil auditif ou un implant cochléaire ?",
+   "hint": "Un appareil auditif est recommandé, mais il n'est pas une condition de l'aptitude à la conduite ; pour l'évaluation, c'est l'audition sans appareil auditif qui compte."
   },
   "heart_disease": {
    "label": "Une maladie du cœur ou des vaisseaux est-elle connue chez vous ?",
@@ -269,11 +273,12 @@
    "followup": "Quel diagnostic, et comment est-il traité ?"
   },
   "pacemaker_icd": {
-   "label": "Portez-vous un stimulateur cardiaque (pacemaker) ou un défibrillateur (ICD) ?",
+   "label": "Portez-vous un stimulateur cardiaque (pacemaker), un défibrillateur (ICD) ou un système d'assistance cardiaque ?",
    "options": {
     "nein": "Non",
     "schrittmacher": "Stimulateur cardiaque",
-    "icd": "Défibrillateur (ICD)"
+    "icd": "Défibrillateur (ICD)",
+    "vad": "Système d'assistance cardiaque (cœur artificiel/VAD)"
    },
    "followup": "Quand a-t-il été posé, et quand a eu lieu le dernier contrôle ?"
   },
@@ -299,7 +304,7 @@
    "label": "Sous vos médicaments contre la tension, avez-vous des vertiges, une sensation de faiblesse ou un voile noir devant les yeux ?"
   },
   "heart_other": {
-   "label": "Une autre maladie cardiaque ou vasculaire est-elle connue chez vous : maladie des valves cardiaques, malformation cardiaque congénitale, maladie du muscle cardiaque (cardiomyopathie), trouble du rythme héréditaire (p. ex. QT long), anévrisme de l'aorte ou rétrécissement de la carotide ?",
+   "label": "Une autre maladie cardiaque ou vasculaire est-elle connue chez vous : maladie des valves cardiaques, malformation cardiaque congénitale, maladie du muscle cardiaque (cardiomyopathie), trouble du rythme héréditaire (p. ex. QT long, Brugada), anévrisme de l'aorte ou rétrécissement de la carotide ?",
    "followup": "Quel diagnostic, et comment est-il surveillé/traité ?"
   },
   "family_sudden_death": {
@@ -307,7 +312,7 @@
   },
   "stroke": {
    "label": "Avez-vous déjà eu un AVC (attaque cérébrale), une hémorragie cérébrale ou un AIT/TIA (trouble passager de la circulation sanguine avec déficits de courte durée) ?",
-   "followup": "Quand a eu lieu l'événement, et une rééducation a-t-elle été menée à terme ?"
+   "followup": "Quand a eu lieu l'événement, et quelle cause a été constatée ?"
   },
   "stroke_residuals": {
    "label": "Depuis, avez-vous encore des séquelles telles que paralysies, troubles du langage, problèmes de mémoire ou limitation du champ visuel ?",
@@ -356,11 +361,12 @@
     "3bis6m": "3 à 6 mois",
     "6bis12m": "6 à 12 mois",
     "1bis2j": "1 à 2 ans",
-    "ueber2j": "Plus de 2 ans"
+    "2bis4j": "2 à 4 ans",
+    "ueber4j": "Plus de 4 ans"
    }
   },
   "vertigo_prodromi": {
-   "label": "Vos crises de vertige s'annoncent-elles à l'avance (p. ex. pression dans l'oreille, bruits d'oreille, baisse de l'audition), de sorte que vous pourriez vous arrêter à temps ?",
+   "label": "Vos crises de vertige s'annoncent-elles à l'avance (p. ex. pression dans l'oreille, bruits d'oreille, baisse de l'audition ou signes précurseurs de migraine comme des troubles de la vue), de sorte que vous pourriez vous arrêter à temps ?",
    "options": {
     "immer": "Oui, toujours",
     "manchmal": "Parfois",
@@ -410,7 +416,11 @@
   },
   "hypoglycemia": {
    "label": "Au cours des 12 derniers mois, avez-vous eu une hypoglycémie sévère (baisse du sucre dans le sang) pour laquelle vous avez eu besoin de l'aide d'une autre personne ?",
-   "followup": "À quelle fréquence, quand a eu lieu le dernier épisode, et est-il survenu éveillé(e) ou pendant le sommeil ?"
+   "options": {
+    "none": "Non",
+    "once": "Oui, une fois",
+    "repeated": "Oui, plusieurs fois"
+   }
   },
   "hypo_awareness": {
    "label": "Est-il arrivé que vous ne remarquiez pas vous-même une hypoglycémie à temps (absence de signes d'alerte) ?",
@@ -512,18 +522,20 @@
   },
   "alcohol_dependence": {
    "label": "Une dépendance à l'alcool a-t-elle déjà été constatée chez vous, ou avez-vous suivi une cure de désintoxication ou de sevrage ?",
-   "followup": "Quand le traitement a-t-il été terminé, et depuis quand êtes-vous abstinent(e) ?"
+   "followup": "Quand le traitement a-t-il été terminé (en hospitalisation ou en ambulatoire), et depuis quand êtes-vous abstinent(e) ?"
   },
   "drugs": {
-   "label": "Consommez-vous actuellement des drogues (p. ex. cannabis, cocaïne, amphétamines), ou en avez-vous consommé régulièrement par le passé ?",
-   "followup": "Quelles substances, à quelle fréquence, et quand pour la dernière fois ?"
+   "label": "Prenez-vous actuellement d'autres drogues (p. ex. cocaïne, amphétamines, ecstasy, héroïne), ou en avez-vous consommé régulièrement par le passé ?",
+   "followup": "Quelles substances, à quelle fréquence, et quand pour la dernière fois ?",
+   "hint": "Le cannabis fait l'objet d'une question distincte ci-dessus."
   },
   "cannabis": {
-   "label": "À quelle fréquence consommez-vous du cannabis ?",
+   "label": "Consommez-vous du cannabis (p. ex. en joint, avec un vaporisateur ou sous forme comestible) ?",
    "options": {
     "nie": "Jamais",
     "gelegentlich": "Occasionnellement (pas régulièrement)",
-    "regelmaessig": "Régulièrement (tous les jours ou par habitude)"
+    "regelmaessig": "Régulièrement (plusieurs fois par semaine)",
+    "taeglich": "Tous les jours ou presque tous les jours"
    }
   },
   "substitution": {
@@ -570,6 +582,104 @@
   "consent_privacy": {
    "label": "J'ai lu les informations sur la protection des données et je consens au traitement de mes données à des fins de médecine du trafic.",
    "error": "Veuillez accepter les informations sur la protection des données."
+  },
+  "alcohol_binge": {
+   "label": "Vous arrive-t-il de boire de grandes quantités d'alcool en peu de temps lors d'une même occasion (p. ex. 5 verres ou plus en une soirée) ?"
+  },
+  "bp_organ_symptoms": {
+   "label": "En raison de votre tension artérielle élevée, avez-vous déjà eu des troubles de la vue ou des troubles venant du cerveau (p. ex. de fortes douleurs à la tête avec confusion, troubles du langage ou de la vue) ?"
+  },
+  "bp_values": {
+   "label": "Quelles sont habituellement vos valeurs de tension artérielle – malgré le traitement ?",
+   "options": {
+    "unter140": "Le plus souvent inférieures à 140/90",
+    "bis180": "Entre 140/90 et 180/110",
+    "ueber180": "Souvent supérieures à 180 (valeur haute) ou à 110 (valeur basse)",
+    "unbekannt": "Je ne sais pas"
+   }
+  },
+  "cannabis_medical": {
+   "label": "Prenez-vous du cannabis sur prescription médicale (cannabis médical, p. ex. délivré en pharmacie) ?",
+   "followup": "Qui vous le prescrit, contre quelle maladie, et à quelle posologie ?"
+  },
+  "cannabis_traffic": {
+   "label": "Avez-vous déjà été remarqué(e) dans la circulation routière sous l'influence du cannabis (p. ex. conduite sous l'effet du THC, amende, MPU) ?",
+   "followup": "Quand cela s'est-il produit, et qu'a-t-on constaté ?"
+  },
+  "drug_dependence": {
+   "label": "Une dépendance au cannabis ou à d'autres drogues a-t-elle déjà été constatée chez vous, ou avez-vous suivi pour cette raison une cure de désintoxication ou de sevrage ?",
+   "followup": "Quelle substance, quand le traitement a-t-il été terminé (en hospitalisation ou en ambulatoire), et depuis quand êtes-vous abstinent(e) ?"
+  },
+  "heart_event_when": {
+   "label": "De quand date le dernier de ces événements (infarctus, stent, pontage) ?",
+   "options": {
+    "unter6w": "Moins de 6 semaines",
+    "6w_bis_3m": "6 semaines à 3 mois",
+    "ueber3m": "Plus de 3 mois"
+   }
+  },
+  "hypoglycemia_desc": {
+   "label": "Quand a eu lieu le dernier épisode, et est-il survenu à l'état éveillé ou pendant le sommeil ?"
+  },
+  "icd_indication": {
+   "label": "Pour quelle raison le défibrillateur vous a-t-il été implanté ?",
+   "options": {
+    "vorsorglich": "À titre préventif, en raison de ma maladie cardiaque (sans événement mettant la vie en danger auparavant)",
+    "nach_ereignis": "Après un arrêt cardiaque auquel j'ai survécu ou un trouble du rythme mettant la vie en danger",
+    "unbekannt": "Je ne sais pas exactement"
+   }
+  },
+  "low_ef": {
+   "label": "Vous a-t-on dit que la capacité de pompage de votre cœur est nettement réduite (fraction d'éjection inférieure à environ 35 %) ?",
+   "hint": "La capacité de pompage (FE) figure généralement dans le compte rendu de votre cardiologue.",
+   "options": {
+    "ja": "Oui",
+    "nein": "Non, normale ou seulement légèrement réduite",
+    "unbekannt": "Je ne sais pas"
+   }
+  },
+  "mixed_consumption": {
+   "label": "Consommez-vous souvent du cannabis en même temps que de l'alcool ou d'autres substances enivrantes (simultanément ou à peu d'intervalle) ?"
+  },
+  "pavk": {
+   "label": "Un trouble de la circulation sanguine dans les jambes est-il connu chez vous (maladie des vitrines / artériopathie des membres inférieurs, AOMI) ?",
+   "followup": "Depuis quand, et une opération ou une intervention par cathéter a-t-elle déjà été réalisée ?"
+  },
+  "pavk_rest_pain": {
+   "label": "Cela vous cause-t-il aussi des douleurs au repos, par exemple la nuit en position allongée ?"
+  },
+  "resuscitated": {
+   "label": "Avez-vous déjà dû être réanimé(e) à la suite d'un arrêt cardiaque ?",
+   "followup": "Quand cela s'est-il produit, et quelle cause a été trouvée ?"
+  },
+  "sleepiness_coping": {
+   "label": "Lorsque vous devenez fatigué(e) dans la journée : le remarquez-vous à temps, et faites-vous alors une pause (p. ex. vous arrêter, faire une courte sieste) ?",
+   "options": {
+    "zuverlaessig": "Oui, je le remarque de façon fiable et je fais alors une pause",
+    "teilweise": "En partie, mais pas toujours à temps",
+    "nein": "Non, la fatigue me surprend plutôt"
+   }
+  },
+  "stroke_prevention": {
+   "label": "La cause de l'événement a-t-elle été recherchée par un médecin, et êtes-vous traité(e) à titre préventif (p. ex. anticoagulants, médicaments contre la tension ou le cholestérol, opération de la carotide) ?",
+   "followup": "Quel traitement, et quand a eu lieu le dernier contrôle ?"
+  },
+  "stroke_rehab": {
+   "label": "Avez-vous suivi une rééducation après l'événement ?",
+   "hint": "En cas de déficits persistants, l'aptitude à la conduite ne doit, selon les recommandations médicales, être évaluée qu'après l'achèvement d'une rééducation adaptée.",
+   "options": {
+    "abgeschlossen": "Oui, entièrement terminée",
+    "laufend": "Oui, elle est encore en cours",
+    "keine": "Non, aucune rééducation"
+   }
+  },
+  "vertigo_migraine": {
+   "label": "Vos crises de vertige surviennent-elles en lien avec une migraine ou de fortes douleurs à la tête (avant, pendant ou après) ?",
+   "followup": "Ces crises s'annoncent-elles à l'avance (p. ex. troubles de la vue, sensibilité à la lumière), et quand a eu lieu la dernière crise ?"
+  },
+  "vertigo_situational": {
+   "label": "Vos vertiges surviennent-ils surtout dans certaines situations où vous êtes tendu(e) ou anxieux(se) – p. ex. en conduisant, dans la foule ou sur des ponts ?",
+   "followup": "Dans quelles situations ? Le vertige survient-il aussi en conduisant ?"
   }
  },
  "ess_items": {

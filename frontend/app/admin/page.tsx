@@ -2,9 +2,11 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { toast } from "sonner";
+import { cn } from "@/lib/utils";
 import {
   Link2, Mail, Pencil, Trash2, RefreshCw,
   FileText, Plus, CheckCircle2, Clock, Loader2,
+  Check, ChevronsUpDown,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -23,14 +25,20 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList,
+} from "@/components/ui/command";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { DatePicker } from "@/components/ui/date-picker";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SiteHeader } from "@/components/site-header";
+import { SessionDetailSheet } from "@/components/admin/session-detail-sheet";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -38,6 +46,8 @@ const STORAGE_KEY = "admin_api_key";
 
 interface Session {
   token: string;
+  untersuchung: string;
+  template_slug: string;
   patient_last_name: string;
   patient_first_name: string;
   patient_email: string;
@@ -46,9 +56,16 @@ interface Session {
   completed_at: string | null;
   created_at: string;
   expires_at: string;
+  expired: boolean;
   invitation_sent_at: string | null;
   gdt_patient_id: string;
+  gdt_result_delivered_at: string | null;
+  ess_total: number | null;
+  ess_band: string | null;
+  auswertung: { kritisch: number; pruefen: number; hinweis: number } | null;
 }
+
+type StatusFilter = "alle" | "offen" | "fertig" | "auffaellig";
 
 // ─── Login ────────────────────────────────────────────────────────────────────
 
@@ -196,6 +213,76 @@ function EditDialog({ session, onClose, onSaved, headers }: EditDialogProps) {
   );
 }
 
+// ─── Untersuchungsart-Auswahl ─────────────────────────────────────────────────
+
+const DEFAULT_TEMPLATE_SLUG = "verkehrsmedizin-leitlinien";
+
+interface TemplateOption {
+  slug: string;
+  title: string;
+  basis: string;
+}
+
+function TemplateCombobox({
+  templates,
+  value,
+  onChange,
+}: {
+  templates: TemplateOption[];
+  value: string;
+  onChange: (slug: string) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const selected = templates.find((t) => t.slug === value);
+
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button
+          variant="outline"
+          role="combobox"
+          aria-expanded={open}
+          className="w-full justify-between font-normal"
+          disabled={templates.length === 0}
+        >
+          <span className="truncate">
+            {selected?.title ?? (templates.length === 0 ? "Lade Untersuchungsarten…" : "Untersuchungsart wählen…")}
+          </span>
+          <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-[var(--radix-popover-trigger-width)] min-w-80 p-0" align="start">
+        <Command>
+          <CommandInput placeholder="Untersuchung suchen…" />
+          <CommandList className="max-h-72">
+            <CommandEmpty>Keine Untersuchungsart gefunden.</CommandEmpty>
+            <CommandGroup>
+              {templates.map((t) => (
+                <CommandItem
+                  key={t.slug}
+                  value={`${t.title} ${t.slug}`}
+                  onSelect={() => {
+                    onChange(t.slug);
+                    setOpen(false);
+                  }}
+                >
+                  <Check className={cn("mr-2 size-4 shrink-0", value === t.slug ? "opacity-100" : "opacity-0")} />
+                  <span className="min-w-0">
+                    <span className="block truncate">{t.title}</span>
+                    {t.basis && (
+                      <span className="block truncate text-xs text-muted-foreground">{t.basis}</span>
+                    )}
+                  </span>
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </CommandList>
+        </Command>
+      </PopoverContent>
+    </Popover>
+  );
+}
+
 // ─── Dashboard ────────────────────────────────────────────────────────────────
 
 function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void }) {
@@ -208,8 +295,33 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
   const [email, setEmail] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [creating, setCreating] = useState(false);
+  const [templates, setTemplates] = useState<TemplateOption[]>([]);
+  const [templateSlug, setTemplateSlug] = useState(DEFAULT_TEMPLATE_SLUG);
 
   const [editSession, setEditSession] = useState<Session | null>(null);
+  const [detailToken, setDetailToken] = useState<string | null>(null);
+  const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState<StatusFilter>("alle");
+
+  const filteredSessions = sessions.filter((s) => {
+    if (statusFilter === "offen" && s.completed) return false;
+    if (statusFilter === "fertig" && !s.completed) return false;
+    if (
+      statusFilter === "auffaellig" &&
+      !(s.auswertung && (s.auswertung.kritisch > 0 || s.auswertung.pruefen > 0))
+    )
+      return false;
+    if (search.trim()) {
+      const q = search.trim().toLowerCase();
+      const hay = `${s.patient_last_name} ${s.patient_first_name} ${s.patient_email} ${s.gdt_patient_id} ${s.untersuchung}`.toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  const auffaelligCount = sessions.filter(
+    (s) => s.auswertung && (s.auswertung.kritisch > 0 || s.auswertung.pruefen > 0)
+  ).length;
   const [deleteSession, setDeleteSession] = useState<Session | null>(null);
 
   const headers = {
@@ -234,6 +346,24 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
 
   useEffect(() => { loadSessions(); }, [loadSessions]);
 
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await fetch("/api/admin/templates/", {
+          headers: { Authorization: `Bearer ${apiKey}` },
+        });
+        if (!res.ok) return;
+        const list: TemplateOption[] = await res.json();
+        setTemplates(list);
+        if (!list.some((t) => t.slug === DEFAULT_TEMPLATE_SLUG) && list.length > 0) {
+          setTemplateSlug(list[0].slug);
+        }
+      } catch {
+        // Auswahl bleibt leer – das Backend fällt beim Anlegen auf den Standardkatalog zurück
+      }
+    })();
+  }, [apiKey]);
+
   async function handleCreate(e: React.FormEvent) {
     e.preventDefault();
     setCreating(true);
@@ -246,6 +376,7 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
           patient_first_name: firstName,
           patient_email: email,
           patient_birth_date: birthDate || undefined,
+          template_slug: templateSlug,
         }),
       });
       const data = await res.json();
@@ -321,7 +452,7 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
         <TooltipProvider delayDuration={300}>
           <div className="flex flex-1 flex-col gap-6 p-4 md:p-6">
           {/* Übersicht */}
-          <div id="overview" className="grid grid-cols-2 sm:grid-cols-3 gap-4 scroll-mt-16">
+          <div id="overview" className="grid grid-cols-2 sm:grid-cols-4 gap-4 scroll-mt-16">
             <Card>
               <CardContent className="pt-6">
                 <p className="text-2xl font-bold">{sessions.length}</p>
@@ -330,14 +461,25 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
             </Card>
             <Card>
               <CardContent className="pt-6">
-                <p className="text-2xl font-bold text-green-600">{sessions.filter(s => s.completed).length}</p>
+                <p className="text-2xl font-bold text-success">{sessions.filter(s => s.completed).length}</p>
                 <p className="text-sm text-muted-foreground">Abgeschlossen</p>
               </CardContent>
             </Card>
-            <Card className="col-span-2 sm:col-span-1">
+            <Card>
               <CardContent className="pt-6">
-                <p className="text-2xl font-bold text-amber-500">{sessions.filter(s => !s.completed).length}</p>
+                <p className="text-2xl font-bold text-warning">{sessions.filter(s => !s.completed).length}</p>
                 <p className="text-sm text-muted-foreground">Offen</p>
+              </CardContent>
+            </Card>
+            <Card
+              className={cn("cursor-pointer transition-colors hover:bg-muted/40", auffaelligCount > 0 && "border-destructive/40")}
+              onClick={() => setStatusFilter("auffaellig")}
+            >
+              <CardContent className="pt-6">
+                <p className={cn("text-2xl font-bold", auffaelligCount > 0 ? "text-destructive" : "text-muted-foreground")}>
+                  {auffaelligCount}
+                </p>
+                <p className="text-sm text-muted-foreground">Auffällig</p>
               </CardContent>
             </Card>
           </div>
@@ -353,6 +495,11 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
             <Separator />
             <CardContent className="pt-4">
               <form onSubmit={handleCreate} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 items-end">
+                <div className="space-y-1.5 sm:col-span-2">
+                  <Label>Untersuchungsart</Label>
+                  <TemplateCombobox templates={templates} value={templateSlug} onChange={setTemplateSlug} />
+                </div>
+                <div className="hidden lg:block lg:col-span-2" />
                 <div className="space-y-1.5">
                   <Label htmlFor="c-ln">Nachname <span className="text-destructive">*</span></Label>
                   <Input id="c-ln" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
@@ -390,12 +537,41 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
                 <CardTitle className="text-base">
                   Alle Sessions
                   {sessions.length > 0 && (
-                    <Badge variant="secondary" className="ml-2 font-normal">{sessions.length}</Badge>
+                    <Badge variant="secondary" className="ml-2 font-normal">
+                      {filteredSessions.length}/{sessions.length}
+                    </Badge>
                   )}
                 </CardTitle>
                 <Button variant="ghost" size="icon" onClick={loadSessions}>
                   <RefreshCw className="size-4" />
                 </Button>
+              </div>
+              <div className="flex flex-wrap items-center gap-2 pt-2">
+                <Input
+                  placeholder="Suchen (Name, E-Mail, GDT-ID, Untersuchung)…"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  className="h-8 max-w-56"
+                />
+                <ToggleGroup
+                  type="single"
+                  variant="outline"
+                  size="sm"
+                  value={statusFilter}
+                  onValueChange={(v) => v && setStatusFilter(v as StatusFilter)}
+                >
+                  <ToggleGroupItem value="alle">Alle</ToggleGroupItem>
+                  <ToggleGroupItem value="offen">Offen</ToggleGroupItem>
+                  <ToggleGroupItem value="fertig">Abgeschlossen</ToggleGroupItem>
+                  <ToggleGroupItem value="auffaellig" className="gap-1">
+                    Auffällig
+                    {auffaelligCount > 0 && (
+                      <Badge variant="destructive" className="h-4 min-w-4 px-1 text-[10px]">
+                        {auffaelligCount}
+                      </Badge>
+                    )}
+                  </ToggleGroupItem>
+                </ToggleGroup>
               </div>
             </CardHeader>
             <Separator />
@@ -405,47 +581,97 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
                 <div className="space-y-2 p-4">
                   {[...Array(3)].map((_, i) => <Skeleton key={i} className="h-10 w-full" />)}
                 </div>
-              ) : sessions.length === 0 ? (
-                <p className="text-sm text-muted-foreground p-4 text-center">Keine Sessions vorhanden.</p>
+              ) : filteredSessions.length === 0 ? (
+                <p className="text-sm text-muted-foreground p-4 text-center">
+                  {sessions.length === 0 ? "Keine Sessions vorhanden." : "Kein Treffer für den Filter."}
+                </p>
               ) : (
                 <Table>
                   <TableHeader>
                     <TableRow>
                       <TableHead>Patient</TableHead>
-                      <TableHead>GDT</TableHead>
-                      <TableHead>E-Mail</TableHead>
-                      <TableHead>Geburtsdatum</TableHead>
+                      <TableHead>Untersuchung</TableHead>
+                      <TableHead>Auswertung</TableHead>
+                      <TableHead>SAMAS</TableHead>
                       <TableHead>Status</TableHead>
                       <TableHead>Erstellt</TableHead>
                       <TableHead className="text-right">Aktionen</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {sessions.map((s) => (
-                      <TableRow key={s.token}>
-                        <TableCell className="font-medium">
-                          {s.patient_last_name || "—"}
-                          {s.patient_first_name ? `, ${s.patient_first_name}` : ""}
+                    {filteredSessions.map((s) => (
+                      <TableRow
+                        key={s.token}
+                        className="cursor-pointer"
+                        onClick={() => setDetailToken(s.token)}
+                      >
+                        <TableCell>
+                          <span className="font-medium">
+                            {s.patient_last_name || "—"}
+                            {s.patient_first_name ? `, ${s.patient_first_name}` : ""}
+                          </span>
+                          <span className="block text-xs text-muted-foreground">
+                            {[s.patient_birth_date, s.patient_email].filter(Boolean).join(" · ") || "—"}
+                          </span>
+                        </TableCell>
+
+                        <TableCell className="max-w-44">
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <span className="block truncate text-xs">{s.untersuchung || "—"}</span>
+                            </TooltipTrigger>
+                            <TooltipContent>{s.untersuchung || "—"}</TooltipContent>
+                          </Tooltip>
+                        </TableCell>
+
+                        <TableCell>
+                          {s.auswertung ? (
+                            s.auswertung.kritisch > 0 || s.auswertung.pruefen > 0 ? (
+                              <span className="flex flex-wrap gap-1">
+                                {s.auswertung.kritisch > 0 && (
+                                  <Badge variant="destructive">{s.auswertung.kritisch} kritisch</Badge>
+                                )}
+                                {s.auswertung.pruefen > 0 && (
+                                  <Badge variant="warning">{s.auswertung.pruefen} prüfen</Badge>
+                                )}
+                              </span>
+                            ) : (
+                              <Badge variant="success">unauffällig</Badge>
+                            )
+                          ) : (
+                            <span className="text-xs text-muted-foreground">—</span>
+                          )}
+                          {s.ess_total !== null && (
+                            <span className="block pt-0.5 text-[11px] text-muted-foreground">
+                              ESS {s.ess_total}/24
+                            </span>
+                          )}
                         </TableCell>
 
                         <TableCell>
                           {s.gdt_patient_id ? (
                             <Tooltip>
                               <TooltipTrigger asChild>
-                                <Badge variant="secondary" className="cursor-default font-mono text-[10px]">
-                                  GDT
+                                <Badge
+                                  variant={s.gdt_result_delivered_at ? "success" : "secondary"}
+                                  className="cursor-default font-mono text-[10px]"
+                                >
+                                  {s.gdt_result_delivered_at ? "GDT ✓" : "GDT"}
                                 </Badge>
                               </TooltipTrigger>
-                              <TooltipContent>GDT-ID: {s.gdt_patient_id}</TooltipContent>
+                              <TooltipContent>
+                                GDT-ID {s.gdt_patient_id}
+                                {s.gdt_result_delivered_at
+                                  ? ` · Ergebnis an SAMAS übermittelt ${s.gdt_result_delivered_at}`
+                                  : s.completed
+                                    ? " · Ergebnis wartet auf Abholung durch die Bridge"
+                                    : " · Link-GDT geschrieben, SAMAS arbeitet normal weiter"}
+                              </TooltipContent>
                             </Tooltip>
                           ) : (
                             <span className="text-muted-foreground">—</span>
                           )}
                         </TableCell>
-
-                        <TableCell className="text-muted-foreground text-xs">{s.patient_email || "—"}</TableCell>
-
-                        <TableCell className="text-muted-foreground text-xs">{s.patient_birth_date || "—"}</TableCell>
 
                         <TableCell>
                           {s.completed ? (
@@ -453,6 +679,8 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
                               <CheckCircle2 className="size-3" />
                               {s.completed_at ?? "Ausgefüllt"}
                             </Badge>
+                          ) : s.expired ? (
+                            <Badge variant="destructive">Abgelaufen</Badge>
                           ) : (
                             <Badge variant="warning" className="gap-1">
                               <Clock className="size-3" />
@@ -463,7 +691,7 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
 
                         <TableCell className="text-muted-foreground text-xs whitespace-nowrap">{s.created_at}</TableCell>
 
-                        <TableCell>
+                        <TableCell onClick={(e) => e.stopPropagation()}>
                           <div className="flex items-center justify-end gap-1">
                             <Tooltip>
                               <TooltipTrigger asChild>
@@ -539,6 +767,14 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
             onClose={() => setEditSession(null)}
             onSaved={loadSessions}
             headers={headers}
+          />
+
+          <SessionDetailSheet
+            token={detailToken}
+            headers={headers}
+            onClose={() => setDetailToken(null)}
+            onResend={handleResend}
+            onCopyLink={copyLink}
           />
 
           <AlertDialog open={!!deleteSession} onOpenChange={(open) => !open && setDeleteSession(null)}>

@@ -144,7 +144,9 @@
     "D1": "D1",
     "D": "D",
     "DE": "DE",
-    "T": "T"
+    "T": "T",
+    "D1E": "D1E",
+    "L": "L"
    }
   },
   "license_years": {
@@ -246,10 +248,12 @@
   },
   "hearing_impaired": {
    "label": "Máte ťažkú nedoslýchavosť alebo ste nepočujúci(a)?",
-   "followup": "Odkedy a ste v liečbe u ušného lekára (ORL)?"
+   "followup": "Odkedy a ste v liečbe u ušného lekára (ORL)?",
+   "hint": "Ťažká nedoslýchavosť znamená: viac ako 60 % strata sluchu na lepšie počujúcom uchu, meraná bez načúvacieho prístroja."
   },
   "hearing_aid": {
-   "label": "Nosíte načúvací prístroj alebo kochleárny implantát?"
+   "label": "Nosíte načúvací prístroj alebo kochleárny implantát?",
+   "hint": "Načúvací prístroj sa odporúča, nie je však podmienkou spôsobilosti na vedenie vozidla; pri posudzovaní sa hodnotí sluch bez načúvacieho prístroja."
   },
   "heart_disease": {
    "label": "Je u vás známe ochorenie srdca alebo ciev?",
@@ -269,11 +273,12 @@
    "followup": "Aká diagnóza a ako sa lieči?"
   },
   "pacemaker_icd": {
-   "label": "Máte kardiostimulátor alebo defibrilátor (ICD)?",
+   "label": "Máte kardiostimulátor, defibrilátor (ICD) alebo systém na podporu srdca?",
    "options": {
     "nein": "Nie",
     "schrittmacher": "Kardiostimulátor",
-    "icd": "Defibrilátor (ICD)"
+    "icd": "Defibrilátor (ICD)",
+    "vad": "Systém na podporu srdca (umelé srdce/VAD)"
    },
    "followup": "Kedy bol implantovaný a kedy bola posledná kontrola?"
   },
@@ -299,7 +304,7 @@
    "label": "Dochádza pri vašich liekoch na krvný tlak k závratom, pocitu slabosti alebo tmavnutiu pred očami?"
   },
   "heart_other": {
-   "label": "Je u vás známe ďalšie ochorenie srdca alebo ciev: chyba srdcovej chlopne, vrodená srdcová chyba, ochorenie srdcového svalu (kardiomyopatia), dedičné ochorenie srdcového rytmu (napr. syndróm dlhého QT), aneuryzma aorty alebo zúžená krčná tepna?",
+   "label": "Je u vás známe ďalšie ochorenie srdca alebo ciev: chyba srdcovej chlopne, vrodená srdcová chyba, ochorenie srdcového svalu (kardiomyopatia), dedičná porucha rytmu (napr. syndróm dlhého QT, Brugada), aneuryzma aorty alebo zúžená krčná tepna?",
    "followup": "Aká diagnóza a ako sa kontroluje/lieči?"
   },
   "family_sudden_death": {
@@ -307,7 +312,7 @@
   },
   "stroke": {
    "label": "Mali ste niekedy mozgovú porážku, krvácanie do mozgu alebo TIA (prechodná porucha prekrvenia s krátkodobými výpadkami)?",
-   "followup": "Kedy k tomu došlo a bola ukončená rehabilitácia?"
+   "followup": "Kedy k tejto udalosti došlo a aká príčina bola zistená?"
   },
   "stroke_residuals": {
    "label": "Pretrvávajú odvtedy následky ako ochrnutie, poruchy reči, problémy s pamäťou alebo obmedzenia zorného poľa?",
@@ -356,11 +361,12 @@
     "3bis6m": "3 až 6 mesiacov",
     "6bis12m": "6 až 12 mesiacov",
     "1bis2j": "1 až 2 roky",
-    "ueber2j": "Viac ako 2 roky"
+    "2bis4j": "2 až 4 roky",
+    "ueber4j": "Viac ako 4 roky"
    }
   },
   "vertigo_prodromi": {
-   "label": "Ohlasujú sa vaše záchvaty závratu vopred (napr. tlak v uchu, hučanie v ušiach, zhoršenie sluchu), takže by ste stihli včas zastaviť?",
+   "label": "Ohlasujú sa vaše záchvaty závratu vopred (napr. tlak v uchu, hučanie v ušiach, zhoršenie sluchu alebo predzvesti migrény ako poruchy videnia), takže by ste stihli včas zastaviť?",
    "options": {
     "immer": "Áno, vždy",
     "manchmal": "Niekedy",
@@ -410,7 +416,11 @@
   },
   "hypoglycemia": {
    "label": "Mali ste za posledných 12 mesiacov ťažký pokles cukru v krvi, pri ktorom ste boli odkázaný(á) na cudziu pomoc?",
-   "followup": "Ako často, kedy bola posledná epizóda a nastala v bdelom stave alebo v spánku?"
+   "options": {
+    "none": "Nie",
+    "once": "Áno, raz",
+    "repeated": "Áno, viackrát"
+   }
   },
   "hypo_awareness": {
    "label": "Stalo sa, že ste pokles cukru v krvi sami včas nezbadali (chýbajúce varovné príznaky)?",
@@ -512,18 +522,20 @@
   },
   "alcohol_dependence": {
    "label": "Bola u vás niekedy zistená závislosť od alkoholu alebo ste absolvovali detoxikáciu, resp. odvykaciu liečbu?",
-   "followup": "Kedy bola liečba ukončená a odkedy žijete abstinentne?"
+   "followup": "Kedy bola liečba ukončená (ústavná alebo ambulantná) a odkedy žijete abstinentne?"
   },
   "drugs": {
-   "label": "Užívate v súčasnosti drogy (napr. kanabis, kokaín, amfetamíny) alebo ste drogy pravidelne užívali v minulosti?",
-   "followup": "Aké látky, ako často a kedy naposledy?"
+   "label": "Užívate v súčasnosti iné drogy (napr. kokaín, amfetamíny, extázu, heroín) alebo ste takéto drogy pravidelne užívali v minulosti?",
+   "followup": "Aké látky, ako často a kedy naposledy?",
+   "hint": "Na kanabis sa pýtame osobitne vyššie."
   },
   "cannabis": {
-   "label": "Ako často užívate kanabis?",
+   "label": "Užívate kanabis (napr. ako joint, cez vaporizér alebo v jedlách)?",
    "options": {
     "nie": "Nikdy",
     "gelegentlich": "Príležitostne (nie pravidelne)",
-    "regelmaessig": "Pravidelne (denne alebo zvykovo)"
+    "regelmaessig": "Pravidelne (viackrát týždenne)",
+    "taeglich": "Denne alebo takmer denne"
    }
   },
   "substitution": {
@@ -570,6 +582,104 @@
   "consent_privacy": {
    "label": "Prečítal(a) som si informácie o ochrane osobných údajov a súhlasím so spracúvaním svojich údajov na dopravno-lekárske účely.",
    "error": "Prosím, prijmite informácie o ochrane osobných údajov."
+  },
+  "alcohol_binge": {
+   "label": "Stáva sa, že pri jednej príležitosti vypijete väčšie množstvo alkoholu za krátky čas (napr. 5 alebo viac pohárov za jeden večer)?"
+  },
+  "bp_organ_symptoms": {
+   "label": "Mali ste už niekedy pre vysoký krvný tlak poruchy videnia alebo ťažkosti zo strany mozgu (napr. silné bolesti hlavy so zmätenosťou, poruchy reči alebo videnia)?"
+  },
+  "bp_values": {
+   "label": "Aké vysoké sú vaše hodnoty krvného tlaku zvyčajne – napriek liečbe?",
+   "options": {
+    "bis180": "Medzi 140/90 a 180/110",
+    "ueber180": "Často nad 180 (horná hodnota) alebo nad 110 (dolná hodnota)",
+    "unbekannt": "Neviem",
+    "unter140": "Väčšinou pod 140/90"
+   }
+  },
+  "cannabis_medical": {
+   "followup": "Kto ho predpisuje, na aké ochorenie a v akom dávkovaní?",
+   "label": "Užívate kanabis na lekársky predpis (medicínsky kanabis, napr. z lekárne)?"
+  },
+  "cannabis_traffic": {
+   "followup": "Kedy to bolo a čo bolo zistené?",
+   "label": "Boli ste už niekedy v cestnej premávke prichytený(á) pod vplyvom kanabisu (napr. jazda pod účinkom THC, pokuta, MPU)?"
+  },
+  "drug_dependence": {
+   "followup": "Ktorá látka, kedy bola liečba ukončená (ústavná alebo ambulantná) a odkedy žijete abstinentne?",
+   "label": "Bola u vás niekedy zistená závislosť od kanabisu alebo iných drog, alebo ste kvôli tomu absolvovali detoxikáciu, resp. odvykaciu liečbu?"
+  },
+  "heart_event_when": {
+   "label": "Ako dávno došlo k poslednej z týchto udalostí (infarkt, stent, bypass)?",
+   "options": {
+    "6w_bis_3m": "6 týždňov až 3 mesiace",
+    "ueber3m": "Viac ako 3 mesiace",
+    "unter6w": "Menej ako 6 týždňov"
+   }
+  },
+  "hypoglycemia_desc": {
+   "label": "Kedy bola posledná epizóda a nastala v bdelom stave alebo v spánku?"
+  },
+  "icd_indication": {
+   "label": "Z akého dôvodu vám bol implantovaný defibrilátor?",
+   "options": {
+    "nach_ereignis": "Po prekonanej zástave srdca alebo život ohrozujúcej poruche rytmu",
+    "unbekannt": "Presne neviem",
+    "vorsorglich": "Preventívne pre moje ochorenie srdca (bez predchádzajúcej život ohrozujúcej udalosti)"
+   }
+  },
+  "low_ef": {
+   "hint": "Čerpací výkon (EF) býva zvyčajne uvedený v správe od vášho kardiológa.",
+   "label": "Povedali vám, že čerpací výkon vášho srdca je výrazne znížený (ejekčná frakcia pod približne 35 %)?",
+   "options": {
+    "ja": "Áno",
+    "nein": "Nie, normálny alebo len mierne znížený",
+    "unbekannt": "Neviem"
+   }
+  },
+  "mixed_consumption": {
+   "label": "Užívate kanabis častejšie spolu s alkoholom alebo inými omamnými látkami (súčasne alebo krátko po sebe)?"
+  },
+  "pavk": {
+   "followup": "Odkedy a bola už vykonaná operácia alebo katétrový zákrok?",
+   "label": "Je u vás známa porucha prekrvenia nôh (choroba výkladov / ICHDK)?"
+  },
+  "pavk_rest_pain": {
+   "label": "Máte kvôli tomu bolesti aj v pokoji, napríklad v noci pri ležaní?"
+  },
+  "resuscitated": {
+   "followup": "Kedy to bolo a aká príčina sa zistila?",
+   "label": "Museli ste už niekedy byť po zástave srdca oživovaný(á) (resuscitovaný(á))?"
+  },
+  "sleepiness_coping": {
+   "label": "Keď ste cez deň unavený(á): všimnete si to včas a urobíte si potom prestávku (napr. zastavíte, krátky spánok)?",
+   "options": {
+    "nein": "Nie, únava ma skôr prekvapí",
+    "teilweise": "Čiastočne, ale nie vždy včas",
+    "zuverlaessig": "Áno, spoľahlivo si to všimnem a urobím si prestávku"
+   }
+  },
+  "stroke_prevention": {
+   "followup": "Aká liečba a kedy bola posledná kontrola?",
+   "label": "Bola príčina tejto udalosti lekársky objasnená a ste preventívne liečený(á) (napr. lieky na riedenie krvi, lieky na zníženie krvného tlaku alebo cholesterolu, operácia krčnej tepny)?"
+  },
+  "stroke_rehab": {
+   "hint": "Pri pretrvávajúcich výpadkoch sa má spôsobilosť na vedenie vozidla podľa odborných odporúčaní posudzovať až po ukončení vhodnej rehabilitácie.",
+   "label": "Absolvovali ste po tejto udalosti rehabilitáciu?",
+   "options": {
+    "abgeschlossen": "Áno, úplne ukončenú",
+    "keine": "Nie, žiadnu rehabilitáciu",
+    "laufend": "Áno, ešte prebieha"
+   }
+  },
+  "vertigo_migraine": {
+   "followup": "Ohlasujú sa tieto záchvaty vopred (napr. poruchy videnia, citlivosť na svetlo) a kedy bol posledný záchvat?",
+   "label": "Vyskytujú sa vaše záchvaty závratu v súvislosti s migrénou alebo silnými bolesťami hlavy (pred nimi, počas nich alebo po nich)?"
+  },
+  "vertigo_situational": {
+   "followup": "V akých situáciách? Vyskytuje sa závrat aj pri šoférovaní?",
+   "label": "Vyskytuje sa váš závrat najmä v určitých situáciách, v ktorých ste napätý(á) alebo úzkostný(á) – napr. pri šoférovaní, v davoch ľudí alebo na mostoch?"
   }
  },
  "ess_items": {

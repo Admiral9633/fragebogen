@@ -144,7 +144,9 @@
     "D1": "D1",
     "D": "D",
     "DE": "DE",
-    "T": "T"
+    "T": "T",
+    "D1E": "D1E",
+    "L": "L"
    }
   },
   "license_years": {
@@ -246,10 +248,12 @@
   },
   "hearing_impaired": {
    "label": "Ert þú með verulega skerta heyrn eða heyrnarlaus?",
-   "followup": "Síðan hvenær, og ert þú í meðferð hjá háls-, nef- og eyrnalækni?"
+   "followup": "Síðan hvenær, og ert þú í meðferð hjá háls-, nef- og eyrnalækni?",
+   "hint": "Verulega skert þýðir: meira en 60 % heyrnartap á betra eyranu, mælt án heyrnartækis."
   },
   "hearing_aid": {
-   "label": "Notar þú heyrnartæki eða kuðungsígræðslu?"
+   "label": "Notar þú heyrnartæki eða kuðungsígræðslu?",
+   "hint": "Mælt er með heyrnartæki, en það er ekki skilyrði fyrir ökuhæfni; við matið gildir heyrnin án heyrnartækis."
   },
   "heart_disease": {
    "label": "Er vitað um hjarta- eða æðasjúkdóm hjá þér?",
@@ -269,11 +273,12 @@
    "followup": "Hvaða greining, og hvernig er meðhöndlað?"
   },
   "pacemaker_icd": {
-   "label": "Ert þú með gangráð eða bjargráð (ICD)?",
+   "label": "Ert þú með gangráð, bjargráð (ICD) eða hjartadælu?",
    "options": {
     "nein": "Nei",
     "schrittmacher": "Gangráður",
-    "icd": "Bjargráður (ICD)"
+    "icd": "Bjargráður (ICD)",
+    "vad": "Hjartadæla (gervihjarta/VAD)"
    },
    "followup": "Hvenær var hann settur, og hvenær var síðasta eftirlit?"
   },
@@ -299,7 +304,7 @@
    "label": "Verður þú var við svima, máttleysistilfinningu eða að sortni fyrir augum af blóðþrýstingslyfjunum þínum?"
   },
   "heart_other": {
-   "label": "Er vitað um annan hjarta-/æðasjúkdóm hjá þér: hjartalokugalla, meðfæddan hjartagalla, hjartavöðvasjúkdóm (kardíómýópatíu), arfgengan hjartsláttarsjúkdóm (t.d. langt QT-heilkenni), ósæðargúlp eða þrengda hálsslagæð?",
+   "label": "Er vitað um annan hjarta-/æðasjúkdóm hjá þér: hjartalokugalla, meðfæddan hjartagalla, hjartavöðvasjúkdóm (kardíómýópatíu), arfgengan hjartsláttarsjúkdóm (t.d. langt QT-heilkenni, Brugada-heilkenni), ósæðargúlp eða þrengda hálsslagæð?",
    "followup": "Hvaða greining, og hvernig er henni fylgt eftir eða hún meðhöndluð?"
   },
   "family_sudden_death": {
@@ -307,7 +312,7 @@
   },
   "stroke": {
    "label": "Hefur þú einhvern tíma fengið heilablóðfall, heilablæðingu eða TIA (tímabundna blóðrásartruflun með skammvinnum einkennum)?",
-   "followup": "Hvenær var atvikið, og var endurhæfingu lokið?"
+   "followup": "Hvenær var atvikið, og hvaða orsök fannst?"
   },
   "stroke_residuals": {
    "label": "Eru enn til staðar eftirstöðvar eins og lamanir, taltruflanir, minnisvandamál eða skert sjónsvið?",
@@ -356,11 +361,12 @@
     "3bis6m": "3 til 6 mánuðir",
     "6bis12m": "6 til 12 mánuðir",
     "1bis2j": "1 til 2 ár",
-    "ueber2j": "Lengur en 2 ár"
+    "2bis4j": "2 til 4 ár",
+    "ueber4j": "Lengur en 4 ár"
    }
   },
   "vertigo_prodromi": {
-   "label": "Gera svimaköstin boð á undan sér (t.d. þrýstingur í eyra, eyrnasuð, heyrnarskerðing), þannig að þú gætir stöðvað í tæka tíð?",
+   "label": "Gera svimaköstin boð á undan sér (t.d. þrýstingur í eyra, eyrnasuð, heyrnarskerðing eða mígrenifyrirboðar eins og sjóntruflanir), þannig að þú gætir stöðvað í tæka tíð?",
    "options": {
     "immer": "Já, alltaf",
     "manchmal": "Stundum",
@@ -410,7 +416,11 @@
   },
   "hypoglycemia": {
    "label": "Hefur þú fengið alvarlegt blóðsykursfall síðustu 12 mánuði þar sem þú þurftir hjálp annarra?",
-   "followup": "Hve oft, hvenær var síðasta tilvik, og kom það í vöku eða svefni?"
+   "options": {
+    "none": "Nei",
+    "once": "Já, einu sinni",
+    "repeated": "Já, oftar en einu sinni"
+   }
   },
   "hypo_awareness": {
    "label": "Hefur það komið fyrir að þú tókst ekki sjálfur eftir blóðsykursfalli í tæka tíð (viðvörunareinkenni vantaði)?",
@@ -512,18 +522,20 @@
   },
   "alcohol_dependence": {
    "label": "Hefur áfengissýki einhvern tíma verið greind hjá þér, eða hefur þú farið í afeitrun eða áfengismeðferð?",
-   "followup": "Hvenær lauk meðferðinni, og hve lengi hefur þú lifað án áfengis?"
+   "followup": "Hvenær lauk meðferðinni (á sjúkrahúsi eða á göngudeild), og hve lengi hefur þú lifað án áfengis?"
   },
   "drugs": {
-   "label": "Notar þú nú fíkniefni (t.d. kannabis, kókaín, amfetamín) eða hefur þú áður notað fíkniefni reglulega?",
-   "followup": "Hvaða efni, hve oft, og hvenær síðast?"
+   "label": "Notar þú nú önnur vímuefni (t.d. kókaín, amfetamín, ecstasy, heróín) eða hefur þú áður notað slík efni reglulega?",
+   "followup": "Hvaða efni, hve oft, og hvenær síðast?",
+   "hint": "Spurt er sérstaklega um kannabis hér að ofan."
   },
   "cannabis": {
-   "label": "Hve oft notar þú kannabis?",
+   "label": "Notar þú kannabis (t.d. sem jónu, í gufugjafa eða í matvælum)?",
    "options": {
     "nie": "Aldrei",
     "gelegentlich": "Stöku sinnum (ekki reglulega)",
-    "regelmaessig": "Reglulega (daglega eða að staðaldri)"
+    "regelmaessig": "Reglulega (nokkrum sinnum í viku)",
+    "taeglich": "Daglega eða nánast daglega"
    }
   },
   "substitution": {
@@ -570,6 +582,104 @@
   "consent_privacy": {
    "label": "Ég hef lesið persónuverndarupplýsingarnar og samþykki vinnslu gagna minna í umferðarlæknisfræðilegum tilgangi.",
    "error": "Vinsamlegast samþykktu persónuverndarupplýsingarnar."
+  },
+  "alcohol_binge": {
+   "label": "Kemur það fyrir að þú drekkir mikið magn áfengis á skömmum tíma við eitt tækifæri (t.d. 5 glös eða fleiri á einu kvöldi)?"
+  },
+  "bp_organ_symptoms": {
+   "label": "Hefur þú einhvern tíma fengið sjóntruflanir eða einkenni frá heila vegna háa blóðþrýstingsins (t.d. mikinn höfuðverk með ringlun, tal- eða sjóntruflunum)?"
+  },
+  "bp_values": {
+   "label": "Hversu hár er blóðþrýstingurinn þinn venjulega – þrátt fyrir meðferð?",
+   "options": {
+    "bis180": "Á milli 140/90 og 180/110",
+    "ueber180": "Oft yfir 180 (efra gildi) eða yfir 110 (neðra gildi)",
+    "unbekannt": "Ég veit það ekki",
+    "unter140": "Oftast undir 140/90"
+   }
+  },
+  "cannabis_medical": {
+   "followup": "Hver ávísar því, við hvaða sjúkdómi, og í hvaða skömmtum?",
+   "label": "Tekur þú kannabis samkvæmt lyfseðli frá lækni (lækningakannabis, t.d. úr apóteki)?"
+  },
+  "cannabis_traffic": {
+   "followup": "Hvenær var það, og hvað kom í ljós?",
+   "label": "Hefur þú einhvern tíma verið tekinn í umferðinni undir áhrifum kannabis (t.d. akstur undir áhrifum THC, sekt, MPU – læknisfræðileg-sálfræðileg skoðun)?"
+  },
+  "drug_dependence": {
+   "followup": "Hvaða efni, hvenær lauk meðferðinni (á sjúkrahúsi eða á göngudeild), og hve lengi hefur þú lifað án vímuefna?",
+   "label": "Hefur fíkn í kannabis eða önnur vímuefni einhvern tíma verið greind hjá þér, eða hefur þú farið í afeitrun eða meðferð af þeim sökum?"
+  },
+  "heart_event_when": {
+   "label": "Hve langt er síðan síðasta slíka atvikið (hjartaáfall, stoðnet, hjáveita)?",
+   "options": {
+    "6w_bis_3m": "6 vikur til 3 mánuðir",
+    "ueber3m": "Lengur en 3 mánuðir",
+    "unter6w": "Skemur en 6 vikur"
+   }
+  },
+  "hypoglycemia_desc": {
+   "label": "Hvenær var síðasta tilvikið, og kom það í vöku eða í svefni?"
+  },
+  "icd_indication": {
+   "label": "Af hvaða ástæðu var bjargráðurinn settur í þig?",
+   "options": {
+    "nach_ereignis": "Eftir hjartastopp sem þú lifðir af eða lífshættulega hjartsláttartruflun",
+    "unbekannt": "Ég veit það ekki nákvæmlega",
+    "vorsorglich": "Í varúðarskyni vegna hjartasjúkdóms míns (án fyrra lífshættulegs atviks)"
+   }
+  },
+  "low_ef": {
+   "hint": "Dælugetan (EF) kemur yfirleitt fram í skýrslu hjartalæknisins þíns.",
+   "label": "Hefur þér verið sagt að dælugeta hjartans sé verulega skert (útstreymisbrot undir um það bil 35 %)?",
+   "options": {
+    "ja": "Já",
+    "nein": "Nei, eðlileg eða aðeins lítillega skert",
+    "unbekannt": "Ég veit það ekki"
+   }
+  },
+  "mixed_consumption": {
+   "label": "Notar þú kannabis oftar samhliða áfengi eða öðrum vímugjöfum (samtímis eða með stuttu millibili)?"
+  },
+  "pavk": {
+   "followup": "Síðan hvenær, og hefur þegar verið gerð aðgerð eða æðaþræðing?",
+   "label": "Er vitað um blóðrásartruflun í fótleggjum hjá þér (hléhelti / útæðasjúkdómur)?"
+  },
+  "pavk_rest_pain": {
+   "label": "Færð þú af þeim sökum einnig verki í hvíld, til dæmis á næturnar þegar þú liggur?"
+  },
+  "resuscitated": {
+   "followup": "Hvenær var það, og hvaða orsök fannst?",
+   "label": "Hefur þurft að endurlífga þig eftir hjartastopp?"
+  },
+  "sleepiness_coping": {
+   "label": "Þegar þú verður þreyttur yfir daginn: Tekur þú eftir því í tæka tíð og tekur þá hlé (t.d. stöðvar, leggur þig stutta stund)?",
+   "options": {
+    "nein": "Nei, þreytan kemur frekar aftan að mér",
+    "teilweise": "Að hluta, en ekki alltaf í tæka tíð",
+    "zuverlaessig": "Já, ég tek örugglega eftir því og tek þá hlé"
+   }
+  },
+  "stroke_prevention": {
+   "followup": "Hvaða meðferð, og hvenær var síðasta eftirlit?",
+   "label": "Var orsök atviksins rannsökuð af lækni, og færð þú fyrirbyggjandi meðferð (t.d. blóðþynningarlyf, blóðþrýstings- eða kólesteróllækkandi lyf, aðgerð á hálsslagæð)?"
+  },
+  "stroke_rehab": {
+   "hint": "Séu einkenni enn til staðar á samkvæmt leiðbeiningum ekki að meta ökuhæfni fyrr en viðeigandi endurhæfingu er lokið.",
+   "label": "Fórst þú í endurhæfingu eftir atvikið?",
+   "options": {
+    "abgeschlossen": "Já, henni er að fullu lokið",
+    "keine": "Nei, engin endurhæfing",
+    "laufend": "Já, hún stendur enn yfir"
+   }
+  },
+  "vertigo_migraine": {
+   "followup": "Gera þessi köst boð á undan sér (t.d. sjóntruflanir, ljósfælni), og hvenær var síðasta kastið?",
+   "label": "Koma svimaköstin þín í tengslum við mígreni eða mikinn höfuðverk (á undan, á meðan eða á eftir)?"
+  },
+  "vertigo_situational": {
+   "followup": "Í hvaða aðstæðum? Kemur sviminn líka fram við akstur?",
+   "label": "Kemur sviminn einkum fram í ákveðnum aðstæðum þar sem þú ert spenntur eða kvíðinn – t.d. við akstur, í mannþröng eða á brúm?"
   }
  },
  "ess_items": {

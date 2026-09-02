@@ -184,6 +184,14 @@ ESS-Score. Konfiguration in `config.ini` (Vorlage: `config.ini.example`), u.a.
 `api_key` (= `ADMIN_API_KEY` des Servers) und `gdt_encoding` (Default cp1252,
 GDT-Standard wäre cp437).
 
+**SAMAS blockiert nie:** Die Bridge schreibt **sofort** nach dem Anlegen der
+Session eine Link-GDT in den Outbox-Ordner — SAMAS erhält seine Antwort in
+Sekunden und die Praxis arbeitet normal weiter, während der Patient den
+Fragebogen zu Hause ausfüllt. Das Ergebnis kommt später als separate
+`<name>_result.gdt`. Im Praxis-Admin zeigt die SAMAS-Spalte den Stand:
+`GDT` = Session aus SAMAS angelegt, `GDT ✓` = Ergebnis von der Bridge
+abgeholt und als Ergebnis-GDT geschrieben.
+
 **Hinweis:** Das Feldmapping folgt dem GDT-Standard (FK 3101 = Nachname,
 FK 3102 = Vorname). Vor dem ersten Praxiseinsatz mit einem echten SAMAS-Export
 (inkl. Umlaut-Namen) verifizieren.

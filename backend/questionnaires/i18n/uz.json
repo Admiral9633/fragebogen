@@ -144,7 +144,9 @@
     "D1": "D1",
     "D": "D",
     "DE": "DE",
-    "T": "T"
+    "T": "T",
+    "D1E": "D1E",
+    "L": "L"
    }
   },
   "license_years": {
@@ -246,10 +248,12 @@
   },
   "hearing_impaired": {
    "label": "Sizda ogʻir darajada eshitish qobiliyatining pasayishi bormi yoki siz karmisiz?",
-   "followup": "Qachondan beri va quloq-tomoq-burun shifokori nazoratidamisiz?"
+   "followup": "Qachondan beri va quloq-tomoq-burun shifokori nazoratidamisiz?",
+   "hint": "Ogʻir daraja degani: yaxshiroq eshitadigan quloqda eshitishning 60 % dan ortiq yoʻqolishi, eshitish apparatisiz oʻlchanganda."
   },
   "hearing_aid": {
-   "label": "Eshitish apparati yoki koxlear implantdan foydalanasizmi?"
+   "label": "Eshitish apparati yoki koxlear implantdan foydalanasizmi?",
+   "hint": "Eshitish apparati tavsiya etiladi, lekin u haydashga yaroqlilik uchun shart emas; baholashda eshitish apparatisiz eshitish hisobga olinadi."
   },
   "heart_disease": {
    "label": "Sizda yurak yoki qon tomir kasalligi borligi maʼlummi?",
@@ -269,11 +273,12 @@
    "followup": "Qaysi tashxis va u qanday davolanadi?"
   },
   "pacemaker_icd": {
-   "label": "Sizda yurak ritmini boshqaruvchi qurilma (kardiostimulyator) yoki defibrillator (ICD) bormi?",
+   "label": "Sizda kardiostimulyator, defibrillator (ICD) yoki yurakni qoʻllab-quvvatlash tizimi bormi?",
    "options": {
     "nein": "Yoʻq",
     "schrittmacher": "Kardiostimulyator",
-    "icd": "Defibrillator (ICD)"
+    "icd": "Defibrillator (ICD)",
+    "vad": "Yurakni qoʻllab-quvvatlash tizimi (sunʼiy yurak/VAD)"
    },
    "followup": "Qachon qoʻyilgan va oxirgi tekshiruv qachon boʻlgan?"
   },
@@ -299,7 +304,7 @@
    "label": "Qon bosimi dorilari taʼsirida bosh aylanishi, holsizlik hissi yoki koʻz oldingiz qorongʻilashuvi kuzatiladimi?"
   },
   "heart_other": {
-   "label": "Sizda boshqa yurak yoki qon tomir kasalligi borligi maʼlummi: yurak klapani nuqsoni, tugʻma yurak nuqsoni, yurak mushagi kasalligi (kardiomiopatiya), irsiy ritm kasalligi (masalan, Long-QT), aorta anevrizmasi yoki uyqu arteriyasining torayishi?",
+   "label": "Sizda boshqa yurak yoki qon tomir kasalligi borligi maʼlummi: yurak klapani nuqsoni, tugʻma yurak nuqsoni, yurak mushagi kasalligi (kardiomiopatiya), irsiy ritm kasalligi (masalan, Long-QT, Brugada), aorta anevrizmasi yoki uyqu arteriyasining torayishi?",
    "followup": "Qaysi tashxis va u qanday nazorat qilinadi yoki davolanadi?"
   },
   "family_sudden_death": {
@@ -307,7 +312,7 @@
   },
   "stroke": {
    "label": "Sizda hech qachon insult, miyaga qon quyilishi yoki TIA (qisqa muddatli belgilar bilan kechadigan oʻtkinchi qon aylanishi buzilishi) boʻlganmi?",
-   "followup": "Hodisa qachon boʻlgan va reabilitatsiya yakunlanganmi?"
+   "followup": "Hodisa qachon boʻlgan va qanday sabab aniqlangan?"
   },
   "stroke_residuals": {
    "label": "Oʻshandan beri falajlik, nutq buzilishi, xotira muammolari yoki koʻrish maydonining cheklanishi kabi oqibatlar saqlanib qolganmi?",
@@ -356,11 +361,12 @@
     "3bis6m": "3 oydan 6 oygacha",
     "6bis12m": "6 oydan 12 oygacha",
     "1bis2j": "1 yildan 2 yilgacha",
-    "ueber2j": "2 yildan koʻp"
+    "2bis4j": "2 yildan 4 yilgacha",
+    "ueber4j": "4 yildan koʻp"
    }
   },
   "vertigo_prodromi": {
-   "label": "Bosh aylanishi xurujlaridan oldin ogohlantiruvchi belgilar boʻladimi (masalan, quloqda bosim, quloqda shovqin, eshitishning pasayishi), shunda siz oʻz vaqtida toʻxtay olasizmi?",
+   "label": "Bosh aylanishi xurujlaringiz oldindan sezdiradimi (masalan, quloqda bosim, quloqda shovqin, eshitishning pasayishi yoki koʻrish buzilishi kabi migren belgilari), shunda siz oʻz vaqtida toʻxtay olasizmi?",
    "options": {
     "immer": "Ha, doimo",
     "manchmal": "Baʼzan",
@@ -410,7 +416,11 @@
   },
   "hypoglycemia": {
    "label": "Soʻnggi 12 oy ichida sizda ogʻir gipoglikemiya (qon shakarining keskin pasayishi) boʻlganmi, unda boshqa odamning yordamiga muhtoj boʻlgansizmi?",
-   "followup": "Necha marta, oxirgi holat qachon boʻlgan va u uygʻoq holatdami yoki uyqudami yuz bergan?"
+   "options": {
+    "none": "Yoʻq",
+    "once": "Ha, bir marta",
+    "repeated": "Ha, bir necha marta"
+   }
   },
   "hypo_awareness": {
    "label": "Qon shakarining pasayishini oʻz vaqtida oʻzingiz sezmagan holatlar boʻlganmi (ogohlantiruvchi belgilarning yoʻqligi)?",
@@ -512,18 +522,20 @@
   },
   "alcohol_dependence": {
    "label": "Sizda hech qachon alkogolga qaramlik aniqlanganmi yoki siz zaharsizlantirish (detoksikatsiya) yoxud qaramlikdan xalos qilish davolanishini oʻtganmisiz?",
-   "followup": "Davolash qachon yakunlangan va qachondan beri spirtli ichimlik ichmaysiz?"
+   "followup": "Davolash qachon yakunlangan (statsionar yoki ambulator) va qachondan beri spirtli ichimlik ichmaysiz?"
   },
   "drugs": {
-   "label": "Hozir giyohvand moddalar qabul qilasizmi (masalan, kanabis, kokain, amfetaminlar) yoki ilgari muntazam ravishda giyohvand modda isteʼmol qilganmisiz?",
-   "followup": "Qaysi moddalar, qanchalik tez-tez va oxirgi marta qachon?"
+   "label": "Hozir boshqa giyohvand moddalar qabul qilasizmi (masalan, kokain, amfetaminlar, ekstazi, geroin) yoki ilgari muntazam ravishda shunday moddalarni isteʼmol qilganmisiz?",
+   "followup": "Qaysi moddalar, qanchalik tez-tez va oxirgi marta qachon?",
+   "hint": "Kanabis haqida yuqorida alohida soʻraladi."
   },
   "cannabis": {
-   "label": "Qanchalik tez-tez kanabis isteʼmol qilasiz?",
+   "label": "Kanabis isteʼmol qilasizmi (masalan, joint, vaporizator yoki yeyiladigan mahsulotlar koʻrinishida)?",
    "options": {
     "nie": "Hech qachon",
     "gelegentlich": "Baʼzan (muntazam emas)",
-    "regelmaessig": "Muntazam (har kuni yoki odat tusida)"
+    "regelmaessig": "Muntazam (haftasiga bir necha marta)",
+    "taeglich": "Har kuni yoki deyarli har kuni"
    }
   },
   "substitution": {
@@ -570,6 +582,104 @@
   "consent_privacy": {
    "label": "Men maʼlumotlar himoyasi haqidagi maʼlumotni oʻqidim va maʼlumotlarimning haydovchilik tibbiyoti maqsadlarida qayta ishlanishiga roziman.",
    "error": "Iltimos, maʼlumotlar himoyasi haqidagi maʼlumotni qabul qiling."
+  },
+  "alcohol_binge": {
+   "label": "Bir vaziyatda qisqa vaqt ichida koʻp miqdorda spirtli ichimlik ichadigan holatlaringiz boʻladimi (masalan, bir kechada 5 yoki undan ortiq qadah)?"
+  },
+  "bp_organ_symptoms": {
+   "label": "Yuqori qon bosimi tufayli sizda hech qachon koʻrish buzilishi yoki miya bilan bogʻliq shikoyatlar boʻlganmi (masalan, kuchli bosh ogʻrigʻi bilan birga chalkashlik, nutq yoki koʻrish buzilishi)?"
+  },
+  "bp_values": {
+   "label": "Davolanishga qaramay, qon bosimi koʻrsatkichlaringiz odatda qanday boʻladi?",
+   "options": {
+    "bis180": "140/90 va 180/110 orasida",
+    "ueber180": "Koʻpincha 180 dan yuqori (yuqori koʻrsatkich) yoki 110 dan yuqori (past koʻrsatkich)",
+    "unbekannt": "Bilmayman",
+    "unter140": "Koʻpincha 140/90 dan past"
+   }
+  },
+  "cannabis_medical": {
+   "followup": "Uni kim tayinlaydi, qaysi kasallikka qarshi va qanday dozada?",
+   "label": "Kanabisni shifokor tayinlovi boʻyicha qabul qilasizmi (tibbiy kanabis, masalan, dorixonadan)?"
+  },
+  "cannabis_traffic": {
+   "followup": "Bu qachon boʻlgan va nima aniqlangan?",
+   "label": "Yoʻl harakatida hech qachon kanabis taʼsirida qoʻlga tushganmisiz (masalan, THC taʼsirida haydash, jarima, MPU – tibbiy-psixologik ekspertiza)?"
+  },
+  "drug_dependence": {
+   "followup": "Qaysi modda, davolash qachon yakunlangan (statsionar yoki ambulator) va qachondan beri isteʼmol qilmaysiz?",
+   "label": "Sizda hech qachon kanabis yoki boshqa giyohvand moddalarga qaramlik aniqlanganmi yoki shu sababli zaharsizlantirish (detoksikatsiya) yoxud qaramlikdan xalos qilish davolanishini oʻtganmisiz?"
+  },
+  "heart_event_when": {
+   "label": "Ushbu hodisalardan (infarkt, stent, shuntlash) oxirgisi qancha vaqt oldin boʻlgan?",
+   "options": {
+    "6w_bis_3m": "6 haftadan 3 oygacha",
+    "ueber3m": "3 oydan koʻp",
+    "unter6w": "6 haftadan kam"
+   }
+  },
+  "hypoglycemia_desc": {
+   "label": "Oxirgi holat qachon boʻlgan va u uygʻoq holatdami yoki uyqudami yuz bergan?"
+  },
+  "icd_indication": {
+   "label": "Defibrillator sizga qaysi sababga koʻra qoʻyilgan?",
+   "options": {
+    "nach_ereignis": "Yurak toʻxtashidan omon qolganingizdan yoki hayot uchun xavfli ritm buzilishidan keyin",
+    "unbekannt": "Aniq bilmayman",
+    "vorsorglich": "Yurak kasalligim sababli profilaktika uchun (undan oldin hayot uchun xavfli hodisa boʻlmagan)"
+   }
+  },
+  "low_ef": {
+   "hint": "Yurakning nasos quvvati (chiqarish fraksiyasi, EF) odatda kardiologingiz xulosasida koʻrsatiladi.",
+   "label": "Sizga yuragingizning nasos quvvati sezilarli darajada pasayganini aytishganmi (chiqarish fraksiyasi taxminan 35 % dan past)?",
+   "options": {
+    "ja": "Ha",
+    "nein": "Yoʻq, normal yoki faqat biroz pasaygan",
+    "unbekannt": "Bilmayman"
+   }
+  },
+  "mixed_consumption": {
+   "label": "Kanabisni koʻpincha alkogol yoki boshqa mastlik keltiruvchi moddalar bilan birga isteʼmol qilasizmi (bir vaqtning oʻzida yoki qisqa vaqt ichida ketma-ket)?"
+  },
+  "pavk": {
+   "followup": "Qachondan beri va allaqachon operatsiya yoki kateter orqali aralashuv oʻtkazilganmi?",
+   "label": "Sizda oyoqlardagi qon aylanishi buzilishi borligi maʼlummi (oraliq oqsoqlanish / pAVK)?"
+  },
+  "pavk_rest_pain": {
+   "label": "Shu sababli sizda tinch holatda ham, masalan, kechasi yotganda ogʻriq boʻladimi?"
+  },
+  "resuscitated": {
+   "followup": "Bu qachon boʻlgan va qanday sabab aniqlangan?",
+   "label": "Yurak toʻxtaganidan keyin sizni hech qachon jonlantirish (reanimatsiya) kerak boʻlganmi?"
+  },
+  "sleepiness_coping": {
+   "label": "Kunduzi charchaganingizda: buni oʻz vaqtida sezasizmi va keyin tanaffus qilasizmi (masalan, toʻxtash, qisqa uyqu)?",
+   "options": {
+    "nein": "Yoʻq, charchoq meni koʻproq kutilmaganda bosadi",
+    "teilweise": "Qisman, lekin har doim ham oʻz vaqtida emas",
+    "zuverlaessig": "Ha, buni ishonchli tarzda sezaman va keyin tanaffus qilaman"
+   }
+  },
+  "stroke_prevention": {
+   "followup": "Qanday davolash va oxirgi tekshiruv qachon boʻlgan?",
+   "label": "Hodisaning sababi shifokor tomonidan aniqlanganmi va sizga profilaktika uchun davolash olib borilyaptimi (masalan, qon suyultiruvchi dorilar, qon bosimi yoki xolesterinni pasaytiruvchi dorilar, uyqu arteriyasi operatsiyasi)?"
+  },
+  "stroke_rehab": {
+   "hint": "Oqibatlar saqlanib qolgan boʻlsa, koʻrsatmaga koʻra haydashga yaroqlilik faqat mos reabilitatsiya yakunlangandan keyin baholanishi kerak.",
+   "label": "Hodisadan keyin reabilitatsiya oʻtganmisiz?",
+   "options": {
+    "abgeschlossen": "Ha, toʻliq yakunlangan",
+    "keine": "Yoʻq, reabilitatsiya boʻlmagan",
+    "laufend": "Ha, u hali davom etmoqda"
+   }
+  },
+  "vertigo_migraine": {
+   "followup": "Bu xurujlar oldindan sezdiradimi (masalan, koʻrish buzilishi, yorugʻlikka sezgirlik) va oxirgi xuruj qachon boʻlgan?",
+   "label": "Bosh aylanishi xurujlaringiz migren yoki kuchli bosh ogʻrigʻi bilan bogʻliq holda yuz beradimi (undan oldin, uning davomida yoki undan keyin)?"
+  },
+  "vertigo_situational": {
+   "followup": "Qanday vaziyatlarda? Bosh aylanishi avtomobil haydashda ham yuz beradimi?",
+   "label": "Bosh aylanishingiz asosan siz taranglashgan yoki qoʻrqqan muayyan vaziyatlarda yuz beradimi – masalan, avtomobil haydashda, olomon orasida yoki koʻpriklarda?"
   }
  },
  "ess_items": {

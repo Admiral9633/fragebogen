@@ -4,6 +4,7 @@ Django settings for verkehrsmedizin project.
 
 from pathlib import Path
 import os
+import sys
 
 from dotenv import load_dotenv
 
@@ -163,6 +164,11 @@ REST_FRAMEWORK = {
         'anon': os.environ.get('ANON_THROTTLE_RATE', '60/min'),
     },
 }
+
+# Unter Test kein Anon-Throttling: die Katalog-Roundtrip-Tests reichen jeden
+# der >80 Kataloge per API ein und würden sonst ab Request 60 an 429ern scheitern
+if 'test' in sys.argv:
+    REST_FRAMEWORK['DEFAULT_THROTTLE_CLASSES'] = []
 
 # Fragebogen: Gültigkeitsdauer der Token-Links in Tagen (Admin-, GDT- und Model-Default)
 SESSION_VALIDITY_DAYS = int(os.environ.get('SESSION_VALIDITY_DAYS', '14'))

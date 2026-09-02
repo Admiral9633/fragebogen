@@ -144,7 +144,9 @@
     "D1": "D1",
     "D": "D",
     "DE": "DE",
-    "T": "T"
+    "T": "T",
+    "D1E": "D1E",
+    "L": "L"
    }
   },
   "license_years": {
@@ -246,10 +248,12 @@
   },
   "hearing_impaired": {
    "label": "İleri derecede işitme kaybınız var mı ya da işitme engelli misiniz?",
-   "followup": "Ne zamandan beri ve kulak burun boğaz doktoru tedavisi görüyor musunuz?"
+   "followup": "Ne zamandan beri ve kulak burun boğaz doktoru tedavisi görüyor musunuz?",
+   "hint": "İleri derece şu anlama gelir: iyi işiten kulakta, işitme cihazı olmadan ölçüldüğünde %60'tan fazla işitme kaybı."
   },
   "hearing_aid": {
-   "label": "İşitme cihazı veya koklear implant kullanıyor musunuz?"
+   "label": "İşitme cihazı veya koklear implant kullanıyor musunuz?",
+   "hint": "İşitme cihazı önerilir, ancak araç kullanma yeterliliği için bir koşul değildir; değerlendirmede işitme cihazı olmadan işitme dikkate alınır."
   },
   "heart_disease": {
    "label": "Bilinen bir kalp veya damar hastalığınız var mı?",
@@ -269,11 +273,12 @@
    "followup": "Hangi teşhis ve nasıl tedavi ediliyor?"
   },
   "pacemaker_icd": {
-   "label": "Kalp pili veya defibrilatör (ICD) taşıyor musunuz?",
+   "label": "Kalp pili, defibrilatör (ICD) veya kalp destek sistemi taşıyor musunuz?",
    "options": {
     "nein": "Hayır",
     "schrittmacher": "Kalp pili",
-    "icd": "Defibrilatör (ICD)"
+    "icd": "Defibrilatör (ICD)",
+    "vad": "Kalp destek sistemi (yapay kalp/VAD)"
    },
    "followup": "Ne zaman takıldı ve son kontrol ne zamandı?"
   },
@@ -299,7 +304,7 @@
    "label": "Tansiyon ilaçlarınız nedeniyle baş dönmesi, halsizlik hissi veya gözlerinizin kararması oluyor mu?"
   },
   "heart_other": {
-   "label": "Başka bir kalp/damar hastalığınız var mı: kalp kapağı hastalığı, doğuştan kalp kusuru, kalp kası hastalığı (kardiyomiyopati), kalıtsal ritim hastalığı (ör. Long-QT), aort anevrizması veya boyun atardamarında darlık?",
+   "label": "Başka bir kalp/damar hastalığınız var mı: kalp kapağı hastalığı, doğuştan kalp kusuru, kalp kası hastalığı (kardiyomiyopati), kalıtsal ritim hastalığı (ör. Long-QT, Brugada), aort anevrizması veya boyun atardamarında darlık?",
    "followup": "Hangi teşhis ve nasıl kontrol ediliyor/tedavi ediliyor?"
   },
   "family_sudden_death": {
@@ -307,7 +312,7 @@
   },
   "stroke": {
    "label": "Hiç inme (felç), beyin kanaması ya da TIA (kısa süreli belirtilerle seyreden geçici dolaşım bozukluğu) geçirdiniz mi?",
-   "followup": "Olay ne zamandı ve rehabilitasyon tamamlandı mı?"
+   "followup": "Olay ne zamandı ve hangi neden saptandı?"
   },
   "stroke_residuals": {
    "label": "O zamandan beri felç, konuşma bozukluğu, bellek sorunları veya görme alanı kısıtlılığı gibi kalıcı etkiler var mı?",
@@ -356,11 +361,12 @@
     "3bis6m": "3 ila 6 ay",
     "6bis12m": "6 ila 12 ay",
     "1bis2j": "1 ila 2 yıl",
-    "ueber2j": "2 yıldan fazla"
+    "2bis4j": "2 ila 4 yıl",
+    "ueber4j": "4 yıldan fazla"
    }
   },
   "vertigo_prodromi": {
-   "label": "Baş dönmesi ataklarınız önceden belirti veriyor mu (ör. kulakta basınç, kulak çınlaması, işitmede azalma), böylece zamanında durabilir misiniz?",
+   "label": "Baş dönmesi ataklarınız önceden belirti veriyor mu (ör. kulakta basınç, kulak çınlaması, işitmede azalma veya görme bozuklukları gibi migren öncüleri), böylece zamanında durabilir misiniz?",
    "options": {
     "immer": "Evet, her zaman",
     "manchmal": "Bazen",
@@ -410,7 +416,11 @@
   },
   "hypoglycemia": {
    "label": "Son 12 ay içinde, başkasının yardımına ihtiyaç duyduğunuz ağır bir kan şekeri düşmesi yaşadınız mı?",
-   "followup": "Ne sıklıkla, son atak ne zamandı ve uyanıkken mi yoksa uykuda mı oldu?"
+   "options": {
+    "none": "Hayır",
+    "once": "Evet, bir kez",
+    "repeated": "Evet, birkaç kez"
+   }
   },
   "hypo_awareness": {
    "label": "Bir kan şekeri düşmesini zamanında kendiniz fark edemediğiniz oldu mu (uyarı belirtilerinin olmaması)?",
@@ -512,18 +522,20 @@
   },
   "alcohol_dependence": {
    "label": "Size hiç alkol bağımlılığı tanısı kondu mu ya da bir arındırma (detoks) veya bağımlılıktan kurtulma tedavisi gördünüz mü?",
-   "followup": "Tedavi ne zaman tamamlandı ve ne zamandan beri alkol almıyorsunuz?"
+   "followup": "Tedavi ne zaman tamamlandı (yatarak veya ayaktan) ve ne zamandan beri alkol almıyorsunuz?"
   },
   "drugs": {
-   "label": "Şu anda uyuşturucu kullanıyor musunuz (ör. esrar, kokain, amfetamin) ya da geçmişte düzenli olarak uyuşturucu kullandınız mı?",
-   "followup": "Hangi maddeler, ne sıklıkla ve en son ne zaman?"
+   "label": "Şu anda başka uyuşturucu kullanıyor musunuz (ör. kokain, amfetamin, ecstasy, eroin) ya da geçmişte düzenli olarak bu tür uyuşturucular kullandınız mı?",
+   "followup": "Hangi maddeler, ne sıklıkla ve en son ne zaman?",
+   "hint": "Esrar yukarıda ayrıca sorulmaktadır."
   },
   "cannabis": {
-   "label": "Ne sıklıkla esrar kullanıyorsunuz?",
+   "label": "Esrar (kenevir) kullanıyor musunuz (ör. joint, buharlaştırıcı veya yiyecek olarak)?",
    "options": {
     "nie": "Hiç",
     "gelegentlich": "Ara sıra (düzenli değil)",
-    "regelmaessig": "Düzenli (her gün veya alışkanlık halinde)"
+    "regelmaessig": "Düzenli olarak (haftada birkaç kez)",
+    "taeglich": "Her gün veya neredeyse her gün"
    }
   },
   "substitution": {
@@ -570,6 +582,104 @@
   "consent_privacy": {
    "label": "Veri koruma bilgilerini okudum ve verilerimin trafik tıbbı amaçlarla işlenmesine onay veriyorum.",
    "error": "Lütfen veri koruma bilgilerini kabul edin."
+  },
+  "alcohol_binge": {
+   "label": "Tek bir seferde kısa sürede fazla miktarda alkol içtiğiniz oluyor mu (ör. bir akşamda 5 veya daha fazla kadeh)?"
+  },
+  "bp_organ_symptoms": {
+   "label": "Yüksek tansiyon nedeniyle hiç görme bozukluğu veya beyinden kaynaklanan şikâyetler yaşadınız mı (ör. zihin bulanıklığının eşlik ettiği şiddetli baş ağrısı, konuşma veya görme bozuklukları)?"
+  },
+  "bp_values": {
+   "label": "Tedaviye rağmen tansiyon değerleriniz genellikle ne kadar oluyor?",
+   "options": {
+    "unter140": "Çoğunlukla 140/90'ın altında",
+    "bis180": "140/90 ile 180/110 arasında",
+    "ueber180": "Sık sık 180'in üzerinde (büyük tansiyon) veya 110'un üzerinde (küçük tansiyon)",
+    "unbekannt": "Bilmiyorum"
+   }
+  },
+  "cannabis_medical": {
+   "label": "Esrarı hekim reçetesiyle mi kullanıyorsunuz (tıbbi kenevir, ör. eczaneden)?",
+   "followup": "Kim reçete ediyor, hangi hastalığa karşı ve hangi dozda?"
+  },
+  "cannabis_traffic": {
+   "label": "Trafikte hiç esrarın etkisi altında yakalandınız mı (ör. THC etkisi altında araç kullanma, para cezası, MPU – tıbbi-psikolojik muayene)?",
+   "followup": "Ne zamandı ve ne tespit edildi?"
+  },
+  "drug_dependence": {
+   "label": "Size hiç esrar veya başka uyuşturucu bağımlılığı tanısı kondu mu ya da bu nedenle bir arındırma (detoks) veya bağımlılıktan kurtulma tedavisi gördünüz mü?",
+   "followup": "Hangi madde, tedavi ne zaman tamamlandı (yatarak veya ayaktan) ve ne zamandan beri madde kullanmıyorsunuz?"
+  },
+  "heart_event_when": {
+   "label": "Bu olaylardan sonuncusunun (kalp krizi, stent, bypass) üzerinden ne kadar zaman geçti?",
+   "options": {
+    "unter6w": "6 haftadan az",
+    "6w_bis_3m": "6 hafta ile 3 ay arası",
+    "ueber3m": "3 aydan fazla"
+   }
+  },
+  "hypoglycemia_desc": {
+   "label": "Son atak ne zamandı ve uyanıkken mi yoksa uykuda mı oldu?"
+  },
+  "icd_indication": {
+   "label": "Defibrilatör size hangi nedenle takıldı?",
+   "options": {
+    "vorsorglich": "Kalp hastalığım nedeniyle önlem olarak (daha önce yaşamı tehdit eden bir olay olmadan)",
+    "nach_ereignis": "Atlatılan bir kalp durması veya yaşamı tehdit eden bir ritim bozukluğundan sonra",
+    "unbekannt": "Tam olarak bilmiyorum"
+   }
+  },
+  "low_ef": {
+   "label": "Kalbinizin pompalama gücünün belirgin şekilde azaldığı size söylendi mi (ejeksiyon fraksiyonu yaklaşık %35'in altında)?",
+   "hint": "Pompalama gücü (EF) genellikle kardiyoloğunuzun raporunda yazar.",
+   "options": {
+    "ja": "Evet",
+    "nein": "Hayır, normal veya sadece hafif azalmış",
+    "unbekannt": "Bilmiyorum"
+   }
+  },
+  "mixed_consumption": {
+   "label": "Esrarı sık sık alkol veya başka sarhoş edici maddelerle birlikte mi kullanıyorsunuz (aynı anda ya da kısa aralıklarla peş peşe)?"
+  },
+  "pavk": {
+   "label": "Bacaklarınızda bilinen bir dolaşım bozukluğu var mı (vitrin hastalığı / pAVK)?",
+   "followup": "Ne zamandan beri ve daha önce bir ameliyat veya kateter müdahalesi yapıldı mı?"
+  },
+  "pavk_rest_pain": {
+   "label": "Bu nedenle dinlenme halinde de ağrınız oluyor mu, örneğin geceleri yatarken?"
+  },
+  "resuscitated": {
+   "label": "Hiç kalp durması sonrası canlandırılmanız (resüsitasyon) gerekti mi?",
+   "followup": "Ne zamandı ve hangi neden bulundu?"
+  },
+  "sleepiness_coping": {
+   "label": "Gündüzleri yorgunluk hissettiğinizde: Bunu zamanında fark edip ara veriyor musunuz (ör. durmak, kısa bir uyku)?",
+   "options": {
+    "zuverlaessig": "Evet, bunu güvenilir şekilde fark ediyorum ve ara veriyorum",
+    "teilweise": "Kısmen, ama her zaman zamanında değil",
+    "nein": "Hayır, yorgunluk beni daha çok hazırlıksız yakalıyor"
+   }
+  },
+  "stroke_prevention": {
+   "label": "Olayın nedeni hekim tarafından araştırıldı mı ve korunma amacıyla tedavi görüyor musunuz (ör. kan sulandırıcı, tansiyon veya kolesterol düşürücü ilaç, boyun atardamarı ameliyatı)?",
+   "followup": "Hangi tedavi ve son kontrol ne zamandı?"
+  },
+  "stroke_rehab": {
+   "label": "Olaydan sonra rehabilitasyon gördünüz mü?",
+   "hint": "Kalıcı kayıplar sürüyorsa, kılavuza göre araç kullanma yeterliliği ancak uygun bir rehabilitasyon tamamlandıktan sonra değerlendirilmelidir.",
+   "options": {
+    "abgeschlossen": "Evet, tamamen tamamlandı",
+    "laufend": "Evet, hâlâ devam ediyor",
+    "keine": "Hayır, rehabilitasyon yok"
+   }
+  },
+  "vertigo_migraine": {
+   "label": "Baş dönmesi ataklarınız migren veya şiddetli baş ağrısıyla bağlantılı olarak mı ortaya çıkıyor (öncesinde, sırasında veya sonrasında)?",
+   "followup": "Bu ataklar önceden belirti veriyor mu (ör. görme bozuklukları, ışığa duyarlılık) ve son atak ne zamandı?"
+  },
+  "vertigo_situational": {
+   "label": "Baş dönmeniz özellikle gergin veya kaygılı olduğunuz belirli durumlarda mı ortaya çıkıyor – ör. araç kullanırken, kalabalıklarda veya köprülerde?",
+   "followup": "Hangi durumlarda? Baş dönmesi araç kullanırken de oluyor mu?"
   }
  },
  "ess_items": {
