@@ -144,7 +144,9 @@
     "D1": "D1",
     "D": "D",
     "DE": "DE",
-    "T": "T"
+    "T": "T",
+    "D1E": "D1E",
+    "L": "L"
    }
   },
   "license_years": {
@@ -246,10 +248,12 @@
   },
   "hearing_impaired": {
    "label": "Kas teil on raskekujuline kuulmislangus või olete kurt?",
-   "followup": "Mis ajast alates ja kas te käite kõrva-nina-kurguarsti ravil?"
+   "followup": "Mis ajast alates ja kas te käite kõrva-nina-kurguarsti ravil?",
+   "hint": "Raskekujuline tähendab: rohkem kui 60 % kuulmislangust paremini kuulval kõrval, mõõdetuna ilma kuuldeaparaadita."
   },
   "hearing_aid": {
-   "label": "Kas te kannate kuuldeaparaati või sisekõrvaimplantaati (kohleaarimplantaati)?"
+   "label": "Kas te kannate kuuldeaparaati või sisekõrvaimplantaati (kohleaarimplantaati)?",
+   "hint": "Kuuldeaparaati soovitatakse, kuid see ei ole sõidukijuhtimiseks sobivuse eeldus; hindamisel loeb kuulmine ilma kuuldeaparaadita."
   },
   "heart_disease": {
    "label": "Kas teil on teadaolevalt mõni südame- või veresoonkonnahaigus?",
@@ -269,11 +273,12 @@
    "followup": "Milline diagnoos ja kuidas seda ravitakse?"
   },
   "pacemaker_icd": {
-   "label": "Kas teil on südamestimulaator või defibrillaator (ICD)?",
+   "label": "Kas teil on südamestimulaator, defibrillaator (ICD) või südame abisüsteem?",
    "options": {
     "nein": "Ei",
     "schrittmacher": "Südamestimulaator",
-    "icd": "Defibrillaator (ICD)"
+    "icd": "Defibrillaator (ICD)",
+    "vad": "Südame abisüsteem (tehisüda/VAD)"
    },
    "followup": "Millal paigaldati ja millal oli viimane kontroll?"
   },
@@ -299,7 +304,7 @@
    "label": "Kas teie vererõhuravimite kasutamisel tekib pearinglus, nõrkustunne või silmade eest mustaks minemine?"
   },
   "heart_other": {
-   "label": "Kas teil on teadaolevalt mõni muu südame- või veresoonkonnahaigus: südameklapirike, kaasasündinud südamerike, südamelihase haigus (kardiomüopaatia), pärilik rütmihaigus (nt pika QT sündroom), aordi aneurüsm või ahenenud unearter?",
+   "label": "Kas teil on teadaolevalt mõni muu südame- või veresoonkonnahaigus: südameklapirike, kaasasündinud südamerike, südamelihase haigus (kardiomüopaatia), pärilik rütmihaigus (nt pika QT sündroom, Brugada sündroom), aordi aneurüsm või ahenenud unearter?",
    "followup": "Milline diagnoos ja kuidas seda kontrollitakse või ravitakse?"
   },
   "family_sudden_death": {
@@ -307,7 +312,7 @@
   },
   "stroke": {
    "label": "Kas teil on kunagi olnud insult, ajuverejooks või TIA (mööduv verevarustuse häire lühiajaliste väljalangemisnähtudega)?",
-   "followup": "Millal sündmus toimus ja kas taastusravi on lõpetatud?"
+   "followup": "Millal sündmus toimus ja milline põhjus tuvastati?"
   },
   "stroke_residuals": {
    "label": "Kas sellest ajast on veel tagajärgi, nagu halvatused, kõnehäired, mäluprobleemid või vaatevälja piirangud?",
@@ -356,11 +361,12 @@
     "3bis6m": "3 kuni 6 kuud",
     "6bis12m": "6 kuni 12 kuud",
     "1bis2j": "1 kuni 2 aastat",
-    "ueber2j": "Rohkem kui 2 aastat"
+    "2bis4j": "2 kuni 4 aastat",
+    "ueber4j": "Rohkem kui 4 aastat"
    }
   },
   "vertigo_prodromi": {
-   "label": "Kas teie pearinglushood annavad endast eelnevalt märku (nt surve kõrvas, kõrvakohin, kuulmise langus), nii et te jõuaksite õigel ajal peatuda?",
+   "label": "Kas teie pearinglushood annavad endast eelnevalt märku (nt surve kõrvas, kõrvakohin, kuulmise langus või migreeni eelnähud nagu nägemishäired), nii et te jõuaksite õigel ajal peatuda?",
    "options": {
     "immer": "Jah, alati",
     "manchmal": "Mõnikord",
@@ -410,7 +416,11 @@
   },
   "hypoglycemia": {
    "label": "Kas teil on viimase 12 kuu jooksul olnud raske veresuhkru langus, mille puhul vajasite kõrvalist abi?",
-   "followup": "Kui sageli, millal oli viimane episood ja kas see tekkis ärkvel olles või une ajal?"
+   "options": {
+    "none": "Ei",
+    "once": "Jah, üks kord",
+    "repeated": "Jah, mitu korda"
+   }
   },
   "hypo_awareness": {
    "label": "Kas on juhtunud, et te ei märganud veresuhkru langust ise õigel ajal (hoiatusmärgid puudusid)?",
@@ -512,18 +522,20 @@
   },
   "alcohol_dependence": {
    "label": "Kas teil on kunagi tuvastatud alkoholisõltuvus või olete läbinud võõrutus- või rehabilitatsiooniravi?",
-   "followup": "Millal ravi lõpetati ja mis ajast alates elate kainena?"
+   "followup": "Millal ravi lõpetati (statsionaarne või ambulatoorne) ja mis ajast alates elate kainena?"
   },
   "drugs": {
-   "label": "Kas te tarvitate praegu narkootikume (nt kanepit, kokaiini, amfetamiini) või olete varem regulaarselt narkootikume tarvitanud?",
-   "followup": "Millised ained, kui sageli ja millal viimati?"
+   "label": "Kas te tarvitate praegu muid narkootikume (nt kokaiini, amfetamiini, ecstasy't, heroiini) või olete varem regulaarselt selliseid narkootikume tarvitanud?",
+   "followup": "Millised ained, kui sageli ja millal viimati?",
+   "hint": "Kanepi kohta küsitakse eespool eraldi."
   },
   "cannabis": {
-   "label": "Kui sageli te tarvitate kanepit?",
+   "label": "Kas te tarvitate kanepit (nt jointina, aurustiga või söödavate toodetena)?",
    "options": {
     "nie": "Mitte kunagi",
     "gelegentlich": "Aeg-ajalt (mitte regulaarselt)",
-    "regelmaessig": "Regulaarselt (iga päev või harjumuspäraselt)"
+    "regelmaessig": "Regulaarselt (mitu korda nädalas)",
+    "taeglich": "Iga päev või peaaegu iga päev"
    }
   },
   "substitution": {
@@ -570,6 +582,104 @@
   "consent_privacy": {
    "label": "Olen andmekaitseteabe läbi lugenud ja annan nõusoleku oma andmete töötlemiseks liiklusmeditsiinilistel eesmärkidel.",
    "error": "Palun nõustuge andmekaitseteabega."
+  },
+  "alcohol_binge": {
+   "label": "Kas juhtub, et te joote ühel korral lühikese ajaga suuremas koguses alkoholi (nt 5 või rohkem klaasi ühel õhtul)?"
+  },
+  "bp_organ_symptoms": {
+   "label": "Kas teil on kõrge vererõhu tõttu kunagi olnud nägemishäireid või ajust tulenevaid kaebusi (nt tugev peavalu koos segasusseisundi, kõne- või nägemishäiretega)?"
+  },
+  "bp_values": {
+   "label": "Kui kõrged on teie vererõhuväärtused tavaliselt – vaatamata ravile?",
+   "options": {
+    "bis180": "140/90 ja 180/110 vahel",
+    "ueber180": "Sageli üle 180 (ülemine väärtus) või üle 110 (alumine väärtus)",
+    "unbekannt": "Ma ei tea",
+    "unter140": "Enamasti alla 140/90"
+   }
+  },
+  "cannabis_medical": {
+   "followup": "Kes selle määrab, millise haiguse vastu ja millises annuses?",
+   "label": "Kas te võtate kanepit arsti määramisel (meditsiiniline kanep, nt apteegist)?"
+  },
+  "cannabis_traffic": {
+   "followup": "Millal see oli ja mis tuvastati?",
+   "label": "Kas te olete kunagi liikluses kanepi mõju all vahele jäänud (nt sõit THC mõju all, rahatrahv, MPU)?"
+  },
+  "drug_dependence": {
+   "followup": "Milline aine, millal ravi lõpetati (statsionaarne või ambulatoorne) ja mis ajast alates elate kainena?",
+   "label": "Kas teil on kunagi tuvastatud kanepi- või muude narkootikumide sõltuvus või olete selle tõttu läbinud võõrutus- või rehabilitatsiooniravi?"
+  },
+  "heart_event_when": {
+   "label": "Kui kaua on möödunud viimasest sellisest sündmusest (infarkt, stent, šunteerimine)?",
+   "options": {
+    "6w_bis_3m": "6 nädalat kuni 3 kuud",
+    "ueber3m": "Rohkem kui 3 kuud",
+    "unter6w": "Vähem kui 6 nädalat"
+   }
+  },
+  "hypoglycemia_desc": {
+   "label": "Millal oli viimane episood ja kas see tekkis ärkvel olles või une ajal?"
+  },
+  "icd_indication": {
+   "label": "Mis põhjusel teile defibrillaator paigaldati?",
+   "options": {
+    "nach_ereignis": "Pärast üleelatud südameseiskust või eluohtlikku rütmihäiret",
+    "unbekannt": "Ma ei tea täpselt",
+    "vorsorglich": "Ennetavalt minu südamehaiguse tõttu (ilma eelneva eluohtliku sündmuseta)"
+   }
+  },
+  "low_ef": {
+   "hint": "Pumpamisvõime (EF) on enamasti kirjas teie kardioloogi arstlikus kokkuvõttes.",
+   "label": "Kas teile on öeldud, et teie südame pumpamisvõime on oluliselt vähenenud (väljutusfraktsioon alla umbes 35 %)?",
+   "options": {
+    "ja": "Jah",
+    "nein": "Ei, normaalne või ainult kergelt vähenenud",
+    "unbekannt": "Ma ei tea"
+   }
+  },
+  "mixed_consumption": {
+   "label": "Kas te tarvitate kanepit sageli koos alkoholi või muude joovastavate ainetega (samal ajal või lühikese vahega)?"
+  },
+  "pavk": {
+   "followup": "Mis ajast alates ja kas on juba tehtud operatsioon või kateetriprotseduur?",
+   "label": "Kas teil on teadaolevalt jalgade verevarustuse häire (vahelduv lonkamine / perifeersete arterite haigus)?"
+  },
+  "pavk_rest_pain": {
+   "label": "Kas teil on selle tõttu valu ka puhkeolekus, näiteks öösel lamades?"
+  },
+  "resuscitated": {
+   "followup": "Millal see oli ja milline põhjus leiti?",
+   "label": "Kas teid on kunagi pärast südameseiskust elustatud (reanimeeritud)?"
+  },
+  "sleepiness_coping": {
+   "label": "Kui te muutute päeval väsinuks: kas te märkate seda õigel ajal ja teete siis pausi (nt peatute, teete lühikese uinaku)?",
+   "options": {
+    "nein": "Ei, väsimus pigem üllatab mind",
+    "teilweise": "Osaliselt, kuid mitte alati õigel ajal",
+    "zuverlaessig": "Jah, ma märkan seda kindlalt ja teen siis pausi"
+   }
+  },
+  "stroke_prevention": {
+   "followup": "Milline ravi ja millal oli viimane kontroll?",
+   "label": "Kas sündmuse põhjus on arstlikult välja selgitatud ja kas teid ravitakse ennetuseks (nt verevedeldajad, vererõhku või kolesterooli langetavad ravimid, unearteri operatsioon)?"
+  },
+  "stroke_rehab": {
+   "hint": "Püsivate väljalangemisnähtude korral tuleb ravijuhendi järgi sõidukijuhtimiseks sobivust hinnata alles pärast sobiva taastusravi lõpetamist.",
+   "label": "Kas te käisite pärast sündmust taastusravil?",
+   "options": {
+    "abgeschlossen": "Jah, täielikult lõpetatud",
+    "keine": "Ei, taastusravi ei olnud",
+    "laufend": "Jah, see kestab veel"
+   }
+  },
+  "vertigo_migraine": {
+   "followup": "Kas need hood annavad endast eelnevalt märku (nt nägemishäired, valgustundlikkus) ja millal oli viimane hoog?",
+   "label": "Kas teie pearinglushood tekivad seoses migreeni või tugeva peavaluga (enne seda, selle ajal või pärast seda)?"
+  },
+  "vertigo_situational": {
+   "followup": "Millistes olukordades? Kas pearinglus tekib ka autoga sõites?",
+   "label": "Kas teie pearinglus tekib eelkõige teatud olukordades, kus te olete pinges või ärev – nt autoga sõites, rahvamassis või sildadel?"
   }
  },
  "ess_items": {

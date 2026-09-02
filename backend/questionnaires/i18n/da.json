@@ -144,7 +144,9 @@
     "D1": "D1",
     "D": "D",
     "DE": "DE",
-    "T": "T"
+    "T": "T",
+    "D1E": "D1E",
+    "L": "L"
    }
   },
   "license_years": {
@@ -246,10 +248,12 @@
   },
   "hearing_impaired": {
    "label": "Er du svært hørehæmmet eller døv?",
-   "followup": "Siden hvornår, og er du i behandling hos en øre-næse-hals-læge?"
+   "followup": "Siden hvornår, og er du i behandling hos en øre-næse-hals-læge?",
+   "hint": "Svært hørehæmmet betyder: mere end 60 % høretab på det bedste øre, målt uden høreapparat."
   },
   "hearing_aid": {
-   "label": "Bruger du høreapparat eller cochlear-implantat?"
+   "label": "Bruger du høreapparat eller cochlear-implantat?",
+   "hint": "Et høreapparat anbefales, men er ikke en forudsætning for køreegnetheden; ved vurderingen tæller hørelsen uden høreapparat."
   },
   "heart_disease": {
    "label": "Har du en kendt hjerte- eller karsygdom?",
@@ -269,11 +273,12 @@
    "followup": "Hvilken diagnose, og hvordan behandles den?"
   },
   "pacemaker_icd": {
-   "label": "Har du en pacemaker eller en defibrillator (ICD)?",
+   "label": "Har du en pacemaker, en defibrillator (ICD) eller et hjertepumpesystem?",
    "options": {
     "nein": "Nej",
     "schrittmacher": "Pacemaker",
-    "icd": "Defibrillator (ICD)"
+    "icd": "Defibrillator (ICD)",
+    "vad": "Hjertepumpesystem (kunstigt hjerte/VAD)"
    },
    "followup": "Hvornår blev den indsat, og hvornår var den seneste kontrol?"
   },
@@ -299,7 +304,7 @@
    "label": "Oplever du svimmelhed, svaghedsfølelse eller sortnen for øjnene af din blodtryksmedicin?"
   },
   "heart_other": {
-   "label": "Har du en anden kendt hjerte-/karsygdom: hjerteklapfejl, medfødt hjertefejl, hjertemuskelsygdom (kardiomyopati), arvelig rytmesygdom (f.eks. Long-QT), aortaaneurisme eller forsnævret halspulsåre?",
+   "label": "Har du en anden kendt hjerte- eller karsygdom: klapfejl, medfødt hjertefejl, hjertemuskelsygdom (kardiomyopati), arvelig rytmesygdom (f.eks. lang QT, Brugada), aortaaneurisme eller forsnævret halspulsåre?",
    "followup": "Hvilken diagnose, og hvordan kontrolleres/behandles den?"
   },
   "family_sudden_death": {
@@ -307,7 +312,7 @@
   },
   "stroke": {
    "label": "Har du nogensinde haft et slagtilfælde, en hjerneblødning eller en TIA (forbigående kredsløbsforstyrrelse med kortvarige udfald)?",
-   "followup": "Hvornår skete hændelsen, og blev et genoptræningsforløb afsluttet?"
+   "followup": "Hvornår skete hændelsen, og hvilken årsag blev konstateret?"
   },
   "stroke_residuals": {
    "label": "Er der siden da fortsat følger som lammelser, taleforstyrrelser, hukommelsesproblemer eller indskrænkning af synsfeltet?",
@@ -356,11 +361,12 @@
     "3bis6m": "3 til 6 måneder",
     "6bis12m": "6 til 12 måneder",
     "1bis2j": "1 til 2 år",
-    "ueber2j": "Mere end 2 år"
+    "2bis4j": "2 til 4 år",
+    "ueber4j": "Mere end 4 år"
    }
   },
   "vertigo_prodromi": {
-   "label": "Varsles dine svimmelhedsanfald på forhånd (f.eks. tryk for øret, øresusen, nedsat hørelse), så du kunne nå at standse i tide?",
+   "label": "Varsles dine svimmelhedsanfald på forhånd (f.eks. tryk for øret, øresusen, nedsat hørelse eller migrænevarsler som synsforstyrrelser), så du kunne nå at standse i tide?",
    "options": {
     "immer": "Ja, altid",
     "manchmal": "Nogle gange",
@@ -410,7 +416,11 @@
   },
   "hypoglycemia": {
    "label": "Har du inden for de sidste 12 måneder haft et alvorligt tilfælde af lavt blodsukker, hvor du havde brug for hjælp fra andre?",
-   "followup": "Hvor ofte, hvornår var den seneste episode, og opstod den i vågen tilstand eller under søvn?"
+   "options": {
+    "none": "Nej",
+    "once": "Ja, én gang",
+    "repeated": "Ja, flere gange"
+   }
   },
   "hypo_awareness": {
    "label": "Er det sket, at du ikke selv nåede at mærke et lavt blodsukker i tide (manglende advarselstegn)?",
@@ -512,18 +522,20 @@
   },
   "alcohol_dependence": {
    "label": "Er der nogensinde konstateret alkoholafhængighed hos dig, eller har du gennemgået en afrusning eller en afvænningsbehandling?",
-   "followup": "Hvornår blev behandlingen afsluttet, og hvor længe har du levet afholdende?"
+   "followup": "Hvornår blev behandlingen afsluttet (under indlæggelse eller ambulant), og siden hvornår har du levet afholdende?"
   },
   "drugs": {
-   "label": "Tager du i øjeblikket stoffer (f.eks. cannabis, kokain, amfetamin), eller har du tidligere brugt stoffer regelmæssigt?",
-   "followup": "Hvilke stoffer, hvor ofte, og hvornår senest?"
+   "label": "Tager du i øjeblikket andre stoffer (f.eks. kokain, amfetamin, ecstasy, heroin), eller har du tidligere brugt sådanne stoffer regelmæssigt?",
+   "followup": "Hvilke stoffer, hvor ofte, og hvornår senest?",
+   "hint": "Der spørges særskilt om cannabis ovenfor."
   },
   "cannabis": {
-   "label": "Hvor ofte bruger du cannabis?",
+   "label": "Bruger du cannabis (f.eks. som joint, i fordamper eller som spiselige produkter)?",
    "options": {
     "nie": "Aldrig",
     "gelegentlich": "Lejlighedsvis (ikke regelmæssigt)",
-    "regelmaessig": "Regelmæssigt (dagligt eller vanemæssigt)"
+    "regelmaessig": "Regelmæssigt (flere gange om ugen)",
+    "taeglich": "Dagligt eller næsten dagligt"
    }
   },
   "substitution": {
@@ -570,6 +582,104 @@
   "consent_privacy": {
    "label": "Jeg har læst oplysningerne om databeskyttelse og samtykker i, at mine data behandles til trafikmedicinske formål.",
    "error": "Accepter venligst oplysningerne om databeskyttelse."
+  },
+  "alcohol_binge": {
+   "label": "Sker det, at du ved en enkelt lejlighed drikker større mængder alkohol på kort tid (f.eks. 5 glas eller mere på én aften)?"
+  },
+  "bp_organ_symptoms": {
+   "label": "Har du på grund af det høje blodtryk nogensinde haft synsforstyrrelser eller gener fra hjernen (f.eks. kraftig hovedpine med forvirring, tale- eller synsforstyrrelser)?"
+  },
+  "bp_values": {
+   "label": "Hvor højt er dit blodtryk sædvanligvis – trods behandling?",
+   "options": {
+    "bis180": "Mellem 140/90 og 180/110",
+    "ueber180": "Ofte over 180 (det øverste tal) eller over 110 (det nederste tal)",
+    "unbekannt": "Det ved jeg ikke",
+    "unter140": "Oftest under 140/90"
+   }
+  },
+  "cannabis_medical": {
+   "followup": "Hvem ordinerer det, mod hvilken sygdom, og i hvilken dosis?",
+   "label": "Tager du cannabis efter lægeordination (medicinsk cannabis, f.eks. fra apoteket)?"
+  },
+  "cannabis_traffic": {
+   "followup": "Hvornår skete det, og hvad blev der konstateret?",
+   "label": "Er du nogensinde blevet taget i trafikken under påvirkning af cannabis (f.eks. kørsel under påvirkning af THC, bøde, MPU – medicinsk-psykologisk undersøgelse)?"
+  },
+  "drug_dependence": {
+   "followup": "Hvilket stof, hvornår blev behandlingen afsluttet (under indlæggelse eller ambulant), og siden hvornår har du levet afholdende?",
+   "label": "Er der nogensinde konstateret afhængighed af cannabis eller andre stoffer hos dig, eller har du af den grund været i afgiftning eller afvænningsbehandling?"
+  },
+  "heart_event_when": {
+   "label": "Hvor længe siden er den seneste af disse hændelser (blodprop i hjertet, stent, bypass)?",
+   "options": {
+    "6w_bis_3m": "6 uger til 3 måneder",
+    "ueber3m": "Mere end 3 måneder",
+    "unter6w": "Mindre end 6 uger"
+   }
+  },
+  "hypoglycemia_desc": {
+   "label": "Hvornår var den seneste episode, og opstod den i vågen tilstand eller under søvn?"
+  },
+  "icd_indication": {
+   "label": "Af hvilken grund fik du indsat defibrillatoren?",
+   "options": {
+    "nach_ereignis": "Efter et overlevet hjertestop eller en livstruende rytmeforstyrrelse",
+    "unbekannt": "Det ved jeg ikke præcist",
+    "vorsorglich": "Forebyggende på grund af min hjertesygdom (uden en forudgående livstruende hændelse)"
+   }
+  },
+  "low_ef": {
+   "hint": "Pumpefunktionen (EF) står som regel i erklæringen fra din kardiolog.",
+   "label": "Har du fået at vide, at dit hjertes pumpefunktion er betydeligt nedsat (ejektionsfraktion under ca. 35 %)?",
+   "options": {
+    "ja": "Ja",
+    "nein": "Nej, normal eller kun let nedsat",
+    "unbekannt": "Det ved jeg ikke"
+   }
+  },
+  "mixed_consumption": {
+   "label": "Bruger du ofte cannabis sammen med alkohol eller andre rusmidler (samtidig eller kort tid efter hinanden)?"
+  },
+  "pavk": {
+   "followup": "Siden hvornår, og er der allerede foretaget en operation eller et kateterindgreb?",
+   "label": "Har du en kendt kredsløbsforstyrrelse i benene (vindueskiggersyge / perifer arteriel sygdom)?"
+  },
+  "pavk_rest_pain": {
+   "label": "Har du på grund af det også smerter i hvile, for eksempel om natten når du ligger ned?"
+  },
+  "resuscitated": {
+   "followup": "Hvornår skete det, og hvilken årsag blev fundet?",
+   "label": "Har du nogensinde skullet genoplives efter et hjertestop?"
+  },
+  "sleepiness_coping": {
+   "label": "Når du bliver træt i løbet af dagen: Bemærker du det i tide, og holder du så en pause (f.eks. standser, tager en lur)?",
+   "options": {
+    "nein": "Nej, trætheden overrumpler mig snarere",
+    "teilweise": "Delvist, men ikke altid i tide",
+    "zuverlaessig": "Ja, jeg bemærker det pålideligt og holder så en pause"
+   }
+  },
+  "stroke_prevention": {
+   "followup": "Hvilken behandling, og hvornår var den seneste kontrol?",
+   "label": "Er årsagen til hændelsen blevet udredt af en læge, og bliver du behandlet forebyggende (f.eks. blodfortyndende medicin, blodtryks- eller kolesterolsænkende medicin, operation af halspulsåren)?"
+  },
+  "stroke_rehab": {
+   "hint": "Ved vedvarende udfald skal køreegnetheden ifølge retningslinjerne først vurderes, når et egnet genoptræningsforløb er afsluttet.",
+   "label": "Har du været i genoptræning efter hændelsen?",
+   "options": {
+    "abgeschlossen": "Ja, helt afsluttet",
+    "keine": "Nej, ingen genoptræning",
+    "laufend": "Ja, den er stadig i gang"
+   }
+  },
+  "vertigo_migraine": {
+   "followup": "Varsles disse anfald på forhånd (f.eks. synsforstyrrelser, lysfølsomhed), og hvornår var det seneste anfald?",
+   "label": "Optræder dine svimmelhedsanfald i forbindelse med migræne eller kraftig hovedpine (før, under eller efter)?"
+  },
+  "vertigo_situational": {
+   "followup": "I hvilke situationer? Optræder svimmelheden også, når du kører bil?",
+   "label": "Optræder din svimmelhed især i bestemte situationer, hvor du er anspændt eller ængstelig – f.eks. når du kører bil, i menneskemængder eller på broer?"
   }
  },
  "ess_items": {

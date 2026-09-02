@@ -144,7 +144,9 @@
     "D1": "D1",
     "D": "D",
     "DE": "DE",
-    "T": "T"
+    "T": "T",
+    "D1E": "D1E",
+    "L": "L"
    }
   },
   "license_years": {
@@ -246,10 +248,12 @@
   },
   "hearing_impaired": {
    "label": "Da li imate teško oštećenje sluha ili ste gluvi?",
-   "followup": "Od kada i da li ste na lečenju kod otorinolaringologa (lekara za uho, grlo i nos)?"
+   "followup": "Od kada i da li ste na lečenju kod otorinolaringologa (lekara za uho, grlo i nos)?",
+   "hint": "Teško oštećenje znači: više od 60 % gubitka sluha na boljem uhu, mereno bez slušnog aparata."
   },
   "hearing_aid": {
-   "label": "Da li nosite slušni aparat ili kohlearni implant (veštačku pužnicu)?"
+   "label": "Da li nosite slušni aparat ili kohlearni implant (veštačku pužnicu)?",
+   "hint": "Slušni aparat se preporučuje, ali nije uslov za sposobnost za vožnju; za procenu se računa sluh bez slušnog aparata."
   },
   "heart_disease": {
    "label": "Da li je kod vas poznata bolest srca ili krvnih sudova?",
@@ -269,11 +273,12 @@
    "followup": "Koja dijagnoza i kako se leči?"
   },
   "pacemaker_icd": {
-   "label": "Da li nosite pejsmejker (srčani stimulator) ili defibrilator (ICD)?",
+   "label": "Da li nosite pejsmejker (srčani stimulator), defibrilator (ICD) ili sistem za potporu rada srca?",
    "options": {
     "nein": "Ne",
     "schrittmacher": "Pejsmejker (srčani stimulator)",
-    "icd": "Defibrilator (ICD)"
+    "icd": "Defibrilator (ICD)",
+    "vad": "Sistem za potporu rada srca (veštačko srce/VAD)"
    },
    "followup": "Kada je ugrađen i kada je bila poslednja kontrola?"
   },
@@ -299,7 +304,7 @@
    "label": "Da li se uz vaše lekove za krvni pritisak javljaju vrtoglavica, osećaj slabosti ili crnjenje pred očima?"
   },
   "heart_other": {
-   "label": "Da li je kod vas poznata još neka bolest srca ili krvnih sudova: greška srčanog zaliska, urođena srčana mana, bolest srčanog mišića (kardiomiopatija), nasledni poremećaj srčanog ritma (npr. Long-QT), aneurizma aorte ili suženje vratne arterije?",
+   "label": "Da li je kod vas poznata još neka bolest srca ili krvnih sudova: greška srčanog zaliska, urođena srčana mana, bolest srčanog mišića (kardiomiopatija), nasledni poremećaj srčanog ritma (npr. Long-QT, Brugada), aneurizma aorte ili suženje vratne arterije?",
    "followup": "Koja dijagnoza i kako se kontroliše odnosno leči?"
   },
   "family_sudden_death": {
@@ -307,7 +312,7 @@
   },
   "stroke": {
    "label": "Da li ste ikada imali moždani udar, moždano krvarenje ili TIA (prolazni poremećaj cirkulacije sa kratkotrajnim ispadima)?",
-   "followup": "Kada se događaj desio i da li je rehabilitacija završena?"
+   "followup": "Kada se događaj desio i koji uzrok je utvrđen?"
   },
   "stroke_residuals": {
    "label": "Da li od tada još postoje posledice kao što su oduzetost, poremećaji govora, problemi sa pamćenjem ili ograničenja vidnog polja?",
@@ -356,11 +361,12 @@
     "3bis6m": "3 do 6 meseci",
     "6bis12m": "6 do 12 meseci",
     "1bis2j": "1 do 2 godine",
-    "ueber2j": "Više od 2 godine"
+    "2bis4j": "2 do 4 godine",
+    "ueber4j": "Više od 4 godine"
    }
   },
   "vertigo_prodromi": {
-   "label": "Da li se vaši napadi vrtoglavice unapred najavljuju (npr. pritisak u uhu, zujanje u uhu, slabljenje sluha), tako da biste mogli na vreme da se zaustavite?",
+   "label": "Da li se vaši napadi vrtoglavice unapred najavljuju (npr. pritisak u uhu, zujanje u uhu, slabljenje sluha ili predznaci migrene poput smetnji vida), tako da biste mogli na vreme da se zaustavite?",
    "options": {
     "immer": "Da, uvek",
     "manchmal": "Ponekad",
@@ -410,7 +416,11 @@
   },
   "hypoglycemia": {
    "label": "Da li ste u poslednjih 12 meseci imali tešku hipoglikemiju (nizak šećer u krvi) pri kojoj vam je bila potrebna tuđa pomoć?",
-   "followup": "Koliko često, kada je bila poslednja epizoda i da li se dogodila u budnom stanju ili tokom spavanja?"
+   "options": {
+    "none": "Ne",
+    "once": "Da, jednom",
+    "repeated": "Da, više puta"
+   }
   },
   "hypo_awareness": {
    "label": "Da li se dogodilo da hipoglikemiju niste sami na vreme primetili (izostanak znakova upozorenja)?",
@@ -512,18 +522,20 @@
   },
   "alcohol_dependence": {
    "label": "Da li je kod vas ikada utvrđena zavisnost od alkohola ili ste prošli detoksikaciju odnosno lečenje odvikavanja?",
-   "followup": "Kada je lečenje završeno i od kada živite apstinentno?"
+   "followup": "Kada je lečenje završeno (bolničko ili ambulantno) i od kada živite apstinentno?"
   },
   "drugs": {
-   "label": "Da li trenutno uzimate droge (npr. kanabis, kokain, amfetamine) ili ste ranije redovno konzumirali droge?",
-   "followup": "Koje supstance, koliko često i kada poslednji put?"
+   "label": "Da li trenutno uzimate druge droge (npr. kokain, amfetamine, ekstazi, heroin) ili ste ranije redovno konzumirali takve droge?",
+   "followup": "Koje supstance, koliko često i kada poslednji put?",
+   "hint": "Kanabis se posebno ispituje iznad."
   },
   "cannabis": {
-   "label": "Koliko često konzumirate kanabis?",
+   "label": "Da li konzumirate kanabis (npr. kao džoint, preko isparivača ili u hrani)?",
    "options": {
     "nie": "Nikada",
     "gelegentlich": "Povremeno (ne redovno)",
-    "regelmaessig": "Redovno (svakodnevno ili po navici)"
+    "regelmaessig": "Redovno (više puta nedeljno)",
+    "taeglich": "Svakog dana ili skoro svakog dana"
    }
   },
   "substitution": {
@@ -570,6 +582,104 @@
   "consent_privacy": {
    "label": "Pročitao/pročitala sam informacije o zaštiti podataka i saglasan/saglasna sam sa obradom svojih podataka u saobraćajno-medicinske svrhe.",
    "error": "Molimo vas da prihvatite informacije o zaštiti podataka."
+  },
+  "alcohol_binge": {
+   "label": "Da li se dešava da jednom prilikom popijete veće količine alkohola za kratko vreme (npr. 5 ili više čaša u toku jedne večeri)?"
+  },
+  "bp_organ_symptoms": {
+   "label": "Da li ste zbog visokog krvnog pritiska već imali smetnje vida ili tegobe od strane mozga (npr. jaku glavobolju sa zbunjenošću, smetnje govora ili vida)?"
+  },
+  "bp_values": {
+   "label": "Koliko su obično visoke vaše vrednosti krvnog pritiska – i pored lečenja?",
+   "options": {
+    "bis180": "Između 140/90 i 180/110",
+    "ueber180": "Često preko 180 (gornja vrednost) ili preko 110 (donja vrednost)",
+    "unbekannt": "Ne znam",
+    "unter140": "Uglavnom ispod 140/90"
+   }
+  },
+  "cannabis_medical": {
+   "followup": "Ko vam ga propisuje, protiv koje bolesti i u kojoj dozi?",
+   "label": "Da li uzimate kanabis po lekarskom receptu (medicinski kanabis, npr. iz apoteke)?"
+  },
+  "cannabis_traffic": {
+   "followup": "Kada je to bilo i šta je utvrđeno?",
+   "label": "Da li ste ikada u saobraćaju zatečeni pod uticajem kanabisa (npr. vožnja pod dejstvom THC-a, novčana kazna, MPU)?"
+  },
+  "drug_dependence": {
+   "followup": "Koja supstanca, kada je lečenje završeno (bolničko ili ambulantno) i od kada živite apstinentno?",
+   "label": "Da li je kod vas ikada utvrđena zavisnost od kanabisa ili drugih droga ili ste zbog toga prošli detoksikaciju odnosno lečenje odvikavanja?"
+  },
+  "heart_event_when": {
+   "label": "Koliko je vremena prošlo od poslednjeg od ovih događaja (infarkt, stent, bajpas)?",
+   "options": {
+    "6w_bis_3m": "6 nedelja do 3 meseca",
+    "ueber3m": "Više od 3 meseca",
+    "unter6w": "Manje od 6 nedelja"
+   }
+  },
+  "hypoglycemia_desc": {
+   "label": "Kada je bila poslednja epizoda i da li se dogodila u budnom stanju ili tokom spavanja?"
+  },
+  "icd_indication": {
+   "label": "Iz kog razloga vam je ugrađen defibrilator?",
+   "options": {
+    "nach_ereignis": "Nakon preživljenog zastoja srca ili životno ugrožavajućeg poremećaja srčanog ritma",
+    "unbekannt": "Ne znam tačno",
+    "vorsorglich": "Preventivno zbog moje srčane bolesti (bez prethodnog životno ugrožavajućeg događaja)"
+   }
+  },
+  "low_ef": {
+   "hint": "Pumpna funkcija (EF) obično je navedena u nalazu vašeg kardiologa.",
+   "label": "Da li vam je rečeno da je pumpna funkcija vašeg srca znatno smanjena (ejekciona frakcija ispod oko 35 %)?",
+   "options": {
+    "ja": "Da",
+    "nein": "Ne, normalna je ili samo blago smanjena",
+    "unbekannt": "Ne znam"
+   }
+  },
+  "mixed_consumption": {
+   "label": "Da li kanabis češće konzumirate zajedno sa alkoholom ili drugim opojnim supstancama (istovremeno ili ubrzo jedno za drugim)?"
+  },
+  "pavk": {
+   "followup": "Od kada i da li je već urađena operacija ili zahvat kateterom?",
+   "label": "Da li je kod vas poznat poremećaj cirkulacije u nogama (bolest izloga / pAVK)?"
+  },
+  "pavk_rest_pain": {
+   "label": "Da li zbog toga imate bolove i u mirovanju, na primer noću dok ležite?"
+  },
+  "resuscitated": {
+   "followup": "Kada je to bilo i koji uzrok je pronađen?",
+   "label": "Da li ste ikada morali da budete oživljavani (reanimirani) nakon zastoja srca?"
+  },
+  "sleepiness_coping": {
+   "label": "Kada tokom dana postanete umorni: da li to primetite na vreme i tada napravite pauzu (npr. da se zaustavite, kratko odspavate)?",
+   "options": {
+    "nein": "Ne, umor me pre iznenadi",
+    "teilweise": "Delimično, ali ne uvek na vreme",
+    "zuverlaessig": "Da, pouzdano to primetim i tada napravim pauzu"
+   }
+  },
+  "stroke_prevention": {
+   "followup": "Koje lečenje i kada je bila poslednja kontrola?",
+   "label": "Da li je uzrok događaja lekarski razjašnjen i da li se lečite radi prevencije (npr. lekovi za razređivanje krvi, lekovi za snižavanje krvnog pritiska ili holesterola, operacija vratne arterije)?"
+  },
+  "stroke_rehab": {
+   "hint": "Ako ispadi i dalje postoje, sposobnost za vožnju se prema smernicama procenjuje tek nakon završene odgovarajuće rehabilitacije.",
+   "label": "Da li ste posle događaja bili na rehabilitaciji?",
+   "options": {
+    "abgeschlossen": "Da, u potpunosti završena",
+    "keine": "Ne, bez rehabilitacije",
+    "laufend": "Da, još uvek traje"
+   }
+  },
+  "vertigo_migraine": {
+   "followup": "Da li se ovi napadi unapred najavljuju (npr. smetnje vida, osetljivost na svetlost) i kada je bio poslednji napad?",
+   "label": "Da li se vaši napadi vrtoglavice javljaju u vezi sa migrenom ili jakom glavoboljom (pre nje, tokom nje ili posle nje)?"
+  },
+  "vertigo_situational": {
+   "followup": "U kojim situacijama? Da li se vrtoglavica javlja i tokom vožnje automobila?",
+   "label": "Da li se vaša vrtoglavica javlja pre svega u određenim situacijama u kojima ste napeti ili uplašeni – npr. tokom vožnje automobila, u gužvi ili na mostovima?"
   }
  },
  "ess_items": {

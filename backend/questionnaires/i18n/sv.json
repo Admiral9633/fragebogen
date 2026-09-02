@@ -144,7 +144,9 @@
     "D1": "D1",
     "D": "D",
     "DE": "DE",
-    "T": "T"
+    "T": "T",
+    "D1E": "D1E",
+    "L": "L"
    }
   },
   "license_years": {
@@ -246,10 +248,12 @@
   },
   "hearing_impaired": {
    "label": "Har du en grav hörselnedsättning eller är du döv?",
-   "followup": "Sedan när, och går du på behandling hos öron-näsa-hals-läkare?"
+   "followup": "Sedan när, och går du på behandling hos öron-näsa-hals-läkare?",
+   "hint": "Grav betyder: mer än 60 % hörselnedsättning på det bättre örat, mätt utan hörapparat."
   },
   "hearing_aid": {
-   "label": "Använder du hörapparat eller cochleaimplantat?"
+   "label": "Använder du hörapparat eller cochleaimplantat?",
+   "hint": "Hörapparat rekommenderas men är inget krav för körlämpligheten; vid bedömningen räknas hörseln utan hörapparat."
   },
   "heart_disease": {
    "label": "Har du någon känd hjärt- eller kärlsjukdom?",
@@ -269,11 +273,12 @@
    "followup": "Vilken diagnos, och hur behandlas den?"
   },
   "pacemaker_icd": {
-   "label": "Har du en pacemaker eller en defibrillator (ICD)?",
+   "label": "Har du en pacemaker, en defibrillator (ICD) eller ett hjärtpumpssystem?",
    "options": {
     "nein": "Nej",
     "schrittmacher": "Pacemaker",
-    "icd": "Defibrillator (ICD)"
+    "icd": "Defibrillator (ICD)",
+    "vad": "Hjärtpumpssystem (konstgjort hjärta/VAD)"
    },
    "followup": "När sattes den in, och när var den senaste kontrollen?"
   },
@@ -299,7 +304,7 @@
    "label": "Får du yrsel, svaghetskänsla eller svartnar det för ögonen av dina blodtrycksläkemedel?"
   },
   "heart_other": {
-   "label": "Har du någon annan känd hjärt-/kärlsjukdom: klaffel, medfött hjärtfel, hjärtmuskelsjukdom (kardiomyopati), ärftlig rytmsjukdom (t.ex. Long-QT), aortaaneurysm eller förträngd halspulsåder?",
+   "label": "Har du någon annan känd hjärt-/kärlsjukdom: klaffel, medfött hjärtfel, hjärtmuskelsjukdom (kardiomyopati), ärftlig rytmsjukdom (t.ex. Long-QT, Brugada), aortaaneurysm eller förträngd halspulsåder?",
    "followup": "Vilken diagnos, och hur kontrolleras/behandlas den?"
   },
   "family_sudden_death": {
@@ -307,7 +312,7 @@
   },
   "stroke": {
    "label": "Har du någon gång haft en stroke, en hjärnblödning eller en TIA (övergående cirkulationsstörning med kortvariga bortfall)?",
-   "followup": "När inträffade händelsen, och har en rehabilitering avslutats?"
+   "followup": "När inträffade händelsen, och vilken orsak konstaterades?"
   },
   "stroke_residuals": {
    "label": "Finns det sedan dess kvarstående följder som förlamningar, talsvårigheter, minnesproblem eller inskränkningar i synfältet?",
@@ -356,11 +361,12 @@
     "3bis6m": "3 till 6 månader",
     "6bis12m": "6 till 12 månader",
     "1bis2j": "1 till 2 år",
-    "ueber2j": "Mer än 2 år"
+    "2bis4j": "2 till 4 år",
+    "ueber4j": "Mer än 4 år"
    }
   },
   "vertigo_prodromi": {
-   "label": "Förvarnas dina yrselanfall (t.ex. tryck i örat, öronsus, hörselnedsättning), så att du skulle hinna stanna i tid?",
+   "label": "Förvarnas dina yrselanfall (t.ex. tryck i örat, öronsus, hörselnedsättning eller migränförebud som synstörningar), så att du skulle hinna stanna i tid?",
    "options": {
     "immer": "Ja, alltid",
     "manchmal": "Ibland",
@@ -410,7 +416,11 @@
   },
   "hypoglycemia": {
    "label": "Har du under de senaste 12 månaderna haft en svår händelse med lågt blodsocker där du behövde hjälp av någon annan?",
-   "followup": "Hur ofta, när var den senaste episoden, och inträffade den i vaket tillstånd eller under sömn?"
+   "options": {
+    "none": "Nej",
+    "once": "Ja, en gång",
+    "repeated": "Ja, flera gånger"
+   }
   },
   "hypo_awareness": {
    "label": "Har det hänt att du inte själv märkte ett lågt blodsocker i tid (uteblivna varningstecken)?",
@@ -512,18 +522,20 @@
   },
   "alcohol_dependence": {
    "label": "Har alkoholberoende någon gång konstaterats hos dig, eller har du genomgått en avgiftning eller en avvänjningsbehandling?",
-   "followup": "När avslutades behandlingen, och hur länge har du levt nykter?"
+   "followup": "När avslutades behandlingen (på sjukhus eller i öppenvård), och hur länge har du levt nykter?"
   },
   "drugs": {
-   "label": "Tar du för närvarande droger (t.ex. cannabis, kokain, amfetamin) eller har du tidigare använt droger regelbundet?",
-   "followup": "Vilka substanser, hur ofta, och när senast?"
+   "label": "Tar du för närvarande andra droger (t.ex. kokain, amfetamin, ecstasy, heroin) eller har du tidigare regelbundet använt sådana droger?",
+   "followup": "Vilka substanser, hur ofta, och när senast?",
+   "hint": "Cannabis efterfrågas separat ovan."
   },
   "cannabis": {
-   "label": "Hur ofta använder du cannabis?",
+   "label": "Använder du cannabis (t.ex. som joint, i förångare eller som ätbara produkter)?",
    "options": {
     "nie": "Aldrig",
     "gelegentlich": "Ibland (inte regelbundet)",
-    "regelmaessig": "Regelbundet (dagligen eller vanemässigt)"
+    "regelmaessig": "Regelbundet (flera gånger i veckan)",
+    "taeglich": "Dagligen eller nästan dagligen"
    }
   },
   "substitution": {
@@ -570,6 +582,104 @@
   "consent_privacy": {
    "label": "Jag har läst informationen om dataskydd och samtycker till att mina uppgifter behandlas för trafikmedicinska ändamål.",
    "error": "Var vänlig acceptera informationen om dataskydd."
+  },
+  "alcohol_binge": {
+   "label": "Händer det att du dricker stora mängder alkohol på kort tid vid ett och samma tillfälle (t.ex. 5 eller fler glas på en kväll)?"
+  },
+  "bp_organ_symptoms": {
+   "label": "Har du på grund av det höga blodtrycket någon gång haft synstörningar eller besvär från hjärnan (t.ex. kraftig huvudvärk med förvirring, tal- eller synstörningar)?"
+  },
+  "bp_values": {
+   "label": "Hur höga är dina blodtrycksvärden vanligtvis – trots behandling?",
+   "options": {
+    "bis180": "Mellan 140/90 och 180/110",
+    "ueber180": "Ofta över 180 (övre värdet) eller över 110 (undre värdet)",
+    "unbekannt": "Jag vet inte",
+    "unter140": "Oftast under 140/90"
+   }
+  },
+  "cannabis_medical": {
+   "followup": "Vem skriver ut det, mot vilken sjukdom, och i vilken dosering?",
+   "label": "Tar du cannabis på läkarordination (medicinsk cannabis, t.ex. från apotek)?"
+  },
+  "cannabis_traffic": {
+   "followup": "När var det, och vad konstaterades?",
+   "label": "Har du någon gång uppmärksammats i trafiken påverkad av cannabis (t.ex. körning under THC-påverkan, böter, MPU – medicinsk-psykologisk undersökning)?"
+  },
+  "drug_dependence": {
+   "followup": "Vilken substans, när avslutades behandlingen (på sjukhus eller i öppenvård), och hur länge har du levt drogfri?",
+   "label": "Har ett beroende av cannabis eller andra droger någon gång konstaterats hos dig, eller har du genomgått en avgiftning eller en avvänjningsbehandling på grund av det?"
+  },
+  "heart_event_when": {
+   "label": "Hur länge sedan inträffade den senaste av dessa händelser (infarkt, stent, bypass)?",
+   "options": {
+    "6w_bis_3m": "6 veckor till 3 månader",
+    "ueber3m": "Mer än 3 månader",
+    "unter6w": "Mindre än 6 veckor"
+   }
+  },
+  "hypoglycemia_desc": {
+   "label": "När var den senaste episoden, och inträffade den i vaket tillstånd eller under sömn?"
+  },
+  "icd_indication": {
+   "label": "Av vilken anledning sattes defibrillatorn in hos dig?",
+   "options": {
+    "nach_ereignis": "Efter ett överlevt hjärtstopp eller en livshotande rytmrubbning",
+    "unbekannt": "Jag vet inte säkert",
+    "vorsorglich": "I förebyggande syfte på grund av min hjärtsjukdom (utan tidigare livshotande händelse)"
+   }
+  },
+  "low_ef": {
+   "hint": "Pumpförmågan (EF) står oftast i utlåtandet från din kardiolog.",
+   "label": "Har du fått veta att ditt hjärtas pumpförmåga är tydligt nedsatt (ejektionsfraktion under cirka 35 %)?",
+   "options": {
+    "ja": "Ja",
+    "nein": "Nej, normal eller endast lätt nedsatt",
+    "unbekannt": "Jag vet inte"
+   }
+  },
+  "mixed_consumption": {
+   "label": "Använder du oftare cannabis tillsammans med alkohol eller andra berusningsmedel (samtidigt eller kort efter varandra)?"
+  },
+  "pavk": {
+   "followup": "Sedan när, och har en operation eller ett kateteringrepp redan utförts?",
+   "label": "Har du en känd cirkulationsstörning i benen (fönstertittarsjuka / pAVK)?"
+  },
+  "pavk_rest_pain": {
+   "label": "Har du på grund av detta smärta även i vila, till exempel på natten när du ligger ner?"
+  },
+  "resuscitated": {
+   "followup": "När var det, och vilken orsak hittades?",
+   "label": "Har du någon gång behövt återupplivas (reanimeras) efter ett hjärtstopp?"
+  },
+  "sleepiness_coping": {
+   "label": "När du blir trött under dagen: märker du det i tid, och tar du då en paus (t.ex. stannar, tar en tupplur)?",
+   "options": {
+    "nein": "Nej, tröttheten kommer snarare överraskande",
+    "teilweise": "Delvis, men inte alltid i tid",
+    "zuverlaessig": "Ja, jag märker det tillförlitligt och tar då en paus"
+   }
+  },
+  "stroke_prevention": {
+   "followup": "Vilken behandling, och när var den senaste kontrollen?",
+   "label": "Har orsaken till händelsen utretts av läkare, och behandlas du förebyggande (t.ex. blodförtunnande, blodtrycks- eller kolesterolsänkande läkemedel, operation av halspulsådern)?"
+  },
+  "stroke_rehab": {
+   "hint": "Vid kvarstående bortfall ska körlämpligheten enligt riktlinjen bedömas först efter avslutad lämplig rehabilitering.",
+   "label": "Har du genomgått en rehabilitering efter händelsen?",
+   "options": {
+    "abgeschlossen": "Ja, helt avslutad",
+    "keine": "Nej, ingen rehabilitering",
+    "laufend": "Ja, den pågår fortfarande"
+   }
+  },
+  "vertigo_migraine": {
+   "followup": "Förvarnas dessa anfall (t.ex. synstörningar, ljuskänslighet), och när var det senaste anfallet?",
+   "label": "Uppträder dina yrselanfall i samband med migrän eller kraftig huvudvärk (före, under eller efter)?"
+  },
+  "vertigo_situational": {
+   "followup": "I vilka situationer? Uppträder yrseln även när du kör bil?",
+   "label": "Uppträder din yrsel framför allt i vissa situationer där du är spänd eller rädd – t.ex. när du kör bil, i folksamlingar eller på broar?"
   }
  },
  "ess_items": {

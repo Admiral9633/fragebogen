@@ -144,7 +144,9 @@
     "D1": "D1",
     "D": "D",
     "DE": "DE",
-    "T": "T"
+    "T": "T",
+    "D1E": "D1E",
+    "L": "L"
    }
   },
   "license_years": {
@@ -246,10 +248,12 @@
   },
   "hearing_impaired": {
    "label": "Súlyos fokban nagyothalló vagy siket?",
-   "followup": "Mióta, és fül-orr-gégészeti kezelés alatt áll?"
+   "followup": "Mióta, és fül-orr-gégészeti kezelés alatt áll?",
+   "hint": "A súlyos fok azt jelenti: több mint 60 % hallásveszteség a jobbik fülön, hallókészülék nélkül mérve."
   },
   "hearing_aid": {
-   "label": "Visel hallókészüléket vagy cochleáris implantátumot?"
+   "label": "Visel hallókészüléket vagy cochleáris implantátumot?",
+   "hint": "A hallókészülék ajánlott, de nem feltétele a vezetésre való alkalmasságnak; a megítélésnél a hallókészülék nélküli hallás számít."
   },
   "heart_disease": {
    "label": "Ismert Önnél szív- vagy érbetegség?",
@@ -269,11 +273,12 @@
    "followup": "Milyen diagnózis, és hogyan kezelik?"
   },
   "pacemaker_icd": {
-   "label": "Visel szívritmus-szabályozót (pacemakert) vagy defibrillátort (ICD)?",
+   "label": "Visel szívritmus-szabályozót (pacemakert), defibrillátort (ICD) vagy szívtámogató rendszert?",
    "options": {
     "nein": "Nem",
     "schrittmacher": "Szívritmus-szabályozó (pacemaker)",
-    "icd": "Defibrillátor (ICD)"
+    "icd": "Defibrillátor (ICD)",
+    "vad": "Szívtámogató rendszer (műszív/VAD)"
    },
    "followup": "Mikor ültették be, és mikor volt az utolsó ellenőrzés?"
   },
@@ -299,7 +304,7 @@
    "label": "Jelentkezik a vérnyomáscsökkentő gyógyszerei mellett szédülés, gyengeségérzés vagy elsötétülés a szeme előtt?"
   },
   "heart_other": {
-   "label": "Ismert Önnél további szív-/érbetegség: szívbillentyűhiba, veleszületett szívhiba, szívizombetegség (kardiomiopátia), örökletes ritmusbetegség (pl. hosszú QT-szindróma), aortaaneurizma vagy szűkült nyaki verőér?",
+   "label": "Ismert Önnél további szív-/érbetegség: szívbillentyűhiba, veleszületett szívhiba, szívizombetegség (kardiomiopátia), örökletes ritmusbetegség (pl. hosszú QT-szindróma, Brugada-szindróma), aortaaneurizma vagy szűkült nyaki verőér?",
    "followup": "Milyen diagnózis, és hogyan ellenőrzik/kezelik?"
   },
   "family_sudden_death": {
@@ -307,7 +312,7 @@
   },
   "stroke": {
    "label": "Volt valaha agyvérzése, agyi érkatasztrófája (stroke) vagy TIA-ja (átmeneti keringési zavar rövid ideig tartó kiesésekkel)?",
-   "followup": "Mikor történt az esemény, és lezajlott rehabilitáció?"
+   "followup": "Mikor történt az esemény, és milyen okot állapítottak meg?"
   },
   "stroke_residuals": {
    "label": "Maradtak azóta következmények, például bénulás, beszédzavar, emlékezetproblémák vagy a látótér beszűkülése?",
@@ -356,11 +361,12 @@
     "3bis6m": "3–6 hónapja",
     "6bis12m": "6–12 hónapja",
     "1bis2j": "1–2 éve",
-    "ueber2j": "Több mint 2 éve"
+    "2bis4j": "2–4 éve",
+    "ueber4j": "Több mint 4 éve"
    }
   },
   "vertigo_prodromi": {
-   "label": "Előre jelzik magukat a szédüléses rohamai (pl. fülnyomás, fülzúgás, halláscsökkenés), hogy időben meg tudna állni?",
+   "label": "Előre jelzik magukat a szédüléses rohamai (pl. fülnyomás, fülzúgás, halláscsökkenés vagy migrénes előjelek, például látászavar), hogy időben meg tudna állni?",
    "options": {
     "immer": "Igen, mindig",
     "manchmal": "Néha",
@@ -410,7 +416,11 @@
   },
   "hypoglycemia": {
    "label": "Volt az elmúlt 12 hónapban súlyos vércukoresése, amelynél mások segítségére szorult?",
-   "followup": "Milyen gyakran, mikor volt az utolsó epizód, és ébren vagy alvás közben jelentkezett?"
+   "options": {
+    "none": "Nem",
+    "once": "Igen, egyszer",
+    "repeated": "Igen, többször"
+   }
   },
   "hypo_awareness": {
    "label": "Előfordult, hogy egy vércukoresést nem vett észre időben magán (hiányzó figyelmeztető jelek)?",
@@ -512,18 +522,20 @@
   },
   "alcohol_dependence": {
    "label": "Állapítottak meg Önnél valaha alkoholfüggőséget, vagy vett részt méregtelenítő, illetve leszoktató kezelésen?",
-   "followup": "Mikor fejeződött be a kezelés, és mióta él absztinensen?"
+   "followup": "Mikor fejeződött be a kezelés (kórházi vagy járóbeteg-ellátás keretében), és mióta él absztinensen?"
   },
   "drugs": {
-   "label": "Fogyaszt jelenleg kábítószert (pl. kannabisz, kokain, amfetaminok), vagy fogyasztott korábban rendszeresen kábítószert?",
-   "followup": "Milyen szereket, milyen gyakran, és mikor utoljára?"
+   "label": "Fogyaszt jelenleg más kábítószert (pl. kokaint, amfetaminokat, ecstasyt, heroint), vagy fogyasztott korábban rendszeresen ilyen kábítószereket?",
+   "followup": "Milyen szereket, milyen gyakran, és mikor utoljára?",
+   "hint": "A kannabiszról fentebb külön kérdezünk."
   },
   "cannabis": {
-   "label": "Milyen gyakran fogyaszt kannabiszt?",
+   "label": "Fogyaszt kannabiszt (pl. jointként, párologtatóval vagy ételekben)?",
    "options": {
     "nie": "Soha",
     "gelegentlich": "Alkalmanként (nem rendszeresen)",
-    "regelmaessig": "Rendszeresen (naponta vagy megszokásból)"
+    "regelmaessig": "Rendszeresen (hetente többször)",
+    "taeglich": "Naponta vagy majdnem naponta"
    }
   },
   "substitution": {
@@ -570,6 +582,104 @@
   "consent_privacy": {
    "label": "Elolvastam az adatvédelmi tájékoztatót, és hozzájárulok adataim közlekedésorvosi célú kezeléséhez.",
    "error": "Kérjük, fogadja el az adatvédelmi tájékoztatót."
+  },
+  "alcohol_binge": {
+   "label": "Előfordul, hogy egy alkalommal rövid idő alatt nagyobb mennyiségű alkoholt iszik (pl. 5 vagy több pohárral egy este)?"
+  },
+  "bp_organ_symptoms": {
+   "label": "Volt már a magas vérnyomás miatt látászavara vagy agyi eredetű panasza (pl. erős fejfájás zavartsággal, beszéd- vagy látászavarral)?"
+  },
+  "bp_values": {
+   "label": "Általában milyen magasak a vérnyomásértékei – a kezelés ellenére?",
+   "options": {
+    "bis180": "140/90 és 180/110 között",
+    "ueber180": "Gyakran 180 felett (felső érték) vagy 110 felett (alsó érték)",
+    "unbekannt": "Nem tudom",
+    "unter140": "Többnyire 140/90 alatt"
+   }
+  },
+  "cannabis_medical": {
+   "followup": "Ki rendeli, milyen betegségre, és milyen adagolásban?",
+   "label": "Szed kannabiszt orvosi rendelvényre (gyógyászati kannabisz, pl. gyógyszertárból)?"
+  },
+  "cannabis_traffic": {
+   "followup": "Mikor történt, és mit állapítottak meg?",
+   "label": "Vonták már valaha felelősségre a közúti közlekedésben kannabisz hatása alatt (pl. THC hatása alatti vezetés, bírság, MPU – orvosi-pszichológiai vizsgálat)?"
+  },
+  "drug_dependence": {
+   "followup": "Melyik szer, mikor fejeződött be a kezelés (kórházi vagy járóbeteg-ellátás keretében), és mióta él absztinensen?",
+   "label": "Állapítottak meg Önnél valaha kannabisz- vagy más kábítószer-függőséget, vagy vett részt emiatt méregtelenítő, illetve leszoktató kezelésen?"
+  },
+  "heart_event_when": {
+   "label": "Mennyi ideje történt ezen események közül a legutolsó (infarktus, sztent, bypass)?",
+   "options": {
+    "6w_bis_3m": "6 hete – 3 hónapja",
+    "ueber3m": "Több mint 3 hónapja",
+    "unter6w": "Kevesebb mint 6 hete"
+   }
+  },
+  "hypoglycemia_desc": {
+   "label": "Mikor volt az utolsó epizód, és ébren vagy alvás közben jelentkezett?"
+  },
+  "icd_indication": {
+   "label": "Milyen okból ültették be Önbe a defibrillátort?",
+   "options": {
+    "nach_ereignis": "Túlélt szívmegállás vagy életveszélyes ritmuszavar után",
+    "unbekannt": "Nem tudom pontosan",
+    "vorsorglich": "Megelőzésként a szívbetegségem miatt (korábbi életveszélyes esemény nélkül)"
+   }
+  },
+  "low_ef": {
+   "hint": "A pumpafunkció (EF) általában szerepel a kardiológusa leletében.",
+   "label": "Mondták Önnek, hogy a szíve pumpafunkciója jelentősen csökkent (ejekciós frakció kb. 35 % alatt)?",
+   "options": {
+    "ja": "Igen",
+    "nein": "Nem, normális vagy csak enyhén csökkent",
+    "unbekannt": "Nem tudom"
+   }
+  },
+  "mixed_consumption": {
+   "label": "Fogyaszt kannabiszt gyakrabban alkohollal vagy más bódító szerekkel együtt (egyidejűleg vagy röviddel egymás után)?"
+  },
+  "pavk": {
+   "followup": "Mióta, és történt már műtét vagy katéteres beavatkozás?",
+   "label": "Ismert Önnél a lábak keringési zavara (kirakatnézegetős betegség / perifériás verőérbetegség)?"
+  },
+  "pavk_rest_pain": {
+   "label": "Emiatt nyugalomban is fájdalma van, például éjszaka fekve?"
+  },
+  "resuscitated": {
+   "followup": "Mikor történt, és milyen okot találtak?",
+   "label": "Kellett már Önt szívmegállás után újraéleszteni (reanimálni)?"
+  },
+  "sleepiness_coping": {
+   "label": "Ha napközben elfárad: időben észreveszi ezt, és tart ilyenkor szünetet (pl. megáll, rövid alvás)?",
+   "options": {
+    "nein": "Nem, a fáradtság inkább váratlanul ér",
+    "teilweise": "Részben, de nem mindig időben",
+    "zuverlaessig": "Igen, megbízhatóan észreveszem, és akkor szünetet tartok"
+   }
+  },
+  "stroke_prevention": {
+   "followup": "Milyen kezelés, és mikor volt az utolsó ellenőrzés?",
+   "label": "Kivizsgálták orvosilag az esemény okát, és kap megelőző kezelést (pl. véralvadásgátló, vérnyomás- vagy koleszterincsökkentő, a nyaki verőér műtétje)?"
+  },
+  "stroke_rehab": {
+   "hint": "Fennmaradó kiesések esetén az irányelv szerint a vezetésre való alkalmasságot csak megfelelő rehabilitáció befejezése után szabad megítélni.",
+   "label": "Részt vett az esemény után rehabilitáción?",
+   "options": {
+    "abgeschlossen": "Igen, teljesen befejeztem",
+    "keine": "Nem, nem volt rehabilitáció",
+    "laufend": "Igen, még tart"
+   }
+  },
+  "vertigo_migraine": {
+   "followup": "Előre jelzik magukat ezek a rohamok (pl. látászavar, fényérzékenység), és mikor volt az utolsó roham?",
+   "label": "A szédüléses rohamai migrénnel vagy erős fejfájással összefüggésben jelentkeznek (előtte, közben vagy utána)?"
+  },
+  "vertigo_situational": {
+   "followup": "Milyen helyzetekben? Jelentkezik a szédülés autóvezetés közben is?",
+   "label": "A szédülése főleg olyan helyzetekben jelentkezik, amelyekben feszült vagy szorong – pl. autóvezetés közben, tömegben vagy hidakon?"
   }
  },
  "ess_items": {

@@ -144,7 +144,9 @@
     "D1": "D1",
     "D": "D",
     "DE": "DE",
-    "T": "T"
+    "T": "T",
+    "D1E": "D1E",
+    "L": "L"
    }
   },
   "license_years": {
@@ -246,10 +248,12 @@
   },
   "hearing_impaired": {
    "label": "Ar turite sunkų klausos sutrikimą arba esate kurčias?",
-   "followup": "Nuo kada ir ar gydotės pas ausų, nosies ir gerklės gydytoją?"
+   "followup": "Nuo kada ir ar gydotės pas ausų, nosies ir gerklės gydytoją?",
+   "hint": "Sunkus reiškia: daugiau nei 60 % klausos netekimo geriau girdinčia ausimi, matuojant be klausos aparato."
   },
   "hearing_aid": {
-   "label": "Ar nešiojate klausos aparatą arba kochlearinį implantą?"
+   "label": "Ar nešiojate klausos aparatą arba kochlearinį implantą?",
+   "hint": "Klausos aparatas rekomenduojamas, tačiau nėra būtina tinkamumo vairuoti sąlyga; vertinant svarbi klausa be klausos aparato."
   },
   "heart_disease": {
    "label": "Ar Jums nustatyta širdies ar kraujagyslių liga?",
@@ -269,11 +273,12 @@
    "followup": "Kokia diagnozė ir kaip gydoma?"
   },
   "pacemaker_icd": {
-   "label": "Ar turite širdies stimuliatorių ar defibriliatorių (ICD)?",
+   "label": "Ar turite širdies stimuliatorių, defibriliatorių (ICD) ar širdies pagalbinę sistemą?",
    "options": {
     "nein": "Ne",
     "schrittmacher": "Širdies stimuliatorius",
-    "icd": "Defibriliatorius (ICD)"
+    "icd": "Defibriliatorius (ICD)",
+    "vad": "Širdies pagalbinė sistema (dirbtinė širdis / VAD)"
    },
    "followup": "Kada įdėtas ir kada buvo paskutinis patikrinimas?"
   },
@@ -299,7 +304,7 @@
    "label": "Ar vartojant kraujospūdį mažinančius vaistus Jums pasireiškia galvos svaigimas, silpnumo pojūtis ar patamsėjimas akyse?"
   },
   "heart_other": {
-   "label": "Ar Jums nustatyta kita širdies ar kraujagyslių liga: širdies vožtuvo yda, įgimta širdies yda, širdies raumens liga (kardiomiopatija), paveldima ritmo liga (pvz., ilgo QT sindromas), aortos aneurizma ar susiaurėjusi miego arterija?",
+   "label": "Ar Jums nustatyta kita širdies ar kraujagyslių liga: širdies vožtuvo yda, įgimta širdies yda, širdies raumens liga (kardiomiopatija), paveldima ritmo liga (pvz., ilgo QT sindromas, Brugada), aortos aneurizma ar susiaurėjusi miego arterija?",
    "followup": "Kokia diagnozė ir kaip ji stebima / gydoma?"
   },
   "family_sudden_death": {
@@ -307,7 +312,7 @@
   },
   "stroke": {
    "label": "Ar kada nors patyrėte insultą, smegenų kraujavimą ar TIA (praeinantį kraujotakos sutrikimą su trumpalaikiais funkcijos sutrikimais)?",
-   "followup": "Kada įvyko įvykis ir ar reabilitacija buvo baigta?"
+   "followup": "Kada įvyko įvykis ir kokia priežastis buvo nustatyta?"
   },
   "stroke_residuals": {
    "label": "Ar nuo to laiko išliko pasekmių, tokių kaip paralyžius, kalbos sutrikimai, atminties problemos ar regėjimo lauko apribojimai?",
@@ -356,11 +361,12 @@
     "3bis6m": "Nuo 3 iki 6 mėnesių",
     "6bis12m": "Nuo 6 iki 12 mėnesių",
     "1bis2j": "Nuo 1 iki 2 metų",
-    "ueber2j": "Daugiau nei 2 metai"
+    "2bis4j": "Nuo 2 iki 4 metų",
+    "ueber4j": "Daugiau nei 4 metai"
    }
   },
   "vertigo_prodromi": {
-   "label": "Ar galvos svaigimo priepuolius iš anksto paskelbia požymiai (pvz., spaudimas ausyje, ūžesys ausyse, klausos susilpnėjimas), kad galėtumėte laiku sustoti?",
+   "label": "Ar galvos svaigimo priepuolius iš anksto paskelbia požymiai (pvz., spaudimas ausyje, ūžesys ausyse, klausos susilpnėjimas arba migrenos pranašai, tokie kaip regėjimo sutrikimai), kad galėtumėte laiku sustoti?",
    "options": {
     "immer": "Taip, visada",
     "manchmal": "Kartais",
@@ -410,7 +416,11 @@
   },
   "hypoglycemia": {
    "label": "Ar per pastaruosius 12 mėnesių patyrėte sunkią hipoglikemiją (per mažą cukraus kiekį kraujyje), kai Jums prireikė kito žmogaus pagalbos?",
-   "followup": "Kaip dažnai, kada buvo paskutinis epizodas ir ar jis įvyko būdraujant, ar miegant?"
+   "options": {
+    "none": "Ne",
+    "once": "Taip, vieną kartą",
+    "repeated": "Taip, kelis kartus"
+   }
   },
   "hypo_awareness": {
    "label": "Ar yra buvę, kad patys laiku nepajutote hipoglikemijos (nebuvo įspėjamųjų požymių)?",
@@ -512,18 +522,20 @@
   },
   "alcohol_dependence": {
    "label": "Ar Jums kada nors buvo nustatyta priklausomybė nuo alkoholio arba ar esate atlikęs detoksikaciją ar atpratinimo gydymą?",
-   "followup": "Kada gydymas buvo baigtas ir nuo kada gyvenate blaiviai?"
+   "followup": "Kada gydymas buvo baigtas (stacionarus ar ambulatorinis) ir nuo kada gyvenate blaiviai?"
   },
   "drugs": {
-   "label": "Ar šiuo metu vartojate narkotikus (pvz., kanapes, kokainą, amfetaminus) arba ar anksčiau reguliariai vartojote narkotikus?",
-   "followup": "Kokias medžiagas, kaip dažnai ir kada paskutinį kartą?"
+   "label": "Ar šiuo metu vartojate kitus narkotikus (pvz., kokainą, amfetaminus, ekstazį, heroiną) arba ar anksčiau reguliariai vartojote tokius narkotikus?",
+   "followup": "Kokias medžiagas, kaip dažnai ir kada paskutinį kartą?",
+   "hint": "Apie kanapes klausiama atskirai aukščiau."
   },
   "cannabis": {
-   "label": "Kaip dažnai vartojate kanapes?",
+   "label": "Ar vartojate kanapes (pvz., džointą, garintuvą ar valgomus gaminius)?",
    "options": {
     "nie": "Niekada",
     "gelegentlich": "Retkarčiais (nereguliariai)",
-    "regelmaessig": "Reguliariai (kasdien arba įpratus)"
+    "regelmaessig": "Reguliariai (kelis kartus per savaitę)",
+    "taeglich": "Kasdien arba beveik kasdien"
    }
   },
   "substitution": {
@@ -570,6 +582,104 @@
   "consent_privacy": {
    "label": "Perskaičiau duomenų apsaugos informaciją ir sutinku, kad mano duomenys būtų tvarkomi transporto medicinos tikslais.",
    "error": "Prašome sutikti su duomenų apsaugos informacija."
+  },
+  "alcohol_binge": {
+   "label": "Ar pasitaiko, kad vienu kartu per trumpą laiką išgeriate didesnį kiekį alkoholio (pvz., 5 ar daugiau taurių per vakarą)?"
+  },
+  "bp_organ_symptoms": {
+   "label": "Ar dėl aukšto kraujospūdžio Jums kada nors pasireiškė regėjimo sutrikimų ar smegenų sukeltų nusiskundimų (pvz., stiprus galvos skausmas su sumišimu, kalbos ar regėjimo sutrikimais)?"
+  },
+  "bp_values": {
+   "label": "Kokie paprastai yra Jūsų kraujospūdžio rodmenys – nepaisant gydymo?",
+   "options": {
+    "unter140": "Dažniausiai mažiau nei 140/90",
+    "bis180": "Nuo 140/90 iki 180/110",
+    "ueber180": "Dažnai daugiau nei 180 (viršutinis rodmuo) arba daugiau nei 110 (apatinis rodmuo)",
+    "unbekannt": "Nežinau"
+   }
+  },
+  "cannabis_medical": {
+   "label": "Ar vartojate kanapes pagal gydytojo receptą (medicininės kanapės, pvz., iš vaistinės)?",
+   "followup": "Kas jas skiria, nuo kokios ligos ir kokia doze?"
+  },
+  "cannabis_traffic": {
+   "label": "Ar kada nors buvote sulaikytas kelyje apsvaigęs nuo kanapių (pvz., vairavimas veikiant THC, bauda, MPU – Vokietijos medicininis-psichologinis tinkamumo vertinimas)?",
+   "followup": "Kada tai buvo ir kas buvo nustatyta?"
+  },
+  "drug_dependence": {
+   "label": "Ar Jums kada nors buvo nustatyta priklausomybė nuo kanapių ar kitų narkotikų, arba ar dėl to esate atlikęs detoksikaciją ar atpratinimo gydymą?",
+   "followup": "Kokia medžiaga, kada gydymas buvo baigtas (stacionarus ar ambulatorinis) ir nuo kada nevartojate?"
+  },
+  "heart_event_when": {
+   "label": "Kiek laiko praėjo nuo paskutinio iš šių įvykių (infarkto, stento, šuntavimo)?",
+   "options": {
+    "unter6w": "Mažiau nei 6 savaitės",
+    "6w_bis_3m": "Nuo 6 savaičių iki 3 mėnesių",
+    "ueber3m": "Daugiau nei 3 mėnesiai"
+   }
+  },
+  "hypoglycemia_desc": {
+   "label": "Kada buvo paskutinis epizodas ir ar jis įvyko būdraujant, ar miegant?"
+  },
+  "icd_indication": {
+   "label": "Dėl kokios priežasties Jums buvo įdėtas defibriliatorius?",
+   "options": {
+    "vorsorglich": "Profilaktiškai dėl mano širdies ligos (be ankstesnio gyvybei pavojingo įvykio)",
+    "nach_ereignis": "Po išgyvento širdies sustojimo arba gyvybei pavojingo ritmo sutrikimo",
+    "unbekannt": "Tiksliai nežinau"
+   }
+  },
+  "low_ef": {
+   "label": "Ar Jums buvo pasakyta, kad Jūsų širdies siurbimo funkcija yra ženkliai sumažėjusi (išstūmimo frakcija mažesnė nei maždaug 35 %)?",
+   "hint": "Siurbimo funkcija (EF) paprastai nurodyta Jūsų kardiologo išvadoje.",
+   "options": {
+    "ja": "Taip",
+    "nein": "Ne, normali arba tik šiek tiek sumažėjusi",
+    "unbekannt": "Nežinau"
+   }
+  },
+  "mixed_consumption": {
+   "label": "Ar dažniau vartojate kanapes kartu su alkoholiu ar kitomis svaiginamosiomis medžiagomis (vienu metu arba netrukus vieną po kitos)?"
+  },
+  "pavk": {
+   "label": "Ar Jums nustatytas kojų kraujotakos sutrikimas (protarpinis šlubavimas / periferinių arterijų liga)?",
+   "followup": "Nuo kada ir ar jau buvo atlikta operacija arba kateterinė procedūra?"
+  },
+  "pavk_rest_pain": {
+   "label": "Ar dėl to jaučiate skausmą ir ramybėje, pavyzdžiui, naktį gulint?"
+  },
+  "resuscitated": {
+   "label": "Ar Jus kada nors teko gaivinti (reanimuoti) po širdies sustojimo?",
+   "followup": "Kada tai buvo ir kokia priežastis buvo nustatyta?"
+  },
+  "sleepiness_coping": {
+   "label": "Kai dieną pavargstate: ar tai pastebite laiku ir tada padarote pertrauką (pvz., sustojate, trumpai nusnaudžiate)?",
+   "options": {
+    "zuverlaessig": "Taip, patikimai tai pastebiu ir tada darau pertrauką",
+    "teilweise": "Iš dalies, bet ne visada laiku",
+    "nein": "Ne, nuovargis mane veikiau užklumpa netikėtai"
+   }
+  },
+  "stroke_prevention": {
+   "label": "Ar įvykio priežastis buvo ištirta gydytojų ir ar Jūs gydotės profilaktiškai (pvz., kraują skystinantys vaistai, kraujospūdį ar cholesterolį mažinantys vaistai, miego arterijos operacija)?",
+   "followup": "Koks gydymas ir kada buvo paskutinis patikrinimas?"
+  },
+  "stroke_rehab": {
+   "label": "Ar po įvykio atlikote reabilitaciją?",
+   "hint": "Esant išliekantiems funkcijos sutrikimams, pagal gaires tinkamumas vairuoti turi būti vertinamas tik baigus tinkamą reabilitaciją.",
+   "options": {
+    "abgeschlossen": "Taip, visiškai baigta",
+    "laufend": "Taip, ji dar vyksta",
+    "keine": "Ne, reabilitacijos nebuvo"
+   }
+  },
+  "vertigo_migraine": {
+   "label": "Ar Jūsų galvos svaigimo priepuoliai pasireiškia kartu su migrena ar stipriu galvos skausmu (prieš jį, jo metu ar po jo)?",
+   "followup": "Ar šiuos priepuolius iš anksto paskelbia požymiai (pvz., regėjimo sutrikimai, jautrumas šviesai) ir kada buvo paskutinis priepuolis?"
+  },
+  "vertigo_situational": {
+   "label": "Ar Jūsų galvos svaigimas pasireiškia daugiausia tam tikrose situacijose, kai esate įsitempęs ar išsigandęs – pvz., vairuojant automobilį, minioje ar ant tiltų?",
+   "followup": "Kokiose situacijose? Ar galvos svaigimas pasireiškia ir vairuojant automobilį?"
   }
  },
  "ess_items": {

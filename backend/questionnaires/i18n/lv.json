@@ -144,7 +144,9 @@
     "D1": "D1",
     "D": "D",
     "DE": "DE",
-    "T": "T"
+    "T": "T",
+    "D1E": "D1E",
+    "L": "L"
    }
   },
   "license_years": {
@@ -246,10 +248,12 @@
   },
   "hearing_impaired": {
    "label": "Vai Jums ir smagi dzirdes traucējumi vai Jūs esat nedzirdīgs?",
-   "followup": "Kopš kura laika, un vai Jūs ārstējaties pie ausu, kakla un deguna ārsta?"
+   "followup": "Kopš kura laika, un vai Jūs ārstējaties pie ausu, kakla un deguna ārsta?",
+   "hint": "Smagi nozīmē: vairāk nekā 60 % dzirdes zudums labāk dzirdošajā ausī, mērot bez dzirdes aparāta."
   },
   "hearing_aid": {
-   "label": "Vai Jūs lietojat dzirdes aparātu vai kohleāro implantu?"
+   "label": "Vai Jūs lietojat dzirdes aparātu vai kohleāro implantu?",
+   "hint": "Dzirdes aparāts ir ieteicams, taču tas nav priekšnosacījums piemērotībai vadīt transportlīdzekli; izvērtēšanā nozīme ir dzirdei bez dzirdes aparāta."
   },
   "heart_disease": {
    "label": "Vai Jums ir zināma sirds vai asinsvadu slimība?",
@@ -269,11 +273,12 @@
    "followup": "Kāda diagnoze, un kā tā tiek ārstēta?"
   },
   "pacemaker_icd": {
-   "label": "Vai Jums ir elektrokardiostimulators vai defibrilators (ICD)?",
+   "label": "Vai Jums ir elektrokardiostimulators, defibrilators (ICD) vai sirds atbalsta sistēma?",
    "options": {
     "nein": "Nē",
     "schrittmacher": "Elektrokardiostimulators",
-    "icd": "Defibrilators (ICD)"
+    "icd": "Defibrilators (ICD)",
+    "vad": "Sirds atbalsta sistēma (mākslīgā sirds/VAD)"
    },
    "followup": "Kad tas tika ievietots, un kad bija pēdējā kontrole?"
   },
@@ -299,7 +304,7 @@
    "label": "Vai, lietojot asinsspiediena medikamentus, Jums rodas reibonis, vājuma sajūta vai tumšums acu priekšā?"
   },
   "heart_other": {
-   "label": "Vai Jums ir zināma vēl kāda sirds vai asinsvadu slimība: sirds vārstuļa kaite, iedzimta sirdskaite, sirds muskuļa slimība (kardiomiopātija), iedzimta ritma slimība (piem., garā QT sindroms), aortas aneirisma vai sašaurināta miega artērija?",
+   "label": "Vai Jums ir zināma vēl kāda sirds vai asinsvadu slimība: sirds vārstuļa kaite, iedzimta sirdskaite, sirds muskuļa slimība (kardiomiopātija), iedzimta ritma slimība (piem., garā QT sindroms, Brugada), aortas aneirisma vai sašaurināta miega artērija?",
    "followup": "Kāda diagnoze, un kā tā tiek kontrolēta/ārstēta?"
   },
   "family_sudden_death": {
@@ -307,7 +312,7 @@
   },
   "stroke": {
    "label": "Vai Jums kādreiz ir bijis insults, smadzeņu asiņošana vai TIA (pārejošs asinsrites traucējums ar īslaicīgiem funkciju zudumiem)?",
-   "followup": "Kad notika notikums, un vai rehabilitācija tika pabeigta?"
+   "followup": "Kad notika notikums, un kāds cēlonis tika konstatēts?"
   },
   "stroke_residuals": {
    "label": "Vai kopš tā laika ir saglabājušās sekas, piemēram, paralīze, runas traucējumi, atmiņas problēmas vai redzes lauka ierobežojumi?",
@@ -356,11 +361,12 @@
     "3bis6m": "No 3 līdz 6 mēnešiem",
     "6bis12m": "No 6 līdz 12 mēnešiem",
     "1bis2j": "No 1 līdz 2 gadiem",
-    "ueber2j": "Vairāk nekā 2 gadus"
+    "2bis4j": "No 2 līdz 4 gadiem",
+    "ueber4j": "Vairāk nekā 4 gadus"
    }
   },
   "vertigo_prodromi": {
-   "label": "Vai Jūsu reiboņa lēkmes iepriekš pieteicas (piem., spiediens ausī, troksnis ausīs, dzirdes pasliktināšanās), tā ka Jūs varētu laikus apstāties?",
+   "label": "Vai Jūsu reiboņa lēkmes iepriekš pieteicas (piem., spiediens ausī, troksnis ausīs, dzirdes pasliktināšanās vai migrēnas priekšvēstneši, piemēram, redzes traucējumi), tā ka Jūs varētu laikus apstāties?",
    "options": {
     "immer": "Jā, vienmēr",
     "manchmal": "Dažreiz",
@@ -410,7 +416,11 @@
   },
   "hypoglycemia": {
    "label": "Vai pēdējo 12 mēnešu laikā Jums ir bijusi smaga hipoglikēmija (pazemināts cukura līmenis asinīs), kuras laikā Jums bija nepieciešama citas personas palīdzība?",
-   "followup": "Cik bieži, kad bija pēdējā epizode, un vai tā notika nomodā vai miega laikā?"
+   "options": {
+    "none": "Nē",
+    "once": "Jā, vienu reizi",
+    "repeated": "Jā, vairākas reizes"
+   }
   },
   "hypo_awareness": {
    "label": "Vai ir gadījies, ka Jūs pats laikus nepamanījāt pazeminātu cukura līmeni (trūka brīdinājuma pazīmju)?",
@@ -512,18 +522,20 @@
   },
   "alcohol_dependence": {
    "label": "Vai Jums kādreiz ir konstatēta atkarība no alkohola vai Jūs esat izgājis detoksikāciju vai atradināšanas ārstēšanu?",
-   "followup": "Kad ārstēšana tika pabeigta, un kopš kura laika Jūs dzīvojat atturīgi?"
+   "followup": "Kad ārstēšana tika pabeigta (stacionārā vai ambulatori), un kopš kura laika Jūs dzīvojat atturīgi?"
   },
   "drugs": {
-   "label": "Vai Jūs pašlaik lietojat narkotikas (piem., kaņepes, kokaīnu, amfetamīnus) vai agrāk regulāri esat lietojis narkotikas?",
-   "followup": "Kādas vielas, cik bieži, un kad pēdējo reizi?"
+   "label": "Vai Jūs pašlaik lietojat citas narkotikas (piem., kokaīnu, amfetamīnus, ekstazī, heroīnu) vai agrāk regulāri esat lietojis šādas narkotikas?",
+   "followup": "Kādas vielas, cik bieži, un kad pēdējo reizi?",
+   "hint": "Par kaņepēm tiek jautāts atsevišķi iepriekš."
   },
   "cannabis": {
-   "label": "Cik bieži Jūs lietojat kaņepes?",
+   "label": "Vai Jūs lietojat kaņepes (piem., kā džointu, ar iztvaicētāju vai kā ēdamus produktus)?",
    "options": {
     "nie": "Nekad",
     "gelegentlich": "Laiku pa laikam (neregulāri)",
-    "regelmaessig": "Regulāri (katru dienu vai pēc ieraduma)"
+    "regelmaessig": "Regulāri (vairākas reizes nedēļā)",
+    "taeglich": "Katru dienu vai gandrīz katru dienu"
    }
   },
   "substitution": {
@@ -570,6 +582,104 @@
   "consent_privacy": {
    "label": "Esmu izlasījis datu aizsardzības informāciju un piekrītu savu datu apstrādei satiksmes medicīnas nolūkos.",
    "error": "Lūdzu, piekrītiet datu aizsardzības informācijai."
+  },
+  "alcohol_binge": {
+   "label": "Vai gadās, ka vienā reizē īsā laikā izdzerat lielāku daudzumu alkohola (piem., 5 vai vairāk glāzes vienā vakarā)?"
+  },
+  "bp_organ_symptoms": {
+   "label": "Vai augstā asinsspiediena dēļ Jums kādreiz ir bijuši redzes traucējumi vai smadzeņu izraisītas sūdzības (piem., stipras galvassāpes ar apjukumu, runas vai redzes traucējumiem)?"
+  },
+  "bp_values": {
+   "label": "Cik augsti parasti ir Jūsu asinsspiediena rādītāji – neraugoties uz ārstēšanu?",
+   "options": {
+    "unter140": "Pārsvarā zem 140/90",
+    "bis180": "No 140/90 līdz 180/110",
+    "ueber180": "Bieži virs 180 (augšējais rādītājs) vai virs 110 (apakšējais rādītājs)",
+    "unbekannt": "Nezinu"
+   }
+  },
+  "cannabis_medical": {
+   "label": "Vai Jūs lietojat kaņepes pēc ārsta receptes (medicīniskās kaņepes, piem., no aptiekas)?",
+   "followup": "Kas tās izraksta, pret kādu slimību un kādā devā?"
+  },
+  "cannabis_traffic": {
+   "label": "Vai Jūs kādreiz esat pieķerts ceļu satiksmē kaņepju ietekmē (piem., braukšana THC ietekmē, naudas sods, MPU – Vācijas medicīniski psiholoģiskais piemērotības novērtējums)?",
+   "followup": "Kad tas bija, un kas tika konstatēts?"
+  },
+  "drug_dependence": {
+   "label": "Vai Jums kādreiz ir konstatēta atkarība no kaņepēm vai citām narkotikām, vai arī Jūs tādēļ esat izgājis detoksikāciju vai atradināšanas ārstēšanu?",
+   "followup": "Kāda viela, kad ārstēšana tika pabeigta (stacionārā vai ambulatori), un kopš kura laika Jūs nelietojat?"
+  },
+  "heart_event_when": {
+   "label": "Cik sen bija pēdējais no šiem notikumiem (infarkts, stents, šuntēšana)?",
+   "options": {
+    "unter6w": "Mazāk nekā 6 nedēļas",
+    "6w_bis_3m": "No 6 nedēļām līdz 3 mēnešiem",
+    "ueber3m": "Vairāk nekā 3 mēnešus"
+   }
+  },
+  "hypoglycemia_desc": {
+   "label": "Kad bija pēdējā epizode, un vai tā notika nomodā vai miega laikā?"
+  },
+  "icd_indication": {
+   "label": "Kāda iemesla dēļ Jums tika ievietots defibrilators?",
+   "options": {
+    "vorsorglich": "Profilaktiski manas sirds slimības dēļ (bez iepriekšēja dzīvībai bīstama notikuma)",
+    "nach_ereignis": "Pēc pārciestas sirds apstāšanās vai dzīvībai bīstama ritma traucējuma",
+    "unbekannt": "Precīzi nezinu"
+   }
+  },
+  "low_ef": {
+   "label": "Vai Jums ir teikts, ka Jūsu sirds sūknēšanas spēja ir būtiski samazināta (izsviedes frakcija zem aptuveni 35 %)?",
+   "hint": "Sūknēšanas spēja (EF) parasti ir norādīta Jūsu kardiologa atzinumā.",
+   "options": {
+    "ja": "Jā",
+    "nein": "Nē, normāla vai tikai nedaudz samazināta",
+    "unbekannt": "Nezinu"
+   }
+  },
+  "mixed_consumption": {
+   "label": "Vai Jūs biežāk lietojat kaņepes kopā ar alkoholu vai citām apreibinošām vielām (vienlaikus vai īsi vienu pēc otras)?"
+  },
+  "pavk": {
+   "label": "Vai Jums ir zināmi kāju asinsrites traucējumi (periodiska klibošana / perifēro artēriju slimība)?",
+   "followup": "Kopš kura laika, un vai jau ir veikta operācija vai katetra iejaukšanās?"
+  },
+  "pavk_rest_pain": {
+   "label": "Vai tādēļ Jums ir sāpes arī miera stāvoklī, piemēram, naktī guļus?"
+  },
+  "resuscitated": {
+   "label": "Vai Jūs kādreiz ir nācies atdzīvināt (reanimēt) pēc sirds apstāšanās?",
+   "followup": "Kad tas bija, un kāds cēlonis tika atrasts?"
+  },
+  "sleepiness_coping": {
+   "label": "Ja dienas laikā kļūstat miegains: vai Jūs to pamanāt laikus un tad ieturat pauzi (piem., apstājaties, īsi pasnaužat)?",
+   "options": {
+    "zuverlaessig": "Jā, es to droši pamanu un tad ieturu pauzi",
+    "teilweise": "Daļēji, bet ne vienmēr laikus",
+    "nein": "Nē, nogurums mani drīzāk pārsteidz negaidīti"
+   }
+  },
+  "stroke_prevention": {
+   "label": "Vai notikuma cēlonis tika ārstnieciski noskaidrots, un vai Jūs saņemat profilaktisku ārstēšanu (piem., asins šķidrinātājus, asinsspiedienu vai holesterīnu pazeminošus līdzekļus, miega artērijas operāciju)?",
+   "followup": "Kāda ārstēšana, un kad bija pēdējā kontrole?"
+  },
+  "stroke_rehab": {
+   "label": "Vai pēc notikuma Jūs veicāt rehabilitāciju?",
+   "hint": "Saglabājoties funkciju zudumiem, piemērotība vadīt transportlīdzekli saskaņā ar vadlīnijām jāizvērtē tikai pēc piemērotas rehabilitācijas pabeigšanas.",
+   "options": {
+    "abgeschlossen": "Jā, pilnībā pabeigta",
+    "laufend": "Jā, tā vēl turpinās",
+    "keine": "Nē, rehabilitācijas nebija"
+   }
+  },
+  "vertigo_migraine": {
+   "label": "Vai Jūsu reiboņa lēkmes rodas saistībā ar migrēnu vai stiprām galvassāpēm (pirms tām, to laikā vai pēc tām)?",
+   "followup": "Vai šīs lēkmes iepriekš pieteicas (piem., redzes traucējumi, jutīgums pret gaismu), un kad bija pēdējā lēkme?"
+  },
+  "vertigo_situational": {
+   "label": "Vai Jūsu reibonis rodas galvenokārt noteiktās situācijās, kad esat saspringts vai nobijies – piem., braucot ar automašīnu, ļaužu pūlī vai uz tiltiem?",
+   "followup": "Kādās situācijās? Vai reibonis rodas arī braucot ar automašīnu?"
   }
  },
  "ess_items": {

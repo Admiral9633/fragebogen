@@ -143,6 +143,8 @@
     "D1": "D1",
     "D": "D",
     "DE": "DE",
+    "D1E": "D1E",
+    "L": "L",
     "T": "T"
    }
   },
@@ -245,10 +247,12 @@
   },
   "hearing_impaired": {
    "label": "Sind Sie hochgradig schwerhörig oder gehörlos?",
+   "hint": "Hochgradig bedeutet: mehr als 60 % Hörverlust auf dem besseren Ohr, gemessen ohne Hörgerät.",
    "followup": "Seit wann, und sind Sie in HNO-ärztlicher Behandlung?"
   },
   "hearing_aid": {
-   "label": "Tragen Sie ein Hörgerät oder Cochlea-Implantat?"
+   "label": "Tragen Sie ein Hörgerät oder Cochlea-Implantat?",
+   "hint": "Ein Hörgerät wird empfohlen, ist aber keine Voraussetzung für die Fahreignung; für die Beurteilung zählt das Hören ohne Hörgerät."
   },
   "heart_disease": {
    "label": "Ist bei Ihnen eine Herz- oder Gefäßerkrankung bekannt?",
@@ -263,18 +267,39 @@
    "label": "Hatten Sie schon einmal einen Herzinfarkt, eine Stent-Behandlung oder eine Bypass-Operation?",
    "followup": "Wann war das Ereignis bzw. der Eingriff, und gab es Komplikationen (z.B. eingeschränkte Pumpleistung)?"
   },
+  "heart_event_when": {
+   "label": "Wie lange liegt das letzte dieser Ereignisse (Infarkt, Stent, Bypass) zurück?",
+   "options": {
+    "unter6w": "Weniger als 6 Wochen",
+    "6w_bis_3m": "6 Wochen bis 3 Monate",
+    "ueber3m": "Mehr als 3 Monate"
+   }
+  },
   "arrhythmia": {
    "label": "Sind bei Ihnen Herzrhythmusstörungen bekannt (z.B. Herzstolpern, Herzrasen, auffallend langsamer Puls, Vorhofflimmern, AV-Block)?",
    "followup": "Welche Diagnose, und wie wird behandelt?"
   },
+  "resuscitated": {
+   "label": "Mussten Sie schon einmal nach einem Herzstillstand wiederbelebt (reanimiert) werden?",
+   "followup": "Wann war das, und welche Ursache wurde gefunden?"
+  },
   "pacemaker_icd": {
-   "label": "Tragen Sie einen Herzschrittmacher oder Defibrillator (ICD)?",
+   "label": "Tragen Sie einen Herzschrittmacher, einen Defibrillator (ICD) oder ein Herzunterstützungssystem?",
    "options": {
     "nein": "Nein",
     "schrittmacher": "Herzschrittmacher",
-    "icd": "Defibrillator (ICD)"
+    "icd": "Defibrillator (ICD)",
+    "vad": "Herzunterstützungssystem (Kunstherz/VAD)"
    },
    "followup": "Wann eingesetzt, und wann war die letzte Kontrolle?"
+  },
+  "icd_indication": {
+   "label": "Aus welchem Grund wurde Ihnen der Defibrillator eingesetzt?",
+   "options": {
+    "vorsorglich": "Vorsorglich wegen meiner Herzerkrankung (ohne vorheriges lebensbedrohliches Ereignis)",
+    "nach_ereignis": "Nach einem überlebten Herzstillstand oder einer lebensbedrohlichen Rhythmusstörung",
+    "unbekannt": "Weiß ich nicht genau"
+   }
   },
   "icd_shock": {
    "label": "Hat Ihr Defibrillator in den letzten 3 Monaten einen Schock abgegeben?",
@@ -290,15 +315,43 @@
     "ruhe": "Bereits in Ruhe"
    }
   },
+  "low_ef": {
+   "label": "Wurde Ihnen gesagt, dass die Pumpleistung Ihres Herzens deutlich eingeschränkt ist (Ejektionsfraktion unter etwa 35 %)?",
+   "hint": "Die Pumpleistung (EF) steht meist im Bericht Ihres Kardiologen.",
+   "options": {
+    "ja": "Ja",
+    "nein": "Nein, normal oder nur leicht eingeschränkt",
+    "unbekannt": "Weiß ich nicht"
+   }
+  },
   "hypertension": {
    "label": "Ist bei Ihnen Bluthochdruck bekannt?",
    "followup": "Seit wann, welche Medikamente, und welche Werte messen Sie üblicherweise?"
   },
+  "bp_organ_symptoms": {
+   "label": "Hatten Sie durch den hohen Blutdruck schon einmal Sehstörungen oder Beschwerden vom Gehirn (z.B. starke Kopfschmerzen mit Verwirrtheit, Sprach- oder Sehstörungen)?"
+  },
+  "bp_values": {
+   "label": "Wie hoch sind Ihre Blutdruckwerte üblicherweise – trotz Behandlung?",
+   "options": {
+    "unter140": "Meist unter 140/90",
+    "bis180": "Zwischen 140/90 und 180/110",
+    "ueber180": "Häufig über 180 (oberer Wert) oder über 110 (unterer Wert)",
+    "unbekannt": "Weiß ich nicht"
+   }
+  },
   "bp_dizziness": {
    "label": "Kommt es unter Ihren Blutdruckmedikamenten zu Schwindel, Schwächegefühl oder Schwarzwerden vor den Augen?"
   },
+  "pavk": {
+   "label": "Ist bei Ihnen eine Durchblutungsstörung der Beine bekannt (Schaufensterkrankheit / pAVK)?",
+   "followup": "Seit wann, und wurde schon eine Operation oder ein Kathetereingriff durchgeführt?"
+  },
+  "pavk_rest_pain": {
+   "label": "Haben Sie dadurch auch Schmerzen in Ruhe, zum Beispiel nachts im Liegen?"
+  },
   "heart_other": {
-   "label": "Ist bei Ihnen eine weitere Herz-/Gefäßerkrankung bekannt: Herzklappenfehler, angeborener Herzfehler, Herzmuskelerkrankung (Kardiomyopathie), erbliche Rhythmuserkrankung (z.B. Long-QT), Aortenaneurysma oder verengte Halsschlagader?",
+   "label": "Ist bei Ihnen eine weitere Herz-/Gefäßerkrankung bekannt: Herzklappenfehler, angeborener Herzfehler, Herzmuskelerkrankung (Kardiomyopathie), erbliche Rhythmuserkrankung (z.B. Long-QT, Brugada), Aortenaneurysma oder verengte Halsschlagader?",
    "followup": "Welche Diagnose, und wie wird sie kontrolliert/behandelt?"
   },
   "family_sudden_death": {
@@ -306,11 +359,24 @@
   },
   "stroke": {
    "label": "Hatten Sie jemals einen Schlaganfall, eine Hirnblutung oder eine TIA (vorübergehende Durchblutungsstörung mit kurzzeitigen Ausfällen)?",
-   "followup": "Wann war das Ereignis, und wurde eine Rehabilitation abgeschlossen?"
+   "followup": "Wann war das Ereignis, und welche Ursache wurde festgestellt?"
   },
   "stroke_residuals": {
    "label": "Bestehen seitdem noch Folgen wie Lähmungen, Sprachstörungen, Gedächtnisprobleme oder Einschränkungen des Blickfelds?",
    "followup": "Welche Beschwerden bestehen aktuell noch?"
+  },
+  "stroke_rehab": {
+   "label": "Haben Sie nach dem Ereignis eine Rehabilitation gemacht?",
+   "hint": "Bei fortbestehenden Ausfällen soll die Fahreignung laut Leitlinie erst nach Abschluss einer geeigneten Rehabilitation beurteilt werden.",
+   "options": {
+    "abgeschlossen": "Ja, vollständig abgeschlossen",
+    "laufend": "Ja, sie läuft noch",
+    "keine": "Nein, keine Rehabilitation"
+   }
+  },
+  "stroke_prevention": {
+   "label": "Wurde die Ursache des Ereignisses ärztlich abgeklärt, und werden Sie zur Vorbeugung behandelt (z.B. Blutverdünner, Blutdruck- oder Cholesterinsenker, Operation der Halsschlagader)?",
+   "followup": "Welche Behandlung, und wann war die letzte Kontrolle?"
   },
   "head_injury": {
    "label": "Hatten Sie jemals eine schwere Kopfverletzung (mit Bewusstlosigkeit oder Krankenhausaufenthalt) oder eine Operation am Gehirn?",
@@ -355,11 +421,12 @@
     "3bis6m": "3 bis 6 Monate",
     "6bis12m": "6 bis 12 Monate",
     "1bis2j": "1 bis 2 Jahre",
-    "ueber2j": "Mehr als 2 Jahre"
+    "2bis4j": "2 bis 4 Jahre",
+    "ueber4j": "Mehr als 4 Jahre"
    }
   },
   "vertigo_prodromi": {
-   "label": "Kündigen sich Ihre Schwindelanfälle vorher an (z.B. Ohrdruck, Ohrgeräusche, Hörminderung), sodass Sie rechtzeitig anhalten könnten?",
+   "label": "Kündigen sich Ihre Schwindelanfälle vorher an (z.B. Ohrdruck, Ohrgeräusche, Hörminderung oder Migräne-Vorzeichen wie Sehstörungen), sodass Sie rechtzeitig anhalten könnten?",
    "options": {
     "immer": "Ja, immer",
     "manchmal": "Manchmal",
@@ -371,6 +438,14 @@
   },
   "vertigo_ear": {
    "label": "Tritt der Schwindel zusammen mit Hörminderung, Ohrgeräuschen (Tinnitus) oder Druckgefühl im Ohr auf?"
+  },
+  "vertigo_migraine": {
+   "label": "Treten Ihre Schwindelanfälle im Zusammenhang mit Migräne oder starken Kopfschmerzen auf (davor, währenddessen oder danach)?",
+   "followup": "Kündigen sich diese Anfälle vorher an (z.B. Sehstörungen, Lichtempfindlichkeit), und wann war der letzte Anfall?"
+  },
+  "vertigo_situational": {
+   "label": "Tritt Ihr Schwindel vor allem in bestimmten Situationen auf, in denen Sie angespannt oder ängstlich sind – z.B. beim Autofahren, in Menschenmengen oder auf Brücken?",
+   "followup": "In welchen Situationen? Tritt der Schwindel auch beim Autofahren auf?"
   },
   "ear_disease": {
    "label": "Wurde bei Ihnen eine Erkrankung des Gleichgewichtsorgans oder Innenohrs festgestellt (z.B. Lagerungsschwindel, Morbus Menière)?",
@@ -409,7 +484,14 @@
   },
   "hypoglycemia": {
    "label": "Hatten Sie in den letzten 12 Monaten eine schwere Unterzuckerung, bei der Sie auf fremde Hilfe angewiesen waren?",
-   "followup": "Wie oft, wann war die letzte Episode, und trat sie im Wachzustand oder im Schlaf auf?"
+   "options": {
+    "none": "Nein",
+    "once": "Ja, einmal",
+    "repeated": "Ja, mehrmals"
+   }
+  },
+  "hypoglycemia_desc": {
+   "label": "Wann war die letzte Episode, und trat sie im Wachzustand oder im Schlaf auf?"
   },
   "hypo_awareness": {
    "label": "Ist es vorgekommen, dass Sie eine Unterzuckerung nicht rechtzeitig selbst bemerkt haben (fehlende Warnzeichen)?",
@@ -456,6 +538,14 @@
   "microsleep": {
    "label": "Sind Sie in den letzten Monaten ungewollt eingeschlafen oder hatten Sie Sekundenschlaf?",
    "followup": "In welchen Situationen? Ist es auch am Steuer passiert?"
+  },
+  "sleepiness_coping": {
+   "label": "Wenn Sie tagsüber müde werden: Bemerken Sie das rechtzeitig, und machen Sie dann eine Pause (z.B. anhalten, Kurzschlaf)?",
+   "options": {
+    "zuverlaessig": "Ja, ich bemerke es zuverlässig und mache dann Pause",
+    "teilweise": "Teilweise, aber nicht immer rechtzeitig",
+    "nein": "Nein, die Müdigkeit überrascht mich eher"
+   }
   },
   "snoring": {
    "label": "Wurde Ihnen berichtet, dass Sie laut und unregelmäßig schnarchen oder nachts Atempausen haben?"
@@ -505,25 +595,45 @@
   "alcohol_control": {
    "label": "Ist es vorgekommen, dass Sie mehr getrunken haben als beabsichtigt oder die Kontrolle über Ihren Konsum verloren haben?"
   },
+  "alcohol_binge": {
+   "label": "Kommt es vor, dass Sie bei einer Gelegenheit größere Mengen Alkohol in kurzer Zeit trinken (z.B. 5 oder mehr Gläser an einem Abend)?"
+  },
   "alcohol_traffic": {
    "label": "Sind Sie jemals im Straßenverkehr unter Alkoholeinfluss aufgefallen (z.B. Trunkenheitsfahrt, Bußgeld, MPU)?",
    "followup": "Wann, und welcher Promillewert wurde festgestellt (falls bekannt)?"
   },
   "alcohol_dependence": {
    "label": "Wurde bei Ihnen jemals eine Alkoholabhängigkeit festgestellt oder haben Sie eine Entgiftung bzw. Entwöhnungsbehandlung gemacht?",
-   "followup": "Wann wurde die Behandlung abgeschlossen, und seit wann leben Sie abstinent?"
-  },
-  "drugs": {
-   "label": "Nehmen Sie derzeit Drogen (z.B. Cannabis, Kokain, Amphetamine) oder haben Sie früher regelmäßig Drogen konsumiert?",
-   "followup": "Welche Substanzen, wie häufig, und wann zuletzt?"
+   "followup": "Wann wurde die Behandlung abgeschlossen (stationär oder ambulant), und seit wann leben Sie abstinent?"
   },
   "cannabis": {
-   "label": "Wie häufig konsumieren Sie Cannabis?",
+   "label": "Konsumieren Sie Cannabis (z.B. als Joint, Verdampfer oder Esswaren)?",
    "options": {
     "nie": "Nie",
     "gelegentlich": "Gelegentlich (nicht regelmäßig)",
-    "regelmaessig": "Regelmäßig (täglich oder gewohnheitsmäßig)"
+    "regelmaessig": "Regelmäßig (mehrmals pro Woche)",
+    "taeglich": "Täglich oder fast täglich"
    }
+  },
+  "cannabis_medical": {
+   "label": "Nehmen Sie Cannabis auf ärztliche Verordnung ein (Medizinalcannabis, z.B. aus der Apotheke)?",
+   "followup": "Wer verordnet es, gegen welche Erkrankung, und in welcher Dosierung?"
+  },
+  "cannabis_traffic": {
+   "label": "Sind Sie jemals im Straßenverkehr unter Cannabiseinfluss aufgefallen (z.B. Fahrt unter THC-Wirkung, Bußgeld, MPU)?",
+   "followup": "Wann war das, und was wurde festgestellt?"
+  },
+  "mixed_consumption": {
+   "label": "Konsumieren Sie Cannabis häufiger zusammen mit Alkohol oder anderen berauschenden Substanzen (gleichzeitig oder kurz nacheinander)?"
+  },
+  "drugs": {
+   "label": "Nehmen Sie derzeit andere Drogen (z.B. Kokain, Amphetamine, Ecstasy, Heroin) oder haben Sie früher regelmäßig solche Drogen konsumiert?",
+   "hint": "Cannabis wird oben separat abgefragt.",
+   "followup": "Welche Substanzen, wie häufig, und wann zuletzt?"
+  },
+  "drug_dependence": {
+   "label": "Wurde bei Ihnen jemals eine Abhängigkeit von Cannabis oder anderen Drogen festgestellt, oder haben Sie deswegen eine Entgiftung bzw. Entwöhnungsbehandlung gemacht?",
+   "followup": "Welche Substanz, wann wurde die Behandlung abgeschlossen (stationär oder ambulant), und seit wann leben Sie abstinent?"
   },
   "substitution": {
    "label": "Erhalten Sie eine Substitutionsbehandlung (z.B. Methadon)?",

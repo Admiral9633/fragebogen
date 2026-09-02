@@ -144,7 +144,9 @@
     "D1": "D1",
     "D": "D",
     "DE": "DE",
-    "T": "T"
+    "T": "T",
+    "D1E": "D1E",
+    "L": "L"
    }
   },
   "license_years": {
@@ -246,10 +248,12 @@
   },
   "hearing_impaired": {
    "label": "Bent u ernstig slechthorend of doof?",
-   "followup": "Sinds wanneer, en bent u onder behandeling van een KNO-arts?"
+   "followup": "Sinds wanneer, en bent u onder behandeling van een KNO-arts?",
+   "hint": "Ernstig betekent: meer dan 60 % gehoorverlies aan het beste oor, gemeten zonder hoortoestel."
   },
   "hearing_aid": {
-   "label": "Draagt u een hoortoestel of cochleair implantaat?"
+   "label": "Draagt u een hoortoestel of cochleair implantaat?",
+   "hint": "Een hoortoestel wordt aanbevolen, maar is geen voorwaarde voor de rijgeschiktheid; voor de beoordeling telt het gehoor zonder hoortoestel."
   },
   "heart_disease": {
    "label": "Is bij u een hart- of vaatziekte bekend?",
@@ -269,11 +273,12 @@
    "followup": "Welke diagnose, en hoe wordt behandeld?"
   },
   "pacemaker_icd": {
-   "label": "Draagt u een pacemaker of defibrillator (ICD)?",
+   "label": "Draagt u een pacemaker, een defibrillator (ICD) of een hartondersteunend systeem?",
    "options": {
     "nein": "Nee",
     "schrittmacher": "Pacemaker",
-    "icd": "Defibrillator (ICD)"
+    "icd": "Defibrillator (ICD)",
+    "vad": "Hartondersteunend systeem (kunsthart/VAD)"
    },
    "followup": "Wanneer geplaatst, en wanneer was de laatste controle?"
   },
@@ -299,7 +304,7 @@
    "label": "Krijgt u onder uw bloeddrukmedicijnen last van duizeligheid, een zwak gevoel of zwart worden voor de ogen?"
   },
   "heart_other": {
-   "label": "Is bij u nog een andere hart-/vaatziekte bekend: hartklepafwijking, aangeboren hartafwijking, hartspierziekte (cardiomyopathie), erfelijke ritmestoornis (bijv. lang-QT), aorta-aneurysma of vernauwde halsslagader?",
+   "label": "Is bij u nog een andere hart- of vaatziekte bekend: een klepafwijking, een aangeboren hartafwijking, een hartspierziekte (cardiomyopathie), een erfelijke ritmeziekte (bijv. long-QT, Brugada), een aorta-aneurysma of een vernauwde halsslagader?",
    "followup": "Welke diagnose, en hoe wordt die gecontroleerd/behandeld?"
   },
   "family_sudden_death": {
@@ -307,7 +312,7 @@
   },
   "stroke": {
    "label": "Heeft u ooit een beroerte, een hersenbloeding of een TIA (voorbijgaande doorbloedingsstoornis met kortdurende uitvalsverschijnselen) gehad?",
-   "followup": "Wanneer was de gebeurtenis, en is er een revalidatie afgerond?"
+   "followup": "Wanneer was de gebeurtenis, en welke oorzaak is vastgesteld?"
   },
   "stroke_residuals": {
    "label": "Bestaan er sindsdien nog gevolgen zoals verlammingen, spraakstoornissen, geheugenproblemen of beperkingen van het gezichtsveld?",
@@ -356,11 +361,12 @@
     "3bis6m": "3 tot 6 maanden",
     "6bis12m": "6 tot 12 maanden",
     "1bis2j": "1 tot 2 jaar",
-    "ueber2j": "Meer dan 2 jaar"
+    "2bis4j": "2 tot 4 jaar",
+    "ueber4j": "Meer dan 4 jaar"
    }
   },
   "vertigo_prodromi": {
-   "label": "Kondigen uw duizeligheidsaanvallen zich van tevoren aan (bijv. druk op het oor, oorsuizen, gehoorvermindering), zodat u op tijd zou kunnen stoppen?",
+   "label": "Kondigen uw duizeligheidsaanvallen zich van tevoren aan (bijv. druk op het oor, oorsuizen, gehoorvermindering of migrainevoortekenen zoals gezichtsstoornissen), zodat u op tijd zou kunnen stoppen?",
    "options": {
     "immer": "Ja, altijd",
     "manchmal": "Soms",
@@ -410,7 +416,11 @@
   },
   "hypoglycemia": {
    "label": "Heeft u in de afgelopen 12 maanden een ernstige hypo (te lage bloedsuiker) gehad waarbij u op hulp van anderen aangewezen was?",
-   "followup": "Hoe vaak, wanneer was de laatste episode, en trad die op terwijl u wakker was of tijdens de slaap?"
+   "options": {
+    "none": "Nee",
+    "once": "Ja, één keer",
+    "repeated": "Ja, meerdere keren"
+   }
   },
   "hypo_awareness": {
    "label": "Is het voorgekomen dat u een hypo niet op tijd zelf heeft opgemerkt (ontbrekende waarschuwingssignalen)?",
@@ -512,18 +522,20 @@
   },
   "alcohol_dependence": {
    "label": "Is bij u ooit een alcoholverslaving vastgesteld, of heeft u een ontgifting of ontwenningsbehandeling gedaan?",
-   "followup": "Wanneer is de behandeling afgerond, en sinds wanneer leeft u abstinent?"
+   "followup": "Wanneer is de behandeling afgerond (klinisch of ambulant), en sinds wanneer leeft u abstinent?"
   },
   "drugs": {
-   "label": "Gebruikt u momenteel drugs (bijv. cannabis, cocaïne, amfetaminen) of heeft u vroeger regelmatig drugs gebruikt?",
-   "followup": "Welke middelen, hoe vaak, en wanneer voor het laatst?"
+   "label": "Gebruikt u momenteel andere drugs (bijv. cocaïne, amfetaminen, ecstasy, heroïne) of heeft u vroeger regelmatig zulke drugs gebruikt?",
+   "followup": "Welke middelen, hoe vaak, en wanneer voor het laatst?",
+   "hint": "Cannabis wordt hierboven apart uitgevraagd."
   },
   "cannabis": {
-   "label": "Hoe vaak gebruikt u cannabis?",
+   "label": "Gebruikt u cannabis (bijv. als joint, verdamper of eetwaar)?",
    "options": {
     "nie": "Nooit",
     "gelegentlich": "Af en toe (niet regelmatig)",
-    "regelmaessig": "Regelmatig (dagelijks of uit gewoonte)"
+    "regelmaessig": "Regelmatig (meerdere keren per week)",
+    "taeglich": "Dagelijks of bijna dagelijks"
    }
   },
   "substitution": {
@@ -570,6 +582,104 @@
   "consent_privacy": {
    "label": "Ik heb de privacyverklaring gelezen en stem in met de verwerking van mijn gegevens voor verkeersgeneeskundige doeleinden.",
    "error": "Accepteer alstublieft de privacyverklaring."
+  },
+  "alcohol_binge": {
+   "label": "Komt het voor dat u bij één gelegenheid in korte tijd grotere hoeveelheden alcohol drinkt (bijv. 5 of meer glazen op één avond)?"
+  },
+  "bp_organ_symptoms": {
+   "label": "Heeft u door de hoge bloeddruk ooit gezichtsstoornissen of klachten vanuit de hersenen gehad (bijv. hevige hoofdpijn met verwardheid, spraak- of gezichtsstoornissen)?"
+  },
+  "bp_values": {
+   "label": "Hoe hoog zijn uw bloeddrukwaarden gewoonlijk – ondanks behandeling?",
+   "options": {
+    "unter140": "Meestal onder 140/90",
+    "bis180": "Tussen 140/90 en 180/110",
+    "ueber180": "Vaak boven 180 (bovendruk) of boven 110 (onderdruk)",
+    "unbekannt": "Dat weet ik niet"
+   }
+  },
+  "cannabis_medical": {
+   "label": "Gebruikt u cannabis op medisch voorschrift (medicinale cannabis, bijv. uit de apotheek)?",
+   "followup": "Wie schrijft het voor, voor welke aandoening, en in welke dosering?"
+  },
+  "cannabis_traffic": {
+   "label": "Bent u ooit in het verkeer opgevallen onder invloed van cannabis (bijv. rijden onder invloed van THC, boete, MPU)?",
+   "followup": "Wanneer was dat, en wat is er vastgesteld?"
+  },
+  "drug_dependence": {
+   "label": "Is bij u ooit een verslaving aan cannabis of andere drugs vastgesteld, of heeft u daarvoor een ontgifting of ontwenningsbehandeling gedaan?",
+   "followup": "Welk middel, wanneer is de behandeling afgerond (klinisch of ambulant), en sinds wanneer leeft u abstinent?"
+  },
+  "heart_event_when": {
+   "label": "Hoe lang geleden was de laatste van deze gebeurtenissen (infarct, stent, bypass)?",
+   "options": {
+    "unter6w": "Minder dan 6 weken",
+    "6w_bis_3m": "6 weken tot 3 maanden",
+    "ueber3m": "Meer dan 3 maanden"
+   }
+  },
+  "hypoglycemia_desc": {
+   "label": "Wanneer was de laatste episode, en trad die op terwijl u wakker was of tijdens de slaap?"
+  },
+  "icd_indication": {
+   "label": "Om welke reden is de defibrillator bij u geplaatst?",
+   "options": {
+    "vorsorglich": "Preventief vanwege mijn hartziekte (zonder eerdere levensbedreigende gebeurtenis)",
+    "nach_ereignis": "Na een overleefde hartstilstand of een levensbedreigende ritmestoornis",
+    "unbekannt": "Dat weet ik niet precies"
+   }
+  },
+  "low_ef": {
+   "label": "Is u verteld dat de pompfunctie van uw hart duidelijk verminderd is (ejectiefractie onder ongeveer 35 %)?",
+   "hint": "De pompfunctie (EF) staat meestal in het verslag van uw cardioloog.",
+   "options": {
+    "ja": "Ja",
+    "nein": "Nee, normaal of slechts licht verminderd",
+    "unbekannt": "Dat weet ik niet"
+   }
+  },
+  "mixed_consumption": {
+   "label": "Gebruikt u cannabis vaker samen met alcohol of andere bedwelmende middelen (tegelijk of kort na elkaar)?"
+  },
+  "pavk": {
+   "label": "Is bij u een doorbloedingsstoornis van de benen bekend (etalagebenen / perifeer arterieel vaatlijden)?",
+   "followup": "Sinds wanneer, en is er al een operatie of een katheteringreep uitgevoerd?"
+  },
+  "pavk_rest_pain": {
+   "label": "Heeft u daardoor ook pijn in rust, bijvoorbeeld 's nachts als u ligt?"
+  },
+  "resuscitated": {
+   "label": "Bent u ooit na een hartstilstand gereanimeerd?",
+   "followup": "Wanneer was dat, en welke oorzaak is er gevonden?"
+  },
+  "sleepiness_coping": {
+   "label": "Als u overdag moe wordt: merkt u dat op tijd, en neemt u dan een pauze (bijv. stoppen, een kort dutje)?",
+   "options": {
+    "zuverlaessig": "Ja, ik merk het betrouwbaar en neem dan een pauze",
+    "teilweise": "Deels, maar niet altijd op tijd",
+    "nein": "Nee, de vermoeidheid overvalt mij eerder"
+   }
+  },
+  "stroke_prevention": {
+   "label": "Is de oorzaak van de gebeurtenis medisch uitgezocht, en wordt u ter voorkoming behandeld (bijv. bloedverdunners, bloeddruk- of cholesterolverlagers, operatie van de halsslagader)?",
+   "followup": "Welke behandeling, en wanneer was de laatste controle?"
+  },
+  "stroke_rehab": {
+   "label": "Heeft u na de gebeurtenis een revalidatie gedaan?",
+   "hint": "Bij blijvende uitvalsverschijnselen mag de rijgeschiktheid volgens de richtlijn pas na afronding van een passende revalidatie worden beoordeeld.",
+   "options": {
+    "abgeschlossen": "Ja, volledig afgerond",
+    "laufend": "Ja, die loopt nog",
+    "keine": "Nee, geen revalidatie"
+   }
+  },
+  "vertigo_migraine": {
+   "label": "Treden uw duizeligheidsaanvallen op in samenhang met migraine of hevige hoofdpijn (ervoor, tijdens of erna)?",
+   "followup": "Kondigen deze aanvallen zich van tevoren aan (bijv. gezichtsstoornissen, lichtgevoeligheid), en wanneer was de laatste aanval?"
+  },
+  "vertigo_situational": {
+   "label": "Treedt uw duizeligheid vooral op in bepaalde situaties waarin u gespannen of angstig bent – bijv. tijdens het autorijden, in mensenmenigten of op bruggen?",
+   "followup": "In welke situaties? Treedt de duizeligheid ook op tijdens het autorijden?"
   }
  },
  "ess_items": {

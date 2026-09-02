@@ -144,7 +144,9 @@
     "D1": "D1",
     "D": "D",
     "DE": "DE",
-    "T": "T"
+    "T": "T",
+    "D1E": "D1E",
+    "L": "L"
    }
   },
   "license_years": {
@@ -246,10 +248,12 @@
   },
   "hearing_impaired": {
    "label": "A keni dëgjim shumë të dobësuar ose a jeni i shurdhër?",
-   "followup": "Prej kur, dhe a jeni në trajtim te mjeku i veshit, hundës dhe fytit (ORL)?"
+   "followup": "Prej kur, dhe a jeni në trajtim te mjeku i veshit, hundës dhe fytit (ORL)?",
+   "hint": "Shkallë e lartë do të thotë: më shumë se 60 % humbje e dëgjimit në veshin më të mirë, e matur pa aparat dëgjimi."
   },
   "hearing_aid": {
-   "label": "A mbani aparat dëgjimi ose implant koklear?"
+   "label": "A mbani aparat dëgjimi ose implant koklear?",
+   "hint": "Aparati i dëgjimit rekomandohet, por nuk është kusht për aftësinë për drejtim; për vlerësimin ka rëndësi dëgjimi pa aparat dëgjimi."
   },
   "heart_disease": {
    "label": "A ju është e njohur ndonjë sëmundje e zemrës ose e enëve të gjakut?",
@@ -269,11 +273,12 @@
    "followup": "Cila diagnozë, dhe si trajtohet?"
   },
   "pacemaker_icd": {
-   "label": "A mbani stimulues kardiak (pacemaker) ose defibrilator (ICD)?",
+   "label": "A mbani stimulues kardiak (pacemaker), defibrilator (ICD) ose një sistem mbështetës të zemrës?",
    "options": {
     "nein": "Jo",
     "schrittmacher": "Stimulues kardiak (pacemaker)",
-    "icd": "Defibrilator (ICD)"
+    "icd": "Defibrilator (ICD)",
+    "vad": "Sistem mbështetës i zemrës (zemër artificiale/VAD)"
    },
    "followup": "Kur u vendos, dhe kur ishte kontrolli i fundit?"
   },
@@ -299,7 +304,7 @@
    "label": "A ju shfaqen nga medikamentet e tensionit marrje mendsh, ndjenjë dobësie ose errësim i papritur para syve?"
   },
   "heart_other": {
-   "label": "A ju është e njohur ndonjë sëmundje tjetër e zemrës/enëve të gjakut: defekt i valvulave të zemrës, defekt i lindur i zemrës, sëmundje e muskulit të zemrës (kardiomiopati), sëmundje e trashëguar e ritmit (p.sh. Long-QT), aneurizëm i aortës ose ngushtim i arteries së qafës?",
+   "label": "A ju është e njohur ndonjë sëmundje tjetër e zemrës/enëve të gjakut: defekt i valvulave të zemrës, defekt i lindur i zemrës, sëmundje e muskulit të zemrës (kardiomiopati), sëmundje e trashëguar e ritmit (p.sh. Long-QT, Brugada), aneurizëm i aortës ose ngushtim i arteries së qafës?",
    "followup": "Cila diagnozë, dhe si kontrollohet/trajtohet?"
   },
   "family_sudden_death": {
@@ -307,7 +312,7 @@
   },
   "stroke": {
    "label": "A keni pasur ndonjëherë goditje në tru, hemorragji cerebrale ose TIA (çrregullim kalimtar i qarkullimit të gjakut me simptoma të shkurtra)?",
-   "followup": "Kur ndodhi ngjarja, dhe a u përfundua një rehabilitim?"
+   "followup": "Kur ndodhi ngjarja, dhe cili shkak u konstatua?"
   },
   "stroke_residuals": {
    "label": "A kanë mbetur që atëherë pasoja si paralizë, çrregullime të të folurit, probleme me kujtesën ose kufizime të fushës së shikimit?",
@@ -356,11 +361,12 @@
     "3bis6m": "3 deri në 6 muaj",
     "6bis12m": "6 deri në 12 muaj",
     "1bis2j": "1 deri në 2 vjet",
-    "ueber2j": "Më shumë se 2 vjet"
+    "2bis4j": "2 deri në 4 vjet",
+    "ueber4j": "Më shumë se 4 vjet"
    }
   },
   "vertigo_prodromi": {
-   "label": "A paralajmërohen krizat tuaja të marrjes së mendve paraprakisht (p.sh. presion në vesh, zhurma në vesh, dobësim i dëgjimit), kështu që të mund të ndaloni në kohë?",
+   "label": "A paralajmërohen krizat tuaja të marrjes së mendve paraprakisht (p.sh. presion në vesh, zhurma në vesh, dobësim i dëgjimit ose shenja paralajmëruese të migrenës si çrregullime të shikimit), kështu që të mund të ndaloni në kohë?",
    "options": {
     "immer": "Po, gjithmonë",
     "manchmal": "Ndonjëherë",
@@ -410,7 +416,11 @@
   },
   "hypoglycemia": {
    "label": "A keni pasur në 12 muajt e fundit një hipoglikemi të rëndë (rënie e sheqerit në gjak), gjatë së cilës keni pasur nevojë për ndihmën e të tjerëve?",
-   "followup": "Sa shpesh, kur ishte episodi i fundit, dhe a ndodhi kur ishit zgjuar apo në gjumë?"
+   "options": {
+    "none": "Jo",
+    "once": "Po, një herë",
+    "repeated": "Po, disa herë"
+   }
   },
   "hypo_awareness": {
    "label": "A ka ndodhur që një rënie të sheqerit në gjak të mos e keni vënë re vetë në kohë (mungesë e shenjave paralajmëruese)?",
@@ -512,18 +522,20 @@
   },
   "alcohol_dependence": {
    "label": "A ju është konstatuar ndonjëherë varësi nga alkooli ose a keni bërë një dezintoksikim ose trajtim çmësimi?",
-   "followup": "Kur u përfundua trajtimi, dhe prej kur jetoni abstinent?"
+   "followup": "Kur u përfundua trajtimi (i shtruar në spital apo ambulator), dhe prej kur jetoni abstinent?"
   },
   "drugs": {
-   "label": "A merrni aktualisht droga (p.sh. kanabis, kokainë, amfetamina) ose a keni konsumuar më parë rregullisht droga?",
-   "followup": "Cilat substanca, sa shpesh, dhe kur për herë të fundit?"
+   "label": "A merrni aktualisht droga të tjera (p.sh. kokainë, amfetamina, ekstazi, heroinë) ose a keni konsumuar më parë rregullisht droga të tilla?",
+   "followup": "Cilat substanca, sa shpesh, dhe kur për herë të fundit?",
+   "hint": "Kanabisi pyetet veçmas më lart."
   },
   "cannabis": {
-   "label": "Sa shpesh konsumoni kanabis?",
+   "label": "A konsumoni kanabis (p.sh. si joint, me avullues ose në ushqime)?",
    "options": {
     "nie": "Kurrë",
     "gelegentlich": "Herë pas here (jo rregullisht)",
-    "regelmaessig": "Rregullisht (çdo ditë ose si zakon)"
+    "regelmaessig": "Rregullisht (disa herë në javë)",
+    "taeglich": "Çdo ditë ose pothuajse çdo ditë"
    }
   },
   "substitution": {
@@ -570,6 +582,104 @@
   "consent_privacy": {
    "label": "I kam lexuar njoftimet për mbrojtjen e të dhënave dhe jap pëlqimin për përpunimin e të dhënave të mia për qëllime të mjekësisë së trafikut.",
    "error": "Ju lutemi pranoni njoftimet për mbrojtjen e të dhënave."
+  },
+  "alcohol_binge": {
+   "label": "A ndodh që në një rast të vetëm të pini sasi të mëdha alkooli për një kohë të shkurtër (p.sh. 5 ose më shumë gota në një mbrëmje)?"
+  },
+  "bp_organ_symptoms": {
+   "label": "A keni pasur ndonjëherë për shkak të tensionit të lartë çrregullime të shikimit ose ankesa nga truri (p.sh. dhimbje të forta koke me hutim, çrregullime të të folurit ose të shikimit)?"
+  },
+  "bp_values": {
+   "label": "Sa të larta janë zakonisht vlerat tuaja të tensionit – edhe pse merrni trajtim?",
+   "options": {
+    "bis180": "Midis 140/90 dhe 180/110",
+    "ueber180": "Shpesh mbi 180 (vlera e sipërme) ose mbi 110 (vlera e poshtme)",
+    "unbekannt": "Nuk e di",
+    "unter140": "Zakonisht nën 140/90"
+   }
+  },
+  "cannabis_medical": {
+   "followup": "Kush jua përshkruan, për cilën sëmundje, dhe në çfarë doze?",
+   "label": "A merrni kanabis me recetë mjekësore (kanabis medicinal, p.sh. nga farmacia)?"
+  },
+  "cannabis_traffic": {
+   "followup": "Kur ndodhi kjo, dhe çfarë u konstatua?",
+   "label": "A jeni kapur ndonjëherë në trafikun rrugor nën ndikimin e kanabisit (p.sh. drejtim nën efektin e THC-së, gjobë, MPU – test i aftësisë për drejtim)?"
+  },
+  "drug_dependence": {
+   "followup": "Cila substancë, kur u përfundua trajtimi (i shtruar në spital apo ambulator), dhe prej kur jetoni abstinent?",
+   "label": "A ju është konstatuar ndonjëherë varësi nga kanabisi ose nga droga të tjera, ose a keni bërë për këtë arsye një dezintoksikim apo trajtim çmësimi?"
+  },
+  "heart_event_when": {
+   "label": "Sa kohë ka kaluar nga e fundit prej këtyre ngjarjeve (infarkt, stent, bypass)?",
+   "options": {
+    "6w_bis_3m": "6 javë deri në 3 muaj",
+    "ueber3m": "Më shumë se 3 muaj",
+    "unter6w": "Më pak se 6 javë"
+   }
+  },
+  "hypoglycemia_desc": {
+   "label": "Kur ishte episodi i fundit, dhe a ndodhi kur ishit zgjuar apo në gjumë?"
+  },
+  "icd_indication": {
+   "label": "Për cilën arsye ju është vendosur defibrilatori?",
+   "options": {
+    "nach_ereignis": "Pas një ndalimi të zemrës që e keni mbijetuar ose pas një çrregullimi të ritmit kërcënues për jetën",
+    "unbekannt": "Nuk e di saktësisht",
+    "vorsorglich": "Parandalues për shkak të sëmundjes sime të zemrës (pa një ngjarje të mëparshme kërcënuese për jetën)"
+   }
+  },
+  "low_ef": {
+   "hint": "Fuqia e pompimit (EF) zakonisht shënohet në raportin e kardiologut tuaj.",
+   "label": "A ju është thënë se fuqia e pompimit e zemrës suaj është dukshëm e kufizuar (fraksion i ejeksionit nën rreth 35 %)?",
+   "options": {
+    "ja": "Po",
+    "nein": "Jo, normale ose vetëm pak e kufizuar",
+    "unbekannt": "Nuk e di"
+   }
+  },
+  "mixed_consumption": {
+   "label": "A e konsumoni kanabisin shpesh bashkë me alkool ose me substanca të tjera dehëse (njëkohësisht ose menjëherë njërën pas tjetrës)?"
+  },
+  "pavk": {
+   "followup": "Prej kur, dhe a është kryer tashmë një operacion ose një ndërhyrje me kateter?",
+   "label": "A ju është i njohur një çrregullim i qarkullimit të gjakut në këmbë (sëmundja e vitrinave / pAVK)?"
+  },
+  "pavk_rest_pain": {
+   "label": "A keni për shkak të kësaj dhimbje edhe në qetësi, për shembull natën kur jeni shtrirë?"
+  },
+  "resuscitated": {
+   "followup": "Kur ndodhi kjo, dhe çfarë shkaku u gjet?",
+   "label": "A ju është dashur ndonjëherë të ringjalleni (reanimoheni) pas një ndalimi të zemrës?"
+  },
+  "sleepiness_coping": {
+   "label": "Kur bëheni i përgjumur gjatë ditës: A e vini re këtë me kohë dhe a bëni atëherë një pushim (p.sh. ndaloni, bëni një gjumë të shkurtër)?",
+   "options": {
+    "nein": "Jo, përgjumja më zë më shumë në befasi",
+    "teilweise": "Pjesërisht, por jo gjithmonë me kohë",
+    "zuverlaessig": "Po, e vë re me siguri dhe atëherë bëj pushim"
+   }
+  },
+  "stroke_prevention": {
+   "followup": "Cili trajtim, dhe kur ishte kontrolli i fundit?",
+   "label": "A është sqaruar shkaku i ngjarjes nga mjeku, dhe a merrni trajtim parandalues (p.sh. hollues të gjakut, barna për uljen e tensionit ose të kolesterolit, operacion i arteries së qafës)?"
+  },
+  "stroke_rehab": {
+   "hint": "Nëse mbeten pasoja të vazhdueshme, sipas udhëzimeve mjekësore aftësia për drejtim duhet të vlerësohet vetëm pas përfundimit të një rehabilitimi të përshtatshëm.",
+   "label": "A keni bërë një rehabilitim pas ngjarjes?",
+   "options": {
+    "abgeschlossen": "Po, i përfunduar plotësisht",
+    "keine": "Jo, asnjë rehabilitim",
+    "laufend": "Po, është ende në vazhdim"
+   }
+  },
+  "vertigo_migraine": {
+   "followup": "A paralajmërohen këto kriza paraprakisht (p.sh. çrregullime të shikimit, ndjeshmëri ndaj dritës), dhe kur ishte kriza e fundit?",
+   "label": "A shfaqen krizat tuaja të marrjes së mendve në lidhje me migrenën ose me dhimbje të forta koke (para, gjatë ose pas tyre)?"
+  },
+  "vertigo_situational": {
+   "followup": "Në cilat situata? A shfaqet marrja e mendve edhe gjatë drejtimit të automjetit?",
+   "label": "A shfaqet marrja juaj e mendve sidomos në situata të caktuara, në të cilat jeni i tensionuar ose i frikësuar – p.sh. gjatë drejtimit të automjetit, në turma njerëzish ose në ura?"
   }
  },
  "ess_items": {

@@ -144,7 +144,9 @@
     "D1": "D1",
     "D": "D",
     "DE": "DE",
-    "T": "T"
+    "T": "T",
+    "D1E": "D1E",
+    "L": "L"
    }
   },
   "license_years": {
@@ -246,10 +248,12 @@
   },
   "hearing_impaired": {
    "label": "Oletteko vaikeasti huonokuuloinen tai kuuro?",
-   "followup": "Mistä lähtien, ja oletteko korva-, nenä- ja kurkkutautien lääkärin hoidossa?"
+   "followup": "Mistä lähtien, ja oletteko korva-, nenä- ja kurkkutautien lääkärin hoidossa?",
+   "hint": "Vaikea tarkoittaa: yli 60 %:n kuulonalenema paremmin kuulevassa korvassa, mitattuna ilman kuulokojetta."
   },
   "hearing_aid": {
-   "label": "Käytättekö kuulokojetta tai sisäkorvaistutetta?"
+   "label": "Käytättekö kuulokojetta tai sisäkorvaistutetta?",
+   "hint": "Kuulokojetta suositellaan, mutta se ei ole ajokelpoisuuden edellytys; arvioinnissa ratkaisee kuulo ilman kuulokojetta."
   },
   "heart_disease": {
    "label": "Onko teillä todettu sydän- tai verisuonisairaus?",
@@ -269,11 +273,12 @@
    "followup": "Mikä diagnoosi, ja miten sitä hoidetaan?"
   },
   "pacemaker_icd": {
-   "label": "Onko teillä sydämentahdistin tai rytmihäiriötahdistin (ICD)?",
+   "label": "Onko teillä sydämentahdistin, rytmihäiriötahdistin (ICD) tai sydäntä avustava laite?",
    "options": {
     "nein": "Ei",
     "schrittmacher": "Sydämentahdistin",
-    "icd": "Rytmihäiriötahdistin (ICD)"
+    "icd": "Rytmihäiriötahdistin (ICD)",
+    "vad": "Sydäntä avustava laite (keinosydän/VAD)"
    },
    "followup": "Milloin se asennettiin, ja milloin viimeisin kontrolli oli?"
   },
@@ -299,7 +304,7 @@
    "label": "Esiintyykö teillä verenpainelääkkeidenne yhteydessä huimausta, heikotusta tai silmien mustenemista?"
   },
   "heart_other": {
-   "label": "Onko teillä todettu jokin muu sydän-/verisuonisairaus: sydänläppävika, synnynnäinen sydänvika, sydänlihassairaus (kardiomyopatia), perinnöllinen rytmihäiriösairaus (esim. pitkä QT-oireyhtymä), aortan aneurysma tai kaulavaltimon ahtauma?",
+   "label": "Onko teillä todettu jokin muu sydän-/verisuonisairaus: sydänläppävika, synnynnäinen sydänvika, sydänlihassairaus (kardiomyopatia), perinnöllinen rytmihäiriösairaus (esim. pitkä QT-oireyhtymä, Brugadan oireyhtymä), aortan aneurysma tai kaulavaltimon ahtauma?",
    "followup": "Mikä diagnoosi, ja miten sitä seurataan/hoidetaan?"
   },
   "family_sudden_death": {
@@ -307,7 +312,7 @@
   },
   "stroke": {
    "label": "Onko teillä koskaan ollut aivohalvausta, aivoverenvuotoa tai TIA:ta (ohimenevä verenkiertohäiriö, johon liittyy lyhytkestoisia oireita)?",
-   "followup": "Milloin tapahtuma oli, ja saatiinko kuntoutus päätökseen?"
+   "followup": "Milloin tapahtuma oli, ja mikä syy sille todettiin?"
   },
   "stroke_residuals": {
    "label": "Onko siitä lähtien jäänyt jälkiseurauksia, kuten halvauksia, puhehäiriöitä, muistiongelmia tai näkökentän rajoittumia?",
@@ -356,11 +361,12 @@
     "3bis6m": "3–6 kuukautta",
     "6bis12m": "6–12 kuukautta",
     "1bis2j": "1–2 vuotta",
-    "ueber2j": "Yli 2 vuotta"
+    "2bis4j": "2–4 vuotta",
+    "ueber4j": "Yli 4 vuotta"
    }
   },
   "vertigo_prodromi": {
-   "label": "Ilmeneekö huimauskohtauksistanne ennakko-oireita (esim. painetta korvassa, korvien soimista, kuulon heikkenemistä), niin että ehtisitte pysähtyä ajoissa?",
+   "label": "Ilmeneekö huimauskohtauksistanne ennakko-oireita (esim. painetta korvassa, korvien soimista, kuulon heikkenemistä tai migreenin ennakko-oireita kuten näköhäiriöitä), niin että ehtisitte pysähtyä ajoissa?",
    "options": {
     "immer": "Kyllä, aina",
     "manchmal": "Joskus",
@@ -410,7 +416,11 @@
   },
   "hypoglycemia": {
    "label": "Onko teillä ollut viimeisten 12 kuukauden aikana vaikea liian matala verensokeri, jonka takia tarvitsitte toisen henkilön apua?",
-   "followup": "Kuinka usein, milloin viimeisin jakso oli, ja tapahtuiko se hereillä ollessa vai unen aikana?"
+   "options": {
+    "none": "Ei",
+    "once": "Kyllä, kerran",
+    "repeated": "Kyllä, useita kertoja"
+   }
   },
   "hypo_awareness": {
    "label": "Onko käynyt niin, ettette itse huomannut liian matalaa verensokeria ajoissa (varoitusoireet puuttuivat)?",
@@ -512,18 +522,20 @@
   },
   "alcohol_dependence": {
    "label": "Onko teillä koskaan todettu alkoholiriippuvuutta tai oletteko olleet katkaisu- tai vieroitushoidossa?",
-   "followup": "Milloin hoito päättyi, ja mistä lähtien olette eläneet raittiina?"
+   "followup": "Milloin hoito päättyi (laitoshoito tai avohoito), ja mistä lähtien olette eläneet raittiina?"
   },
   "drugs": {
-   "label": "Käytättekö tällä hetkellä huumeita (esim. kannabista, kokaiinia, amfetamiinia) tai oletteko aiemmin käyttäneet huumeita säännöllisesti?",
-   "followup": "Mitä aineita, kuinka usein, ja milloin viimeksi?"
+   "label": "Käytättekö tällä hetkellä muita huumeita (esim. kokaiinia, amfetamiinia, ekstaasia, heroiinia) tai oletteko aiemmin käyttäneet tällaisia huumeita säännöllisesti?",
+   "followup": "Mitä aineita, kuinka usein, ja milloin viimeksi?",
+   "hint": "Kannabista kysytään erikseen edellä."
   },
   "cannabis": {
-   "label": "Kuinka usein käytätte kannabista?",
+   "label": "Käytättekö kannabista (esim. jointtina, höyrystimellä tai syötävinä tuotteina)?",
    "options": {
     "nie": "En koskaan",
     "gelegentlich": "Satunnaisesti (ei säännöllisesti)",
-    "regelmaessig": "Säännöllisesti (päivittäin tai tapana)"
+    "regelmaessig": "Säännöllisesti (useita kertoja viikossa)",
+    "taeglich": "Päivittäin tai lähes päivittäin"
    }
   },
   "substitution": {
@@ -570,6 +582,104 @@
   "consent_privacy": {
    "label": "Olen lukenut tietosuojaselosteen ja suostun tietojeni käsittelyyn liikennelääketieteellisiin tarkoituksiin.",
    "error": "Hyväksykää tietosuojaseloste."
+  },
+  "alcohol_binge": {
+   "label": "Tapahtuuko teille, että juotte yhdellä kertaa lyhyessä ajassa suuria määriä alkoholia (esim. 5 lasillista tai enemmän yhtenä iltana)?"
+  },
+  "bp_organ_symptoms": {
+   "label": "Onko teillä ollut korkean verenpaineen vuoksi joskus näköhäiriöitä tai aivoperäisiä oireita (esim. voimakasta päänsärkyä, johon liittyy sekavuutta, puhe- tai näköhäiriöitä)?"
+  },
+  "bp_values": {
+   "label": "Kuinka korkeat verenpainearvonne tavallisesti ovat – hoidosta huolimatta?",
+   "options": {
+    "bis180": "140/90 ja 180/110 välillä",
+    "ueber180": "Usein yli 180 (yläarvo) tai yli 110 (ala-arvo)",
+    "unbekannt": "En tiedä",
+    "unter140": "Useimmiten alle 140/90"
+   }
+  },
+  "cannabis_medical": {
+   "followup": "Kuka sen määrää, mihin sairauteen, ja millä annostuksella?",
+   "label": "Käytättekö kannabista lääkärin määräyksestä (lääkekannabis, esim. apteekista)?"
+  },
+  "cannabis_traffic": {
+   "followup": "Milloin se oli, ja mitä todettiin?",
+   "label": "Oletteko koskaan jääneet liikenteessä kiinni kannabiksen vaikutuksen alaisena (esim. ajo THC:n vaikutuksen alaisena, sakko, MPU – saksalainen lääketieteellis-psykologinen soveltuvuusarvio)?"
+  },
+  "drug_dependence": {
+   "followup": "Mikä aine, milloin hoito päättyi (laitoshoito tai avohoito), ja mistä lähtien olette eläneet päihteettöminä?",
+   "label": "Onko teillä koskaan todettu kannabis- tai muu huumeriippuvuus, tai oletteko sen vuoksi olleet katkaisu- tai vieroitushoidossa?"
+  },
+  "heart_event_when": {
+   "label": "Kuinka kauan sitten viimeisin näistä tapahtumista (infarkti, stentti, ohitusleikkaus) oli?",
+   "options": {
+    "6w_bis_3m": "6 viikosta 3 kuukauteen",
+    "ueber3m": "Yli 3 kuukautta",
+    "unter6w": "Alle 6 viikkoa"
+   }
+  },
+  "hypoglycemia_desc": {
+   "label": "Milloin viimeisin jakso oli, ja tapahtuiko se hereillä ollessa vai unen aikana?"
+  },
+  "icd_indication": {
+   "label": "Mistä syystä rytmihäiriötahdistin asennettiin teille?",
+   "options": {
+    "nach_ereignis": "Sellaisen sydänpysähdyksen tai hengenvaarallisen rytmihäiriön jälkeen, josta selvisin",
+    "unbekannt": "En tiedä tarkkaan",
+    "vorsorglich": "Ennaltaehkäisevästi sydänsairauteni vuoksi (ilman aiempaa hengenvaarallista tapahtumaa)"
+   }
+  },
+  "low_ef": {
+   "hint": "Pumppausteho (EF) käy yleensä ilmi kardiologinne lausunnosta.",
+   "label": "Onko teille kerrottu, että sydämenne pumppausteho on selvästi heikentynyt (ejektiofraktio alle noin 35 %)?",
+   "options": {
+    "ja": "Kyllä",
+    "nein": "Ei, normaali tai vain lievästi heikentynyt",
+    "unbekannt": "En tiedä"
+   }
+  },
+  "mixed_consumption": {
+   "label": "Käytättekö kannabista usein yhdessä alkoholin tai muiden päihdyttävien aineiden kanssa (samanaikaisesti tai pian peräkkäin)?"
+  },
+  "pavk": {
+   "followup": "Mistä lähtien, ja onko teille jo tehty leikkaus tai katetritoimenpide?",
+   "label": "Onko teillä todettu jalkojen verenkiertohäiriö (katkokävely / alaraajojen valtimotauti)?"
+  },
+  "pavk_rest_pain": {
+   "label": "Onko teillä tämän vuoksi kipuja myös levossa, esimerkiksi öisin maatessanne?"
+  },
+  "resuscitated": {
+   "followup": "Milloin se oli, ja mikä syy löydettiin?",
+   "label": "Onko teitä koskaan jouduttu elvyttämään (reanimoimaan) sydänpysähdyksen jälkeen?"
+  },
+  "sleepiness_coping": {
+   "label": "Kun väsytte päivällä: huomaatteko sen ajoissa ja pidättekö silloin tauon (esim. pysähdytte, otatte lyhyet nokoset)?",
+   "options": {
+    "nein": "Ei, väsymys pikemminkin yllättää minut",
+    "teilweise": "Osittain, mutta en aina ajoissa",
+    "zuverlaessig": "Kyllä, huomaan sen luotettavasti ja pidän silloin tauon"
+   }
+  },
+  "stroke_prevention": {
+   "followup": "Mikä hoito, ja milloin viimeisin kontrolli oli?",
+   "label": "Onko tapahtuman syy selvitetty lääkärissä, ja saatteko ehkäisevää hoitoa (esim. verenohennuslääkkeitä, verenpainetta tai kolesterolia alentavia lääkkeitä, kaulavaltimon leikkaus)?"
+  },
+  "stroke_rehab": {
+   "hint": "Jos oireita on jäänyt, ajokelpoisuus tulee hoitosuosituksen mukaan arvioida vasta sopivan kuntoutuksen päätyttyä.",
+   "label": "Kävittekö tapahtuman jälkeen kuntoutuksessa?",
+   "options": {
+    "abgeschlossen": "Kyllä, kokonaan päätökseen saatettu",
+    "keine": "Ei, ei kuntoutusta",
+    "laufend": "Kyllä, se on vielä kesken"
+   }
+  },
+  "vertigo_migraine": {
+   "followup": "Ilmeneekö näistä kohtauksista ennakko-oireita (esim. näköhäiriöitä, valonarkuutta), ja milloin viimeisin kohtaus oli?",
+   "label": "Esiintyvätkö huimauskohtauksenne migreenin tai voimakkaan päänsäryn yhteydessä (ennen sitä, sen aikana tai sen jälkeen)?"
+  },
+  "vertigo_situational": {
+   "followup": "Missä tilanteissa? Esiintyykö huimausta myös autoa ajaessa?",
+   "label": "Esiintyykö huimaustanne ennen kaikkea tietyissä tilanteissa, joissa olette jännittynyt tai ahdistunut – esim. autoa ajaessa, ihmisjoukoissa tai silloilla?"
   }
  },
  "ess_items": {

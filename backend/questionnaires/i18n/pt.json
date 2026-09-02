@@ -144,7 +144,9 @@
     "D1": "D1",
     "D": "D",
     "DE": "DE",
-    "T": "T"
+    "T": "T",
+    "D1E": "D1E",
+    "L": "L"
    }
   },
   "license_years": {
@@ -246,10 +248,12 @@
   },
   "hearing_impaired": {
    "label": "Tem uma perda de audição grave ou é surdo?",
-   "followup": "Desde quando, e está em acompanhamento com um médico otorrinolaringologista?"
+   "followup": "Desde quando, e está em acompanhamento com um médico otorrinolaringologista?",
+   "hint": "Grave significa: mais de 60 % de perda de audição no ouvido melhor, medida sem aparelho auditivo."
   },
   "hearing_aid": {
-   "label": "Usa um aparelho auditivo ou um implante coclear?"
+   "label": "Usa um aparelho auditivo ou um implante coclear?",
+   "hint": "O aparelho auditivo é recomendado, mas não é uma condição para a aptidão para conduzir; para a avaliação conta a audição sem aparelho auditivo."
   },
   "heart_disease": {
    "label": "Tem alguma doença conhecida do coração ou dos vasos sanguíneos?",
@@ -269,11 +273,12 @@
    "followup": "Que diagnóstico, e como é tratado?"
   },
   "pacemaker_icd": {
-   "label": "Usa um pacemaker ou um desfibrilhador (ICD)?",
+   "label": "Usa um pacemaker, um desfibrilhador (ICD) ou um sistema de assistência cardíaca?",
    "options": {
     "nein": "Não",
     "schrittmacher": "Pacemaker",
-    "icd": "Desfibrilhador (ICD)"
+    "icd": "Desfibrilhador (ICD)",
+    "vad": "Sistema de assistência cardíaca (coração artificial/VAD)"
    },
    "followup": "Quando foi implantado, e quando foi o último controlo?"
   },
@@ -299,7 +304,7 @@
    "label": "Com os seus medicamentos para a tensão sente tonturas, sensação de fraqueza ou escurecimento da visão?"
   },
   "heart_other": {
-   "label": "Tem outra doença cardíaca ou vascular conhecida: defeito das válvulas cardíacas, cardiopatia congénita, doença do músculo cardíaco (cardiomiopatia), arritmia hereditária (p. ex. QT longo), aneurisma da aorta ou estreitamento da artéria carótida?",
+   "label": "Tem outra doença cardíaca ou vascular conhecida: defeito das válvulas cardíacas, cardiopatia congénita, doença do músculo cardíaco (cardiomiopatia), arritmia hereditária (p. ex. QT longo, Brugada), aneurisma da aorta ou estreitamento da artéria carótida?",
    "followup": "Que diagnóstico, e como é controlado/tratado?"
   },
   "family_sudden_death": {
@@ -307,7 +312,7 @@
   },
   "stroke": {
    "label": "Alguma vez teve um AVC, uma hemorragia cerebral ou um AIT/TIA (perturbação passageira da circulação sanguínea com sintomas de curta duração)?",
-   "followup": "Quando foi o evento, e foi concluída uma reabilitação?"
+   "followup": "Quando foi o evento, e que causa foi determinada?"
   },
   "stroke_residuals": {
    "label": "Desde então persistem sequelas como paralisias, perturbações da fala, problemas de memória ou limitações do campo visual?",
@@ -356,11 +361,12 @@
     "3bis6m": "3 a 6 meses",
     "6bis12m": "6 a 12 meses",
     "1bis2j": "1 a 2 anos",
-    "ueber2j": "Mais de 2 anos"
+    "2bis4j": "2 a 4 anos",
+    "ueber4j": "Mais de 4 anos"
    }
   },
   "vertigo_prodromi": {
-   "label": "As suas crises de tonturas anunciam-se antecipadamente (p. ex. pressão no ouvido, zumbidos, diminuição da audição), de modo a poder parar a tempo?",
+   "label": "As suas crises de tonturas anunciam-se antecipadamente (p. ex. pressão no ouvido, zumbidos, diminuição da audição ou sinais prévios de enxaqueca, como perturbações da visão), de modo a poder parar a tempo?",
    "options": {
     "immer": "Sim, sempre",
     "manchmal": "Às vezes",
@@ -410,7 +416,11 @@
   },
   "hypoglycemia": {
    "label": "Nos últimos 12 meses teve uma hipoglicemia grave (baixa de açúcar no sangue) em que precisou da ajuda de outra pessoa?",
-   "followup": "Quantas vezes, quando foi o último episódio, e ocorreu acordado ou durante o sono?"
+   "options": {
+    "none": "Não",
+    "once": "Sim, uma vez",
+    "repeated": "Sim, várias vezes"
+   }
   },
   "hypo_awareness": {
    "label": "Já aconteceu não se aperceber a tempo, por si próprio, de uma hipoglicemia (ausência de sinais de aviso)?",
@@ -512,18 +522,20 @@
   },
   "alcohol_dependence": {
    "label": "Alguma vez lhe foi diagnosticada dependência de álcool, ou fez uma desintoxicação ou um tratamento de desabituação?",
-   "followup": "Quando terminou o tratamento, e desde quando vive abstinente?"
+   "followup": "Quando terminou o tratamento (em internamento ou em ambulatório), e desde quando vive abstinente?"
   },
   "drugs": {
-   "label": "Consome atualmente drogas (p. ex. canábis, cocaína, anfetaminas) ou consumiu drogas regularmente no passado?",
-   "followup": "Que substâncias, com que frequência, e quando foi a última vez?"
+   "label": "Consome atualmente outras drogas (p. ex. cocaína, anfetaminas, ecstasy, heroína) ou consumiu regularmente essas drogas no passado?",
+   "followup": "Que substâncias, com que frequência, e quando foi a última vez?",
+   "hint": "A canábis é perguntada separadamente acima."
   },
   "cannabis": {
-   "label": "Com que frequência consome canábis?",
+   "label": "Consome canábis (p. ex. sob a forma de charro, vaporizador ou comestíveis)?",
    "options": {
     "nie": "Nunca",
     "gelegentlich": "Ocasionalmente (não regularmente)",
-    "regelmaessig": "Regularmente (diariamente ou por hábito)"
+    "regelmaessig": "Regularmente (várias vezes por semana)",
+    "taeglich": "Diariamente ou quase diariamente"
    }
   },
   "substitution": {
@@ -570,6 +582,104 @@
   "consent_privacy": {
    "label": "Li as informações sobre proteção de dados e consinto no tratamento dos meus dados para fins de medicina de tráfego.",
    "error": "Por favor, aceite as informações sobre proteção de dados."
+  },
+  "alcohol_binge": {
+   "label": "Acontece-lhe beber grandes quantidades de álcool numa mesma ocasião em pouco tempo (p. ex. 5 ou mais copos numa noite)?"
+  },
+  "bp_organ_symptoms": {
+   "label": "Alguma vez teve, por causa da tensão arterial alta, perturbações da visão ou queixas do cérebro (p. ex. dores de cabeça fortes com confusão, perturbações da fala ou da visão)?"
+  },
+  "bp_values": {
+   "label": "Que valores de tensão arterial costuma ter – apesar do tratamento?",
+   "options": {
+    "unter140": "Na maioria das vezes abaixo de 140/90",
+    "bis180": "Entre 140/90 e 180/110",
+    "ueber180": "Frequentemente acima de 180 (valor superior) ou acima de 110 (valor inferior)",
+    "unbekannt": "Não sei"
+   }
+  },
+  "cannabis_medical": {
+   "label": "Toma canábis por prescrição médica (canábis medicinal, p. ex. da farmácia)?",
+   "followup": "Quem a receita, para que doença, e em que dosagem?"
+  },
+  "cannabis_traffic": {
+   "label": "Alguma vez foi detetado no trânsito sob a influência de canábis (p. ex. condução sob o efeito de THC, multa, MPU)?",
+   "followup": "Quando foi isso, e o que foi constatado?"
+  },
+  "drug_dependence": {
+   "label": "Alguma vez lhe foi diagnosticada dependência de canábis ou de outras drogas, ou fez por esse motivo uma desintoxicação ou um tratamento de desabituação?",
+   "followup": "Que substância, quando terminou o tratamento (em internamento ou em ambulatório), e desde quando vive abstinente?"
+  },
+  "heart_event_when": {
+   "label": "Há quanto tempo ocorreu o último destes eventos (enfarte, stent, bypass)?",
+   "options": {
+    "unter6w": "Menos de 6 semanas",
+    "6w_bis_3m": "De 6 semanas a 3 meses",
+    "ueber3m": "Mais de 3 meses"
+   }
+  },
+  "hypoglycemia_desc": {
+   "label": "Quando foi o último episódio, e ocorreu acordado ou durante o sono?"
+  },
+  "icd_indication": {
+   "label": "Por que motivo lhe foi colocado o desfibrilhador?",
+   "options": {
+    "vorsorglich": "Por precaução, devido à minha doença cardíaca (sem um evento anterior com risco de vida)",
+    "nach_ereignis": "Depois de uma paragem cardíaca sobrevivida ou de uma arritmia com risco de vida",
+    "unbekannt": "Não sei ao certo"
+   }
+  },
+  "low_ef": {
+   "label": "Disseram-lhe que a capacidade de bombeamento do seu coração está claramente reduzida (fração de ejeção abaixo de cerca de 35 %)?",
+   "hint": "A capacidade de bombeamento (FE) consta geralmente do relatório do seu cardiologista.",
+   "options": {
+    "ja": "Sim",
+    "nein": "Não, normal ou apenas ligeiramente reduzida",
+    "unbekannt": "Não sei"
+   }
+  },
+  "mixed_consumption": {
+   "label": "Consome canábis com frequência juntamente com álcool ou outras substâncias psicoativas (ao mesmo tempo ou pouco depois)?"
+  },
+  "pavk": {
+   "label": "Tem uma perturbação da circulação nas pernas conhecida (doença das montras / doença arterial periférica)?",
+   "followup": "Desde quando, e já foi feita uma operação ou uma intervenção por cateter?"
+  },
+  "pavk_rest_pain": {
+   "label": "Por causa disso tem também dores em repouso, por exemplo à noite deitado?"
+  },
+  "resuscitated": {
+   "label": "Alguma vez teve de ser reanimado após uma paragem cardíaca?",
+   "followup": "Quando foi isso, e que causa foi encontrada?"
+  },
+  "sleepiness_coping": {
+   "label": "Quando fica com sono durante o dia: apercebe-se disso a tempo e faz então uma pausa (p. ex. parar, dormir uma pequena sesta)?",
+   "options": {
+    "zuverlaessig": "Sim, apercebo-me disso de forma fiável e faço então uma pausa",
+    "teilweise": "Em parte, mas nem sempre a tempo",
+    "nein": "Não, o cansaço apanha-me antes de surpresa"
+   }
+  },
+  "stroke_prevention": {
+   "label": "A causa do evento foi esclarecida por um médico, e está a fazer um tratamento preventivo (p. ex. anticoagulantes, medicamentos para baixar a tensão arterial ou o colesterol, operação da artéria carótida)?",
+   "followup": "Que tratamento, e quando foi o último controlo?"
+  },
+  "stroke_rehab": {
+   "label": "Fez uma reabilitação depois do evento?",
+   "hint": "Se persistirem sequelas, segundo a diretriz a aptidão para conduzir só deve ser avaliada após a conclusão de uma reabilitação adequada.",
+   "options": {
+    "abgeschlossen": "Sim, totalmente concluída",
+    "laufend": "Sim, ainda está a decorrer",
+    "keine": "Não, nenhuma reabilitação"
+   }
+  },
+  "vertigo_migraine": {
+   "label": "As suas crises de tonturas ocorrem em associação com enxaquecas ou dores de cabeça fortes (antes, durante ou depois)?",
+   "followup": "Estas crises anunciam-se antecipadamente (p. ex. perturbações da visão, sensibilidade à luz), e quando foi a última crise?"
+  },
+  "vertigo_situational": {
+   "label": "A sua tontura surge sobretudo em determinadas situações em que está tenso ou ansioso – p. ex. ao conduzir, em multidões ou em pontes?",
+   "followup": "Em que situações? A tontura também surge ao conduzir?"
   }
  },
  "ess_items": {

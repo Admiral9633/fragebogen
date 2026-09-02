@@ -144,7 +144,9 @@
     "D1": "D1",
     "D": "D",
     "DE": "DE",
-    "T": "T"
+    "T": "T",
+    "D1E": "D1E",
+    "L": "L"
    }
   },
   "license_years": {
@@ -246,10 +248,12 @@
   },
   "hearing_impaired": {
    "label": "Ağır dərəcədə eşitmə qüsurunuz varmı, yoxsa karsınızmı?",
-   "followup": "Nə vaxtdan və qulaq-burun-boğaz həkiminin müalicəsi altındasınızmı?"
+   "followup": "Nə vaxtdan və qulaq-burun-boğaz həkiminin müalicəsi altındasınızmı?",
+   "hint": "Ağır dərəcə o deməkdir: eşitmə aparatı olmadan ölçülməklə, daha yaxşı eşidən qulaqda 60 %-dən çox eşitmə itkisi."
   },
   "hearing_aid": {
-   "label": "Eşitmə aparatı və ya koxlear implant istifadə edirsinizmi?"
+   "label": "Eşitmə aparatı və ya koxlear implant istifadə edirsinizmi?",
+   "hint": "Eşitmə aparatı tövsiyə olunur, lakin sürücülük yararlılığı üçün şərt deyil; qiymətləndirmədə eşitmə aparatı olmadan eşitmə nəzərə alınır."
   },
   "heart_disease": {
    "label": "Sizdə məlum ürək və ya damar xəstəliyi varmı?",
@@ -269,11 +273,12 @@
    "followup": "Hansı diaqnoz və necə müalicə olunur?"
   },
   "pacemaker_icd": {
-   "label": "Ürək ritmi tənzimləyicisi (kardiostimulyator) və ya defibrillyator (ICD) daşıyırsınızmı?",
+   "label": "Ürək ritmi tənzimləyicisi (kardiostimulyator), defibrillyator (ICD) və ya ürəyi dəstəkləyən sistem daşıyırsınızmı?",
    "options": {
     "nein": "Xeyr",
     "schrittmacher": "Kardiostimulyator",
-    "icd": "Defibrillyator (ICD)"
+    "icd": "Defibrillyator (ICD)",
+    "vad": "Ürəyi dəstəkləyən sistem (süni ürək/VAD)"
    },
    "followup": "Nə vaxt qoyulub və sonuncu yoxlama nə vaxt olub?"
   },
@@ -299,7 +304,7 @@
    "label": "Təzyiq dərmanlarınızın təsiri altında başgicəllənmə, zəiflik hissi və ya gözlərin qaralması olurmu?"
   },
   "heart_other": {
-   "label": "Sizdə başqa məlum ürək/damar xəstəliyi varmı: ürək qapağı qüsuru, anadangəlmə ürək qüsuru, ürək əzələsi xəstəliyi (kardiomiopatiya), irsi ritm xəstəliyi (məs. Long-QT), aorta anevrizması və ya yuxu arteriyasının daralması?",
+   "label": "Sizdə başqa məlum ürək/damar xəstəliyi varmı: ürək qapağı qüsuru, anadangəlmə ürək qüsuru, ürək əzələsi xəstəliyi (kardiomiopatiya), irsi ritm xəstəliyi (məs. Long-QT, Brugada), aorta anevrizması və ya yuxu arteriyasının daralması?",
    "followup": "Hansı diaqnoz və necə nəzarət olunur/müalicə edilir?"
   },
   "family_sudden_death": {
@@ -307,7 +312,7 @@
   },
   "stroke": {
    "label": "Nə vaxtsa insult, beyin qanaxması və ya TIA (qısamüddətli əlamətlərlə keçici qan dövranı pozğunluğu) keçirmisinizmi?",
-   "followup": "Hadisə nə vaxt olub və reabilitasiya başa çatdırılıbmı?"
+   "followup": "Hadisə nə vaxt olub və hansı səbəb müəyyən edilib?"
   },
   "stroke_residuals": {
    "label": "O vaxtdan iflic, nitq pozğunluğu, yaddaş problemləri və ya görmə sahəsinin məhdudlaşması kimi nəticələr qalıbmı?",
@@ -356,11 +361,12 @@
     "3bis6m": "3-dən 6 aya qədər",
     "6bis12m": "6-dan 12 aya qədər",
     "1bis2j": "1-dən 2 ilə qədər",
-    "ueber2j": "2 ildən çox"
+    "2bis4j": "2-dən 4 ilə qədər",
+    "ueber4j": "4 ildən çox"
    }
   },
   "vertigo_prodromi": {
-   "label": "Başgicəllənmə tutmalarınız əvvəlcədən özünü büruzə verirmi (məs. qulaqda təzyiq, qulaqda küy, eşitmənin azalması), belə ki, vaxtında saxlaya biləsiniz?",
+   "label": "Başgicəllənmə tutmalarınız əvvəlcədən özünü büruzə verirmi (məs. qulaqda təzyiq, qulaqda küy, eşitmənin azalması və ya görmə pozğunluqları kimi miqren xəbərdarlıq əlamətləri), belə ki, vaxtında saxlaya biləsiniz?",
    "options": {
     "immer": "Bəli, həmişə",
     "manchmal": "Bəzən",
@@ -410,7 +416,11 @@
   },
   "hypoglycemia": {
    "label": "Son 12 ay ərzində kənar köməyə ehtiyac duyduğunuz ağır hipoqlikemiya (qanda şəkərin kəskin düşməsi) keçirmisinizmi?",
-   "followup": "Neçə dəfə, sonuncu epizod nə vaxt olub və o, oyaq halda, yoxsa yuxuda baş verib?"
+   "options": {
+    "none": "Xeyr",
+    "once": "Bəli, bir dəfə",
+    "repeated": "Bəli, bir neçə dəfə"
+   }
   },
   "hypo_awareness": {
    "label": "Hipoqlikemiyanı özünüz vaxtında hiss etmədiyiniz hallar olubmu (xəbərdarlıq əlamətlərinin olmaması)?",
@@ -512,18 +522,20 @@
   },
   "alcohol_dependence": {
    "label": "Sizdə nə vaxtsa alkoqol asılılığı aşkar edilibmi, yaxud detoksikasiya və ya reabilitasiya müalicəsi keçmisinizmi?",
-   "followup": "Müalicə nə vaxt başa çatıb və nə vaxtdan tam imtina (abstinensiya) şəraitində yaşayırsınız?"
+   "followup": "Müalicə nə vaxt başa çatıb (stasionar, yoxsa ambulator) və nə vaxtdan tam imtina (abstinensiya) şəraitində yaşayırsınız?"
   },
   "drugs": {
-   "label": "Hazırda narkotik qəbul edirsinizmi (məs. kannabis, kokain, amfetaminlər), yaxud əvvəllər müntəzəm narkotik istifadə etmisinizmi?",
-   "followup": "Hansı maddələr, nə qədər tez-tez və sonuncu dəfə nə vaxt?"
+   "label": "Hazırda başqa narkotiklər qəbul edirsinizmi (məs. kokain, amfetaminlər, ekstazi, heroin), yaxud əvvəllər müntəzəm olaraq belə narkotiklər istifadə etmisinizmi?",
+   "followup": "Hansı maddələr, nə qədər tez-tez və sonuncu dəfə nə vaxt?",
+   "hint": "Kannabis haqqında yuxarıda ayrıca soruşulur."
   },
   "cannabis": {
-   "label": "Nə qədər tez-tez kannabis istifadə edirsiniz?",
+   "label": "Kannabis istifadə edirsinizmi (məs. siqaret şəklində, buxarlandırıcı ilə və ya yeməli məhsullarda)?",
    "options": {
     "nie": "Heç vaxt",
     "gelegentlich": "Bəzən (müntəzəm deyil)",
-    "regelmaessig": "Müntəzəm (hər gün və ya vərdiş halında)"
+    "regelmaessig": "Müntəzəm (həftədə bir neçə dəfə)",
+    "taeglich": "Hər gün və ya demək olar ki, hər gün"
    }
   },
   "substitution": {
@@ -570,6 +582,104 @@
   "consent_privacy": {
    "label": "Məlumatların qorunması barədə məlumatı oxudum və məlumatlarımın yol-nəqliyyat tibbi məqsədlərlə emalına razılıq verirəm.",
    "error": "Zəhmət olmasa məlumatların qorunması barədə məlumatı qəbul edin."
+  },
+  "alcohol_binge": {
+   "label": "Bir dəfəyə qısa müddət ərzində çoxlu miqdarda alkoqol qəbul etdiyiniz hallar olurmu (məs. bir axşamda 5 və ya daha çox qədəh)?"
+  },
+  "bp_organ_symptoms": {
+   "label": "Yüksək qan təzyiqi səbəbindən sizdə nə vaxtsa görmə pozğunluqları və ya beyin tərəfindən şikayətlər olubmu (məs. huşun dolaşması ilə güclü baş ağrıları, nitq və ya görmə pozğunluqları)?"
+  },
+  "bp_values": {
+   "label": "Müalicəyə baxmayaraq, qan təzyiqi göstəriciləriniz adətən nə qədər olur?",
+   "options": {
+    "unter140": "Əsasən 140/90-dan aşağı",
+    "bis180": "140/90 ilə 180/110 arasında",
+    "ueber180": "Tez-tez 180-dən (yuxarı göstərici) və ya 110-dan (aşağı göstərici) yüksək",
+    "unbekannt": "Bilmirəm"
+   }
+  },
+  "cannabis_medical": {
+   "label": "Kannabisi həkim təyinatı ilə qəbul edirsinizmi (tibbi kannabis, məs. aptekdən)?",
+   "followup": "Kim təyin edir, hansı xəstəliyə qarşı və hansı dozada?"
+  },
+  "cannabis_traffic": {
+   "label": "Yol hərəkətində nə vaxtsa kannabisin təsiri altında qeydə alınmısınızmı (məs. THC təsiri altında sürmə, cərimə, MPU – tibbi-psixoloji müayinə)?",
+   "followup": "Bu nə vaxt olub və nə müəyyən edilib?"
+  },
+  "drug_dependence": {
+   "label": "Sizdə nə vaxtsa kannabisdən və ya digər narkotiklərdən asılılıq aşkar edilibmi, yaxud bu səbəbdən detoksikasiya ya da reabilitasiya müalicəsi keçmisinizmi?",
+   "followup": "Hansı maddə, müalicə nə vaxt başa çatıb (stasionar, yoxsa ambulator) və nə vaxtdan tam imtina (abstinensiya) şəraitində yaşayırsınız?"
+  },
+  "heart_event_when": {
+   "label": "Bu hadisələrdən sonuncusundan (infarkt, stent, baypas) nə qədər vaxt keçib?",
+   "options": {
+    "unter6w": "6 həftədən az",
+    "6w_bis_3m": "6 həftədən 3 aya qədər",
+    "ueber3m": "3 aydan çox"
+   }
+  },
+  "hypoglycemia_desc": {
+   "label": "Sonuncu epizod nə vaxt olub və o, oyaq halda, yoxsa yuxuda baş verib?"
+  },
+  "icd_indication": {
+   "label": "Defibrillyator sizə hansı səbəbdən qoyulub?",
+   "options": {
+    "vorsorglich": "Ürək xəstəliyimə görə profilaktik olaraq (əvvəlcədən həyat üçün təhlükəli hadisə olmadan)",
+    "nach_ereignis": "Keçirilmiş ürək dayanmasından və ya həyat üçün təhlükəli ritm pozğunluğundan sonra",
+    "unbekannt": "Dəqiq bilmirəm"
+   }
+  },
+  "low_ef": {
+   "label": "Sizə ürəyinizin nasos funksiyasının nəzərəçarpacaq dərəcədə zəiflədiyi deyilibmi (atım fraksiyası təxminən 35 %-dən aşağı)?",
+   "hint": "Ürəyin nasos funksiyası (EF) adətən kardioloqunuzun rəyində göstərilir.",
+   "options": {
+    "ja": "Bəli",
+    "nein": "Xeyr, normal və ya yalnız bir qədər zəifləmiş",
+    "unbekannt": "Bilmirəm"
+   }
+  },
+  "mixed_consumption": {
+   "label": "Kannabisi tez-tez alkoqol və ya digər sərxoşedici maddələrlə birlikdə istifadə edirsinizmi (eyni vaxtda və ya qısa fasilə ilə ardıcıl)?"
+  },
+  "pavk": {
+   "label": "Sizdə ayaqların qan dövranı pozğunluğu məlumdurmu (aralıqlı axsaqlıq / pAVK)?",
+   "followup": "Nə vaxtdan və artıq əməliyyat və ya kateter müdaxiləsi aparılıbmı?"
+  },
+  "pavk_rest_pain": {
+   "label": "Bunun nəticəsində istirahət halında da, məsələn gecə uzananda, ağrınız olurmu?"
+  },
+  "resuscitated": {
+   "label": "Ürək dayanmasından sonra nə vaxtsa sizi canlandırmalı (reanimasiya etməli) olublarmı?",
+   "followup": "Bu nə vaxt olub və hansı səbəb tapılıb?"
+  },
+  "sleepiness_coping": {
+   "label": "Gündüz yorulduğunuz zaman: bunu vaxtında hiss edirsiniz və sonra fasilə verirsinizmi (məs. saxlamaq, qısa yuxu)?",
+   "options": {
+    "zuverlaessig": "Bəli, bunu etibarlı şəkildə hiss edirəm və sonra fasilə verirəm",
+    "teilweise": "Qismən, lakin həmişə vaxtında yox",
+    "nein": "Xeyr, yuxululuq daha çox məni qəflətən yaxalayır"
+   }
+  },
+  "stroke_prevention": {
+   "label": "Hadisənin səbəbi həkim tərəfindən aydınlaşdırılıbmı və profilaktika üçün müalicə alırsınızmı (məs. qan durulaşdırıcılar, təzyiqi və ya xolesterini salan dərmanlar, yuxu arteriyası əməliyyatı)?",
+   "followup": "Hansı müalicə və sonuncu yoxlama nə vaxt olub?"
+  },
+  "stroke_rehab": {
+   "label": "Hadisədən sonra reabilitasiya keçmisinizmi?",
+   "hint": "Davam edən funksiya pozğunluqları olduqda təlimata əsasən sürücülük yararlılığı yalnız müvafiq reabilitasiya başa çatdıqdan sonra qiymətləndirilməlidir.",
+   "options": {
+    "abgeschlossen": "Bəli, tam başa çatdırılıb",
+    "laufend": "Bəli, hələ davam edir",
+    "keine": "Xeyr, reabilitasiya olmayıb"
+   }
+  },
+  "vertigo_migraine": {
+   "label": "Başgicəllənmə tutmalarınız miqren və ya güclü baş ağrıları ilə əlaqədar baş verirmi (ondan əvvəl, onun zamanı və ya sonra)?",
+   "followup": "Bu tutmalar əvvəlcədən özünü büruzə verirmi (məs. görmə pozğunluqları, işığa həssaslıq) və sonuncu tutma nə vaxt olub?"
+  },
+  "vertigo_situational": {
+   "label": "Başgicəllənməniz əsasən gərgin və ya həyəcanlı olduğunuz müəyyən vəziyyətlərdə baş verirmi – məs. avtomobil sürərkən, izdihamda və ya körpülərdə?",
+   "followup": "Hansı vəziyyətlərdə? Başgicəllənmə avtomobil sürərkən də olurmu?"
   }
  },
  "ess_items": {

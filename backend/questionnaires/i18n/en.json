@@ -144,7 +144,9 @@
     "D1": "D1",
     "D": "D",
     "DE": "DE",
-    "T": "T"
+    "T": "T",
+    "D1E": "D1E",
+    "L": "L"
    }
   },
   "license_years": {
@@ -246,10 +248,12 @@
   },
   "hearing_impaired": {
    "label": "Do you have severe hearing loss, or are you deaf?",
-   "followup": "Since when, and are you under the care of an ear, nose and throat (ENT) doctor?"
+   "followup": "Since when, and are you under the care of an ear, nose and throat (ENT) doctor?",
+   "hint": "Severe means: more than 60% hearing loss in the better ear, measured without a hearing aid."
   },
   "hearing_aid": {
-   "label": "Do you wear a hearing aid or cochlear implant?"
+   "label": "Do you wear a hearing aid or cochlear implant?",
+   "hint": "A hearing aid is recommended, but it is not a requirement for fitness to drive; what counts for the assessment is your hearing without a hearing aid."
   },
   "heart_disease": {
    "label": "Do you have a known heart or vascular disease?",
@@ -269,11 +273,12 @@
    "followup": "What diagnosis, and how is it treated?"
   },
   "pacemaker_icd": {
-   "label": "Do you have a pacemaker or defibrillator (ICD)?",
+   "label": "Do you have a pacemaker, a defibrillator (ICD) or a heart support system?",
    "options": {
     "nein": "No",
     "schrittmacher": "Pacemaker",
-    "icd": "Defibrillator (ICD)"
+    "icd": "Defibrillator (ICD)",
+    "vad": "Heart support system (artificial heart/VAD)"
    },
    "followup": "When was it implanted, and when was the last check-up?"
   },
@@ -299,7 +304,7 @@
    "label": "While taking your blood pressure medication, do you experience dizziness, feelings of weakness or your vision going black?"
   },
   "heart_other": {
-   "label": "Do you have another known heart or vascular disease: heart valve defect, congenital heart defect, heart muscle disease (cardiomyopathy), inherited rhythm disorder (e.g. long QT), aortic aneurysm or narrowed carotid artery?",
+   "label": "Do you have another known heart or vascular disease: a heart valve defect, a congenital heart defect, a heart muscle disease (cardiomyopathy), an inherited rhythm disorder (e.g. long QT, Brugada), an aortic aneurysm or a narrowed carotid artery?",
    "followup": "What diagnosis, and how is it monitored/treated?"
   },
   "family_sudden_death": {
@@ -307,7 +312,7 @@
   },
   "stroke": {
    "label": "Have you ever had a stroke, a brain haemorrhage or a TIA (temporary circulatory disturbance with short-lasting deficits)?",
-   "followup": "When was the event, and was rehabilitation completed?"
+   "followup": "When was the event, and what cause was identified?"
   },
   "stroke_residuals": {
    "label": "Do you still have after-effects such as paralysis, speech disorders, memory problems or a restricted field of vision?",
@@ -356,11 +361,12 @@
     "3bis6m": "3 to 6 months",
     "6bis12m": "6 to 12 months",
     "1bis2j": "1 to 2 years",
-    "ueber2j": "More than 2 years"
+    "2bis4j": "2 to 4 years",
+    "ueber4j": "More than 4 years"
    }
   },
   "vertigo_prodromi": {
-   "label": "Do your dizziness attacks announce themselves in advance (e.g. ear pressure, ear noises, reduced hearing), so that you could stop in time?",
+   "label": "Do your dizziness attacks announce themselves in advance (e.g. ear pressure, ear noises, reduced hearing or migraine warning signs such as visual disturbances), so that you could stop in time?",
    "options": {
     "immer": "Yes, always",
     "manchmal": "Sometimes",
@@ -410,7 +416,11 @@
   },
   "hypoglycemia": {
    "label": "In the last 12 months, have you had a severe hypoglycaemia (low blood sugar) in which you needed help from another person?",
-   "followup": "How often, when was the last episode, and did it occur while awake or during sleep?"
+   "options": {
+    "none": "No",
+    "once": "Yes, once",
+    "repeated": "Yes, several times"
+   }
   },
   "hypo_awareness": {
    "label": "Has it happened that you did not notice a low blood sugar in time yourself (missing warning signs)?",
@@ -512,18 +522,20 @@
   },
   "alcohol_dependence": {
    "label": "Have you ever been diagnosed with alcohol dependence, or have you undergone detoxification or withdrawal treatment?",
-   "followup": "When was the treatment completed, and since when have you been abstinent?"
+   "followup": "When was the treatment completed (inpatient or outpatient), and how long have you been abstinent?"
   },
   "drugs": {
-   "label": "Do you currently take drugs (e.g. cannabis, cocaine, amphetamines), or did you regularly use drugs in the past?",
-   "followup": "Which substances, how often, and when was the last time?"
+   "label": "Do you currently take other drugs (e.g. cocaine, amphetamines, ecstasy, heroin), or did you regularly use such drugs in the past?",
+   "followup": "Which substances, how often, and when was the last time?",
+   "hint": "Cannabis is asked about separately above."
   },
   "cannabis": {
-   "label": "How often do you use cannabis?",
+   "label": "Do you use cannabis (e.g. as a joint, in a vaporiser or as edibles)?",
    "options": {
     "nie": "Never",
     "gelegentlich": "Occasionally (not regularly)",
-    "regelmaessig": "Regularly (daily or habitually)"
+    "regelmaessig": "Regularly (several times a week)",
+    "taeglich": "Daily or almost daily"
    }
   },
   "substitution": {
@@ -570,6 +582,104 @@
   "consent_privacy": {
    "label": "I have read the privacy notice and consent to the processing of my data for traffic medicine purposes.",
    "error": "Please accept the privacy notice."
+  },
+  "alcohol_binge": {
+   "label": "Does it happen that you drink large amounts of alcohol in a short time on one occasion (e.g. 5 or more glasses in one evening)?"
+  },
+  "bp_organ_symptoms": {
+   "label": "Because of your high blood pressure, have you ever had visual disturbances or symptoms coming from the brain (e.g. severe headache with confusion, speech or visual disturbances)?"
+  },
+  "bp_values": {
+   "label": "How high are your blood pressure readings usually – despite treatment?",
+   "options": {
+    "bis180": "Between 140/90 and 180/110",
+    "ueber180": "Often above 180 (upper reading) or above 110 (lower reading)",
+    "unbekannt": "I don't know",
+    "unter140": "Mostly below 140/90"
+   }
+  },
+  "cannabis_medical": {
+   "followup": "Who prescribes it, for which condition, and at what dose?",
+   "label": "Do you take cannabis on a doctor's prescription (medical cannabis, e.g. from the pharmacy)?"
+  },
+  "cannabis_traffic": {
+   "followup": "When was that, and what was found?",
+   "label": "Have you ever come to attention in road traffic under the influence of cannabis (e.g. driving under the effects of THC, fine, MPU)?"
+  },
+  "drug_dependence": {
+   "followup": "Which substance, when was the treatment completed (inpatient or outpatient), and how long have you been abstinent?",
+   "label": "Have you ever been found to be dependent on cannabis or other drugs, or have you had a detoxification or withdrawal treatment because of it?"
+  },
+  "heart_event_when": {
+   "label": "How long ago was the last of these events (heart attack, stent, bypass)?",
+   "options": {
+    "6w_bis_3m": "6 weeks to 3 months",
+    "ueber3m": "More than 3 months",
+    "unter6w": "Less than 6 weeks"
+   }
+  },
+  "hypoglycemia_desc": {
+   "label": "When was the last episode, and did it occur while awake or during sleep?"
+  },
+  "icd_indication": {
+   "label": "For what reason was the defibrillator implanted?",
+   "options": {
+    "nach_ereignis": "After a cardiac arrest I survived or a life-threatening rhythm disorder",
+    "unbekannt": "I don't know exactly",
+    "vorsorglich": "As a precaution because of my heart disease (without a previous life-threatening event)"
+   }
+  },
+  "low_ef": {
+   "hint": "The pumping function (EF) is usually stated in your cardiologist's report.",
+   "label": "Have you been told that your heart's pumping function is markedly reduced (ejection fraction below about 35%)?",
+   "options": {
+    "ja": "Yes",
+    "nein": "No, normal or only slightly reduced",
+    "unbekannt": "I don't know"
+   }
+  },
+  "mixed_consumption": {
+   "label": "Do you often use cannabis together with alcohol or other intoxicating substances (at the same time or shortly one after the other)?"
+  },
+  "pavk": {
+   "followup": "Since when, and have you already had an operation or a catheter procedure?",
+   "label": "Do you have a known circulatory disorder of the legs (intermittent claudication / peripheral arterial disease)?"
+  },
+  "pavk_rest_pain": {
+   "label": "Does this also give you pain at rest, for example at night when lying down?"
+  },
+  "resuscitated": {
+   "followup": "When was that, and what cause was found?",
+   "label": "Have you ever had to be resuscitated after a cardiac arrest?"
+  },
+  "sleepiness_coping": {
+   "label": "If you become tired during the day: do you notice it in time, and do you then take a break (e.g. stopping, a short nap)?",
+   "options": {
+    "nein": "No, the tiredness tends to take me by surprise",
+    "teilweise": "Partly, but not always in time",
+    "zuverlaessig": "Yes, I notice it reliably and then take a break"
+   }
+  },
+  "stroke_prevention": {
+   "followup": "Which treatment, and when was the last check-up?",
+   "label": "Has the cause of the event been investigated by a doctor, and are you receiving preventive treatment (e.g. blood thinners, blood pressure or cholesterol-lowering medication, surgery on the carotid artery)?"
+  },
+  "stroke_rehab": {
+   "hint": "If deficits persist, the guideline states that fitness to drive should only be assessed once suitable rehabilitation has been completed.",
+   "label": "Did you have rehabilitation after the event?",
+   "options": {
+    "abgeschlossen": "Yes, fully completed",
+    "keine": "No, no rehabilitation",
+    "laufend": "Yes, it is still ongoing"
+   }
+  },
+  "vertigo_migraine": {
+   "followup": "Do these attacks announce themselves in advance (e.g. visual disturbances, sensitivity to light), and when was the last attack?",
+   "label": "Do your dizziness attacks occur in connection with migraine or severe headache (before, during or after)?"
+  },
+  "vertigo_situational": {
+   "followup": "In which situations? Does the dizziness also occur while driving?",
+   "label": "Does your dizziness occur mainly in certain situations in which you are tense or anxious – e.g. when driving, in crowds or on bridges?"
   }
  },
  "ess_items": {
