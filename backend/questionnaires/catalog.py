@@ -2,7 +2,7 @@
 """
 Fragenkatalog des verkehrsmedizinischen Anamnese-Fragebogens.
 
-Grundlage: Begutachtungsleitlinien zur Kraftfahreignung (BASt, Stand 2022),
+Grundlage: Begutachtungsleitlinien zur Kraftfahreignung (BASt, Stand 19.08.2026),
 Kapitel 3.1–3.20. Die Fragen sind patientenverständlich formuliert und
 enthalten die eignungsrelevanten Zeitfenster der Leitlinien (z.B. anfallsfrei
 seit X, Fremdhilfe-Hypoglykämie in den letzten 12 Monaten).
@@ -47,7 +47,7 @@ def _choice(qid, label, options, required=True, hint=None, show_if=None, followu
 CATALOG = {
     "version": 2,
     "title": "Verkehrsmedizinischer Fragebogen",
-    "basis": "Fragenkatalog nach den Begutachtungsleitlinien zur Kraftfahreignung (BASt, Stand 2022)",
+    "basis": "Begutachtungsleitlinien zur Kraftfahreignung, BASt, Stand 19.08.2026",
     "sections": [
         # ── 1 ─────────────────────────────────────────────────────────────
         {
@@ -71,7 +71,7 @@ CATALOG = {
                     "label": "Welche Führerscheinklassen besitzen oder beantragen Sie?",
                     "required": True,
                     "options": [{"value": c, "label": c} for c in
-                                ["AM", "A1", "A2", "A", "B", "BE", "C1", "C1E", "C", "CE", "D1", "D", "DE", "T"]],
+                                ["AM", "A1", "A2", "A", "B", "BE", "C1", "C1E", "C", "CE", "D1", "D", "DE", "D1E", "L", "T"]],
                 },
                 _choice("license_years", "Seit wie vielen Jahren besitzen Sie eine Fahrerlaubnis?", [
                     ("erstantrag", "Noch keine (Erstantrag)"),
@@ -185,8 +185,12 @@ CATALOG = {
                     followup=_follow("night_vision_desc", "In welchen Situationen treten die Probleme auf?")),
                 _yn("hearing_impaired",
                     "Sind Sie hochgradig schwerhörig oder gehörlos?",
+                    hint="Hochgradig bedeutet: mehr als 60 % Hörverlust auf dem besseren Ohr, "
+                         "gemessen ohne Hörgerät.",
                     followup=_follow("hearing_desc", "Seit wann, und sind Sie in HNO-ärztlicher Behandlung?")),
-                _yn("hearing_aid", "Tragen Sie ein Hörgerät oder Cochlea-Implantat?"),
+                _yn("hearing_aid", "Tragen Sie ein Hörgerät oder Cochlea-Implantat?",
+                    hint="Ein Hörgerät wird empfohlen, ist aber keine Voraussetzung für die "
+                         "Fahreignung; für die Beurteilung zählt das Hören ohne Hörgerät."),
             ],
         },
         # ── 4 ─────────────────────────────────────────────────────────────
@@ -210,17 +214,36 @@ CATALOG = {
                     followup=_follow("heart_attack_desc",
                                      "Wann war das Ereignis bzw. der Eingriff, und gab es Komplikationen "
                                      "(z.B. eingeschränkte Pumpleistung)?")),
+                _choice("heart_event_when",
+                        "Wie lange liegt das letzte dieser Ereignisse (Infarkt, Stent, Bypass) zurück?", [
+                    ("unter6w", "Weniger als 6 Wochen"),
+                    ("6w_bis_3m", "6 Wochen bis 3 Monate"),
+                    ("ueber3m", "Mehr als 3 Monate"),
+                ], show_if={"id": "heart_attack", "in": ["yes"]}),
                 _yn("arrhythmia",
                     "Sind bei Ihnen Herzrhythmusstörungen bekannt (z.B. Herzstolpern, Herzrasen, "
                     "auffallend langsamer Puls, Vorhofflimmern, AV-Block)?",
                     followup=_follow("arrhythmia_desc", "Welche Diagnose, und wie wird behandelt?")),
-                _choice("pacemaker_icd", "Tragen Sie einen Herzschrittmacher oder Defibrillator (ICD)?", [
+                _yn("resuscitated",
+                    "Mussten Sie schon einmal nach einem Herzstillstand wiederbelebt (reanimiert) werden?",
+                    followup=_follow("resuscitated_desc", "Wann war das, und welche Ursache wurde gefunden?")),
+                _choice("pacemaker_icd",
+                        "Tragen Sie einen Herzschrittmacher, einen Defibrillator (ICD) oder ein "
+                        "Herzunterstützungssystem?", [
                     ("nein", "Nein"),
                     ("schrittmacher", "Herzschrittmacher"),
                     ("icd", "Defibrillator (ICD)"),
+                    ("vad", "Herzunterstützungssystem (Kunstherz/VAD)"),
                 ], followup={"id": "device_desc", "type": "text",
                              "label": "Wann eingesetzt, und wann war die letzte Kontrolle?",
                              "when": "schrittmacher"}),
+                _choice("icd_indication", "Aus welchem Grund wurde Ihnen der Defibrillator eingesetzt?", [
+                    ("vorsorglich", "Vorsorglich wegen meiner Herzerkrankung (ohne vorheriges "
+                                    "lebensbedrohliches Ereignis)"),
+                    ("nach_ereignis", "Nach einem überlebten Herzstillstand oder einer "
+                                      "lebensbedrohlichen Rhythmusstörung"),
+                    ("unbekannt", "Weiß ich nicht genau"),
+                ], show_if={"id": "pacemaker_icd", "in": ["icd"]}),
                 _yn("icd_shock",
                     "Hat Ihr Defibrillator in den letzten 3 Monaten einen Schock abgegeben?",
                     show_if={"id": "pacemaker_icd", "in": ["icd"]},
@@ -233,18 +256,45 @@ CATALOG = {
                     ("leicht", "Schon bei leichter Belastung (z.B. langsames Gehen)"),
                     ("ruhe", "Bereits in Ruhe"),
                 ], hint="Selbsteinschätzung entsprechend der NYHA-Stadien"),
+                _choice("low_ef",
+                        "Wurde Ihnen gesagt, dass die Pumpleistung Ihres Herzens deutlich eingeschränkt ist "
+                        "(Ejektionsfraktion unter etwa 35 %)?", [
+                    ("ja", "Ja"),
+                    ("nein", "Nein, normal oder nur leicht eingeschränkt"),
+                    ("unbekannt", "Weiß ich nicht"),
+                ], show_if={"id": "heart_disease", "in": ["yes"]},
+                   hint="Die Pumpleistung (EF) steht meist im Bericht Ihres Kardiologen."),
                 _yn("hypertension",
                     "Ist bei Ihnen Bluthochdruck bekannt?",
                     followup=_follow("hypertension_desc",
                                      "Seit wann, welche Medikamente, und welche Werte messen Sie üblicherweise?")),
+                _yn("bp_organ_symptoms",
+                    "Hatten Sie durch den hohen Blutdruck schon einmal Sehstörungen oder Beschwerden vom Gehirn "
+                    "(z.B. starke Kopfschmerzen mit Verwirrtheit, Sprach- oder Sehstörungen)?",
+                    show_if={"id": "hypertension", "in": ["yes"]}),
+                _choice("bp_values", "Wie hoch sind Ihre Blutdruckwerte üblicherweise – trotz Behandlung?", [
+                    ("unter140", "Meist unter 140/90"),
+                    ("bis180", "Zwischen 140/90 und 180/110"),
+                    ("ueber180", "Häufig über 180 (oberer Wert) oder über 110 (unterer Wert)"),
+                    ("unbekannt", "Weiß ich nicht"),
+                ], show_if={"id": "hypertension", "in": ["yes"]}),
                 _yn("bp_dizziness",
                     "Kommt es unter Ihren Blutdruckmedikamenten zu Schwindel, Schwächegefühl oder "
                     "Schwarzwerden vor den Augen?",
                     show_if={"id": "hypertension", "in": ["yes"]}),
+                _yn("pavk",
+                    "Ist bei Ihnen eine Durchblutungsstörung der Beine bekannt "
+                    "(Schaufensterkrankheit / pAVK)?",
+                    followup=_follow("pavk_desc",
+                                     "Seit wann, und wurde schon eine Operation oder ein "
+                                     "Kathetereingriff durchgeführt?")),
+                _yn("pavk_rest_pain",
+                    "Haben Sie dadurch auch Schmerzen in Ruhe, zum Beispiel nachts im Liegen?",
+                    show_if={"id": "pavk", "in": ["yes"]}),
                 _yn("heart_other",
                     "Ist bei Ihnen eine weitere Herz-/Gefäßerkrankung bekannt: Herzklappenfehler, "
                     "angeborener Herzfehler, Herzmuskelerkrankung (Kardiomyopathie), erbliche "
-                    "Rhythmuserkrankung (z.B. Long-QT), Aortenaneurysma oder verengte Halsschlagader?",
+                    "Rhythmuserkrankung (z.B. Long-QT, Brugada), Aortenaneurysma oder verengte Halsschlagader?",
                     followup=_follow("heart_other_desc", "Welche Diagnose, und wie wird sie kontrolliert/behandelt?")),
                 _yn("family_sudden_death",
                     "Gab es in Ihrer engsten Familie (Eltern, Geschwister, Kinder) einen plötzlichen Herztod?"),
@@ -260,12 +310,26 @@ CATALOG = {
                     "Hatten Sie jemals einen Schlaganfall, eine Hirnblutung oder eine TIA "
                     "(vorübergehende Durchblutungsstörung mit kurzzeitigen Ausfällen)?",
                     followup=_follow("stroke_desc",
-                                     "Wann war das Ereignis, und wurde eine Rehabilitation abgeschlossen?")),
+                                     "Wann war das Ereignis, und welche Ursache wurde festgestellt?")),
                 _yn("stroke_residuals",
                     "Bestehen seitdem noch Folgen wie Lähmungen, Sprachstörungen, Gedächtnisprobleme "
                     "oder Einschränkungen des Blickfelds?",
                     show_if={"id": "stroke", "in": ["yes"]},
                     followup=_follow("stroke_residuals_desc", "Welche Beschwerden bestehen aktuell noch?")),
+                _choice("stroke_rehab", "Haben Sie nach dem Ereignis eine Rehabilitation gemacht?", [
+                    ("abgeschlossen", "Ja, vollständig abgeschlossen"),
+                    ("laufend", "Ja, sie läuft noch"),
+                    ("keine", "Nein, keine Rehabilitation"),
+                ], show_if={"id": "stroke", "in": ["yes"]},
+                   hint="Bei fortbestehenden Ausfällen soll die Fahreignung laut Leitlinie erst nach "
+                        "Abschluss einer geeigneten Rehabilitation beurteilt werden."),
+                _yn("stroke_prevention",
+                    "Wurde die Ursache des Ereignisses ärztlich abgeklärt, und werden Sie zur Vorbeugung "
+                    "behandelt (z.B. Blutverdünner, Blutdruck- oder Cholesterinsenker, Operation der "
+                    "Halsschlagader)?",
+                    show_if={"id": "stroke", "in": ["yes"]},
+                    followup=_follow("stroke_prevention_desc",
+                                     "Welche Behandlung, und wann war die letzte Kontrolle?")),
                 _yn("head_injury",
                     "Hatten Sie jemals eine schwere Kopfverletzung (mit Bewusstlosigkeit oder "
                     "Krankenhausaufenthalt) oder eine Operation am Gehirn?",
@@ -327,11 +391,13 @@ CATALOG = {
                     ("3bis6m", "3 bis 6 Monate"),
                     ("6bis12m", "6 bis 12 Monate"),
                     ("1bis2j", "1 bis 2 Jahre"),
-                    ("ueber2j", "Mehr als 2 Jahre"),
+                    ("2bis4j", "2 bis 4 Jahre"),
+                    ("ueber4j", "Mehr als 4 Jahre"),
                 ], show_if={"id": "vertigo", "in": ["yes"]}),
                 _choice("vertigo_prodromi",
                         "Kündigen sich Ihre Schwindelanfälle vorher an (z.B. Ohrdruck, Ohrgeräusche, "
-                        "Hörminderung), sodass Sie rechtzeitig anhalten könnten?", [
+                        "Hörminderung oder Migräne-Vorzeichen wie Sehstörungen), sodass Sie "
+                        "rechtzeitig anhalten könnten?", [
                     ("immer", "Ja, immer"),
                     ("manchmal", "Manchmal"),
                     ("nie", "Nein, sie kommen ohne Vorwarnung"),
@@ -344,6 +410,21 @@ CATALOG = {
                     "Tritt der Schwindel zusammen mit Hörminderung, Ohrgeräuschen (Tinnitus) oder "
                     "Druckgefühl im Ohr auf?",
                     show_if={"id": "vertigo", "in": ["yes"]}),
+                _yn("vertigo_migraine",
+                    "Treten Ihre Schwindelanfälle im Zusammenhang mit Migräne oder starken "
+                    "Kopfschmerzen auf (davor, währenddessen oder danach)?",
+                    show_if={"id": "vertigo", "in": ["yes"]},
+                    followup=_follow("vertigo_migraine_desc",
+                                     "Kündigen sich diese Anfälle vorher an (z.B. Sehstörungen, "
+                                     "Lichtempfindlichkeit), und wann war der letzte Anfall?")),
+                _yn("vertigo_situational",
+                    "Tritt Ihr Schwindel vor allem in bestimmten Situationen auf, in denen Sie "
+                    "angespannt oder ängstlich sind – z.B. beim Autofahren, in Menschenmengen "
+                    "oder auf Brücken?",
+                    show_if={"id": "vertigo", "in": ["yes"]},
+                    followup=_follow("vertigo_situational_desc",
+                                     "In welchen Situationen? Tritt der Schwindel auch beim "
+                                     "Autofahren auf?")),
                 _yn("ear_disease",
                     "Wurde bei Ihnen eine Erkrankung des Gleichgewichtsorgans oder Innenohrs "
                     "festgestellt (z.B. Lagerungsschwindel, Morbus Menière)?",
@@ -391,13 +472,21 @@ CATALOG = {
                     ("insulin", "Insulin"),
                     ("unknown", "Weiß ich nicht genau"),
                 ], show_if={"id": "diabetes_type", "not_in": ["none"]}),
-                _yn("hypoglycemia",
-                    "Hatten Sie in den letzten 12 Monaten eine schwere Unterzuckerung, bei der Sie "
-                    "auf fremde Hilfe angewiesen waren?",
-                    show_if={"id": "diabetes_type", "not_in": ["none"]},
-                    followup=_follow("hypoglycemia_desc",
-                                     "Wie oft, wann war die letzte Episode, und trat sie im Wachzustand "
-                                     "oder im Schlaf auf?")),
+                _choice("hypoglycemia",
+                        "Hatten Sie in den letzten 12 Monaten eine schwere Unterzuckerung, "
+                        "bei der Sie auf fremde Hilfe angewiesen waren?", [
+                    ("none", "Nein"),
+                    ("once", "Ja, einmal"),
+                    ("repeated", "Ja, mehrmals"),
+                ], show_if={"id": "diabetes_type", "not_in": ["none"]}),
+                {
+                    "id": "hypoglycemia_desc",
+                    "type": "textarea",
+                    "label": "Wann war die letzte Episode, und trat sie im Wachzustand "
+                             "oder im Schlaf auf?",
+                    "required": False,
+                    "show_if": {"id": "hypoglycemia", "in": ["once", "repeated"]},
+                },
                 _yn("hypo_awareness",
                     "Ist es vorgekommen, dass Sie eine Unterzuckerung nicht rechtzeitig selbst bemerkt "
                     "haben (fehlende Warnzeichen)?",
@@ -466,6 +555,13 @@ CATALOG = {
                     "Sekundenschlaf?",
                     followup=_follow("microsleep_desc",
                                      "In welchen Situationen? Ist es auch am Steuer passiert?")),
+                _choice("sleepiness_coping",
+                        "Wenn Sie tagsüber müde werden: Bemerken Sie das rechtzeitig, und machen "
+                        "Sie dann eine Pause (z.B. anhalten, Kurzschlaf)?", [
+                    ("zuverlaessig", "Ja, ich bemerke es zuverlässig und mache dann Pause"),
+                    ("teilweise", "Teilweise, aber nicht immer rechtzeitig"),
+                    ("nein", "Nein, die Müdigkeit überrascht mich eher"),
+                ], show_if={"id": "daytime_sleepiness", "in": ["yes"]}),
                 _yn("snoring",
                     "Wurde Ihnen berichtet, dass Sie laut und unregelmäßig schnarchen oder nachts "
                     "Atempausen haben?"),
@@ -500,7 +596,7 @@ CATALOG = {
                 },
             ],
             "pdf_note": "ESS ab 11/24 Punkten: auffällige Tagesschläfrigkeit, schlafmedizinische Abklärung "
-                        "empfohlen (Begutachtungsleitlinien Kap. 3.11).",
+                        "empfohlen (Begutachtungsleitlinien Kap. 3.11.1).",
         },
         # ── 12 ────────────────────────────────────────────────────────────
         {
@@ -548,6 +644,10 @@ CATALOG = {
                     "Ist es vorgekommen, dass Sie mehr getrunken haben als beabsichtigt oder die "
                     "Kontrolle über Ihren Konsum verloren haben?",
                     show_if={"id": "alcohol", "not_in": ["nie"]}),
+                _yn("alcohol_binge",
+                    "Kommt es vor, dass Sie bei einer Gelegenheit größere Mengen Alkohol in kurzer "
+                    "Zeit trinken (z.B. 5 oder mehr Gläser an einem Abend)?",
+                    show_if={"id": "alcohol", "not_in": ["nie"]}),
                 _yn("alcohol_traffic",
                     "Sind Sie jemals im Straßenverkehr unter Alkoholeinfluss aufgefallen "
                     "(z.B. Trunkenheitsfahrt, Bußgeld, MPU)?",
@@ -557,16 +657,41 @@ CATALOG = {
                     "Wurde bei Ihnen jemals eine Alkoholabhängigkeit festgestellt oder haben Sie eine "
                     "Entgiftung bzw. Entwöhnungsbehandlung gemacht?",
                     followup=_follow("alcohol_dependence_desc",
-                                     "Wann wurde die Behandlung abgeschlossen, und seit wann leben Sie abstinent?")),
-                _yn("drugs",
-                    "Nehmen Sie derzeit Drogen (z.B. Cannabis, Kokain, Amphetamine) oder haben Sie "
-                    "früher regelmäßig Drogen konsumiert?",
-                    followup=_follow("drugs_desc", "Welche Substanzen, wie häufig, und wann zuletzt?")),
-                _choice("cannabis", "Wie häufig konsumieren Sie Cannabis?", [
+                                     "Wann wurde die Behandlung abgeschlossen (stationär oder ambulant), "
+                                     "und seit wann leben Sie abstinent?")),
+                _choice("cannabis", "Konsumieren Sie Cannabis (z.B. als Joint, Verdampfer oder Esswaren)?", [
                     ("nie", "Nie"),
                     ("gelegentlich", "Gelegentlich (nicht regelmäßig)"),
-                    ("regelmaessig", "Regelmäßig (täglich oder gewohnheitsmäßig)"),
-                ], show_if={"id": "drugs", "in": ["yes"]}),
+                    ("regelmaessig", "Regelmäßig (mehrmals pro Woche)"),
+                    ("taeglich", "Täglich oder fast täglich"),
+                ]),
+                _yn("cannabis_medical",
+                    "Nehmen Sie Cannabis auf ärztliche Verordnung ein (Medizinalcannabis, z.B. aus "
+                    "der Apotheke)?",
+                    show_if={"id": "cannabis", "not_in": ["nie"]},
+                    followup=_follow("cannabis_medical_desc",
+                                     "Wer verordnet es, gegen welche Erkrankung, und in welcher Dosierung?")),
+                _yn("cannabis_traffic",
+                    "Sind Sie jemals im Straßenverkehr unter Cannabiseinfluss aufgefallen "
+                    "(z.B. Fahrt unter THC-Wirkung, Bußgeld, MPU)?",
+                    show_if={"id": "cannabis", "not_in": ["nie"]},
+                    followup=_follow("cannabis_traffic_desc", "Wann war das, und was wurde festgestellt?")),
+                _yn("mixed_consumption",
+                    "Konsumieren Sie Cannabis häufiger zusammen mit Alkohol oder anderen berauschenden "
+                    "Substanzen (gleichzeitig oder kurz nacheinander)?",
+                    show_if={"id": "cannabis", "not_in": ["nie"]}),
+                _yn("drugs",
+                    "Nehmen Sie derzeit andere Drogen (z.B. Kokain, Amphetamine, Ecstasy, Heroin) "
+                    "oder haben Sie früher regelmäßig solche Drogen konsumiert?",
+                    hint="Cannabis wird oben separat abgefragt.",
+                    followup=_follow("drugs_desc", "Welche Substanzen, wie häufig, und wann zuletzt?")),
+                _yn("drug_dependence",
+                    "Wurde bei Ihnen jemals eine Abhängigkeit von Cannabis oder anderen Drogen "
+                    "festgestellt, oder haben Sie deswegen eine Entgiftung bzw. "
+                    "Entwöhnungsbehandlung gemacht?",
+                    followup=_follow("drug_dependence_desc",
+                                     "Welche Substanz, wann wurde die Behandlung abgeschlossen (stationär "
+                                     "oder ambulant), und seit wann leben Sie abstinent?")),
                 _yn("substitution",
                     "Erhalten Sie eine Substitutionsbehandlung (z.B. Methadon)?",
                     show_if={"id": "drugs", "in": ["yes"]},
@@ -654,7 +779,7 @@ CATALOG = {
 GATEWAY_SKIP = {
     "eye_disease",
     "heart_disease", "heart_attack", "arrhythmia", "pacemaker_icd",
-    "hypertension", "heart_other",
+    "hypertension", "pavk", "heart_other",
     "parkinson", "ms_spinal", "muscle_nerve",
     "ear_disease",
     "mobility_limits", "prosthesis", "vehicle_modified",

@@ -315,6 +315,68 @@ class AuswertungTests(TestCase):
         ess_findings = [f for f in result['findings'] if f['kapitel'] == '3.11.1']
         self.assertTrue(any(f['schwere'] == 'kritisch' for f in ess_findings))
 
+    def test_taeglicher_cannabiskonsum_ist_kritisch_nach_3_13_2_2(self):
+        # Neu (Stand 19.08.2026): Cannabis eigenständig in 3.13.2, nicht mehr BtM (3.14.1)
+        answers = build_valid_answers(CATALOG, overrides={'cannabis': 'taeglich'})
+        result = evaluate_answers(answers)
+        cannabis = [f for f in result['findings'] if f['kapitel'] == '3.13.2.2']
+        self.assertTrue(any(f['schwere'] == 'kritisch' for f in cannabis))
+        self.assertFalse(any(f['kapitel'] == '3.14.1' for f in result['findings']))
+
+    def test_gelegentlicher_cannabiskonsum_nur_hinweis(self):
+        answers = build_valid_answers(CATALOG, overrides={'cannabis': 'gelegentlich'})
+        result = evaluate_answers(answers)
+        cannabis = [f for f in result['findings'] if f['kapitel'] == '3.13.2.2']
+        self.assertEqual(len(cannabis), 1)
+        self.assertEqual(cannabis[0]['schwere'], 'hinweis')
+
+    def test_medizinalcannabis_faellt_unter_dauermedikation_3_14_2(self):
+        answers = build_valid_answers(CATALOG, overrides={
+            'cannabis': 'taeglich',
+            'cannabis_medical': 'yes',
+        })
+        result = evaluate_answers(answers)
+        kapitel = {f['kapitel'] for f in result['findings']}
+        self.assertIn('3.14.2', kapitel)
+        self.assertNotIn('3.13.2.2', kapitel)
+
+    def test_reanimation_ist_kritisch_nach_3_4_10(self):
+        answers = build_valid_answers(CATALOG, overrides={'resuscitated': 'yes'})
+        result = evaluate_answers(answers)
+        treffer = [f for f in result['findings'] if f['kapitel'] == '3.4.10']
+        self.assertTrue(any(f['schwere'] == 'kritisch' for f in treffer))
+
+    def test_schlaganfall_ohne_residuen_gruppe2_kein_regelausschluss_mehr(self):
+        # Neu (3.9.4, gültig ab 19.08.2026): pauschaler Gruppe-2-Ausschluss entfallen
+        answers = build_valid_answers(CATALOG, overrides={
+            'exam_occasion': 'lkw',
+            'stroke': 'yes',
+            'stroke_prevention': 'yes',
+        })
+        result = evaluate_answers(answers)
+        self.assertTrue(result['gruppe2'])
+        schlaganfall = [f for f in result['findings'] if f['kapitel'] == '3.9.4']
+        self.assertTrue(schlaganfall)
+        self.assertTrue(all(f['schwere'] == 'pruefen' for f in schlaganfall))
+
+    def test_hypoglykaemie_wiederholt_kritisch_einmalig_pruefen(self):
+        # 3.5: erst die wiederholte schwere Hypoglykämie schließt die Eignung aus
+        basis = {'has_conditions': 'yes', 'diabetes_type': 'type2'}
+        wiederholt = build_valid_answers(
+            CATALOG, overrides=dict(basis, hypoglycemia='repeated')
+        )
+        result = evaluate_answers(wiederholt)
+        diabetes = [f for f in result['findings'] if f['kapitel'] == '3.5']
+        self.assertTrue(any(f['schwere'] == 'kritisch' for f in diabetes))
+
+        einmalig = build_valid_answers(
+            CATALOG, overrides=dict(basis, hypoglycemia='once')
+        )
+        result = evaluate_answers(einmalig)
+        diabetes = [f for f in result['findings'] if f['kapitel'] == '3.5']
+        self.assertTrue(diabetes)
+        self.assertTrue(all(f['schwere'] == 'pruefen' for f in diabetes))
+
     def test_gdt_result_liefert_auswertungs_zusammenfassung(self):
         call_command('load_catalog', verbosity=0)
         template = QuestionnaireTemplate.objects.get(slug='verkehrsmedizin-leitlinien')
